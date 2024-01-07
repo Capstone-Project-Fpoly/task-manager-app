@@ -1,0 +1,38 @@
+{
+  "name": "task_manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen/codegen.ts",
+    "codegen:watch": "graphql-codegen --config codegen/codegen.ts --watch",
+    "graphql:codegen": "npm run codegen && npm run build:runner",
+    "build:runner": "dart run build_runner build --delete-conflicting-outputs",
+    "watch:runner": "dart run build_runner watch --delete-conflicting-outputs",
+    "build_runner:clean": "dart run build_runner clean",
+    "dart:fix": "dart fix --apply",
+    "dart:format": "dart format .",
+    "dart:format&fix": "npm run dart:format && npm run dart:fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Capstone-Project-Fpoly/task_manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Capstone-Project-Fpoly/task_manager/issues"
+  },
+  "homepage": "https://github.com/Capstone-Project-Fpoly/task_manager#readme",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/flutter-freezed": "^4.0.0",
+    "dotenv": "^16.3.1",
+    "graphql": "^16.8.0",
+    "typescript": "^5.3.3"
+  }
+}

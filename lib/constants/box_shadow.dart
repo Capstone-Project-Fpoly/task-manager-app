@@ -1,0 +1,3 @@
+class BoxShadowConstants {
+  BoxShadowConstants._();
+}
