@@ -1,7 +1,0 @@
-query getAllBooks{
-    books {
-        name
-        id
-        genre
-    }
-}
