@@ -9,7 +9,6 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bloc = ref.watch(BlocProvider.login);
-    final routeService = ref.watch(AppService.router);
     return Scaffold(
       backgroundColor: ColorConstants.white,
       body: Center(

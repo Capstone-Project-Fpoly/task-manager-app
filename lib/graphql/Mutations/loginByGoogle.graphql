@@ -1,0 +1,3 @@
+mutation LoginByGoogle($idToken: String!){
+    loginByGoogle(idToken: $idToken)
+}
