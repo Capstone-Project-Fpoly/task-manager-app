@@ -7,6 +7,7 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/shared/widgets/icons/google_icon.dart';
+import 'package:task_manager/shared/widgets/icons/mail_icon.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -21,12 +22,10 @@ class LoginScreen extends ConsumerWidget {
               bloc.onTapLoginEmail();
             },
             child: Padding(
-              padding: const EdgeInsets.only(left: 8),
+              padding: EdgeInsetsConstants.left8,
               child: _buttomLoginItem(
                 "${checkLogin ? "Đăng nhập" : "Đăng ký"} bằng email",
-                const GoogleIcon(
-                  width: 20,
-                ),
+                const MailIcon(width: 20),
               ),
             ),
           ),
@@ -35,7 +34,7 @@ class LoginScreen extends ConsumerWidget {
               bloc.onTapLoginByGoogle();
             },
             child: Padding(
-              padding: const EdgeInsets.only(left: 8),
+              padding: EdgeInsetsConstants.left8,
               child: _buttomLoginItem(
                   'Tiếp tục với Google',
                   const GoogleIcon(
@@ -52,9 +51,7 @@ class LoginScreen extends ConsumerWidget {
     return Row(
       children: [
         icon,
-        const SizedBox(
-          width: 20,
-        ),
+        SizedBoxConstants.h20,
         Text(
           lable,
           style: const TextStyle(color: Colors.black),
