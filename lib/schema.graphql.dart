@@ -1,3 +1,66 @@
+enum Enum$Reminder {
+  FifteenMinutesBefore,
+  FiveMinutesBefore,
+  NoReminder,
+  OnDueDate,
+  OneDayBefore,
+  OneHourBefore,
+  TenMinutesBefore,
+  TwoDaysBefore,
+  TwoHoursBefore,
+  $unknown
+}
+
+String toJson$Enum$Reminder(Enum$Reminder e) {
+  switch (e) {
+    case Enum$Reminder.FifteenMinutesBefore:
+      return r'FifteenMinutesBefore';
+    case Enum$Reminder.FiveMinutesBefore:
+      return r'FiveMinutesBefore';
+    case Enum$Reminder.NoReminder:
+      return r'NoReminder';
+    case Enum$Reminder.OnDueDate:
+      return r'OnDueDate';
+    case Enum$Reminder.OneDayBefore:
+      return r'OneDayBefore';
+    case Enum$Reminder.OneHourBefore:
+      return r'OneHourBefore';
+    case Enum$Reminder.TenMinutesBefore:
+      return r'TenMinutesBefore';
+    case Enum$Reminder.TwoDaysBefore:
+      return r'TwoDaysBefore';
+    case Enum$Reminder.TwoHoursBefore:
+      return r'TwoHoursBefore';
+    case Enum$Reminder.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$Reminder fromJson$Enum$Reminder(String value) {
+  switch (value) {
+    case r'FifteenMinutesBefore':
+      return Enum$Reminder.FifteenMinutesBefore;
+    case r'FiveMinutesBefore':
+      return Enum$Reminder.FiveMinutesBefore;
+    case r'NoReminder':
+      return Enum$Reminder.NoReminder;
+    case r'OnDueDate':
+      return Enum$Reminder.OnDueDate;
+    case r'OneDayBefore':
+      return Enum$Reminder.OneDayBefore;
+    case r'OneHourBefore':
+      return Enum$Reminder.OneHourBefore;
+    case r'TenMinutesBefore':
+      return Enum$Reminder.TenMinutesBefore;
+    case r'TwoDaysBefore':
+      return Enum$Reminder.TwoDaysBefore;
+    case r'TwoHoursBefore':
+      return Enum$Reminder.TwoHoursBefore;
+    default:
+      return Enum$Reminder.$unknown;
+  }
+}
+
 enum Enum$__TypeKind {
   SCALAR,
   OBJECT,

@@ -1,7 +1,84 @@
+type Board {
+  color: String
+  createdAt: String!
+  id: String!
+  isPublic: Boolean!
+  lists: [List!]
+  ownerUser: User!
+  title: String
+  users: [User!]
+}
+
+type Card {
+  checkLists: [CheckList!]
+  comments: [Comment!]
+  createdAt: String!
+  description: String
+  endDate: String
+  id: String!
+  list: List!
+  reminder: Reminder
+  startedDate: String!
+  title: String
+  users: [User!]
+}
+
+type CheckList {
+  card: Card!
+  content: String!
+  id: String!
+  isChecked: Boolean!
+}
+
+type Comment {
+  card: Card!
+  comment: String!
+  createdAt: String!
+  id: String!
+  user: User!
+}
+
+type List {
+  board: Board!
+  cards: [Card!]
+  createdAt: String!
+  id: String!
+  label: String!
+}
+
 type Mutation {
+  createBoard(color: String, isPublic: Boolean!, title: String!): Board
+  getBoards: [Board]
   loginByGoogle(idToken: String!): String
+  testCallSubscription: String
 }
 
 type Query {
-  hello: String
+  getToken(email: String!): String
+  me: User
+}
+
+enum Reminder {
+  FifteenMinutesBefore
+  FiveMinutesBefore
+  NoReminder
+  OnDueDate
+  OneDayBefore
+  OneHourBefore
+  TenMinutesBefore
+  TwoDaysBefore
+  TwoHoursBefore
+}
+
+type Subscription {
+  test: String
+}
+
+type User {
+  avatar: String
+  createdAt: String
+  email: String
+  fullName: String
+  uid: String!
+  updatedAt: String
 }

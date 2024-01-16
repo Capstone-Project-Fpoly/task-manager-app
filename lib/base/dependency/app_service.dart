@@ -5,6 +5,7 @@ import 'package:task_manager/base/dependency/toast/toast_service.dart';
 
 import 'package:task_manager/base/dependency/graphql/graphql_service.dart';
 import 'package:task_manager/base/dependency/local_storage/local_storage_service.dart';
+
 class AppProvider {
   static final router = Provider((ref) => RouterProvider());
   AppProvider._();

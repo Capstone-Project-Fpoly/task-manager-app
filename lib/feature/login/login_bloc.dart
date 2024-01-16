@@ -8,25 +8,35 @@ import 'package:task_manager/graphql/Mutations/loginByGoogle.graphql.dart';
 
 class LoginBloc extends BlocBase {
   final Ref ref;
+
   late final graphqlService = ref.read(AppService.graphQL);
   late final localStorageService = ref.watch(AppService.localStorage);
   late final routerService = ref.watch(AppService.router);
+
 
   LoginBloc(this.ref) {
     init();
   }
 
   Future<void> init() async {
-    // final result = await graphqlService.client.query$getAllBooks(
-    //   Options$Query$getAllBooks(),
-    // );
+    // final result = await graphqlService.client.query$me(Options$Query$me());
+    // userSubject.value = result.parsedData?.me;
+  }
+
+
+  void onTapLoginEmail() {
+    routerService.push(RouteInput.loginEmail());
+  }
+
+  void onTapBack() {
+    routerService.pop();
   }
 
   Future<void> onTapLoginByGoogle() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
-        await _googleSignIn.signIn();
+        await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount!.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
@@ -34,7 +44,7 @@ class LoginBloc extends BlocBase {
       idToken: googleSignInAuthentication.idToken,
     );
     final UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
+        await auth.signInWithCredential(credential);
     final token = await userCredential.user?.getIdToken();
     loginByGoogle(idToken: token);
   }
@@ -57,4 +67,5 @@ class LoginBloc extends BlocBase {
     graphqlService.updateGraphQLClientWithToken(token);
     routerService.push(RouteInput.root());
   }
+
 }
