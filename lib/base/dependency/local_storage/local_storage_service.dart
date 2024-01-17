@@ -13,7 +13,7 @@ class LocalStorageService {
   }
 
   String? getString(String key) {
-    return box.get(key) as String?;
+    return box.get(key);
   }
 
   bool? getBool(String key) {

@@ -39,9 +39,8 @@ class AppBloc extends BlocBase {
   void _handleInitialMessage(RemoteMessage initialMessage) {}
 
   Future _initGraphqlClient() async {
-    final accessToken =
-        localStorageService.getString(LocalStorageKey.accessToken.name) ?? '';
-    graphQLService.updateGraphQLClientWithToken(accessToken);
+    final token = localStorageService.getString(LocalStorageKey.key) ?? '';
+    graphQLService.updateGraphQLClientWithToken(token);
   }
 
   void onTapBack(BuildContext context) {

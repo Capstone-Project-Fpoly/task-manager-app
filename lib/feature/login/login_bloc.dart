@@ -1,10 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:graphql/client.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/base/dependency/local_storage/local_storage_key.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/loginByGoogle.graphql.dart';
+import 'package:task_manager/graphql/Querys/me.graphql.dart';
 
 class LoginBloc extends BlocBase {
   final Ref ref;
@@ -12,18 +18,33 @@ class LoginBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
   late final localStorageService = ref.watch(AppService.localStorage);
   late final routerService = ref.watch(AppService.router);
+  late BuildContext context;
+  final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
 
   LoginBloc(this.ref) {
-    init();
-  }
-
-  Future<void> init() async {
-    // final result = await graphqlService.client.query$me(Options$Query$me());
-    // userSubject.value = result.parsedData?.me;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await _checkLogin();
+    });
   }
 
   void onTapLoginEmail() {
     routerService.push(RouteInput.loginEmail());
+  }
+
+  Future<void> _checkLogin() async {
+    final token = localStorageService.getString(LocalStorageKey.key);
+    if (token == null) return;
+    final client = graphqlService.buildGraphQLClientWithToken(token);
+    graphqlService.clientSubject.value = client;
+    routerService.pushReplacement(RouteInput.root());
+  }
+
+  Future<Fragment$UserFragment?> getCurrentUser(GraphQLClient client) async {
+    final result = await client.query$me(Options$Query$me());
+    if (result.hasException) return null;
+    if (result.parsedData == null) return null;
+    final user = result.parsedData!.me;
+    return user;
   }
 
   void onTapBack() {
@@ -31,6 +52,7 @@ class LoginBloc extends BlocBase {
   }
 
   Future<void> onTapLoginByGoogle() async {
+    isLoadingSubject.value = true;
     final FirebaseAuth auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
@@ -45,15 +67,19 @@ class LoginBloc extends BlocBase {
         await auth.signInWithCredential(credential);
     final token = await userCredential.user?.getIdToken();
     loginByGoogle(idToken: token);
+    isLoadingSubject.value = false;
   }
 
   Future<void> loginByGoogle({required String? idToken}) async {
     if (idToken == null) return;
+    isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$LoginByGoogle(
       Options$Mutation$LoginByGoogle(
         variables: Variables$Mutation$LoginByGoogle(idToken: idToken),
       ),
     );
+    print(result);
+    isLoadingSubject.value = false;
     if (result.hasException) return;
     if (result.parsedData == null) return;
     _saveToken(result.parsedData!.loginByGoogle);
@@ -61,8 +87,14 @@ class LoginBloc extends BlocBase {
 
   Future<void> _saveToken(String? token) async {
     if (token == null) return;
-    await localStorageService.put('token', token);
+    await localStorageService.put(LocalStorageKey.key, token);
     graphqlService.updateGraphQLClientWithToken(token);
-    routerService.push(RouteInput.root());
+    routerService.pushReplacement(RouteInput.root());
+  }
+
+  @override
+  void dispose() {
+    isLoadingSubject.close();
+    super.dispose();
   }
 }

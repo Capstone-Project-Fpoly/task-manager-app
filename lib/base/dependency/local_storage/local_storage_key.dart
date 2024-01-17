@@ -1,1 +1,3 @@
-enum LocalStorageKey { accessToken, refreshToken }
+class LocalStorageKey{
+  static String key = 'token';
+}
