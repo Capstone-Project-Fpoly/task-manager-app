@@ -3,6 +3,8 @@ import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login/login_screen.dart';
+import 'package:task_manager/feature/login_with_email/login_with_email_bloc.dart';
+import 'package:task_manager/feature/login_with_email/login_with_email_screen.dart';
 import 'package:task_manager/feature/root/root_screen.dart';
 import 'package:task_manager/feature/unknown/unknown_screen.dart';
 
@@ -13,6 +15,7 @@ class RouteScreen {
       builder: (_) => const UnknownScreen(),
     );
   }
+
   static PageRoute rootPageRoute(RouteSettings settings) {
     return MaterialPageRoute(
       settings: settings,
@@ -28,6 +31,17 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const LoginScreen(),
+    );
+  }
+
+  static PageRoute loginEmailPageRoute(RouteSettings settings) {
+    BlocProvider.loginWithEmail = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => LoginWithEmailBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const LoginWithEmailScreen(),
     );
   }
 }

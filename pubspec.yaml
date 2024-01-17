@@ -51,6 +51,7 @@ dependencies:
   graphql: ^5.2.0-beta.7
   firebase_auth: ^4.16.0
   google_sign_in: ^6.2.1
+  flutter_svg_provider: ^1.0.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

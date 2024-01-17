@@ -6,4 +6,5 @@ class RouteInput {
 
   RouteInput.login() : routeName = RouteName.login;
   RouteInput.root() : routeName = RouteName.root;
+  RouteInput.loginEmail() : routeName = RouteName.loginEmail;
 }
