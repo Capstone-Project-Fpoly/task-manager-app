@@ -13,7 +13,6 @@ class LoginBloc extends BlocBase {
   late final localStorageService = ref.watch(AppService.localStorage);
   late final routerService = ref.watch(AppService.router);
 
-
   LoginBloc(this.ref) {
     init();
   }
@@ -22,7 +21,6 @@ class LoginBloc extends BlocBase {
     // final result = await graphqlService.client.query$me(Options$Query$me());
     // userSubject.value = result.parsedData?.me;
   }
-
 
   void onTapLoginEmail() {
     routerService.push(RouteInput.loginEmail());
@@ -67,5 +65,4 @@ class LoginBloc extends BlocBase {
     graphqlService.updateGraphQLClientWithToken(token);
     routerService.push(RouteInput.root());
   }
-
 }

@@ -86,12 +86,13 @@ class _CopyWithImpl$Variables$Mutation$LoginByGoogle<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   @override
-  TRes call({Object? idToken = _undefined}) =>
-      _then(Variables$Mutation$LoginByGoogle._({
-        ..._instance._$data,
-        if (idToken != _undefined && idToken != null)
-          'idToken': (idToken as String),
-      }),);
+  TRes call({Object? idToken = _undefined}) => _then(
+        Variables$Mutation$LoginByGoogle._({
+          ..._instance._$data,
+          if (idToken != _undefined && idToken != null)
+            'idToken': (idToken as String),
+        }),
+      );
 }
 
 class _CopyWithStubImpl$Variables$Mutation$LoginByGoogle<TRes>
@@ -147,8 +148,7 @@ class Mutation$LoginByGoogle {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$LoginByGoogle ||
-        runtimeType != other.runtimeType) {
+    if (other is! Mutation$LoginByGoogle || runtimeType != other.runtimeType) {
       return false;
     }
     final l$loginByGoogle = loginByGoogle;
@@ -206,14 +206,16 @@ class _CopyWithImpl$Mutation$LoginByGoogle<TRes>
     Object? loginByGoogle = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Mutation$LoginByGoogle(
-        loginByGoogle: loginByGoogle == _undefined
-            ? _instance.loginByGoogle
-            : (loginByGoogle as String?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ),);
+      _then(
+        Mutation$LoginByGoogle(
+          loginByGoogle: loginByGoogle == _undefined
+              ? _instance.loginByGoogle
+              : (loginByGoogle as String?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 }
 
 class _CopyWithStubImpl$Mutation$LoginByGoogle<TRes>
@@ -230,47 +232,52 @@ class _CopyWithStubImpl$Mutation$LoginByGoogle<TRes>
       _res;
 }
 
-const documentNodeMutationLoginByGoogle = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.mutation,
-    name: NameNode(value: 'LoginByGoogle'),
-    variableDefinitions: [
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idToken')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
+const documentNodeMutationLoginByGoogle = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.mutation,
+      name: NameNode(value: 'LoginByGoogle'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idToken')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
         ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-    ],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'loginByGoogle'),
-        alias: null,
-        arguments: [
-          ArgumentNode(
-            name: NameNode(value: 'idToken'),
-            value: VariableNode(name: NameNode(value: 'idToken')),
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'loginByGoogle'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'idToken'),
+                value: VariableNode(name: NameNode(value: 'idToken')),
+              ),
+            ],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
           ),
         ],
-        directives: [],
-        selectionSet: null,
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],),
-  ),
-],);
+    ),
+  ],
+);
 Mutation$LoginByGoogle _parserFn$Mutation$LoginByGoogle(
-        Map<String, dynamic> data,) =>
+  Map<String, dynamic> data,
+) =>
     Mutation$LoginByGoogle.fromJson(data);
 typedef OnMutationCompleted$Mutation$LoginByGoogle = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -359,10 +366,12 @@ class WatchOptions$Mutation$LoginByGoogle
 
 extension ClientExtension$Mutation$LoginByGoogle on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$LoginByGoogle>> mutate$LoginByGoogle(
-          Options$Mutation$LoginByGoogle options,) async =>
+    Options$Mutation$LoginByGoogle options,
+  ) async =>
       await mutate(options);
   graphql.ObservableQuery<Mutation$LoginByGoogle> watchMutation$LoginByGoogle(
-          WatchOptions$Mutation$LoginByGoogle options,) =>
+    WatchOptions$Mutation$LoginByGoogle options,
+  ) =>
       watchMutation(options);
 }
 
@@ -377,8 +386,9 @@ class Mutation$LoginByGoogle$HookResult {
   final graphql.QueryResult<Mutation$LoginByGoogle> result;
 }
 
-Mutation$LoginByGoogle$HookResult useMutation$LoginByGoogle(
-    [WidgetOptions$Mutation$LoginByGoogle? options,]) {
+Mutation$LoginByGoogle$HookResult useMutation$LoginByGoogle([
+  WidgetOptions$Mutation$LoginByGoogle? options,
+]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$LoginByGoogle());
   return Mutation$LoginByGoogle$HookResult(
@@ -392,7 +402,8 @@ Mutation$LoginByGoogle$HookResult useMutation$LoginByGoogle(
 }
 
 graphql.ObservableQuery<Mutation$LoginByGoogle> useWatchMutation$LoginByGoogle(
-        WatchOptions$Mutation$LoginByGoogle options,) =>
+  WatchOptions$Mutation$LoginByGoogle options,
+) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$LoginByGoogle
