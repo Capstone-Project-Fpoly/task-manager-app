@@ -36,10 +36,11 @@ class LoginScreen extends ConsumerWidget {
             child: Padding(
               padding: EdgeInsetsConstants.left8,
               child: _buttomLoginItem(
-                  'Tiếp tục với Google',
-                  const GoogleIcon(
-                    width: 20,
-                  ),),
+                'Tiếp tục với Google',
+                const GoogleIcon(
+                  width: 20,
+                ),
+              ),
             ),
           ),
         ],
@@ -86,7 +87,8 @@ class LoginScreen extends ConsumerWidget {
           children: [
             Center(
               child: Padding(
-                padding: EdgeInsetsConstants.left20 + EdgeInsetsConstants.right20,
+                padding:
+                    EdgeInsetsConstants.left20 + EdgeInsetsConstants.right20,
                 child: const Text(
                   'Đưa tinh thần đồng đội tiến về phía trước - ngay cả khi đang di chuyển',
                   style: TextStyle(
