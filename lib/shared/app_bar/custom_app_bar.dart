@@ -38,28 +38,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title ?? '',
         style: const AppTextStyle(
-          color: ColorConstants.primaryBlack,
+          color: ColorConstants.white,
           fontSize: 18,
           fontWeight: FontWeight.w700,
         ),
       ),
-      centerTitle: centerTitle,
       backgroundColor: color,
       foregroundColor: color,
       surfaceTintColor: tintColor ?? color,
       elevation: 0,
       leading: leading ??
-          (canPop
-              ? IconButton(
+
+               IconButton(
                   icon: const Icon(Icons.menu),
-                  color: ColorConstants.primaryBlack,
+                  color: ColorConstants.white,
                   onPressed: () {
                     onTapLeadingButton != null
                         ? onTapLeadingButton?.call()
                         : Scaffold.of(context).openDrawer();
                   },
-                )
-              : null),
+                ),
       actions: actions,
       flexibleSpace: flexibleSpace,
       bottom: bottom,
