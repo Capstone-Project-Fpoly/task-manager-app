@@ -2,9 +2,15 @@ import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/local_storage/local_storage_key.dart';
+import 'package:task_manager/base/dependency/router/utils/route_input.dart';
+import 'package:task_manager/base/dependency/router/utils/route_name.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Querys/me.graphql.dart';
+import 'package:task_manager/shared/enum/navigation_enum.dart';
 
 class AppBloc extends BlocBase {
   final Ref ref;
@@ -12,17 +18,42 @@ class AppBloc extends BlocBase {
   late final graphQLService = ref.watch(AppService.graphQL);
   late final localStorageService = ref.watch(AppService.localStorage);
   late final toastService = ref.watch(AppService.toast);
+  final userSubject = BehaviorSubject<Fragment$UserFragment?>.seeded(null);
+  final navigatorKeysMap = NavigationEnum.values
+      .fold<Map<NavigationEnum, GlobalKey<NavigatorState>>>(
+    {},
+    (previousValue, element) =>
+        previousValue..[element] = GlobalKey<NavigatorState>(),
+  );
+
+  final selectedNavigationEnumSubject =
+      BehaviorSubject<NavigationEnum>.seeded(NavigationEnum.broad);
 
   AppBloc(this.ref) {
-    init();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      init();
+    });
   }
 
-  void init() {
+  @override
+  void dispose() {
+    selectedNavigationEnumSubject.close();
+    userSubject.close();
+    super.dispose();
+  }
+
+  void onTapSelectedNavigation(NavigationEnum navigationEnum) {
+    routerService.pop();
+    selectedNavigationEnumSubject.value = navigationEnum;
+  }
+
+  Future<void> init() async {
     _initGraphqlClient();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       _setupFirebaseMessaging();
       FirebaseMessaging.onMessage.listen(_onInAppFirebaseMessage);
     });
+    await getCurrentUser();
   }
 
   Future _setupFirebaseMessaging() async {
@@ -47,5 +78,23 @@ class AppBloc extends BlocBase {
     routerService.pop(context: context, result: false);
   }
 
+  Future<Fragment$UserFragment?> getCurrentUser() async {
+    final result = await graphQLService.client.query$me(Options$Query$me());
+    if (result.hasException) return null;
+    if (result.parsedData == null) return null;
+    userSubject.value = result.parsedData?.me;
+    return result.parsedData?.me;
+  }
+
   Future<void> _onInAppFirebaseMessage(RemoteMessage message) async {}
+
+  void onTapLogout() {
+    localStorageService.delete(LocalStorageKey.key);
+    selectedNavigationEnumSubject.value = NavigationEnum.broad;
+    userSubject.value = null;
+    routerService.popUntil(
+      (route) => route.settings.name == RouteName.root,
+    );
+    routerService.pushReplacement(RouteInput.login());
+  }
 }

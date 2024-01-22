@@ -1,3 +1,3 @@
-class LocalStorageKey{
+class LocalStorageKey {
   static String key = 'token';
 }

@@ -13,6 +13,7 @@ type Card {
   checkLists: [CheckList!]
   comments: [Comment!]
   createdAt: String!
+  createdBy: User!
   description: String
   endDate: String
   id: String!
@@ -38,10 +39,21 @@ type Comment {
   user: User!
 }
 
+input InputEmail {
+  email: String!
+  passWord: String!
+}
+
+input InputVerifyEmail {
+  email: String!
+  otp: String!
+}
+
 type List {
   board: Board!
   cards: [Card!]
   createdAt: String!
+  createdBy: User!
   id: String!
   label: String!
 }
@@ -49,8 +61,13 @@ type List {
 type Mutation {
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
   getBoards: [Board]
+  leaveBoard(idBoard: String!): Boolean
+  loginByEmail(idToken: String!): String
   loginByGoogle(idToken: String!): String
+  registerByEmail(input: InputEmail!): String
+  sendOTPEmail(email: String!): Boolean
   testCallSubscription: String
+  verifyEmail(input: InputVerifyEmail!): Boolean
 }
 
 type Query {

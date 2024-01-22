@@ -1,0 +1,13 @@
+fragment BoardFragment on Board{
+    id
+    users {
+        ...UserFragment
+    }
+    createdAt
+    color
+    isPublic
+    ownerUser {
+        ...UserFragment
+    }
+    title
+}

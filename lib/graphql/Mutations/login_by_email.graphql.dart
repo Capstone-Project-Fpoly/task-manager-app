@@ -4,19 +4,19 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
-class Variables$Mutation$LoginByGoogle {
-  factory Variables$Mutation$LoginByGoogle({required String idToken}) =>
-      Variables$Mutation$LoginByGoogle._({
+class Variables$Mutation$LoginByEmail {
+  factory Variables$Mutation$LoginByEmail({required String idToken}) =>
+      Variables$Mutation$LoginByEmail._({
         r'idToken': idToken,
       });
 
-  Variables$Mutation$LoginByGoogle._(this._$data);
+  Variables$Mutation$LoginByEmail._(this._$data);
 
-  factory Variables$Mutation$LoginByGoogle.fromJson(Map<String, dynamic> data) {
+  factory Variables$Mutation$LoginByEmail.fromJson(Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
     final l$idToken = data['idToken'];
     result$data['idToken'] = (l$idToken as String);
-    return Variables$Mutation$LoginByGoogle._(result$data);
+    return Variables$Mutation$LoginByEmail._(result$data);
   }
 
   Map<String, dynamic> _$data;
@@ -30,8 +30,8 @@ class Variables$Mutation$LoginByGoogle {
     return result$data;
   }
 
-  CopyWith$Variables$Mutation$LoginByGoogle<Variables$Mutation$LoginByGoogle>
-      get copyWith => CopyWith$Variables$Mutation$LoginByGoogle(
+  CopyWith$Variables$Mutation$LoginByEmail<Variables$Mutation$LoginByEmail>
+      get copyWith => CopyWith$Variables$Mutation$LoginByEmail(
             this,
             (i) => i,
           );
@@ -41,7 +41,7 @@ class Variables$Mutation$LoginByGoogle {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Mutation$LoginByGoogle ||
+    if (other is! Variables$Mutation$LoginByEmail ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -60,34 +60,34 @@ class Variables$Mutation$LoginByGoogle {
   }
 }
 
-abstract class CopyWith$Variables$Mutation$LoginByGoogle<TRes> {
-  factory CopyWith$Variables$Mutation$LoginByGoogle(
-    Variables$Mutation$LoginByGoogle instance,
-    TRes Function(Variables$Mutation$LoginByGoogle) then,
-  ) = _CopyWithImpl$Variables$Mutation$LoginByGoogle;
+abstract class CopyWith$Variables$Mutation$LoginByEmail<TRes> {
+  factory CopyWith$Variables$Mutation$LoginByEmail(
+    Variables$Mutation$LoginByEmail instance,
+    TRes Function(Variables$Mutation$LoginByEmail) then,
+  ) = _CopyWithImpl$Variables$Mutation$LoginByEmail;
 
-  factory CopyWith$Variables$Mutation$LoginByGoogle.stub(TRes res) =
-      _CopyWithStubImpl$Variables$Mutation$LoginByGoogle;
+  factory CopyWith$Variables$Mutation$LoginByEmail.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Mutation$LoginByEmail;
 
   TRes call({String? idToken});
 }
 
-class _CopyWithImpl$Variables$Mutation$LoginByGoogle<TRes>
-    implements CopyWith$Variables$Mutation$LoginByGoogle<TRes> {
-  _CopyWithImpl$Variables$Mutation$LoginByGoogle(
+class _CopyWithImpl$Variables$Mutation$LoginByEmail<TRes>
+    implements CopyWith$Variables$Mutation$LoginByEmail<TRes> {
+  _CopyWithImpl$Variables$Mutation$LoginByEmail(
     this._instance,
     this._then,
   );
 
-  final Variables$Mutation$LoginByGoogle _instance;
+  final Variables$Mutation$LoginByEmail _instance;
 
-  final TRes Function(Variables$Mutation$LoginByGoogle) _then;
+  final TRes Function(Variables$Mutation$LoginByEmail) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   @override
   TRes call({Object? idToken = _undefined}) => _then(
-        Variables$Mutation$LoginByGoogle._({
+        Variables$Mutation$LoginByEmail._({
           ..._instance._$data,
           if (idToken != _undefined && idToken != null)
             'idToken': (idToken as String),
@@ -95,9 +95,9 @@ class _CopyWithImpl$Variables$Mutation$LoginByGoogle<TRes>
       );
 }
 
-class _CopyWithStubImpl$Variables$Mutation$LoginByGoogle<TRes>
-    implements CopyWith$Variables$Mutation$LoginByGoogle<TRes> {
-  _CopyWithStubImpl$Variables$Mutation$LoginByGoogle(this._res);
+class _CopyWithStubImpl$Variables$Mutation$LoginByEmail<TRes>
+    implements CopyWith$Variables$Mutation$LoginByEmail<TRes> {
+  _CopyWithStubImpl$Variables$Mutation$LoginByEmail(this._res);
 
   final TRes _res;
 
@@ -105,29 +105,29 @@ class _CopyWithStubImpl$Variables$Mutation$LoginByGoogle<TRes>
   call({String? idToken}) => _res;
 }
 
-class Mutation$LoginByGoogle {
-  Mutation$LoginByGoogle({
-    this.loginByGoogle,
+class Mutation$LoginByEmail {
+  Mutation$LoginByEmail({
+    this.loginByEmail,
     this.$__typename = 'Mutation',
   });
 
-  factory Mutation$LoginByGoogle.fromJson(Map<String, dynamic> json) {
-    final l$loginByGoogle = json['loginByGoogle'];
+  factory Mutation$LoginByEmail.fromJson(Map<String, dynamic> json) {
+    final l$loginByEmail = json['loginByEmail'];
     final l$$__typename = json['__typename'];
-    return Mutation$LoginByGoogle(
-      loginByGoogle: (l$loginByGoogle as String?),
+    return Mutation$LoginByEmail(
+      loginByEmail: (l$loginByEmail as String?),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final String? loginByGoogle;
+  final String? loginByEmail;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final resultData = <String, dynamic>{};
-    final l$loginByGoogle = loginByGoogle;
-    resultData['loginByGoogle'] = l$loginByGoogle;
+    final l$loginByEmail = loginByEmail;
+    resultData['loginByEmail'] = l$loginByEmail;
     final l$$__typename = $__typename;
     resultData['__typename'] = l$$__typename;
     return resultData;
@@ -135,10 +135,10 @@ class Mutation$LoginByGoogle {
 
   @override
   int get hashCode {
-    final l$loginByGoogle = loginByGoogle;
+    final l$loginByEmail = loginByEmail;
     final l$$__typename = $__typename;
     return Object.hashAll([
-      l$loginByGoogle,
+      l$loginByEmail,
       l$$__typename,
     ]);
   }
@@ -148,12 +148,12 @@ class Mutation$LoginByGoogle {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$LoginByGoogle || runtimeType != other.runtimeType) {
+    if (other is! Mutation$LoginByEmail || runtimeType != other.runtimeType) {
       return false;
     }
-    final l$loginByGoogle = loginByGoogle;
-    final lOther$loginByGoogle = other.loginByGoogle;
-    if (l$loginByGoogle != lOther$loginByGoogle) {
+    final l$loginByEmail = loginByEmail;
+    final lOther$loginByEmail = other.loginByEmail;
+    if (l$loginByEmail != lOther$loginByEmail) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -165,52 +165,52 @@ class Mutation$LoginByGoogle {
   }
 }
 
-extension UtilityExtension$Mutation$LoginByGoogle on Mutation$LoginByGoogle {
-  CopyWith$Mutation$LoginByGoogle<Mutation$LoginByGoogle> get copyWith =>
-      CopyWith$Mutation$LoginByGoogle(
+extension UtilityExtension$Mutation$LoginByEmail on Mutation$LoginByEmail {
+  CopyWith$Mutation$LoginByEmail<Mutation$LoginByEmail> get copyWith =>
+      CopyWith$Mutation$LoginByEmail(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Mutation$LoginByGoogle<TRes> {
-  factory CopyWith$Mutation$LoginByGoogle(
-    Mutation$LoginByGoogle instance,
-    TRes Function(Mutation$LoginByGoogle) then,
-  ) = _CopyWithImpl$Mutation$LoginByGoogle;
+abstract class CopyWith$Mutation$LoginByEmail<TRes> {
+  factory CopyWith$Mutation$LoginByEmail(
+    Mutation$LoginByEmail instance,
+    TRes Function(Mutation$LoginByEmail) then,
+  ) = _CopyWithImpl$Mutation$LoginByEmail;
 
-  factory CopyWith$Mutation$LoginByGoogle.stub(TRes res) =
-      _CopyWithStubImpl$Mutation$LoginByGoogle;
+  factory CopyWith$Mutation$LoginByEmail.stub(TRes res) =
+      _CopyWithStubImpl$Mutation$LoginByEmail;
 
   TRes call({
-    String? loginByGoogle,
+    String? loginByEmail,
     String? $__typename,
   });
 }
 
-class _CopyWithImpl$Mutation$LoginByGoogle<TRes>
-    implements CopyWith$Mutation$LoginByGoogle<TRes> {
-  _CopyWithImpl$Mutation$LoginByGoogle(
+class _CopyWithImpl$Mutation$LoginByEmail<TRes>
+    implements CopyWith$Mutation$LoginByEmail<TRes> {
+  _CopyWithImpl$Mutation$LoginByEmail(
     this._instance,
     this._then,
   );
 
-  final Mutation$LoginByGoogle _instance;
+  final Mutation$LoginByEmail _instance;
 
-  final TRes Function(Mutation$LoginByGoogle) _then;
+  final TRes Function(Mutation$LoginByEmail) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   @override
   TRes call({
-    Object? loginByGoogle = _undefined,
+    Object? loginByEmail = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(
-        Mutation$LoginByGoogle(
-          loginByGoogle: loginByGoogle == _undefined
-              ? _instance.loginByGoogle
-              : (loginByGoogle as String?),
+        Mutation$LoginByEmail(
+          loginByEmail: loginByEmail == _undefined
+              ? _instance.loginByEmail
+              : (loginByEmail as String?),
           $__typename: $__typename == _undefined || $__typename == null
               ? _instance.$__typename
               : ($__typename as String),
@@ -218,25 +218,25 @@ class _CopyWithImpl$Mutation$LoginByGoogle<TRes>
       );
 }
 
-class _CopyWithStubImpl$Mutation$LoginByGoogle<TRes>
-    implements CopyWith$Mutation$LoginByGoogle<TRes> {
-  _CopyWithStubImpl$Mutation$LoginByGoogle(this._res);
+class _CopyWithStubImpl$Mutation$LoginByEmail<TRes>
+    implements CopyWith$Mutation$LoginByEmail<TRes> {
+  _CopyWithStubImpl$Mutation$LoginByEmail(this._res);
 
   final TRes _res;
 
   @override
   call({
-    String? loginByGoogle,
+    String? loginByEmail,
     String? $__typename,
   }) =>
       _res;
 }
 
-const documentNodeMutationLoginByGoogle = DocumentNode(
+const documentNodeMutationLoginByEmail = DocumentNode(
   definitions: [
     OperationDefinitionNode(
       type: OperationType.mutation,
-      name: NameNode(value: 'LoginByGoogle'),
+      name: NameNode(value: 'LoginByEmail'),
       variableDefinitions: [
         VariableDefinitionNode(
           variable: VariableNode(name: NameNode(value: 'idToken')),
@@ -252,7 +252,7 @@ const documentNodeMutationLoginByGoogle = DocumentNode(
       selectionSet: SelectionSetNode(
         selections: [
           FieldNode(
-            name: NameNode(value: 'loginByGoogle'),
+            name: NameNode(value: 'loginByEmail'),
             alias: null,
             arguments: [
               ArgumentNode(
@@ -275,28 +275,28 @@ const documentNodeMutationLoginByGoogle = DocumentNode(
     ),
   ],
 );
-Mutation$LoginByGoogle _parserFn$Mutation$LoginByGoogle(
+Mutation$LoginByEmail _parserFn$Mutation$LoginByEmail(
   Map<String, dynamic> data,
 ) =>
-    Mutation$LoginByGoogle.fromJson(data);
-typedef OnMutationCompleted$Mutation$LoginByGoogle = FutureOr<void> Function(
+    Mutation$LoginByEmail.fromJson(data);
+typedef OnMutationCompleted$Mutation$LoginByEmail = FutureOr<void> Function(
   Map<String, dynamic>?,
-  Mutation$LoginByGoogle?,
+  Mutation$LoginByEmail?,
 );
 
-class Options$Mutation$LoginByGoogle
-    extends graphql.MutationOptions<Mutation$LoginByGoogle> {
-  Options$Mutation$LoginByGoogle({
+class Options$Mutation$LoginByEmail
+    extends graphql.MutationOptions<Mutation$LoginByEmail> {
+  Options$Mutation$LoginByEmail({
     String? operationName,
-    required Variables$Mutation$LoginByGoogle variables,
+    required Variables$Mutation$LoginByEmail variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Mutation$LoginByGoogle? typedOptimisticResult,
+    Mutation$LoginByEmail? typedOptimisticResult,
     graphql.Context? context,
-    OnMutationCompleted$Mutation$LoginByGoogle? onCompleted,
-    graphql.OnMutationUpdate<Mutation$LoginByGoogle>? update,
+    OnMutationCompleted$Mutation$LoginByEmail? onCompleted,
+    graphql.OnMutationUpdate<Mutation$LoginByEmail>? update,
     graphql.OnError? onError,
   })  : onCompletedWithParsed = onCompleted,
         super(
@@ -311,17 +311,15 @@ class Options$Mutation$LoginByGoogle
               ? null
               : (data) => onCompleted(
                     data,
-                    data == null
-                        ? null
-                        : _parserFn$Mutation$LoginByGoogle(data),
+                    data == null ? null : _parserFn$Mutation$LoginByEmail(data),
                   ),
           update: update,
           onError: onError,
-          document: documentNodeMutationLoginByGoogle,
-          parserFn: _parserFn$Mutation$LoginByGoogle,
+          document: documentNodeMutationLoginByEmail,
+          parserFn: _parserFn$Mutation$LoginByEmail,
         );
 
-  final OnMutationCompleted$Mutation$LoginByGoogle? onCompletedWithParsed;
+  final OnMutationCompleted$Mutation$LoginByEmail? onCompletedWithParsed;
 
   @override
   List<Object?> get properties => [
@@ -332,16 +330,16 @@ class Options$Mutation$LoginByGoogle
       ];
 }
 
-class WatchOptions$Mutation$LoginByGoogle
-    extends graphql.WatchQueryOptions<Mutation$LoginByGoogle> {
-  WatchOptions$Mutation$LoginByGoogle({
+class WatchOptions$Mutation$LoginByEmail
+    extends graphql.WatchQueryOptions<Mutation$LoginByEmail> {
+  WatchOptions$Mutation$LoginByEmail({
     String? operationName,
-    required Variables$Mutation$LoginByGoogle variables,
+    required Variables$Mutation$LoginByEmail variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Mutation$LoginByGoogle? typedOptimisticResult,
+    Mutation$LoginByEmail? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -355,43 +353,43 @@ class WatchOptions$Mutation$LoginByGoogle
           cacheRereadPolicy: cacheRereadPolicy,
           optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
           context: context,
-          document: documentNodeMutationLoginByGoogle,
+          document: documentNodeMutationLoginByEmail,
           pollInterval: pollInterval,
           eagerlyFetchResults: eagerlyFetchResults,
           carryForwardDataOnException: carryForwardDataOnException,
           fetchResults: fetchResults,
-          parserFn: _parserFn$Mutation$LoginByGoogle,
+          parserFn: _parserFn$Mutation$LoginByEmail,
         );
 }
 
-extension ClientExtension$Mutation$LoginByGoogle on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Mutation$LoginByGoogle>> mutate$LoginByGoogle(
-    Options$Mutation$LoginByGoogle options,
+extension ClientExtension$Mutation$LoginByEmail on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Mutation$LoginByEmail>> mutate$LoginByEmail(
+    Options$Mutation$LoginByEmail options,
   ) async =>
       await mutate(options);
-  graphql.ObservableQuery<Mutation$LoginByGoogle> watchMutation$LoginByGoogle(
-    WatchOptions$Mutation$LoginByGoogle options,
+  graphql.ObservableQuery<Mutation$LoginByEmail> watchMutation$LoginByEmail(
+    WatchOptions$Mutation$LoginByEmail options,
   ) =>
       watchMutation(options);
 }
 
-class Mutation$LoginByGoogle$HookResult {
-  Mutation$LoginByGoogle$HookResult(
+class Mutation$LoginByEmail$HookResult {
+  Mutation$LoginByEmail$HookResult(
     this.runMutation,
     this.result,
   );
 
-  final RunMutation$Mutation$LoginByGoogle runMutation;
+  final RunMutation$Mutation$LoginByEmail runMutation;
 
-  final graphql.QueryResult<Mutation$LoginByGoogle> result;
+  final graphql.QueryResult<Mutation$LoginByEmail> result;
 }
 
-Mutation$LoginByGoogle$HookResult useMutation$LoginByGoogle([
-  WidgetOptions$Mutation$LoginByGoogle? options,
+Mutation$LoginByEmail$HookResult useMutation$LoginByEmail([
+  WidgetOptions$Mutation$LoginByEmail? options,
 ]) {
   final result = graphql_flutter
-      .useMutation(options ?? WidgetOptions$Mutation$LoginByGoogle());
-  return Mutation$LoginByGoogle$HookResult(
+      .useMutation(options ?? WidgetOptions$Mutation$LoginByEmail());
+  return Mutation$LoginByEmail$HookResult(
     (variables, {optimisticResult, typedOptimisticResult}) =>
         result.runMutation(
       variables.toJson(),
@@ -401,23 +399,23 @@ Mutation$LoginByGoogle$HookResult useMutation$LoginByGoogle([
   );
 }
 
-graphql.ObservableQuery<Mutation$LoginByGoogle> useWatchMutation$LoginByGoogle(
-  WatchOptions$Mutation$LoginByGoogle options,
+graphql.ObservableQuery<Mutation$LoginByEmail> useWatchMutation$LoginByEmail(
+  WatchOptions$Mutation$LoginByEmail options,
 ) =>
     graphql_flutter.useWatchMutation(options);
 
-class WidgetOptions$Mutation$LoginByGoogle
-    extends graphql.MutationOptions<Mutation$LoginByGoogle> {
-  WidgetOptions$Mutation$LoginByGoogle({
+class WidgetOptions$Mutation$LoginByEmail
+    extends graphql.MutationOptions<Mutation$LoginByEmail> {
+  WidgetOptions$Mutation$LoginByEmail({
     String? operationName,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Mutation$LoginByGoogle? typedOptimisticResult,
+    Mutation$LoginByEmail? typedOptimisticResult,
     graphql.Context? context,
-    OnMutationCompleted$Mutation$LoginByGoogle? onCompleted,
-    graphql.OnMutationUpdate<Mutation$LoginByGoogle>? update,
+    OnMutationCompleted$Mutation$LoginByEmail? onCompleted,
+    graphql.OnMutationUpdate<Mutation$LoginByEmail>? update,
     graphql.OnError? onError,
   })  : onCompletedWithParsed = onCompleted,
         super(
@@ -431,17 +429,15 @@ class WidgetOptions$Mutation$LoginByGoogle
               ? null
               : (data) => onCompleted(
                     data,
-                    data == null
-                        ? null
-                        : _parserFn$Mutation$LoginByGoogle(data),
+                    data == null ? null : _parserFn$Mutation$LoginByEmail(data),
                   ),
           update: update,
           onError: onError,
-          document: documentNodeMutationLoginByGoogle,
-          parserFn: _parserFn$Mutation$LoginByGoogle,
+          document: documentNodeMutationLoginByEmail,
+          parserFn: _parserFn$Mutation$LoginByEmail,
         );
 
-  final OnMutationCompleted$Mutation$LoginByGoogle? onCompletedWithParsed;
+  final OnMutationCompleted$Mutation$LoginByEmail? onCompletedWithParsed;
 
   @override
   List<Object?> get properties => [
@@ -452,26 +448,26 @@ class WidgetOptions$Mutation$LoginByGoogle
       ];
 }
 
-typedef RunMutation$Mutation$LoginByGoogle
-    = graphql.MultiSourceResult<Mutation$LoginByGoogle> Function(
-  Variables$Mutation$LoginByGoogle, {
+typedef RunMutation$Mutation$LoginByEmail
+    = graphql.MultiSourceResult<Mutation$LoginByEmail> Function(
+  Variables$Mutation$LoginByEmail, {
   Object? optimisticResult,
-  Mutation$LoginByGoogle? typedOptimisticResult,
+  Mutation$LoginByEmail? typedOptimisticResult,
 });
-typedef Builder$Mutation$LoginByGoogle = widgets.Widget Function(
-  RunMutation$Mutation$LoginByGoogle,
-  graphql.QueryResult<Mutation$LoginByGoogle>?,
+typedef Builder$Mutation$LoginByEmail = widgets.Widget Function(
+  RunMutation$Mutation$LoginByEmail,
+  graphql.QueryResult<Mutation$LoginByEmail>?,
 );
 
-class Mutation$LoginByGoogle$Widget
-    extends graphql_flutter.Mutation<Mutation$LoginByGoogle> {
-  Mutation$LoginByGoogle$Widget({
+class Mutation$LoginByEmail$Widget
+    extends graphql_flutter.Mutation<Mutation$LoginByEmail> {
+  Mutation$LoginByEmail$Widget({
     widgets.Key? key,
-    WidgetOptions$Mutation$LoginByGoogle? options,
-    required Builder$Mutation$LoginByGoogle builder,
+    WidgetOptions$Mutation$LoginByEmail? options,
+    required Builder$Mutation$LoginByEmail builder,
   }) : super(
           key: key,
-          options: options ?? WidgetOptions$Mutation$LoginByGoogle(),
+          options: options ?? WidgetOptions$Mutation$LoginByEmail(),
           builder: (
             run,
             result,

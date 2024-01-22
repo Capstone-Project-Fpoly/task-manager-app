@@ -4,7 +4,7 @@ import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onTapLeadingButton;
-  final String? title;
+  final Widget? title;
   final bool centerTitle;
   final Widget? leading;
   final List<Widget>? actions;
@@ -31,33 +31,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   AppBar buildAppBar(BuildContext context) {
-    final navigator = Navigator.of(context);
-    final canPop = navigator.canPop();
     final color = this.color ?? ColorConstants.background;
     return AppBar(
-      title: Text(
-        title ?? '',
-        style: const AppTextStyle(
-          color: ColorConstants.white,
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
+      title: title ??
+          const Text(
+            '',
+            style: AppTextStyle(
+              color: ColorConstants.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
       backgroundColor: color,
       foregroundColor: color,
       surfaceTintColor: tintColor ?? color,
       elevation: 0,
       leading: leading ??
-
-               IconButton(
-                  icon: const Icon(Icons.menu),
-                  color: ColorConstants.white,
-                  onPressed: () {
-                    onTapLeadingButton != null
-                        ? onTapLeadingButton?.call()
-                        : Scaffold.of(context).openDrawer();
-                  },
-                ),
+          IconButton(
+            icon: const Icon(Icons.menu),
+            color: ColorConstants.white,
+            onPressed: () {
+              onTapLeadingButton != null
+                  ? onTapLeadingButton?.call()
+                  : Scaffold.of(context).openDrawer();
+            },
+          ),
       actions: actions,
       flexibleSpace: flexibleSpace,
       bottom: bottom,

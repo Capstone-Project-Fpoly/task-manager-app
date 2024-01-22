@@ -58,7 +58,7 @@ class MyApp extends ConsumerWidget {
       builder: toastService.init(),
       onGenerateRoute: RoutePage.onGenerateRoute,
       navigatorKey: routerService.navigatorKey,
-      initialRoute: RouteName.root,
+      initialRoute: RouteName.login,
       color: ColorConstants.primary,
     );
     return GraphQLProvider(
