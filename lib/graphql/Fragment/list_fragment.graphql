@@ -1,0 +1,24 @@
+fragment ListFragment on List{
+    createdAt
+    board {
+        createdAt
+        color
+        id
+        isPublic
+        ownerUser {
+            ...UserFragment
+        }
+        title
+        users {
+            ...UserFragment
+        }
+    }
+    createdBy {
+        createdAt
+        uid
+        avatar
+        email
+        updatedAt
+        fullName
+    }
+}

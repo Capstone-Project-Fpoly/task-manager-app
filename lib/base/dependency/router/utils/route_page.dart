@@ -11,6 +11,8 @@ class RoutePage {
         return RouteScreen.loginPageRoute(settings);
       case RouteName.loginEmail:
         return RouteScreen.loginEmailPageRoute(settings);
+      case RouteName.loginOtherEmail:
+        return RouteScreen.loginOtherEmailPageRoute(settings);
     }
     return RouteScreen.unknownPageRoute(settings);
   }

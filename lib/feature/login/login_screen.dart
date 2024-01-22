@@ -21,7 +21,8 @@ class LoginScreen extends ConsumerWidget {
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
             onPressed: () {
-              bloc.onTapLoginEmail();
+              bloc.onTapBack();
+              bloc.onTapLoginEmail(checkLogin);
             },
             child: Padding(
               padding: EdgeInsetsConstants.left8,
@@ -33,6 +34,7 @@ class LoginScreen extends ConsumerWidget {
           ),
           CupertinoActionSheetAction(
             onPressed: () {
+              bloc.onTapBack();
               bloc.onTapLoginByGoogle();
             },
             child: Padding(

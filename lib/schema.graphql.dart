@@ -1,3 +1,257 @@
+class Input$InputEmail {
+  factory Input$InputEmail({
+    required String email,
+    required String passWord,
+  }) =>
+      Input$InputEmail._({
+        r'email': email,
+        r'passWord': passWord,
+      });
+
+  Input$InputEmail._(this._$data);
+
+  factory Input$InputEmail.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$email = data['email'];
+    result$data['email'] = (l$email as String);
+    final l$passWord = data['passWord'];
+    result$data['passWord'] = (l$passWord as String);
+    return Input$InputEmail._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get email => (_$data['email'] as String);
+
+  String get passWord => (_$data['passWord'] as String);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$email = email;
+    result$data['email'] = l$email;
+    final l$passWord = passWord;
+    result$data['passWord'] = l$passWord;
+    return result$data;
+  }
+
+  CopyWith$Input$InputEmail<Input$InputEmail> get copyWith =>
+      CopyWith$Input$InputEmail(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$InputEmail) || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$email = email;
+    final lOther$email = other.email;
+    if (l$email != lOther$email) {
+      return false;
+    }
+    final l$passWord = passWord;
+    final lOther$passWord = other.passWord;
+    if (l$passWord != lOther$passWord) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$email = email;
+    final l$passWord = passWord;
+    return Object.hashAll([
+      l$email,
+      l$passWord,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$InputEmail<TRes> {
+  factory CopyWith$Input$InputEmail(
+    Input$InputEmail instance,
+    TRes Function(Input$InputEmail) then,
+  ) = _CopyWithImpl$Input$InputEmail;
+
+  factory CopyWith$Input$InputEmail.stub(TRes res) =
+      _CopyWithStubImpl$Input$InputEmail;
+
+  TRes call({
+    String? email,
+    String? passWord,
+  });
+}
+
+class _CopyWithImpl$Input$InputEmail<TRes>
+    implements CopyWith$Input$InputEmail<TRes> {
+  _CopyWithImpl$Input$InputEmail(
+    this._instance,
+    this._then,
+  );
+
+  final Input$InputEmail _instance;
+
+  final TRes Function(Input$InputEmail) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? email = _undefined,
+    Object? passWord = _undefined,
+  }) =>
+      _then(Input$InputEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (passWord != _undefined && passWord != null)
+          'passWord': (passWord as String),
+      }));
+}
+
+class _CopyWithStubImpl$Input$InputEmail<TRes>
+    implements CopyWith$Input$InputEmail<TRes> {
+  _CopyWithStubImpl$Input$InputEmail(this._res);
+
+  TRes _res;
+
+  call({
+    String? email,
+    String? passWord,
+  }) =>
+      _res;
+}
+
+class Input$InputVerifyEmail {
+  factory Input$InputVerifyEmail({
+    required String email,
+    required String otp,
+  }) =>
+      Input$InputVerifyEmail._({
+        r'email': email,
+        r'otp': otp,
+      });
+
+  Input$InputVerifyEmail._(this._$data);
+
+  factory Input$InputVerifyEmail.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$email = data['email'];
+    result$data['email'] = (l$email as String);
+    final l$otp = data['otp'];
+    result$data['otp'] = (l$otp as String);
+    return Input$InputVerifyEmail._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get email => (_$data['email'] as String);
+
+  String get otp => (_$data['otp'] as String);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$email = email;
+    result$data['email'] = l$email;
+    final l$otp = otp;
+    result$data['otp'] = l$otp;
+    return result$data;
+  }
+
+  CopyWith$Input$InputVerifyEmail<Input$InputVerifyEmail> get copyWith =>
+      CopyWith$Input$InputVerifyEmail(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$InputVerifyEmail) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$email = email;
+    final lOther$email = other.email;
+    if (l$email != lOther$email) {
+      return false;
+    }
+    final l$otp = otp;
+    final lOther$otp = other.otp;
+    if (l$otp != lOther$otp) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$email = email;
+    final l$otp = otp;
+    return Object.hashAll([
+      l$email,
+      l$otp,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$InputVerifyEmail<TRes> {
+  factory CopyWith$Input$InputVerifyEmail(
+    Input$InputVerifyEmail instance,
+    TRes Function(Input$InputVerifyEmail) then,
+  ) = _CopyWithImpl$Input$InputVerifyEmail;
+
+  factory CopyWith$Input$InputVerifyEmail.stub(TRes res) =
+      _CopyWithStubImpl$Input$InputVerifyEmail;
+
+  TRes call({
+    String? email,
+    String? otp,
+  });
+}
+
+class _CopyWithImpl$Input$InputVerifyEmail<TRes>
+    implements CopyWith$Input$InputVerifyEmail<TRes> {
+  _CopyWithImpl$Input$InputVerifyEmail(
+    this._instance,
+    this._then,
+  );
+
+  final Input$InputVerifyEmail _instance;
+
+  final TRes Function(Input$InputVerifyEmail) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? email = _undefined,
+    Object? otp = _undefined,
+  }) =>
+      _then(Input$InputVerifyEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (otp != _undefined && otp != null) 'otp': (otp as String),
+      }));
+}
+
+class _CopyWithStubImpl$Input$InputVerifyEmail<TRes>
+    implements CopyWith$Input$InputVerifyEmail<TRes> {
+  _CopyWithStubImpl$Input$InputVerifyEmail(this._res);
+
+  TRes _res;
+
+  call({
+    String? email,
+    String? otp,
+  }) =>
+      _res;
+}
+
 enum Enum$Reminder {
   FifteenMinutesBefore,
   FiveMinutesBefore,

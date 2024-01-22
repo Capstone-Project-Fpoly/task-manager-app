@@ -6,5 +6,7 @@ class RouteInput {
 
   RouteInput.login() : routeName = RouteName.login;
   RouteInput.root() : routeName = RouteName.root;
-  RouteInput.loginEmail() : routeName = RouteName.loginEmail;
+  RouteInput.loginEmail(bool isLogin) : routeName = RouteName.loginEmail , arguments = isLogin;
+  RouteInput.loginOtherEmail() : routeName = RouteName.loginOtherEmail;
+
 }
