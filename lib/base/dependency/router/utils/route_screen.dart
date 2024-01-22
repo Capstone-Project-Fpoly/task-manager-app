@@ -7,6 +7,8 @@ import 'package:task_manager/feature/login_with_email/login_with_email_bloc.dart
 import 'package:task_manager/feature/login_with_email/login_with_email_screen.dart';
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_bloc.dart';
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_screen.dart';
+import 'package:task_manager/feature/my_board/my_board_screen.dart';
+import 'package:task_manager/feature/my_card/my_card_screen.dart';
 import 'package:task_manager/feature/root/root_screen.dart';
 import 'package:task_manager/feature/unknown/unknown_screen.dart';
 
@@ -22,6 +24,45 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const RootScreen(),
+    );
+  }
+
+  static PageRoute boardPageRoute(RouteSettings settings) {
+    BlocProvider.board = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => BoardBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const BoardScreen(),
+    );
+  }
+
+  static PageRoute myBoardPageRoute(RouteSettings settings) {
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const MyBoardScreen(),
+    );
+  }
+
+  static PageRoute myCardPageRoute(RouteSettings settings) {
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const MyCradScreen(),
+    );
+  }
+
+  static PageRoute settingPageRoute(RouteSettings settings) {
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const SettingScreen(),
+    );
+  }
+
+  static PageRoute helpPageRoute(RouteSettings settings) {
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const HelpScreen(),
     );
   }
 

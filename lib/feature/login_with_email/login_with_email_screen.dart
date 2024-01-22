@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:task_manager/base/bloc/bloc_provider.dart';
-import 'package:task_manager/constants/edge_insets.dart';
-import 'package:task_manager/constants/size_box.dart';
-import 'package:task_manager/shared/widgets/icons/persion_add_icon.dart';
-import 'package:task_manager/shared/widgets/icons/trello_icon.dart';
 
 class LoginWithEmailScreen extends ConsumerWidget {
   const LoginWithEmailScreen({super.key});
-
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.loginWithEmail);
