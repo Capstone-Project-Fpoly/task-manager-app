@@ -1,0 +1,3 @@
+mutation VerifyOTPEMail($input: InputVerifyEmail!){
+    verifyEmail(input: $input)
+}

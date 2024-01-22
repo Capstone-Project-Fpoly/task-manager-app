@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:graphql/client.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
+import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/local_storage/local_storage_key.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
@@ -18,6 +19,7 @@ class LoginBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
   late final localStorageService = ref.watch(AppService.localStorage);
   late final routerService = ref.watch(AppService.router);
+  late final appBloc = ref.watch(BlocProvider.app);
   late BuildContext context;
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
 
@@ -36,6 +38,7 @@ class LoginBloc extends BlocBase {
     if (token == null) return;
     final client = graphqlService.buildGraphQLClientWithToken(token);
     graphqlService.clientSubject.value = client;
+    appBloc.getCurrentUser();
     routerService.pushReplacement(RouteInput.root());
   }
 
@@ -66,6 +69,7 @@ class LoginBloc extends BlocBase {
     final UserCredential userCredential =
         await auth.signInWithCredential(credential);
     final token = await userCredential.user?.getIdToken();
+    print(token);
     loginByGoogle(idToken: token);
     isLoadingSubject.value = false;
   }
@@ -78,7 +82,6 @@ class LoginBloc extends BlocBase {
         variables: Variables$Mutation$LoginByGoogle(idToken: idToken),
       ),
     );
-    print(result);
     isLoadingSubject.value = false;
     if (result.hasException) return;
     if (result.parsedData == null) return;
@@ -87,8 +90,11 @@ class LoginBloc extends BlocBase {
 
   Future<void> _saveToken(String? token) async {
     if (token == null) return;
-    await localStorageService.put(LocalStorageKey.key, token);
+    isLoadingSubject.value = true;
+    localStorageService.put(LocalStorageKey.key, token);
+    isLoadingSubject.value = false;
     graphqlService.updateGraphQLClientWithToken(token);
+    appBloc.getCurrentUser();
     routerService.pushReplacement(RouteInput.root());
   }
 
