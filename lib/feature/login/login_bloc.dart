@@ -30,7 +30,11 @@ class LoginBloc extends BlocBase {
   }
 
   void onTapLoginEmail(bool isLogin) {
-    routerService.push(RouteInput.loginEmail(isLogin));
+    if (isLogin) {
+      routerService.push(RouteInput.loginOtherEmail());
+    } else {
+      routerService.push(RouteInput.loginEmail(isLogin));
+    }
   }
 
   Future<void> _checkLogin() async {

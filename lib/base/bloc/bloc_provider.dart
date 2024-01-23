@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:task_manager/feature/board/board_Bloc.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login_with_email/login_with_email_bloc.dart';
+import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_bloc.dart';
 import 'package:task_manager/shared/bloc/app_bloc.dart';
 
 class BlocProvider {
