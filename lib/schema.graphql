@@ -44,6 +44,11 @@ input InputEmail {
   passWord: String!
 }
 
+input InputLogin {
+  deviceId: String!
+  idToken: String!
+}
+
 input InputVerifyEmail {
   email: String!
   otp: String!
@@ -62,8 +67,9 @@ type Mutation {
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
   getBoards: [Board]
   leaveBoard(idBoard: String!): Boolean
-  loginByEmail(idToken: String!): String
-  loginByGoogle(idToken: String!): String
+  loginByEmail(input: InputLogin!): String
+  loginByGoogle(input: InputLogin!): String
+  logout: Boolean
   registerByEmail(input: InputEmail!): String
   sendOTPEmail(email: String!): Boolean
   testCallSubscription: String

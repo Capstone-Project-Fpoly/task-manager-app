@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +10,10 @@ import 'package:task_manager/base/dependency/local_storage/local_storage_key.dar
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/base/dependency/router/utils/route_name.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Mutations/logout.graphql.dart';
 import 'package:task_manager/graphql/Querys/me.graphql.dart';
 import 'package:task_manager/shared/enum/navigation_enum.dart';
+import 'package:task_manager/shared/utilities/fcm.dart';
 
 class AppBloc extends BlocBase {
   final Ref ref;
@@ -79,6 +82,8 @@ class AppBloc extends BlocBase {
   }
 
   Future<Fragment$UserFragment?> getCurrentUser() async {
+    final deviceId = await FirebaseMessagingUtils.getDeviceToken();
+    print(deviceId);
     final result = await graphQLService.client.query$me(Options$Query$me());
     if (result.hasException) return null;
     if (result.parsedData == null) return null;
@@ -88,10 +93,16 @@ class AppBloc extends BlocBase {
 
   Future<void> _onInAppFirebaseMessage(RemoteMessage message) async {}
 
-  void onTapLogout() {
+  Future<void> onTapLogout() async {
+    final result =
+        await graphQLService.client.mutate$Logout(Options$Mutation$Logout());
+    if (result.hasException) return;
+    if (result.parsedData == null) return;
+    if (!result.parsedData!.logout!) return;
     localStorageService.delete(LocalStorageKey.key);
     selectedNavigationEnumSubject.value = NavigationEnum.broad;
     userSubject.value = null;
+    await FirebaseAuth.instance.signOut();
     routerService.popUntil(
       (route) => route.settings.name == RouteName.root,
     );

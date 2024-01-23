@@ -9,7 +9,7 @@ class FirebaseMessagingUtils {
   static Future<void> requestPermission() async {
     await FirebaseMessaging.instance.requestPermission(
       alert: true,
-      announcement: false,
+      announcement: true,
       badge: true,
       carPlay: false,
       criticalAlert: false,
