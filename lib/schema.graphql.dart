@@ -129,6 +129,138 @@ class _CopyWithStubImpl$Input$InputEmail<TRes>
       _res;
 }
 
+class Input$InputLogin {
+  factory Input$InputLogin({
+    required String deviceId,
+    required String idToken,
+  }) =>
+      Input$InputLogin._({
+        r'deviceId': deviceId,
+        r'idToken': idToken,
+      });
+
+  Input$InputLogin._(this._$data);
+
+  factory Input$InputLogin.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$deviceId = data['deviceId'];
+    result$data['deviceId'] = (l$deviceId as String);
+    final l$idToken = data['idToken'];
+    result$data['idToken'] = (l$idToken as String);
+    return Input$InputLogin._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get deviceId => (_$data['deviceId'] as String);
+
+  String get idToken => (_$data['idToken'] as String);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$deviceId = deviceId;
+    result$data['deviceId'] = l$deviceId;
+    final l$idToken = idToken;
+    result$data['idToken'] = l$idToken;
+    return result$data;
+  }
+
+  CopyWith$Input$InputLogin<Input$InputLogin> get copyWith =>
+      CopyWith$Input$InputLogin(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$InputLogin || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$deviceId = deviceId;
+    final lOther$deviceId = other.deviceId;
+    if (l$deviceId != lOther$deviceId) {
+      return false;
+    }
+    final l$idToken = idToken;
+    final lOther$idToken = other.idToken;
+    if (l$idToken != lOther$idToken) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$deviceId = deviceId;
+    final l$idToken = idToken;
+    return Object.hashAll([
+      l$deviceId,
+      l$idToken,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$InputLogin<TRes> {
+  factory CopyWith$Input$InputLogin(
+    Input$InputLogin instance,
+    TRes Function(Input$InputLogin) then,
+  ) = _CopyWithImpl$Input$InputLogin;
+
+  factory CopyWith$Input$InputLogin.stub(TRes res) =
+      _CopyWithStubImpl$Input$InputLogin;
+
+  TRes call({
+    String? deviceId,
+    String? idToken,
+  });
+}
+
+class _CopyWithImpl$Input$InputLogin<TRes>
+    implements CopyWith$Input$InputLogin<TRes> {
+  _CopyWithImpl$Input$InputLogin(
+    this._instance,
+    this._then,
+  );
+
+  final Input$InputLogin _instance;
+
+  final TRes Function(Input$InputLogin) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  @override
+  TRes call({
+    Object? deviceId = _undefined,
+    Object? idToken = _undefined,
+  }) =>
+      _then(
+        Input$InputLogin._({
+          ..._instance._$data,
+          if (deviceId != _undefined && deviceId != null)
+            'deviceId': (deviceId as String),
+          if (idToken != _undefined && idToken != null)
+            'idToken': (idToken as String),
+        }),
+      );
+}
+
+class _CopyWithStubImpl$Input$InputLogin<TRes>
+    implements CopyWith$Input$InputLogin<TRes> {
+  _CopyWithStubImpl$Input$InputLogin(this._res);
+
+  final TRes _res;
+
+  @override
+  call({
+    String? deviceId,
+    String? idToken,
+  }) =>
+      _res;
+}
+
 class Input$InputVerifyEmail {
   factory Input$InputVerifyEmail({
     required String email,

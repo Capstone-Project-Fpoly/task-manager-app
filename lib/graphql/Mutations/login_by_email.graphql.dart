@@ -1,3 +1,4 @@
+import 'package:task_manager/schema.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -5,28 +6,29 @@ import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
 class Variables$Mutation$LoginByEmail {
-  factory Variables$Mutation$LoginByEmail({required String idToken}) =>
+  factory Variables$Mutation$LoginByEmail({required Input$InputLogin input}) =>
       Variables$Mutation$LoginByEmail._({
-        r'idToken': idToken,
+        r'input': input,
       });
 
   Variables$Mutation$LoginByEmail._(this._$data);
 
   factory Variables$Mutation$LoginByEmail.fromJson(Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
-    final l$idToken = data['idToken'];
-    result$data['idToken'] = (l$idToken as String);
+    final l$input = data['input'];
+    result$data['input'] =
+        Input$InputLogin.fromJson((l$input as Map<String, dynamic>));
     return Variables$Mutation$LoginByEmail._(result$data);
   }
 
   Map<String, dynamic> _$data;
 
-  String get idToken => (_$data['idToken'] as String);
+  Input$InputLogin get input => (_$data['input'] as Input$InputLogin);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
-    final l$idToken = idToken;
-    result$data['idToken'] = l$idToken;
+    final l$input = input;
+    result$data['input'] = l$input.toJson();
     return result$data;
   }
 
@@ -45,9 +47,9 @@ class Variables$Mutation$LoginByEmail {
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$idToken = idToken;
-    final lOther$idToken = other.idToken;
-    if (l$idToken != lOther$idToken) {
+    final l$input = input;
+    final lOther$input = other.input;
+    if (l$input != lOther$input) {
       return false;
     }
     return true;
@@ -55,8 +57,8 @@ class Variables$Mutation$LoginByEmail {
 
   @override
   int get hashCode {
-    final l$idToken = idToken;
-    return Object.hashAll([l$idToken]);
+    final l$input = input;
+    return Object.hashAll([l$input]);
   }
 }
 
@@ -69,7 +71,7 @@ abstract class CopyWith$Variables$Mutation$LoginByEmail<TRes> {
   factory CopyWith$Variables$Mutation$LoginByEmail.stub(TRes res) =
       _CopyWithStubImpl$Variables$Mutation$LoginByEmail;
 
-  TRes call({String? idToken});
+  TRes call({Input$InputLogin? input});
 }
 
 class _CopyWithImpl$Variables$Mutation$LoginByEmail<TRes>
@@ -86,11 +88,11 @@ class _CopyWithImpl$Variables$Mutation$LoginByEmail<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   @override
-  TRes call({Object? idToken = _undefined}) => _then(
+  TRes call({Object? input = _undefined}) => _then(
         Variables$Mutation$LoginByEmail._({
           ..._instance._$data,
-          if (idToken != _undefined && idToken != null)
-            'idToken': (idToken as String),
+          if (input != _undefined && input != null)
+            'input': (input as Input$InputLogin),
         }),
       );
 }
@@ -102,7 +104,7 @@ class _CopyWithStubImpl$Variables$Mutation$LoginByEmail<TRes>
   final TRes _res;
 
   @override
-  call({String? idToken}) => _res;
+  call({Input$InputLogin? input}) => _res;
 }
 
 class Mutation$LoginByEmail {
@@ -239,9 +241,9 @@ const documentNodeMutationLoginByEmail = DocumentNode(
       name: NameNode(value: 'LoginByEmail'),
       variableDefinitions: [
         VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'idToken')),
+          variable: VariableNode(name: NameNode(value: 'input')),
           type: NamedTypeNode(
-            name: NameNode(value: 'String'),
+            name: NameNode(value: 'InputLogin'),
             isNonNull: true,
           ),
           defaultValue: DefaultValueNode(value: null),
@@ -256,8 +258,8 @@ const documentNodeMutationLoginByEmail = DocumentNode(
             alias: null,
             arguments: [
               ArgumentNode(
-                name: NameNode(value: 'idToken'),
-                value: VariableNode(name: NameNode(value: 'idToken')),
+                name: NameNode(value: 'input'),
+                value: VariableNode(name: NameNode(value: 'input')),
               ),
             ],
             directives: [],

@@ -12,6 +12,8 @@ import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/loginByGoogle.graphql.dart';
 import 'package:task_manager/graphql/Querys/me.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
+import 'package:task_manager/shared/utilities/fcm.dart';
 
 class LoginBloc extends BlocBase {
   final Ref ref;
@@ -42,7 +44,9 @@ class LoginBloc extends BlocBase {
     if (token == null) return;
     final client = graphqlService.buildGraphQLClientWithToken(token);
     graphqlService.clientSubject.value = client;
-    appBloc.getCurrentUser();
+    isLoadingSubject.value = true;
+    await appBloc.getCurrentUser();
+    isLoadingSubject.value = false;
     routerService.pushReplacement(RouteInput.root());
   }
 
@@ -74,16 +78,23 @@ class LoginBloc extends BlocBase {
         await auth.signInWithCredential(credential);
     final token = await userCredential.user?.getIdToken();
     print(token);
-    loginByGoogle(idToken: token);
+    await loginByGoogle(idToken: token);
     isLoadingSubject.value = false;
   }
 
   Future<void> loginByGoogle({required String? idToken}) async {
     if (idToken == null) return;
+    final deviceId = await FirebaseMessagingUtils.getDeviceToken();
+    if (deviceId == null) return;
     isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$LoginByGoogle(
       Options$Mutation$LoginByGoogle(
-        variables: Variables$Mutation$LoginByGoogle(idToken: idToken),
+        variables: Variables$Mutation$LoginByGoogle(
+          input: Input$InputLogin(
+            deviceId: deviceId,
+            idToken: idToken,
+          ),
+        ),
       ),
     );
     isLoadingSubject.value = false;
@@ -94,11 +105,11 @@ class LoginBloc extends BlocBase {
 
   Future<void> _saveToken(String? token) async {
     if (token == null) return;
-    isLoadingSubject.value = true;
     localStorageService.put(LocalStorageKey.key, token);
-    isLoadingSubject.value = false;
     graphqlService.updateGraphQLClientWithToken(token);
-    appBloc.getCurrentUser();
+    isLoadingSubject.value = true;
+    await appBloc.getCurrentUser();
+    isLoadingSubject.value = false;
     routerService.pushReplacement(RouteInput.root());
   }
 
