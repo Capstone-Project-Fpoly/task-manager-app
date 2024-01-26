@@ -22,6 +22,8 @@ class AppBloc extends BlocBase {
   late final localStorageService = ref.watch(AppService.localStorage);
   late final toastService = ref.watch(AppService.toast);
   final userSubject = BehaviorSubject<Fragment$UserFragment?>.seeded(null);
+  final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
+
   final navigatorKeysMap = NavigationEnum.values
       .fold<Map<NavigationEnum, GlobalKey<NavigatorState>>>(
     {},
@@ -42,6 +44,7 @@ class AppBloc extends BlocBase {
   void dispose() {
     selectedNavigationEnumSubject.close();
     userSubject.close();
+    isLoadingSubject.close();
     super.dispose();
   }
 
@@ -94,8 +97,10 @@ class AppBloc extends BlocBase {
   Future<void> _onInAppFirebaseMessage(RemoteMessage message) async {}
 
   Future<void> onTapLogout() async {
+    isLoadingSubject.value = true;
     final result =
         await graphQLService.client.mutate$Logout(Options$Mutation$Logout());
+    isLoadingSubject.value = false;
     if (result.hasException) return;
     if (result.parsedData == null) return;
     if (!result.parsedData!.logout!) return;

@@ -6,8 +6,7 @@ import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 
 class LoginWithEmailBloc extends BlocBase {
   final Ref ref;
-  final bool isLogin;
-  LoginWithEmailBloc(this.ref, this.isLogin);
+  LoginWithEmailBloc(this.ref);
 
   late final toastService = ref.watch(AppService.toast);
   late final routerService = ref.watch(AppService.router);

@@ -31,12 +31,16 @@ class LoginBloc extends BlocBase {
     });
   }
 
-  void onTapLoginEmail(bool isLogin) {
-    if (isLogin) {
-      routerService.push(RouteInput.loginOtherEmail());
-    } else {
-      routerService.push(RouteInput.loginEmail(isLogin));
-    }
+  void onTapBack() {
+    routerService.pop();
+  }
+
+  void onTapLoginEmail() {
+    routerService.push(RouteInput.loginOtherEmail());
+  }
+
+  void onTapRegEmail() {
+    routerService.push(RouteInput.regEmail());
   }
 
   Future<void> _checkLogin() async {
@@ -58,24 +62,23 @@ class LoginBloc extends BlocBase {
     return user;
   }
 
-  void onTapBack() {
-    routerService.pop();
-  }
+
+
 
   Future<void> onTapLoginByGoogle() async {
     isLoadingSubject.value = true;
     final FirebaseAuth auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
+    await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount!.authentication;
+    await googleSignInAccount!.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
     final UserCredential userCredential =
-        await auth.signInWithCredential(credential);
+    await auth.signInWithCredential(credential);
     final token = await userCredential.user?.getIdToken();
     print(token);
     await loginByGoogle(idToken: token);

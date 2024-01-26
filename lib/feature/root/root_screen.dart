@@ -7,6 +7,7 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/shared/app_bar/custom_app_bar.dart';
 import 'package:task_manager/shared/enum/navigation_enum.dart';
 import 'package:task_manager/shared/extensions/enum/navigation_enum_extention.dart';
+import 'package:task_manager/shared/loading/loading_overlay.dart';
 import 'package:task_manager/shared/widgets/drawer/app_drawer.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
@@ -34,20 +35,28 @@ class RootScreen extends ConsumerWidget {
         color: ColorConstants.primary,
       ),
       drawer: const AppDrawer(),
-      body: Stack(
-        children: NavigationEnum.values.map((tab) {
-          return ObsBuilder(
-            streams: [bloc.selectedNavigationEnumSubject],
-            builder: (ctx) => Offstage(
-              offstage: tab != bloc.selectedNavigationEnumSubject.value,
-              child: Navigator(
-                key: bloc.navigatorKeysMap[tab],
-                onGenerateRoute: buildRouteFactory(tab),
-                initialRoute: tab.route,
-              ),
+      body: ObsBuilder(
+        streams: [bloc.isLoadingSubject],
+        builder: (context) {
+          return LoadingOverlay(
+            isLoading: bloc.isLoadingSubject.value,
+            child: Stack(
+              children: NavigationEnum.values.map((tab) {
+                return ObsBuilder(
+                  streams: [bloc.selectedNavigationEnumSubject],
+                  builder: (ctx) => Offstage(
+                    offstage: tab != bloc.selectedNavigationEnumSubject.value,
+                    child: Navigator(
+                      key: bloc.navigatorKeysMap[tab],
+                      onGenerateRoute: buildRouteFactory(tab),
+                      initialRoute: tab.route,
+                    ),
+                  ),
+                );
+              }).toList(),
             ),
           );
-        }).toList(),
+        },
       ),
     );
   }

@@ -12,6 +12,8 @@ import 'package:task_manager/feature/login_with_email/login_with_other_email/log
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_screen.dart';
 import 'package:task_manager/feature/my_board/my_board_screen.dart';
 import 'package:task_manager/feature/my_card/my_card_screen.dart';
+import 'package:task_manager/feature/reg_with_email/reg_with_email_bloc.dart';
+import 'package:task_manager/feature/reg_with_email/reg_with_email_screen.dart';
 import 'package:task_manager/feature/root/root_screen.dart';
 import 'package:task_manager/feature/setting/setting_screen.dart';
 import 'package:task_manager/feature/unknown/unknown_screen.dart';
@@ -85,7 +87,7 @@ class RouteScreen {
     final isLogin = settings.arguments as bool;
     BlocProvider.loginWithEmail = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-      (ref) => LoginWithEmailBloc(ref, isLogin),
+      (ref) => LoginWithEmailBloc(ref),
     );
     return MaterialPageRoute(
       settings: settings,
@@ -101,6 +103,17 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => LoginWithOtherEmailScreen(),
+    );
+  }
+
+  static PageRoute regEmailPageRoute(RouteSettings settings) {
+    BlocProvider.regWithEmail = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => RegEmailBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const RegEmailScreen(),
     );
   }
 }

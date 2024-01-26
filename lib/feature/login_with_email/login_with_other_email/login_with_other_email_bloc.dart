@@ -5,6 +5,8 @@ import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/graphql/Mutations/login_by_email.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
+import 'package:task_manager/shared/utilities/fcm.dart';
 
 class LoginWithOtherEmailBloc extends BlocBase {
   Ref ref;
@@ -20,7 +22,7 @@ class LoginWithOtherEmailBloc extends BlocBase {
 
   bool validateEmail(String email){
     return RegExp(
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',)
         .hasMatch(email);
   }
 
@@ -49,10 +51,15 @@ class LoginWithOtherEmailBloc extends BlocBase {
       );
       final token = await userCredential.user?.getIdToken();
       if (token == null || token.isEmpty) return;
+      final deviceId = await FirebaseMessagingUtils.getDeviceToken();
+      if (deviceId == null) return;
       final result = await graphqlService.client.mutate$LoginByEmail(
         Options$Mutation$LoginByEmail(
           variables: Variables$Mutation$LoginByEmail(
-            idToken: token,
+            input: Input$InputLogin(
+              deviceId: deviceId,
+              idToken: token,
+            ),
           ),
         ),
       );
@@ -60,6 +67,5 @@ class LoginWithOtherEmailBloc extends BlocBase {
       toastService.showText(message: 'Sai mật khẩu');
     }
   }
-
 
 }

@@ -11,9 +11,6 @@ class LoginWithEmailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.loginWithEmail);
-    const int count =
-        8; //Number of accounts that have ever logged in on this device
-    bloc.isLogin;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -50,9 +47,9 @@ class LoginWithEmailScreen extends ConsumerWidget {
             width: MediaQuery.of(context).size.width - 200,
             height: MediaQuery.of(context).size.height - 250,
             child: ListView.builder(
-              itemCount: count,
+              itemCount: 8,
               itemBuilder: (context, index) {
-                if (index < count - 1) {
+                if (index < 7) {
                   return GestureDetector(
                     onTap: () {},
                     child: Container(
