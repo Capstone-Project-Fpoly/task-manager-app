@@ -46,31 +46,28 @@ class RegEmailBloc extends BlocBase {
     routerService.pop();
   }
 
-  Future<void> validate(
-      {required String email,
-      required String pass,
-      required String rePass,
-      required String otp,}) async {
-    if (email == '') {
+  Future<void> validate() async {
+
+    if (emailController.text == '') {
       errorCheckTextSubject.value = 'Không được để trống';
-    } else if (!RegexConstants.email.hasMatch(email)) {
+    } else if (!RegexConstants.email.hasMatch(emailController.text)) {
       errorCheckTextSubject.value = 'email không đúng định dạng';
     } else {
       errorCheckTextSubject.value = '';
     }
 
-    if (pass == '') {
+    if (passController.text == '') {
       errorCheckPassSubject.value = 'Không được để trống';
     } else {
       errorCheckPassSubject.value = '';
     }
 
-    if (pass != rePass) {
+    if (passController.text != rePassController.text) {
       errorCheckRePassSubject.value = 'Mật khẩu không trùng khớp';
     } else {
       errorCheckRePassSubject.value = 'Mật khẩu không trùng khớp';
     }
-    if (otp == '') {
+    if (oTPController.text == '') {
       errorCheckOtpSubject.value = 'Không được để trống';
     } else {
       errorCheckOtpSubject.value = '';
@@ -78,7 +75,7 @@ class RegEmailBloc extends BlocBase {
 
     if (errorCheckPassSubject.value != '' ||
         errorCheckRePassSubject.value != '' ||
-        errorCheckTextSubject.value == '' ||
+        errorCheckTextSubject.value != '' ||
         errorCheckRePassSubject.value != '') {
       isRegSubject.value = false;
     } else {
@@ -121,13 +118,13 @@ class RegEmailBloc extends BlocBase {
     isShowPassSubject.value = !isShowPassSubject.value;
   }
 
-  Future<void> sendOTPEmail({required String email}) async {
-    // final emailOtp = await graphqlService.client
-    //     .mutate$SendOTPEmail(Options$Mutation$SendOTPEmail(
-    //         variables: Variables$Mutation$SendOTPEmail(
-    //   email: email,
-    // ),),);
-    // if(emailOtp.hasException || emailOtp.parsedData == null)toastService.showText(message: 'lỗi');
+  Future<void> sendOTPEmail() async {
+    final emailOtp = await graphqlService.client
+        .mutate$SendOTPEmail(Options$Mutation$SendOTPEmail(
+            variables: Variables$Mutation$SendOTPEmail(
+      email: emailController.text,
+    ),),);
+    if(emailOtp.hasException || emailOtp.parsedData == null)toastService.showText(message: 'lỗi');
     setTimeSendOtpAgain();
   }
 
@@ -146,30 +143,25 @@ class RegEmailBloc extends BlocBase {
     return verifyEmail.parsedData!.verifyEmail!;
   }
 
-  Future<void> onTapRegEmail({
-    required String email,
-    required String pass,
-    required String otp,
-    required String rePass,
-  }) async {
-    validate(email: email, otp: otp, pass: pass, rePass: rePass);
+  Future<void> onTapRegEmail() async {
+    await validate();
     if (isRegSubject.value == true) {
-      final checkOTP = await verifyEmailCheck(email: email, otp: otp);
+      final checkOTP = await verifyEmailCheck(email: emailController.text, otp: oTPController.text);
       if (checkOTP == false) return;
       try {
         final result = await graphqlService.client.mutate$regByEmail(
           Options$Mutation$regByEmail(
             variables: Variables$Mutation$regByEmail(
               input: Input$InputEmail(
-                email: email,
-                passWord: pass,
+                email: emailController.text,
+                passWord: passController.text,
               ),
             ),
           ),
         );
         if (result.hasException) return;
         if (result.parsedData == null) return;
-        routerService.push(RouteInput.loginOtherEmail());
+        routerService.pushReplacement(RouteInput.loginOtherEmail());
       } on FirebaseAuthException {
         toastService.showText(message: 'Không thành công');
       }

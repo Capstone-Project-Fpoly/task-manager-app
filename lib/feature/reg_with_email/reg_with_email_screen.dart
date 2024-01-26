@@ -61,7 +61,7 @@ class RegEmailScreen extends ConsumerWidget {
               ),
               Container(
                 padding: EdgeInsetsConstants.left8,
-                width: width - 100,
+                width: width * 0.75,
                 alignment: Alignment.centerLeft,
                 child: Text(
                   bloc.errorCheckTextSubject.value,
@@ -90,7 +90,7 @@ class RegEmailScreen extends ConsumerWidget {
               ),
               Container(
                 padding: EdgeInsetsConstants.left8,
-                width: width - 100,
+                width: width *0.75,
                 alignment: Alignment.centerLeft,
                 child: Text(
                   bloc.errorCheckPassSubject.value,
@@ -119,7 +119,7 @@ class RegEmailScreen extends ConsumerWidget {
               ),
               Container(
                 padding: EdgeInsetsConstants.left8,
-                width: width - 100,
+                width: width * 0.75,
                 alignment: Alignment.centerLeft,
                 child: Text(
                   bloc.errorCheckRePassSubject.value,
@@ -140,7 +140,7 @@ class RegEmailScreen extends ConsumerWidget {
                       alignment: Alignment.center,
                       child: TextButton(
                         onPressed: () {
-                          bloc.sendOTPEmail(email: bloc.emailController.text);
+                          bloc.sendOTPEmail();
                         },
                         child: Text(
                           bloc.isTapSendSubject.value
@@ -157,7 +157,7 @@ class RegEmailScreen extends ConsumerWidget {
               ),
               Container(
                 padding: EdgeInsetsConstants.left8,
-                width: width - 100,
+                width: width * 0.75,
                 alignment: Alignment.centerLeft,
                 child: Text(
                   bloc.errorCheckOtpSubject.value,
@@ -170,7 +170,7 @@ class RegEmailScreen extends ConsumerWidget {
                   streams: [bloc.isOnTapRegSubject],
                   builder: (context) {
                     return Container(
-                      width: MediaQuery.of(context).size.width - 100,
+                      width: width *0.75,
                       height: 50,
                       decoration: BoxDecoration(
                         color: bloc.isOnTapRegSubject.value
@@ -187,12 +187,7 @@ class RegEmailScreen extends ConsumerWidget {
                       child: TextButton(
                         onPressed: bloc.isOnTapRegSubject.value
                             ? () {
-                                bloc.onTapRegEmail(
-                                  email: bloc.emailController.value.text,
-                                  pass: bloc.passController.value.text,
-                                  otp: bloc.oTPController.value.text,
-                                  rePass: bloc.rePassController.value.text,
-                                );
+                                bloc.onTapRegEmail();
                               }
                             : null,
                         child: const Text(
@@ -213,7 +208,7 @@ class RegEmailScreen extends ConsumerWidget {
                     blocLogin.onTapLoginByGoogle();
                   },
                   child: Container(
-                    width: MediaQuery.of(context).size.width - 100,
+                    width: width * 0.75,
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
