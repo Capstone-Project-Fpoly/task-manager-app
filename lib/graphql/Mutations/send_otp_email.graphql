@@ -1,0 +1,3 @@
+mutation SendOTPEmail($email: String!){
+    sendOTPEmail(email: $email)
+}

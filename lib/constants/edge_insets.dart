@@ -11,6 +11,7 @@ class EdgeInsetsConstants {
   static const all32 = EdgeInsets.all(32);
   static const all36 = EdgeInsets.all(36);
   static const all40 = EdgeInsets.all(40);
+  static const all50 = EdgeInsets.all(50);
 
   static const left4 = EdgeInsets.only(left: 4);
   static const left8 = EdgeInsets.only(left: 8);
@@ -22,6 +23,7 @@ class EdgeInsetsConstants {
   static const left32 = EdgeInsets.only(left: 32);
   static const left36 = EdgeInsets.only(left: 36);
   static const left40 = EdgeInsets.only(left: 40);
+  static const left50 = EdgeInsets.only(left: 50);
 
   static const right4 = EdgeInsets.only(right: 4);
   static const right8 = EdgeInsets.only(right: 8);
@@ -33,6 +35,7 @@ class EdgeInsetsConstants {
   static const right32 = EdgeInsets.only(right: 32);
   static const right36 = EdgeInsets.only(right: 36);
   static const right40 = EdgeInsets.only(right: 40);
+  static const right50 = EdgeInsets.only(right: 50);
 
   static const top4 = EdgeInsets.only(top: 4);
   static const top8 = EdgeInsets.only(top: 8);
@@ -45,6 +48,7 @@ class EdgeInsetsConstants {
   static const top32 = EdgeInsets.only(top: 32);
   static const top36 = EdgeInsets.only(top: 36);
   static const top40 = EdgeInsets.only(top: 40);
+  static const top50 = EdgeInsets.only(top: 50);
 
   static const bottom4 = EdgeInsets.only(bottom: 4);
   static const bottom8 = EdgeInsets.only(bottom: 8);
@@ -56,6 +60,7 @@ class EdgeInsetsConstants {
   static const bottom32 = EdgeInsets.only(bottom: 32);
   static const bottom36 = EdgeInsets.only(bottom: 36);
   static const bottom40 = EdgeInsets.only(bottom: 40);
+  static const bottom50 = EdgeInsets.only(bottom: 50);
 
   static const horizontal4 = EdgeInsets.symmetric(horizontal: 4);
   static const horizontal8 = EdgeInsets.symmetric(horizontal: 8);

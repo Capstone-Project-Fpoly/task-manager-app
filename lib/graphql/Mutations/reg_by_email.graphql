@@ -1,0 +1,3 @@
+mutation regByEmail($input: InputEmail!){
+    registerByEmail(input: $input)
+}

@@ -40,5 +40,7 @@ class ColorConstants {
   static const boxShadow = Color.fromRGBO(51, 73, 255, 0.30);
   static const deepPink = Color(0xFFF44182);
 
+  static const backgroundColorApp = Color.fromRGBO(49, 101, 226, 1);
+
   ColorConstants._();
 }

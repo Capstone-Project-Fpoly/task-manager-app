@@ -1,13 +1,16 @@
 fragment BoardFragment on Board{
-    id
     users {
         ...UserFragment
     }
+    title
     createdAt
-    color
-    isPublic
     ownerUser {
         ...UserFragment
     }
-    title
+    id
+    lists {
+        ...ListFragment
+    }
+    isPublic
+    color
 }

@@ -31,8 +31,16 @@ class LoginBloc extends BlocBase {
     });
   }
 
+  void onTapBack() {
+    routerService.pop();
+  }
+
   void onTapLoginEmail() {
-    routerService.push(RouteInput.loginEmail());
+    routerService.push(RouteInput.loginOtherEmail());
+  }
+
+  void onTapRegEmail() {
+    routerService.push(RouteInput.regEmail());
   }
 
   Future<void> _checkLogin() async {
@@ -52,10 +60,6 @@ class LoginBloc extends BlocBase {
     if (result.parsedData == null) return null;
     final user = result.parsedData!.me;
     return user;
-  }
-
-  void onTapBack() {
-    routerService.pop();
   }
 
   Future<void> onTapLoginByGoogle() async {
