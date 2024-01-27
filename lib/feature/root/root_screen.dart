@@ -17,30 +17,30 @@ class RootScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bloc = ref.watch(BlocProvider.app);
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: ObsBuilder(
-          streams: [bloc.selectedNavigationEnumSubject],
-          builder: (context) {
-            return Text(
-              bloc.selectedNavigationEnumSubject.value.label,
-              style: const AppTextStyle(
-                color: ColorConstants.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
+    return ObsBuilder(
+      streams: [bloc.isLoadingSubject],
+      builder: (context) {
+        return LoadingOverlay(
+          isLoading: bloc.isLoadingSubject.value,
+          child: Scaffold(
+            appBar: CustomAppBar(
+              title: ObsBuilder(
+                streams: [bloc.selectedNavigationEnumSubject],
+                builder: (context) {
+                  return Text(
+                    bloc.selectedNavigationEnumSubject.value.label,
+                    style: const AppTextStyle(
+                      color: ColorConstants.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-        color: ColorConstants.primary,
-      ),
-      drawer: const AppDrawer(),
-      body: ObsBuilder(
-        streams: [bloc.isLoadingSubject],
-        builder: (context) {
-          return LoadingOverlay(
-            isLoading: bloc.isLoadingSubject.value,
-            child: Stack(
+              color: ColorConstants.primary,
+            ),
+            drawer: const AppDrawer(),
+            body: Stack(
               children: NavigationEnum.values.map((tab) {
                 return ObsBuilder(
                   streams: [bloc.selectedNavigationEnumSubject],
@@ -55,9 +55,9 @@ class RootScreen extends ConsumerWidget {
                 );
               }).toList(),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

@@ -90,7 +90,7 @@ class RegEmailScreen extends ConsumerWidget {
               ),
               Container(
                 padding: EdgeInsetsConstants.left8,
-                width: width *0.75,
+                width: width * 0.75,
                 alignment: Alignment.centerLeft,
                 child: Text(
                   bloc.errorCheckPassSubject.value,
@@ -140,13 +140,13 @@ class RegEmailScreen extends ConsumerWidget {
                       alignment: Alignment.center,
                       child: TextButton(
                         onPressed: () {
-                          bloc.sendOTPEmail();
+                          if (!bloc.isTapSendSubject.value) bloc.sendOTPEmail();
                         },
                         child: Text(
                           bloc.isTapSendSubject.value
                               ? '${bloc.countSubject.value}'
                               : "Gửi mã",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: ColorConstants.backgroundColorApp,
                           ),
                         ),
@@ -170,7 +170,7 @@ class RegEmailScreen extends ConsumerWidget {
                   streams: [bloc.isOnTapRegSubject],
                   builder: (context) {
                     return Container(
-                      width: width *0.75,
+                      width: width * 0.75,
                       height: 50,
                       decoration: BoxDecoration(
                         color: bloc.isOnTapRegSubject.value

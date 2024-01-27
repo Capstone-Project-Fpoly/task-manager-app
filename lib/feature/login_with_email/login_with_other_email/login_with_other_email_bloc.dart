@@ -28,16 +28,13 @@ class LoginWithOtherEmailBloc extends BlocBase {
   final errorCheckTextSubject = BehaviorSubject<String>.seeded('');
   final errorCheckPassSubject = BehaviorSubject<String>.seeded('');
 
-
   late final toastService = ref.watch(AppService.toast);
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final localStorageService = ref.watch(AppService.localStorage);
   late final appBloc = ref.watch(BlocProvider.app);
 
-
   Future<void> validate() async {
-
     if (emailController.text == '') {
       errorCheckTextSubject.value = 'Không được để trống';
     } else if (!RegexConstants.email.hasMatch(emailController.text)) {
@@ -47,13 +44,11 @@ class LoginWithOtherEmailBloc extends BlocBase {
       isPassSubject.value = true;
     }
 
-
     if (passController.text == '') {
       errorCheckPassSubject.value = 'Không được để trống';
     } else {
       errorCheckPassSubject.value = '';
     }
-
 
     if (errorCheckPassSubject.value != '' ||
         errorCheckTextSubject.value != '') {
@@ -67,10 +62,9 @@ class LoginWithOtherEmailBloc extends BlocBase {
     isShowPassSubject.value = !isShowPassSubject.value;
   }
 
-
   Future<void> loginEmail() async {
     await validate();
-    if(isLoginSubject.value){
+    if (isLoginSubject.value) {
       final auth = FirebaseAuth.instance;
       try {
         final userCredential = await auth.signInWithEmailAndPassword(
@@ -93,9 +87,9 @@ class LoginWithOtherEmailBloc extends BlocBase {
           ),
         );
         isLoadingSubject.value = false;
-        if(result.hasException)return;
-        if(result.parsedData == null )return;
-        _saveToken(token);
+        if (result.hasException) return;
+        if (result.parsedData == null) return;
+        await _saveToken(result.parsedData!.loginByEmail);
       } on FirebaseAuthException {
         toastService.showText(message: 'Sai mật khẩu');
       }
@@ -127,5 +121,4 @@ class LoginWithOtherEmailBloc extends BlocBase {
 
     super.dispose();
   }
-
 }
