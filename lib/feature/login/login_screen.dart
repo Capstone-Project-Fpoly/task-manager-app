@@ -22,7 +22,7 @@ class LoginScreen extends ConsumerWidget {
           CupertinoActionSheetAction(
             onPressed: () {
               bloc.onTapBack();
-              if(checkLogin) {
+              if (checkLogin) {
                 bloc.onTapLoginEmail();
               } else {
                 bloc.onTapRegEmail();

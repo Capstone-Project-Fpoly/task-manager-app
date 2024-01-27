@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
+import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/constants/regexs.dart';
@@ -16,9 +17,9 @@ class RegEmailBloc extends BlocBase {
   final Ref ref;
 
   final isShowPassSubject = BehaviorSubject<bool>.seeded(false);
-  final isRegSubject = BehaviorSubject<bool>.seeded(false);
   final isOnTapRegSubject = BehaviorSubject<bool>.seeded(false);
   final isTapSendSubject = BehaviorSubject<bool>.seeded(false);
+  final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
 
   final errorCheckTextSubject = BehaviorSubject<String>.seeded('');
   final errorCheckPassSubject = BehaviorSubject<String>.seeded('');
@@ -37,44 +38,42 @@ class RegEmailBloc extends BlocBase {
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
 
+  late final blocLogin = ref.read(BlocProvider.login);
   void onTapBack() {
     routerService.pop();
   }
 
-  void validate() {
+  bool validate() {
+    errorCheckTextSubject.value = '';
+    errorCheckPassSubject.value = '';
+    errorCheckRePassSubject.value = '';
+    errorCheckOtpSubject.value = '';
+
     if (emailController.text == '') {
       errorCheckTextSubject.value = 'Không được để trống';
-    } else if (!RegexConstants.email.hasMatch(emailController.text)) {
-      errorCheckTextSubject.value = 'email không đúng định dạng';
-    } else {
-      errorCheckTextSubject.value = '';
+      return false;
     }
-
+    if (!RegexConstants.email.hasMatch(emailController.text)) {
+      errorCheckTextSubject.value = 'email không đúng định dạng';
+      return false;
+    }
     if (passController.text == '') {
       errorCheckPassSubject.value = 'Không được để trống';
-    } else {
-      errorCheckPassSubject.value = '';
+      return false;
     }
-
+    if (passController.text.length < 6) {
+      errorCheckPassSubject.value = 'Mật khẩu tối đa 6 ký tự';
+      return false;
+    }
     if (passController.text != rePassController.text) {
       errorCheckRePassSubject.value = 'Mật khẩu không trùng khớp';
-    } else {
-      errorCheckRePassSubject.value = '';
+      return false;
     }
     if (oTPController.text == '') {
       errorCheckOtpSubject.value = 'Không được để trống';
-    } else {
-      errorCheckOtpSubject.value = '';
+      return false;
     }
-
-    if (errorCheckPassSubject.value != '' ||
-        errorCheckRePassSubject.value != '' ||
-        errorCheckTextSubject.value != '' ||
-        errorCheckRePassSubject.value != '') {
-      isRegSubject.value = false;
-    } else {
-      isRegSubject.value = true;
-    }
+    return true;
   }
 
   void setTimeSendOtpAgain() {
@@ -112,17 +111,29 @@ class RegEmailBloc extends BlocBase {
     isShowPassSubject.value = !isShowPassSubject.value;
   }
 
+  Future<void> onTapLoginByGoogle() async {
+    isLoadingSubject.value = true;
+    await blocLogin.onTapLoginByGoogle();
+    isLoadingSubject.value = false;
+  }
+
   Future<void> sendOTPEmail() async {
-    setTimeSendOtpAgain();
-    final emailOtp = await graphqlService.client.mutate$SendOTPEmail(
-      Options$Mutation$SendOTPEmail(
-        variables: Variables$Mutation$SendOTPEmail(
-          email: emailController.text,
+    if (errorCheckTextSubject.value == '') {
+      setTimeSendOtpAgain();
+      isLoadingSubject.value = true;
+      final emailOtp = await graphqlService.client.mutate$SendOTPEmail(
+        Options$Mutation$SendOTPEmail(
+          variables: Variables$Mutation$SendOTPEmail(
+            email: emailController.text,
+          ),
         ),
-      ),
-    );
-    if (emailOtp.hasException || emailOtp.parsedData == null) {
-      toastService.showText(message: 'lỗi');
+      );
+      isLoadingSubject.value = false;
+      if (emailOtp.hasException || emailOtp.parsedData == null) {
+        toastService.showText(message: 'lỗi');
+      }
+    } else {
+      toastService.showText(message: 'chưa có Email');
     }
   }
 
@@ -147,12 +158,13 @@ class RegEmailBloc extends BlocBase {
   }
 
   Future<void> onTapRegEmail() async {
-    validate();
-    if (isRegSubject.value != true) {
-      toastService.showText(message: 'Điền không hợp lệ');
-    }
+    final check = validate();
+    if (check == false) return;
+    isLoadingSubject.value = true;
     final checkOTP = await verifyEmailCheck(
-        email: emailController.text, otp: oTPController.text);
+      email: emailController.text,
+      otp: oTPController.text,
+    );
     if (checkOTP == false) return;
     try {
       final result = await graphqlService.client.mutate$regByEmail(
@@ -165,6 +177,7 @@ class RegEmailBloc extends BlocBase {
           ),
         ),
       );
+      isLoadingSubject.value = true;
       if (result.hasException) return;
       if (result.parsedData == null) return;
       routerService.pop();
@@ -182,8 +195,8 @@ class RegEmailBloc extends BlocBase {
     oTPController.dispose();
 
     isShowPassSubject.close();
-    isRegSubject.close();
     isOnTapRegSubject.close();
+    isLoadingSubject.close();
 
     errorCheckOtpSubject.close();
     errorCheckRePassSubject.close();

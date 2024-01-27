@@ -13,7 +13,7 @@ class RoutePage {
         return RouteScreen.loginEmailPageRoute(settings);
       case RouteName.loginOtherEmail:
         return RouteScreen.loginOtherEmailPageRoute(settings);
-        case RouteName.regEmail:
+      case RouteName.regEmail:
         return RouteScreen.regEmailPageRoute(settings);
     }
     return RouteScreen.unknownPageRoute(settings);

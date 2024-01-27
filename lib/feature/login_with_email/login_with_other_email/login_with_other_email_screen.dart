@@ -11,12 +11,11 @@ import 'package:task_manager/shared/widgets/icons/google_icon.dart';
 import 'package:task_manager/shared/widgets/icons/trello_icon.dart';
 
 class LoginWithOtherEmailScreen extends ConsumerWidget {
-  LoginWithOtherEmailScreen({Key? key}) : super(key: key);
+  const LoginWithOtherEmailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.loginWithOtherEmail);
-    final blocLogin = ref.watch(BlocProvider.login);
     final width = MediaQuery.of(context).size.width;
     return ObsBuilder(
       streams: [bloc.isLoadingSubject],
@@ -96,17 +95,18 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                     if (bloc.isPassSubject.value)
                       Container(
                         padding: EdgeInsetsConstants.left8,
-                        width: MediaQuery.of(context).size.width *0.75,
+                        width: MediaQuery.of(context).size.width * 0.75,
                         alignment: Alignment.centerLeft,
                         child: Text(
                           bloc.errorCheckPassSubject.value,
-                          style: const TextStyle(fontSize: 12, color: Colors.red),
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.red),
                         ),
                       ),
                     SizedBoxConstants.h20,
                     Center(
                       child: Container(
-                        width: MediaQuery.of(context).size.width *0.75,
+                        width: MediaQuery.of(context).size.width * 0.75,
                         height: 50,
                         decoration: BoxDecoration(
                           color: ColorConstants.backgroundColorApp,
@@ -134,10 +134,10 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                     Center(
                       child: GestureDetector(
                         onTap: () {
-                          blocLogin.onTapLoginByGoogle();
+                          bloc.onTapLoginByGoogle();
                         },
                         child: Container(
-                          width: MediaQuery.of(context).size.width *0.75,
+                          width: MediaQuery.of(context).size.width * 0.75,
                           height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),

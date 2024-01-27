@@ -11,10 +11,11 @@ import 'package:task_manager/graphql/Mutations/login_by_email.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/utilities/fcm.dart';
 
-import '../../../base/dependency/local_storage/local_storage_key.dart';
+import 'package:task_manager/base/dependency/local_storage/local_storage_key.dart';
 
 class LoginWithOtherEmailBloc extends BlocBase {
   Ref ref;
+
   LoginWithOtherEmailBloc(this.ref);
 
   final emailController = TextEditingController();
@@ -33,29 +34,36 @@ class LoginWithOtherEmailBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
   late final localStorageService = ref.watch(AppService.localStorage);
   late final appBloc = ref.watch(BlocProvider.app);
+  late final blocLogin = ref.read(BlocProvider.login);
 
-  Future<void> validate() async {
+  bool validate() {
+    errorCheckTextSubject.value = '';
+    errorCheckPassSubject.value = '';
+
     if (emailController.text == '') {
       errorCheckTextSubject.value = 'Không được để trống';
-    } else if (!RegexConstants.email.hasMatch(emailController.text)) {
-      errorCheckTextSubject.value = 'email không đúng định dạng';
-    } else {
-      errorCheckTextSubject.value = '';
-      isPassSubject.value = true;
+      return false;
     }
-
+    if (!RegexConstants.email.hasMatch(emailController.text)) {
+      errorCheckTextSubject.value = 'email không đúng định dạng';
+      return false;
+    }
     if (passController.text == '') {
       errorCheckPassSubject.value = 'Không được để trống';
-    } else {
-      errorCheckPassSubject.value = '';
+      return false;
     }
 
-    if (errorCheckPassSubject.value != '' ||
-        errorCheckTextSubject.value != '') {
-      isLoginSubject.value = false;
-    } else {
-      isLoginSubject.value = true;
+    if (passController.text.length < 6) {
+      errorCheckPassSubject.value = 'Mật khẩu tối đa 6 ký tự';
+      return false;
     }
+    return true;
+  }
+
+  Future<void> onTapLoginByGoogle() async {
+    isLoadingSubject.value = true;
+    await blocLogin.onTapLoginByGoogle();
+    isLoadingSubject.value = false;
   }
 
   void showPass() {
@@ -63,36 +71,41 @@ class LoginWithOtherEmailBloc extends BlocBase {
   }
 
   Future<void> loginEmail() async {
-    await validate();
-    if (isLoginSubject.value) {
-      final auth = FirebaseAuth.instance;
-      try {
-        final userCredential = await auth.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passController.text,
-        );
-        final token = await userCredential.user?.getIdToken();
-        if (token == null || token.isEmpty) return;
-        final deviceId = await FirebaseMessagingUtils.getDeviceToken();
-        if (deviceId == null) return;
-        isLoadingSubject.value = true;
-        final result = await graphqlService.client.mutate$LoginByEmail(
-          Options$Mutation$LoginByEmail(
-            variables: Variables$Mutation$LoginByEmail(
-              input: Input$InputLogin(
-                deviceId: deviceId,
-                idToken: token,
-              ),
+    final check = validate();
+    if (check == false) return;
+    final auth = FirebaseAuth.instance;
+    try {
+      final userCredential = await auth.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passController.text,
+      );
+      final token = await userCredential.user?.getIdToken();
+      if (token == null || token.isEmpty) return;
+      final deviceId = await FirebaseMessagingUtils.getDeviceToken();
+      if (deviceId == null) return;
+      isLoadingSubject.value = true;
+      final result = await graphqlService.client.mutate$LoginByEmail(
+        Options$Mutation$LoginByEmail(
+          variables: Variables$Mutation$LoginByEmail(
+            input: Input$InputLogin(
+              deviceId: deviceId,
+              idToken: token,
             ),
           ),
-        );
-        isLoadingSubject.value = false;
-        if (result.hasException) return;
-        if (result.parsedData == null) return;
-        await _saveToken(result.parsedData!.loginByEmail);
-      } on FirebaseAuthException {
-        toastService.showText(message: 'Sai mật khẩu');
+        ),
+      );
+      isLoadingSubject.value = false;
+      if (result.hasException) {
+        toastService.showText(message: 'Đăng nhập thất bại');
+        return;
       }
+      if (result.parsedData == null) {
+        toastService.showText(message: 'Đăng nhập thất bại');
+        return;
+      }
+      await _saveToken(result.parsedData!.loginByEmail);
+    } on FirebaseAuthException {
+      toastService.showText(message: 'Sai mật khẩu');
     }
   }
 

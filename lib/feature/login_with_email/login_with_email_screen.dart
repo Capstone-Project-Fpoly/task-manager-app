@@ -44,8 +44,8 @@ class LoginWithEmailScreen extends ConsumerWidget {
           ),
           SizedBoxConstants.h8,
           SizedBox(
-            width: MediaQuery.of(context).size.width *0.8,
-            height: MediaQuery.of(context).size.height *0.9,
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.9,
             child: ListView.builder(
               itemCount: 8,
               itemBuilder: (context, index) {

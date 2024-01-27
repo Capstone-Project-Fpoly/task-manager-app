@@ -84,7 +84,6 @@ class RouteScreen {
   }
 
   static PageRoute loginEmailPageRoute(RouteSettings settings) {
-    final isLogin = settings.arguments as bool;
     BlocProvider.loginWithEmail = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
       (ref) => LoginWithEmailBloc(ref),
@@ -102,7 +101,7 @@ class RouteScreen {
     );
     return MaterialPageRoute(
       settings: settings,
-      builder: (_) => LoginWithOtherEmailScreen(),
+      builder: (_) => const LoginWithOtherEmailScreen(),
     );
   }
 

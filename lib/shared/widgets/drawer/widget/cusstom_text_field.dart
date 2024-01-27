@@ -25,7 +25,7 @@ class CusstomTextField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width *0.75,
+      width: MediaQuery.of(context).size.width * 0.75,
       child: TextFormField(
         controller: controller,
         keyboardType: keyBroadType,
