@@ -118,7 +118,7 @@ class RegEmailBloc extends BlocBase {
   }
 
   Future<void> sendOTPEmail() async {
-    if (errorCheckTextSubject.value == '') {
+    if (emailController.text != '') {
       setTimeSendOtpAgain();
       isLoadingSubject.value = true;
       final emailOtp = await graphqlService.client.mutate$SendOTPEmail(

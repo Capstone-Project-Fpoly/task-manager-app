@@ -48,6 +48,9 @@ class LoginWithOtherEmailBloc extends BlocBase {
       errorCheckTextSubject.value = 'email không đúng định dạng';
       return false;
     }
+
+    isPassSubject.value = true;
+
     if (passController.text == '') {
       errorCheckPassSubject.value = 'Không được để trống';
       return false;
