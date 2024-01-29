@@ -21,6 +21,7 @@ class LoginBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
   late final localStorageService = ref.watch(AppService.localStorage);
   late final routerService = ref.watch(AppService.router);
+  late final analyticService = ref.watch(AppService.analytic);
   late final appBloc = ref.watch(BlocProvider.app);
   late BuildContext context;
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
@@ -110,6 +111,7 @@ class LoginBloc extends BlocBase {
     isLoadingSubject.value = true;
     await appBloc.getCurrentUser();
     isLoadingSubject.value = false;
+    analyticService.analytics.logLogin(loginMethod: 'google');
     routerService.pushReplacement(RouteInput.root());
   }
 

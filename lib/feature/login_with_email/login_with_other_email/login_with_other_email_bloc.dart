@@ -29,6 +29,7 @@ class LoginWithOtherEmailBloc extends BlocBase {
   final errorCheckTextSubject = BehaviorSubject<String>.seeded('');
   final errorCheckPassSubject = BehaviorSubject<String>.seeded('');
 
+  late final analyticService = ref.watch(AppService.analytic);
   late final toastService = ref.watch(AppService.toast);
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
@@ -119,6 +120,7 @@ class LoginWithOtherEmailBloc extends BlocBase {
     isLoadingSubject.value = true;
     await appBloc.getCurrentUser();
     isLoadingSubject.value = false;
+    analyticService.analytics.logLogin(loginMethod: 'email');
     routerService.pushReplacement(RouteInput.root());
   }
 

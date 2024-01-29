@@ -49,12 +49,13 @@ class MyApp extends ConsumerWidget {
     final routerService = ref.watch(AppService.router);
     final graphQLService = ref.watch(AppService.graphQL);
     final toastService = ref.watch(AppService.toast);
+    final analyticService = ref.watch(AppService.analytic);
     final materialApp = MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme.copyWith(
         pageTransitionsTheme: AppTheme.pageTransitionsTheme,
       ),
-      navigatorObservers: [toastService.observer],
+      navigatorObservers: [toastService.observer, analyticService],
       builder: toastService.init(),
       onGenerateRoute: RoutePage.onGenerateRoute,
       navigatorKey: routerService.navigatorKey,

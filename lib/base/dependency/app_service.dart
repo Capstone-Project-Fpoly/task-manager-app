@@ -1,4 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:task_manager/base/dependency/analytics/analytics_service.dart';
 import 'package:task_manager/base/dependency/router/router_provider.dart';
 import 'package:task_manager/base/dependency/router/router_service.dart';
 import 'package:task_manager/base/dependency/toast/toast_service.dart';
@@ -8,6 +10,8 @@ import 'package:task_manager/base/dependency/local_storage/local_storage_service
 
 class AppProvider {
   static final router = Provider((ref) => RouterProvider());
+  static final analytics = Provider((ref) => AnalyticsService(ref));
+
   AppProvider._();
 }
 
@@ -28,6 +32,13 @@ class AppService {
         ref,
         localStorage: ref.watch(AppService.localStorage),
       );
+    },
+  );
+
+  static final analytic = Provider<FirebaseAnalyticsObserver>(
+    (ref) {
+      final analytics = ref.watch(AppProvider.analytics);
+      return FirebaseAnalyticsObserver(analytics: analytics.analytics);
     },
   );
 
