@@ -31,7 +31,7 @@ class AppDrawer extends ConsumerWidget {
                       color: Colors.white,
                       icon: const Icon(Icons.logout),
                       onPressed: () {
-                        bloc.onTapLogout();
+                        bloc.onTapLogout(context: context);
                       },
                     ),
                   ],
