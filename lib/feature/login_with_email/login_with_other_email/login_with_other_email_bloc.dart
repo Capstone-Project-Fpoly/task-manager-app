@@ -110,7 +110,7 @@ class LoginWithOtherEmailBloc extends BlocBase {
       }
       await _saveToken(result.parsedData!.loginByEmail);
     } on FirebaseAuthException {
-      toastService.showText(message: 'Sai mật khẩu');
+      toastService.showText(message: 'Địa chỉ email hoặc mật khẩu không đúng');
     }
   }
 
