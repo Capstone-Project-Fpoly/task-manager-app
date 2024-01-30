@@ -138,6 +138,7 @@ class RegEmailScreen extends ConsumerWidget {
                         return CusstomTextField(
                           controller: bloc.oTPController,
                           hintText: 'Nhập mã xác minh',
+                          keyBroadType: TextInputType.number,
                           suffixIcon: Container(
                             width: 90,
                             margin: EdgeInsetsConstants.left8 +

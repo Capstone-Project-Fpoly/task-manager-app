@@ -60,6 +60,8 @@ class LoginWithOtherEmailBloc extends BlocBase {
       errorCheckPassSubject.value = 'Mật khẩu tối đa 6 ký tự';
       return false;
     }
+
+
     return true;
   }
 
@@ -99,8 +101,8 @@ class LoginWithOtherEmailBloc extends BlocBase {
       );
       isLoadingSubject.value = false;
       if (result.hasException) {
-        toastService.showText(message: 'Đăng nhập thất bại');
-        return;
+        final error = result.exception?.graphqlErrors[0].message ?? 'không thành công';
+        toastService.showText(message: error);
       }
       if (result.parsedData == null) {
         toastService.showText(message: 'Đăng nhập thất bại');

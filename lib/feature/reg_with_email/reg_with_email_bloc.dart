@@ -151,7 +151,11 @@ class RegEmailBloc extends BlocBase {
         ),
       ),
     );
-    if (verifyEmail.hasException) return false;
+    if (verifyEmail.hasException) {
+      final error = verifyEmail.exception?.graphqlErrors[0].message ?? 'không thành công';
+      toastService.showText(message: error);
+      return false;
+    }
     if (verifyEmail.parsedData == null) return false;
     if (verifyEmail.parsedData!.verifyEmail == null) return false;
     return verifyEmail.parsedData!.verifyEmail!;
@@ -178,7 +182,10 @@ class RegEmailBloc extends BlocBase {
         ),
       );
       isLoadingSubject.value = true;
-      if (result.hasException) return;
+      if (result.hasException) {
+        final error = result.exception?.graphqlErrors[0].message ?? 'không thành công';
+        toastService.showText(message: error);
+      }
       if (result.parsedData == null) return;
       routerService.pop();
       routerService.push(RouteInput.loginOtherEmail());
