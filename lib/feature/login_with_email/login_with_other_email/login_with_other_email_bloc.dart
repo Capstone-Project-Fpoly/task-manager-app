@@ -79,39 +79,41 @@ class LoginWithOtherEmailBloc extends BlocBase {
     final check = validate();
     if (check == false) return;
     final auth = FirebaseAuth.instance;
+    String? token;
     try {
       final userCredential = await auth.signInWithEmailAndPassword(
         email: emailController.text,
         password: passController.text,
       );
-      final token = await userCredential.user?.getIdToken();
-      if (token == null || token.isEmpty) return;
-      final deviceId = await FirebaseMessagingUtils.getDeviceToken();
-      if (deviceId == null) return;
-      isLoadingSubject.value = true;
-      final result = await graphqlService.client.mutate$LoginByEmail(
-        Options$Mutation$LoginByEmail(
-          variables: Variables$Mutation$LoginByEmail(
-            input: Input$InputLogin(
-              deviceId: deviceId,
-              idToken: token,
-            ),
-          ),
-        ),
-      );
-      isLoadingSubject.value = false;
-      if (result.hasException) {
-        final error = result.exception?.graphqlErrors[0].message ?? 'không thành công';
-        toastService.showText(message: error);
-      }
-      if (result.parsedData == null) {
-        toastService.showText(message: 'Đăng nhập thất bại');
-        return;
-      }
-      await _saveToken(result.parsedData!.loginByEmail);
+      token = await userCredential.user?.getIdToken();
+
     } on FirebaseAuthException {
       toastService.showText(message: 'Địa chỉ email hoặc mật khẩu không đúng');
     }
+    final deviceId = await FirebaseMessagingUtils.getDeviceToken();
+    if (token == null || token.isEmpty) return;
+    if (deviceId == null) return;
+    isLoadingSubject.value = true;
+    final result = await graphqlService.client.mutate$LoginByEmail(
+      Options$Mutation$LoginByEmail(
+        variables: Variables$Mutation$LoginByEmail(
+          input: Input$InputLogin(
+            deviceId: deviceId,
+            idToken: token,
+          ),
+        ),
+      ),
+    );
+    isLoadingSubject.value = false;
+    if (result.hasException) {
+      final error = result.exception?.graphqlErrors[0].message ?? 'không thành công';
+      toastService.showText(message: error);
+    }
+    if (result.parsedData == null) {
+      toastService.showText(message: 'Đăng nhập thất bại');
+      return;
+    }
+    await _saveToken(result.parsedData!.loginByEmail);
   }
 
   Future<void> _saveToken(String? token) async {
