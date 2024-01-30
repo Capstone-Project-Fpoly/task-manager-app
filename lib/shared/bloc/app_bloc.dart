@@ -96,21 +96,40 @@ class AppBloc extends BlocBase {
 
   Future<void> _onInAppFirebaseMessage(RemoteMessage message) async {}
 
-  Future<void> onTapLogout() async {
-    isLoadingSubject.value = true;
-    final result =
-        await graphQLService.client.mutate$Logout(Options$Mutation$Logout());
-    isLoadingSubject.value = false;
-    if (result.hasException) return;
-    if (result.parsedData == null) return;
-    if (!result.parsedData!.logout!) return;
-    localStorageService.delete(LocalStorageKey.key);
-    selectedNavigationEnumSubject.value = NavigationEnum.broad;
-    userSubject.value = null;
-    await FirebaseAuth.instance.signOut();
-    routerService.popUntil(
-      (route) => route.settings.name == RouteName.root,
-    );
-    routerService.pushReplacement(RouteInput.login());
+  Future<void> onTapLogout({required BuildContext context}) async {
+    showDialog(context: context, builder: (context) {
+      return  AlertDialog(
+        title: const Text('Đăng xuất',style: TextStyle(color: Colors.red)),
+        content: const Text('Bạn có chắc muốn đăng xuất'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () async {
+              isLoadingSubject.value = true;
+              final result =
+                  await graphQLService.client.mutate$Logout(Options$Mutation$Logout());
+              isLoadingSubject.value = false;
+              if (result.hasException) return;
+              if (result.parsedData == null) return;
+              if (!result.parsedData!.logout!) return;
+              localStorageService.delete(LocalStorageKey.key);
+              selectedNavigationEnumSubject.value = NavigationEnum.broad;
+              userSubject.value = null;
+              await FirebaseAuth.instance.signOut();
+              routerService.popUntil(
+                    (route) => route.settings.name == RouteName.root,
+              );
+              routerService.pushReplacement(RouteInput.login());// Đóng hộp thoại khi nhấn nút
+            },
+            child: const Text('Đồng ý'),
+          ),
+          TextButton(
+            onPressed: () {
+              routerService.pop(); // Đóng hộp thoại khi nhấn nút
+            },
+            child: const Text('Hủy',style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      );
+    },);
   }
 }
