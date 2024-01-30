@@ -108,6 +108,7 @@ class LoginWithOtherEmailBloc extends BlocBase {
     if (result.hasException) {
       final error = result.exception?.graphqlErrors[0].message ?? 'không thành công';
       toastService.showText(message: error);
+      return;
     }
     if (result.parsedData == null) {
       toastService.showText(message: 'Đăng nhập thất bại');
