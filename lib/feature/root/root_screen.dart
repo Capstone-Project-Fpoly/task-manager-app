@@ -23,23 +23,23 @@ class RootScreen extends ConsumerWidget {
         return LoadingOverlay(
           isLoading: bloc.isLoadingSubject.value,
           child: Scaffold(
-            appBar: CustomAppBar(
-              title: ObsBuilder(
-                streams: [bloc.selectedNavigationEnumSubject],
-                builder: (context) {
-                  return Text(
-                    bloc.selectedNavigationEnumSubject.value.label,
-                    style: const AppTextStyle(
-                      color: ColorConstants.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  );
-                },
-              ),
-              color: ColorConstants.primary,
-            ),
-            drawer: const AppDrawer(),
+            // appBar: CustomAppBar(
+            //   title: ObsBuilder(
+            //     streams: [bloc.selectedNavigationEnumSubject],
+            //     builder: (context) {
+            //       return Text(
+            //         bloc.selectedNavigationEnumSubject.value.label,
+            //         style: const AppTextStyle(
+            //           color: ColorConstants.white,
+            //           fontSize: 18,
+            //           fontWeight: FontWeight.w700,
+            //         ),
+            //       );
+            //     },
+            //   ),
+            //   color: ColorConstants.primary,
+            // ),
+            // drawer: const AppDrawer(),
             body: Stack(
               children: NavigationEnum.values.map((tab) {
                 return ObsBuilder(

@@ -145,8 +145,9 @@ class RegEmailScreen extends ConsumerWidget {
                             alignment: Alignment.center,
                             child: TextButton(
                               onPressed: () {
-                                if (!bloc.isTapSendSubject.value)
+                                if (!bloc.isTapSendSubject.value) {
                                   bloc.sendOTPEmail();
+                                }
                               },
                               child: Text(
                                 bloc.isTapSendSubject.value
@@ -199,7 +200,9 @@ class RegEmailScreen extends ConsumerWidget {
                               child: const Text(
                                 'Đăng ký',
                                 style: TextStyle(
-                                    fontSize: 15, color: Colors.white),
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           );

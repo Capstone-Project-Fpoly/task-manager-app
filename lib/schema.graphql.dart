@@ -45,7 +45,7 @@ class Input$InputEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputEmail || runtimeType != other.runtimeType) {
+    if (!(other is Input$InputEmail) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$email = email;
@@ -100,28 +100,24 @@ class _CopyWithImpl$Input$InputEmail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? email = _undefined,
     Object? passWord = _undefined,
   }) =>
-      _then(
-        Input$InputEmail._({
-          ..._instance._$data,
-          if (email != _undefined && email != null) 'email': (email as String),
-          if (passWord != _undefined && passWord != null)
-            'passWord': (passWord as String),
-        }),
-      );
+      _then(Input$InputEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (passWord != _undefined && passWord != null)
+          'passWord': (passWord as String),
+      }));
 }
 
 class _CopyWithStubImpl$Input$InputEmail<TRes>
     implements CopyWith$Input$InputEmail<TRes> {
   _CopyWithStubImpl$Input$InputEmail(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? email,
     String? passWord,
@@ -176,7 +172,7 @@ class Input$InputLogin {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputLogin || runtimeType != other.runtimeType) {
+    if (!(other is Input$InputLogin) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$deviceId = deviceId;
@@ -231,29 +227,25 @@ class _CopyWithImpl$Input$InputLogin<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? deviceId = _undefined,
     Object? idToken = _undefined,
   }) =>
-      _then(
-        Input$InputLogin._({
-          ..._instance._$data,
-          if (deviceId != _undefined && deviceId != null)
-            'deviceId': (deviceId as String),
-          if (idToken != _undefined && idToken != null)
-            'idToken': (idToken as String),
-        }),
-      );
+      _then(Input$InputLogin._({
+        ..._instance._$data,
+        if (deviceId != _undefined && deviceId != null)
+          'deviceId': (deviceId as String),
+        if (idToken != _undefined && idToken != null)
+          'idToken': (idToken as String),
+      }));
 }
 
 class _CopyWithStubImpl$Input$InputLogin<TRes>
     implements CopyWith$Input$InputLogin<TRes> {
   _CopyWithStubImpl$Input$InputLogin(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? deviceId,
     String? idToken,
@@ -308,7 +300,8 @@ class Input$InputVerifyEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputVerifyEmail || runtimeType != other.runtimeType) {
+    if (!(other is Input$InputVerifyEmail) ||
+        runtimeType != other.runtimeType) {
       return false;
     }
     final l$email = email;
@@ -363,27 +356,23 @@ class _CopyWithImpl$Input$InputVerifyEmail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? email = _undefined,
     Object? otp = _undefined,
   }) =>
-      _then(
-        Input$InputVerifyEmail._({
-          ..._instance._$data,
-          if (email != _undefined && email != null) 'email': (email as String),
-          if (otp != _undefined && otp != null) 'otp': (otp as String),
-        }),
-      );
+      _then(Input$InputVerifyEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (otp != _undefined && otp != null) 'otp': (otp as String),
+      }));
 }
 
 class _CopyWithStubImpl$Input$InputVerifyEmail<TRes>
     implements CopyWith$Input$InputVerifyEmail<TRes> {
   _CopyWithStubImpl$Input$InputVerifyEmail(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? email,
     String? otp,

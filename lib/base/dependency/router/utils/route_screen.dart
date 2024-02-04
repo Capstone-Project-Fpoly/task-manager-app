@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
-import 'package:task_manager/feature/board/board_Bloc.dart';
+import 'package:task_manager/feature/add_board/add_board_bloc.dart';
+import 'package:task_manager/feature/add_board/add_board_screen.dart';
+import 'package:task_manager/feature/add_card/add_card_bloc.dart';
+import 'package:task_manager/feature/add_card/add_card_screen.dart';
+import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board/board_screen.dart';
+import 'package:task_manager/feature/drag_and_drop/drag_and_drop_screen.dart';
+import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login/login_screen.dart';
@@ -113,6 +119,42 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const RegEmailScreen(),
+    );
+  }
+
+  static PageRoute dragAndDropRoute(RouteSettings settings) {
+    final id = settings.arguments as String;
+    BlocProvider.dragAndDrop = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => DragAndDropBloc(ref, id: id),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => DragDropScreen(),
+    );
+  }
+
+  static PageRoute addBoard(RouteSettings settings) {
+    // final id = settings.arguments as String;
+    BlocProvider.addBoard = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => AddBoardBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const AddBoardScreen(),
+    );
+  }
+
+  static PageRoute addCard(RouteSettings settings) {
+    // final id = settings.arguments as String;
+    BlocProvider.addCard = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => AddCardBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const AddCardScreen(),
     );
   }
 }

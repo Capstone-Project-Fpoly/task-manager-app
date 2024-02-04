@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class EdgeInsetsConstants {
   static const all4 = EdgeInsets.all(4);
   static const all8 = EdgeInsets.all(8);
+  static const all10 = EdgeInsets.all(10);
   static const all12 = EdgeInsets.all(12);
   static const all16 = EdgeInsets.all(16);
   static const all20 = EdgeInsets.all(20);
@@ -27,6 +28,7 @@ class EdgeInsetsConstants {
 
   static const right4 = EdgeInsets.only(right: 4);
   static const right8 = EdgeInsets.only(right: 8);
+  static const right10 = EdgeInsets.only(right: 10);
   static const right12 = EdgeInsets.only(right: 12);
   static const right16 = EdgeInsets.only(right: 16);
   static const right20 = EdgeInsets.only(right: 20);
@@ -64,6 +66,7 @@ class EdgeInsetsConstants {
 
   static const horizontal4 = EdgeInsets.symmetric(horizontal: 4);
   static const horizontal8 = EdgeInsets.symmetric(horizontal: 8);
+  static const horizontal10 = EdgeInsets.symmetric(horizontal: 10);
   static const horizontal12 = EdgeInsets.symmetric(horizontal: 12);
   static const horizontal16 = EdgeInsets.symmetric(horizontal: 16);
   static const horizontal20 = EdgeInsets.symmetric(horizontal: 20);
@@ -75,6 +78,7 @@ class EdgeInsetsConstants {
 
   static const vertical4 = EdgeInsets.symmetric(vertical: 4);
   static const vertical8 = EdgeInsets.symmetric(vertical: 8);
+  static const vertical10 = EdgeInsets.symmetric(vertical: 10);
   static const vertical12 = EdgeInsets.symmetric(vertical: 12);
   static const vertical16 = EdgeInsets.symmetric(vertical: 16);
   static const vertical20 = EdgeInsets.symmetric(vertical: 20);

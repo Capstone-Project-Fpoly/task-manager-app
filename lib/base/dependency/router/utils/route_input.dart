@@ -9,4 +9,9 @@ class RouteInput {
   RouteInput.loginEmail() : routeName = RouteName.loginEmail;
   RouteInput.loginOtherEmail() : routeName = RouteName.loginOtherEmail;
   RouteInput.regEmail() : routeName = RouteName.regEmail;
+  RouteInput.dragAndDrop(String id)
+      : routeName = RouteName.dragAndDrop,
+        arguments = id;
+  RouteInput.addBoard() : routeName = RouteName.addBoard;
+  RouteInput.addCard() : routeName = RouteName.addCard;
 }

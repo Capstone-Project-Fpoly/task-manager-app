@@ -9,5 +9,8 @@ class RouteName {
   static const myCard = 'myCard';
   static const setting = 'setting';
   static const help = 'help';
+  static const dragAndDrop = 'dragAndDrop';
+  static const addBoard = 'addBoard';
+  static const addCard = 'addCard';
   RouteName._();
 }
