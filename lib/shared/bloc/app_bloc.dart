@@ -86,7 +86,6 @@ class AppBloc extends BlocBase {
 
   Future<Fragment$UserFragment?> getCurrentUser() async {
     final deviceId = await FirebaseMessagingUtils.getDeviceToken();
-    print(deviceId);
     final result = await graphQLService.client.query$me(Options$Query$me());
     if (result.hasException) return null;
     if (result.parsedData == null) return null;

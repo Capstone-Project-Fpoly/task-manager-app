@@ -16,7 +16,8 @@
     "build_runner:clean": "dart run build_runner clean",
     "dart:fix": "dart fix --apply",
     "dart:format": "dart format .",
-    "dart:format&fix": "npm run dart:format && npm run dart:fix"
+    "dart:format&fix": "npm run dart:format && npm run dart:fix",
+    "build:apk": "flutter build apk --release --target-platform android-arm,android-arm64,android-x64"
   },
   "repository": {
     "type": "git",
