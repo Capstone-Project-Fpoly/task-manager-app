@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
@@ -39,6 +38,7 @@ class RegEmailBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
 
   late final blocLogin = ref.read(BlocProvider.login);
+
   void onTapBack() {
     routerService.pop();
   }
@@ -141,6 +141,7 @@ class RegEmailBloc extends BlocBase {
     required String email,
     required String otp,
   }) async {
+    isLoadingSubject.value = true;
     final verifyEmail = await graphqlService.client.mutate$VerifyOTPEMail(
       Options$Mutation$VerifyOTPEMail(
         variables: Variables$Mutation$VerifyOTPEMail(
@@ -151,6 +152,7 @@ class RegEmailBloc extends BlocBase {
         ),
       ),
     );
+    isLoadingSubject.value = false;
     if (verifyEmail.hasException) return false;
     if (verifyEmail.parsedData == null) return false;
     if (verifyEmail.parsedData!.verifyEmail == null) return false;
@@ -160,31 +162,31 @@ class RegEmailBloc extends BlocBase {
   Future<void> onTapRegEmail() async {
     final check = validate();
     if (check == false) return;
-    isLoadingSubject.value = true;
     final checkOTP = await verifyEmailCheck(
       email: emailController.text,
       otp: oTPController.text,
     );
     if (checkOTP == false) return;
-    try {
-      final result = await graphqlService.client.mutate$regByEmail(
-        Options$Mutation$regByEmail(
-          variables: Variables$Mutation$regByEmail(
-            input: Input$InputEmail(
-              email: emailController.text,
-              passWord: passController.text,
-            ),
+    isLoadingSubject.value = true;
+    final result = await graphqlService.client.mutate$regByEmail(
+      Options$Mutation$regByEmail(
+        variables: Variables$Mutation$regByEmail(
+          input: Input$InputEmail(
+            email: emailController.text,
+            passWord: passController.text,
           ),
         ),
-      );
-      isLoadingSubject.value = true;
-      if (result.hasException) return;
-      if (result.parsedData == null) return;
-      routerService.pop();
-      routerService.push(RouteInput.loginOtherEmail());
-    } on FirebaseAuthException {
-      toastService.showText(message: 'Không thành công');
+      ),
+    );
+    isLoadingSubject.value = false;
+    if (result.hasException) {
+      toastService.showText(message: 'Đăng ký không thành công');
+      return;
     }
+    ;
+    if (result.parsedData == null) return;
+    routerService.pop();
+    routerService.push(RouteInput.loginOtherEmail());
   }
 
   @override
