@@ -49,7 +49,6 @@ class AppBloc extends BlocBase {
   }
 
   void onTapSelectedNavigation(NavigationEnum navigationEnum) {
-    routerService.pop();
     selectedNavigationEnumSubject.value = navigationEnum;
   }
 

@@ -1,12 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/get_boards.graphql.dart';
 
 class BoardBloc extends BlocBase {
@@ -98,6 +96,7 @@ class BoardBloc extends BlocBase {
   void getBoard() async {
     final result = await graphqlService.client
         .mutate$getBoards(Options$Mutation$getBoards());
+    print(result);
     if (result.hasException) {
       toastService.showText(
         message: result.exception?.graphqlErrors[0].message ?? 'Lỗi',

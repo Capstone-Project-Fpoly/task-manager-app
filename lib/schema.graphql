@@ -3,10 +3,8 @@ type Board {
   createdAt: String!
   id: String!
   isPublic: Boolean!
-  lists: [List!]
   ownerUser: User!
   title: String
-  users: [User!]
 }
 
 type Card {
@@ -17,7 +15,6 @@ type Card {
   description: String
   endDate: String
   id: String!
-  list: List!
   reminder: Reminder
   startedDate: String!
   title: String
@@ -25,14 +22,12 @@ type Card {
 }
 
 type CheckList {
-  card: Card!
   content: String!
   id: String!
   isChecked: Boolean!
 }
 
 type Comment {
-  card: Card!
   comment: String!
   createdAt: String!
   id: String!
@@ -55,7 +50,6 @@ input InputVerifyEmail {
 }
 
 type List {
-  board: Board!
   cards: [Card!]
   createdAt: String!
   createdBy: User!
@@ -65,7 +59,10 @@ type List {
 
 type Mutation {
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
+  createList(idBoard: String!, label: String!): List
+  deleteList(idList: String!): Boolean
   getBoards: [Board]
+  getLists(idBoard: String!): [List]
   leaveBoard(idBoard: String!): Boolean
   loginByEmail(input: InputLogin!): String
   loginByGoogle(input: InputLogin!): String
@@ -73,7 +70,18 @@ type Mutation {
   registerByEmail(input: InputEmail!): String
   sendOTPEmail(email: String!): Boolean
   testCallSubscription: String
+  updateList(idList: String!, label: String!): List
   verifyEmail(input: InputVerifyEmail!): Boolean
+}
+
+type Notification {
+  content: String!
+  createdAt: String!
+  creater: User!
+  id: String!
+  is_seen: Boolean!
+  title: String!
+  topic: TopicNotification!
 }
 
 type Query {
@@ -94,7 +102,15 @@ enum Reminder {
 }
 
 type Subscription {
-  test: String
+  test(id: String!): String
+}
+
+enum TopicNotification {
+  Board
+  Card
+  CheckList
+  Comment
+  List
 }
 
 type User {

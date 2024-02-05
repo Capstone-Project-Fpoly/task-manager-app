@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/shared/widgets/icons/base/png_icon.dart';
 import 'package:task_manager/shared/widgets/icons/base/png_images.dart';
 
 class EmptyIcon extends StatelessWidget {

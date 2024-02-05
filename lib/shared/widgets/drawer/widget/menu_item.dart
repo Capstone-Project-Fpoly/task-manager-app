@@ -40,6 +40,7 @@ class MenuItem extends ConsumerWidget {
                 ),
               ),
               onTap: () {
+                Scaffold.of(context).closeDrawer();
                 bloc.onTapSelectedNavigation(navigationEnum);
               },
             ),

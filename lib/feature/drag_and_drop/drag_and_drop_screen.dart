@@ -7,23 +7,19 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
 
-// ignore: must_be_immutable
 class DragDropScreen extends ConsumerWidget {
-  DragDropScreen({Key? key, this.title}) : super(key: key);
-
-  String? title;
+  const DragDropScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.dragAndDrop);
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
+    String? title;
     return ObsBuilder(
       streams: [
         bloc.isAddCardSubject,
         bloc.isAddListSubject,
-        bloc.listControllerSubject,
-        bloc.cardControllerSubject,
         bloc.listInnerSubject,
       ],
       builder: (context) {
@@ -83,8 +79,8 @@ class DragDropScreen extends ConsumerWidget {
                         },
                         child: Icon(
                           Icons.check,
-                          color: bloc.listControllerSubject.value.text.isEmpty
-                              ? bloc.cardControllerSubject.value.text.isEmpty
+                          color: bloc.listController.text.isEmpty
+                              ? bloc.cardController.value.text.isEmpty
                                   ? Colors.grey
                                   : Colors.white
                               : Colors.white,
@@ -141,7 +137,7 @@ class DragDropScreen extends ConsumerWidget {
                         child: TextFormField(
                           autofocus: true,
                           style: const TextStyle(color: Colors.white),
-                          controller: bloc.listControllerSubject.value,
+                          controller: bloc.listController,
                           maxLines: 50,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -268,7 +264,7 @@ class DragDropScreen extends ConsumerWidget {
                   child: TextFormField(
                     autofocus: true,
                     style: const TextStyle(color: Colors.white),
-                    controller: bloc.cardControllerSubject.value,
+                    controller: bloc.cardController,
                     maxLines: 50,
                     decoration: InputDecoration(
                       border: InputBorder.none,

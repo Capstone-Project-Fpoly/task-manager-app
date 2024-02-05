@@ -34,6 +34,7 @@ class RoutePage {
   }
 
   static Route<dynamic>? onGenerateMyBoardTab(RouteSettings settings) {
+    print('vào');
     switch (settings.name) {
       case RouteName.myBoard:
         return RouteScreen.myBoardPageRoute(settings);

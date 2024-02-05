@@ -1,52 +1,37 @@
-import 'list_fragment.graphql.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'user_fragment.graphql.dart';
 
 class Fragment$BoardFragment {
   Fragment$BoardFragment({
-    this.users,
     this.title,
     required this.createdAt,
     required this.ownerUser,
     required this.id,
-    this.lists,
     required this.isPublic,
     this.color,
     this.$__typename = 'Board',
   });
 
   factory Fragment$BoardFragment.fromJson(Map<String, dynamic> json) {
-    final l$users = json['users'];
     final l$title = json['title'];
     final l$createdAt = json['createdAt'];
     final l$ownerUser = json['ownerUser'];
     final l$id = json['id'];
-    final l$lists = json['lists'];
     final l$isPublic = json['isPublic'];
     final l$color = json['color'];
     final l$$__typename = json['__typename'];
     return Fragment$BoardFragment(
-      users: (l$users as List<dynamic>?)
-          ?.map((e) =>
-              Fragment$UserFragment.fromJson((e as Map<String, dynamic>)))
-          .toList(),
       title: (l$title as String?),
       createdAt: (l$createdAt as String),
       ownerUser:
           Fragment$UserFragment.fromJson((l$ownerUser as Map<String, dynamic>)),
       id: (l$id as String),
-      lists: (l$lists as List<dynamic>?)
-          ?.map((e) =>
-              Fragment$ListFragment.fromJson((e as Map<String, dynamic>)))
-          .toList(),
       isPublic: (l$isPublic as bool),
       color: (l$color as String?),
       $__typename: (l$$__typename as String),
     );
   }
-
-  final List<Fragment$UserFragment>? users;
 
   final String? title;
 
@@ -56,8 +41,6 @@ class Fragment$BoardFragment {
 
   final String id;
 
-  final List<Fragment$ListFragment>? lists;
-
   final bool isPublic;
 
   final String? color;
@@ -66,8 +49,6 @@ class Fragment$BoardFragment {
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$users = users;
-    _resultData['users'] = l$users?.map((e) => e.toJson()).toList();
     final l$title = title;
     _resultData['title'] = l$title;
     final l$createdAt = createdAt;
@@ -76,8 +57,6 @@ class Fragment$BoardFragment {
     _resultData['ownerUser'] = l$ownerUser.toJson();
     final l$id = id;
     _resultData['id'] = l$id;
-    final l$lists = lists;
-    _resultData['lists'] = l$lists?.map((e) => e.toJson()).toList();
     final l$isPublic = isPublic;
     _resultData['isPublic'] = l$isPublic;
     final l$color = color;
@@ -89,22 +68,18 @@ class Fragment$BoardFragment {
 
   @override
   int get hashCode {
-    final l$users = users;
     final l$title = title;
     final l$createdAt = createdAt;
     final l$ownerUser = ownerUser;
     final l$id = id;
-    final l$lists = lists;
     final l$isPublic = isPublic;
     final l$color = color;
     final l$$__typename = $__typename;
     return Object.hashAll([
-      l$users == null ? null : Object.hashAll(l$users.map((v) => v)),
       l$title,
       l$createdAt,
       l$ownerUser,
       l$id,
-      l$lists == null ? null : Object.hashAll(l$lists.map((v) => v)),
       l$isPublic,
       l$color,
       l$$__typename,
@@ -118,22 +93,6 @@ class Fragment$BoardFragment {
     }
     if (!(other is Fragment$BoardFragment) ||
         runtimeType != other.runtimeType) {
-      return false;
-    }
-    final l$users = users;
-    final lOther$users = other.users;
-    if (l$users != null && lOther$users != null) {
-      if (l$users.length != lOther$users.length) {
-        return false;
-      }
-      for (int i = 0; i < l$users.length; i++) {
-        final l$users$entry = l$users[i];
-        final lOther$users$entry = lOther$users[i];
-        if (l$users$entry != lOther$users$entry) {
-          return false;
-        }
-      }
-    } else if (l$users != lOther$users) {
       return false;
     }
     final l$title = title;
@@ -154,22 +113,6 @@ class Fragment$BoardFragment {
     final l$id = id;
     final lOther$id = other.id;
     if (l$id != lOther$id) {
-      return false;
-    }
-    final l$lists = lists;
-    final lOther$lists = other.lists;
-    if (l$lists != null && lOther$lists != null) {
-      if (l$lists.length != lOther$lists.length) {
-        return false;
-      }
-      for (int i = 0; i < l$lists.length; i++) {
-        final l$lists$entry = l$lists[i];
-        final lOther$lists$entry = lOther$lists[i];
-        if (l$lists$entry != lOther$lists$entry) {
-          return false;
-        }
-      }
-    } else if (l$lists != lOther$lists) {
       return false;
     }
     final l$isPublic = isPublic;
@@ -209,25 +152,15 @@ abstract class CopyWith$Fragment$BoardFragment<TRes> {
       _CopyWithStubImpl$Fragment$BoardFragment;
 
   TRes call({
-    List<Fragment$UserFragment>? users,
     String? title,
     String? createdAt,
     Fragment$UserFragment? ownerUser,
     String? id,
-    List<Fragment$ListFragment>? lists,
     bool? isPublic,
     String? color,
     String? $__typename,
   });
-  TRes users(
-      Iterable<Fragment$UserFragment>? Function(
-              Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>>?)
-          _fn);
   CopyWith$Fragment$UserFragment<TRes> get ownerUser;
-  TRes lists(
-      Iterable<Fragment$ListFragment>? Function(
-              Iterable<CopyWith$Fragment$ListFragment<Fragment$ListFragment>>?)
-          _fn);
 }
 
 class _CopyWithImpl$Fragment$BoardFragment<TRes>
@@ -244,20 +177,15 @@ class _CopyWithImpl$Fragment$BoardFragment<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? users = _undefined,
     Object? title = _undefined,
     Object? createdAt = _undefined,
     Object? ownerUser = _undefined,
     Object? id = _undefined,
-    Object? lists = _undefined,
     Object? isPublic = _undefined,
     Object? color = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Fragment$BoardFragment(
-        users: users == _undefined
-            ? _instance.users
-            : (users as List<Fragment$UserFragment>?),
         title: title == _undefined ? _instance.title : (title as String?),
         createdAt: createdAt == _undefined || createdAt == null
             ? _instance.createdAt
@@ -266,9 +194,6 @@ class _CopyWithImpl$Fragment$BoardFragment<TRes>
             ? _instance.ownerUser
             : (ownerUser as Fragment$UserFragment),
         id: id == _undefined || id == null ? _instance.id : (id as String),
-        lists: lists == _undefined
-            ? _instance.lists
-            : (lists as List<Fragment$ListFragment>?),
         isPublic: isPublic == _undefined || isPublic == null
             ? _instance.isPublic
             : (isPublic as bool),
@@ -278,33 +203,11 @@ class _CopyWithImpl$Fragment$BoardFragment<TRes>
             : ($__typename as String),
       ));
 
-  TRes users(
-          Iterable<Fragment$UserFragment>? Function(
-                  Iterable<
-                      CopyWith$Fragment$UserFragment<Fragment$UserFragment>>?)
-              _fn) =>
-      call(
-          users: _fn(_instance.users?.map((e) => CopyWith$Fragment$UserFragment(
-                e,
-                (i) => i,
-              )))?.toList());
-
   CopyWith$Fragment$UserFragment<TRes> get ownerUser {
     final local$ownerUser = _instance.ownerUser;
     return CopyWith$Fragment$UserFragment(
         local$ownerUser, (e) => call(ownerUser: e));
   }
-
-  TRes lists(
-          Iterable<Fragment$ListFragment>? Function(
-                  Iterable<
-                      CopyWith$Fragment$ListFragment<Fragment$ListFragment>>?)
-              _fn) =>
-      call(
-          lists: _fn(_instance.lists?.map((e) => CopyWith$Fragment$ListFragment(
-                e,
-                (i) => i,
-              )))?.toList());
 }
 
 class _CopyWithStubImpl$Fragment$BoardFragment<TRes>
@@ -314,24 +217,18 @@ class _CopyWithStubImpl$Fragment$BoardFragment<TRes>
   TRes _res;
 
   call({
-    List<Fragment$UserFragment>? users,
     String? title,
     String? createdAt,
     Fragment$UserFragment? ownerUser,
     String? id,
-    List<Fragment$ListFragment>? lists,
     bool? isPublic,
     String? color,
     String? $__typename,
   }) =>
       _res;
 
-  users(_fn) => _res;
-
   CopyWith$Fragment$UserFragment<TRes> get ownerUser =>
       CopyWith$Fragment$UserFragment.stub(_res);
-
-  lists(_fn) => _res;
 }
 
 const fragmentDefinitionBoardFragment = FragmentDefinitionNode(
@@ -343,25 +240,6 @@ const fragmentDefinitionBoardFragment = FragmentDefinitionNode(
   )),
   directives: [],
   selectionSet: SelectionSetNode(selections: [
-    FieldNode(
-      name: NameNode(value: 'users'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: SelectionSetNode(selections: [
-        FragmentSpreadNode(
-          name: NameNode(value: 'UserFragment'),
-          directives: [],
-        ),
-        FieldNode(
-          name: NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
     FieldNode(
       name: NameNode(value: 'title'),
       alias: null,
@@ -403,25 +281,6 @@ const fragmentDefinitionBoardFragment = FragmentDefinitionNode(
       selectionSet: null,
     ),
     FieldNode(
-      name: NameNode(value: 'lists'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: SelectionSetNode(selections: [
-        FragmentSpreadNode(
-          name: NameNode(value: 'ListFragment'),
-          directives: [],
-        ),
-        FieldNode(
-          name: NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    FieldNode(
       name: NameNode(value: 'isPublic'),
       alias: null,
       arguments: [],
@@ -447,7 +306,6 @@ const fragmentDefinitionBoardFragment = FragmentDefinitionNode(
 const documentNodeFragmentBoardFragment = DocumentNode(definitions: [
   fragmentDefinitionBoardFragment,
   fragmentDefinitionUserFragment,
-  fragmentDefinitionListFragment,
 ]);
 
 extension ClientExtension$Fragment$BoardFragment on graphql.GraphQLClient {

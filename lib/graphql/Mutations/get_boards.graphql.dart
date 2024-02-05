@@ -1,5 +1,4 @@
 import '../Fragment/board_fragment.graphql.dart';
-import '../Fragment/list_fragment.graphql.dart';
 import '../Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
@@ -203,7 +202,6 @@ const documentNodeMutationgetBoards = DocumentNode(definitions: [
   ),
   fragmentDefinitionBoardFragment,
   fragmentDefinitionUserFragment,
-  fragmentDefinitionListFragment,
 ]);
 Mutation$getBoards _parserFn$Mutation$getBoards(Map<String, dynamic> data) =>
     Mutation$getBoards.fromJson(data);

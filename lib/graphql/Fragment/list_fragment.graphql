@@ -1,24 +1,11 @@
 fragment ListFragment on List{
-    createdAt
-    board {
-        createdAt
-        color
-        id
-        isPublic
-        ownerUser {
-            ...UserFragment
-        }
-        title
-        users {
-            ...UserFragment
-        }
+    id
+    cards {
+        ...CardFragment
     }
+    label
+    createdAt
     createdBy {
-        createdAt
-        uid
-        avatar
-        email
-        updatedAt
-        fullName
+        ...UserFragment
     }
 }

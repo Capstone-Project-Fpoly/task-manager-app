@@ -123,10 +123,10 @@ class RouteScreen {
   }
 
   static PageRoute dragAndDropRoute(RouteSettings settings) {
-    final id = settings.arguments as String;
+    final idBoard = settings.arguments as String;
     BlocProvider.dragAndDrop = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-      (ref) => DragAndDropBloc(ref, id: id),
+      (ref) => DragAndDropBloc(ref, idBoard: idBoard),
     );
     return MaterialPageRoute(
       settings: settings,

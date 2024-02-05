@@ -1,25 +1,22 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 
 class DragAndDropBloc extends BlocBase {
   final Ref ref;
-  final String? id;
+  final String? idBoard;
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
   final isAddListSubject = BehaviorSubject<bool>.seeded(false);
   final isAddCardSubject = BehaviorSubject<bool>.seeded(false);
   final listInnerSubject = BehaviorSubject<List<InnerList>>.seeded([]);
-  final listControllerSubject =
-      BehaviorSubject<TextEditingController>.seeded(TextEditingController());
-  final cardControllerSubject =
-      BehaviorSubject<TextEditingController>.seeded(TextEditingController());
+  final listController = TextEditingController();
+  final cardController = TextEditingController();
 
   void init() {
     listInnerSubject.value.addAll(
@@ -46,8 +43,8 @@ class DragAndDropBloc extends BlocBase {
     isAddListSubject.close();
     isAddCardSubject.close();
     listInnerSubject.close();
-    listControllerSubject.close();
-    cardControllerSubject.close();
+    listController.dispose();
+    cardController.dispose();
   }
 
   void onBackToBoardScreen() {
@@ -63,23 +60,21 @@ class DragAndDropBloc extends BlocBase {
   }
 
   void add() {
-    if (listControllerSubject.value.text == '' &&
-        cardControllerSubject.value.text == '') return;
-    if (isAddListSubject.value) {
-      listInnerSubject.value
-          .add(InnerList(name: listControllerSubject.value.text, task: []));
-      isAddListSubject.value = false;
-      listControllerSubject.value.clear();
-    } else if (isAddCardSubject.value) {
-      for (var i = 0; i < listInnerSubject.value.length; i++) {
-        if (listInnerSubject.value[i].isAddCard == true) {
-          listInnerSubject.value[i].task.add(cardControllerSubject.value.text);
-          listInnerSubject.value[i].isAddCard = false;
-        }
+    if (listController.text == '' && cardController.text == '') return;
+    if (!isAddListSubject.value) return;
+    listInnerSubject.value.add(InnerList(name: listController.text, task: []));
+    isAddListSubject.value = false;
+    listController.clear();
+
+    if (!isAddCardSubject.value) return;
+    for (var i = 0; i < listInnerSubject.value.length; i++) {
+      if (listInnerSubject.value[i].isAddCard == true) {
+        listInnerSubject.value[i].task.add(cardController.text);
+        listInnerSubject.value[i].isAddCard = false;
       }
-      isAddCardSubject.value = false;
-      cardControllerSubject.value.clear();
     }
+    isAddCardSubject.value = false;
+    cardController.clear();
   }
 
   void checkAddCard(InnerList innerList) {
@@ -92,7 +87,7 @@ class DragAndDropBloc extends BlocBase {
     }
   }
 
-  onItemReorder(
+  void onItemReorder(
     int oldItemIndex,
     int oldListIndex,
     int newItemIndex,
@@ -103,13 +98,14 @@ class DragAndDropBloc extends BlocBase {
     listInnerSubject.value[newListIndex].task.insert(newItemIndex, movedItem);
   }
 
-  onListReorder(int oldListIndex, int newListIndex) {
+  void onListReorder(int oldListIndex, int newListIndex) {
     final movedList = listInnerSubject.value.removeAt(oldListIndex);
     listInnerSubject.value.insert(newListIndex, movedList);
   }
 
   late final appBloc = ref.read(BlocProvider.app);
-  DragAndDropBloc(this.ref, {this.id}) {
+
+  DragAndDropBloc(this.ref, {this.idBoard}) {
     init();
   }
 }
@@ -119,6 +115,7 @@ class InnerList {
   final String name;
   List<String> task;
   bool isAddCard;
+
   InnerList({
     this.id,
     required this.name,
