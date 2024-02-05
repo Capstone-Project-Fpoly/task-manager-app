@@ -130,7 +130,7 @@ class RouteScreen {
     );
     return MaterialPageRoute(
       settings: settings,
-      builder: (_) => DragDropScreen(),
+      builder: (_) => const DragDropScreen(),
     );
   }
 

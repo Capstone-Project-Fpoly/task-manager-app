@@ -1,9 +1,9 @@
-import '../../schema.graphql.dart';
-import 'check_list_fragment.graphql.dart';
-import 'comment_fragment.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
+import 'package:task_manager/graphql/Fragment/check_list_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/comment_fragment.graphql.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
-import 'user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 
 class Fragment$CardFragment {
   Fragment$CardFragment({
@@ -40,7 +40,7 @@ class Fragment$CardFragment {
       description: (l$description as String?),
       users: (l$users as List<dynamic>?)
           ?.map((e) =>
-              Fragment$UserFragment.fromJson((e as Map<String, dynamic>)))
+              Fragment$UserFragment.fromJson((e as Map<String, dynamic>)),)
           .toList(),
       endDate: (l$endDate as String?),
       startedDate: (l$startedDate as String),
@@ -49,11 +49,11 @@ class Fragment$CardFragment {
           : fromJson$Enum$Reminder((l$reminder as String)),
       comments: (l$comments as List<dynamic>?)
           ?.map((e) =>
-              Fragment$CommentFragment.fromJson((e as Map<String, dynamic>)))
+              Fragment$CommentFragment.fromJson((e as Map<String, dynamic>)),)
           .toList(),
       checkLists: (l$checkLists as List<dynamic>?)
           ?.map((e) =>
-              Fragment$CheckListFragment.fromJson((e as Map<String, dynamic>)))
+              Fragment$CheckListFragment.fromJson((e as Map<String, dynamic>)),)
           .toList(),
       createdAt: (l$createdAt as String),
       createdBy:
@@ -87,33 +87,33 @@ class Fragment$CardFragment {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$id = id;
-    _resultData['id'] = l$id;
+    resultData['id'] = l$id;
     final l$title = title;
-    _resultData['title'] = l$title;
+    resultData['title'] = l$title;
     final l$description = description;
-    _resultData['description'] = l$description;
+    resultData['description'] = l$description;
     final l$users = users;
-    _resultData['users'] = l$users?.map((e) => e.toJson()).toList();
+    resultData['users'] = l$users?.map((e) => e.toJson()).toList();
     final l$endDate = endDate;
-    _resultData['endDate'] = l$endDate;
+    resultData['endDate'] = l$endDate;
     final l$startedDate = startedDate;
-    _resultData['startedDate'] = l$startedDate;
+    resultData['startedDate'] = l$startedDate;
     final l$reminder = reminder;
-    _resultData['reminder'] =
+    resultData['reminder'] =
         l$reminder == null ? null : toJson$Enum$Reminder(l$reminder);
     final l$comments = comments;
-    _resultData['comments'] = l$comments?.map((e) => e.toJson()).toList();
+    resultData['comments'] = l$comments?.map((e) => e.toJson()).toList();
     final l$checkLists = checkLists;
-    _resultData['checkLists'] = l$checkLists?.map((e) => e.toJson()).toList();
+    resultData['checkLists'] = l$checkLists?.map((e) => e.toJson()).toList();
     final l$createdAt = createdAt;
-    _resultData['createdAt'] = l$createdAt;
+    resultData['createdAt'] = l$createdAt;
     final l$createdBy = createdBy;
-    _resultData['createdBy'] = l$createdBy.toJson();
+    resultData['createdBy'] = l$createdBy.toJson();
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -151,7 +151,7 @@ class Fragment$CardFragment {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Fragment$CardFragment) || runtimeType != other.runtimeType) {
+    if (other is! Fragment$CardFragment || runtimeType != other.runtimeType) {
       return false;
     }
     final l$id = id;
@@ -284,19 +284,19 @@ abstract class CopyWith$Fragment$CardFragment<TRes> {
   });
   TRes users(
       Iterable<Fragment$UserFragment>? Function(
-              Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>>?)
-          _fn);
+              Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>>?,)
+          fn,);
   TRes comments(
       Iterable<Fragment$CommentFragment>? Function(
               Iterable<
-                  CopyWith$Fragment$CommentFragment<Fragment$CommentFragment>>?)
-          _fn);
+                  CopyWith$Fragment$CommentFragment<Fragment$CommentFragment>>?,)
+          fn,);
   TRes checkLists(
       Iterable<Fragment$CheckListFragment>? Function(
               Iterable<
                   CopyWith$Fragment$CheckListFragment<
-                      Fragment$CheckListFragment>>?)
-          _fn);
+                      Fragment$CheckListFragment>>?,)
+          fn,);
   CopyWith$Fragment$UserFragment<TRes> get createdBy;
 }
 
@@ -313,6 +313,7 @@ class _CopyWithImpl$Fragment$CardFragment<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? id = _undefined,
     Object? title = _undefined,
@@ -359,49 +360,53 @@ class _CopyWithImpl$Fragment$CardFragment<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 
+  @override
   TRes users(
           Iterable<Fragment$UserFragment>? Function(
                   Iterable<
-                      CopyWith$Fragment$UserFragment<Fragment$UserFragment>>?)
-              _fn) =>
+                      CopyWith$Fragment$UserFragment<Fragment$UserFragment>>?,)
+              fn,) =>
       call(
-          users: _fn(_instance.users?.map((e) => CopyWith$Fragment$UserFragment(
+          users: fn(_instance.users?.map((e) => CopyWith$Fragment$UserFragment(
                 e,
                 (i) => i,
-              )))?.toList());
+              ),),)?.toList(),);
 
+  @override
   TRes comments(
           Iterable<Fragment$CommentFragment>? Function(
                   Iterable<
                       CopyWith$Fragment$CommentFragment<
-                          Fragment$CommentFragment>>?)
-              _fn) =>
+                          Fragment$CommentFragment>>?,)
+              fn,) =>
       call(
-          comments: _fn(
+          comments: fn(
               _instance.comments?.map((e) => CopyWith$Fragment$CommentFragment(
                     e,
                     (i) => i,
-                  )))?.toList());
+                  ),),)?.toList(),);
 
+  @override
   TRes checkLists(
           Iterable<Fragment$CheckListFragment>? Function(
                   Iterable<
                       CopyWith$Fragment$CheckListFragment<
-                          Fragment$CheckListFragment>>?)
-              _fn) =>
+                          Fragment$CheckListFragment>>?,)
+              fn,) =>
       call(
-          checkLists: _fn(_instance.checkLists
+          checkLists: fn(_instance.checkLists
               ?.map((e) => CopyWith$Fragment$CheckListFragment(
                     e,
                     (i) => i,
-                  )))?.toList());
+                  ),),)?.toList(),);
 
+  @override
   CopyWith$Fragment$UserFragment<TRes> get createdBy {
     final local$createdBy = _instance.createdBy;
     return CopyWith$Fragment$UserFragment(
-        local$createdBy, (e) => call(createdBy: e));
+        local$createdBy, (e) => call(createdBy: e),);
   }
 }
 
@@ -409,8 +414,9 @@ class _CopyWithStubImpl$Fragment$CardFragment<TRes>
     implements CopyWith$Fragment$CardFragment<TRes> {
   _CopyWithStubImpl$Fragment$CardFragment(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? id,
     String? title,
@@ -427,12 +433,16 @@ class _CopyWithStubImpl$Fragment$CardFragment<TRes>
   }) =>
       _res;
 
-  users(_fn) => _res;
+  @override
+  users(fn) => _res;
 
-  comments(_fn) => _res;
+  @override
+  comments(fn) => _res;
 
-  checkLists(_fn) => _res;
+  @override
+  checkLists(fn) => _res;
 
+  @override
   CopyWith$Fragment$UserFragment<TRes> get createdBy =>
       CopyWith$Fragment$UserFragment.stub(_res);
 }
@@ -443,7 +453,7 @@ const fragmentDefinitionCardFragment = FragmentDefinitionNode(
       on: NamedTypeNode(
     name: NameNode(value: 'Card'),
     isNonNull: false,
-  )),
+  ),),
   directives: [],
   selectionSet: SelectionSetNode(selections: [
     FieldNode(
@@ -484,7 +494,7 @@ const fragmentDefinitionCardFragment = FragmentDefinitionNode(
           directives: [],
           selectionSet: null,
         ),
-      ]),
+      ],),
     ),
     FieldNode(
       name: NameNode(value: 'endDate'),
@@ -524,7 +534,7 @@ const fragmentDefinitionCardFragment = FragmentDefinitionNode(
           directives: [],
           selectionSet: null,
         ),
-      ]),
+      ],),
     ),
     FieldNode(
       name: NameNode(value: 'checkLists'),
@@ -543,7 +553,7 @@ const fragmentDefinitionCardFragment = FragmentDefinitionNode(
           directives: [],
           selectionSet: null,
         ),
-      ]),
+      ],),
     ),
     FieldNode(
       name: NameNode(value: 'createdAt'),
@@ -569,7 +579,7 @@ const fragmentDefinitionCardFragment = FragmentDefinitionNode(
           directives: [],
           selectionSet: null,
         ),
-      ]),
+      ],),
     ),
     FieldNode(
       name: NameNode(value: '__typename'),
@@ -578,14 +588,14 @@ const fragmentDefinitionCardFragment = FragmentDefinitionNode(
       directives: [],
       selectionSet: null,
     ),
-  ]),
+  ],),
 );
 const documentNodeFragmentCardFragment = DocumentNode(definitions: [
   fragmentDefinitionCardFragment,
   fragmentDefinitionUserFragment,
   fragmentDefinitionCommentFragment,
   fragmentDefinitionCheckListFragment,
-]);
+],);
 
 extension ClientExtension$Fragment$CardFragment on graphql.GraphQLClient {
   void writeFragment$CardFragment({
@@ -593,7 +603,7 @@ extension ClientExtension$Fragment$CardFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool broadcast = true,
   }) =>
-      this.writeFragment(
+      writeFragment(
         graphql.FragmentRequest(
           idFields: idFields,
           fragment: const graphql.Fragment(
@@ -608,7 +618,7 @@ extension ClientExtension$Fragment$CardFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool optimistic = true,
   }) {
-    final result = this.readFragment(
+    final result = readFragment(
       graphql.FragmentRequest(
         idFields: idFields,
         fragment: const graphql.Fragment(

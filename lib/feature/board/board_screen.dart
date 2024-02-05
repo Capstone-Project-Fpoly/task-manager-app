@@ -37,8 +37,11 @@ class BoardScreen extends ConsumerWidget {
       ),
       drawer: const AppDrawer(),
       body: ObsBuilder(
-        streams: [bloc.listBoardSubject],
+        streams: [bloc.listBoardSubject, bloc.isLoadingSubject],
         builder: (context) {
+          if (bloc.isLoadingSubject.value) {
+            return const Center(child: CircularProgressIndicator());
+          }
           final boards = bloc.listBoardSubject.value;
           return bloc.listBoardSubject.value.isEmpty
               ? SizedBox(
@@ -89,7 +92,7 @@ class BoardScreen extends ConsumerWidget {
                             final board = boards[index];
                             return InkWell(
                               onTap: () => bloc.onTapToDragAndDrop(
-                                board?.id ?? '',
+                                board: board,
                               ),
                               child: Container(
                                 padding: EdgeInsetsConstants.vertical10 +
