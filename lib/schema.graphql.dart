@@ -105,14 +105,12 @@ class _CopyWithImpl$Input$InputEmail<TRes>
     Object? email = _undefined,
     Object? passWord = _undefined,
   }) =>
-      _then(
-        Input$InputEmail._({
-          ..._instance._$data,
-          if (email != _undefined && email != null) 'email': (email as String),
-          if (passWord != _undefined && passWord != null)
-            'passWord': (passWord as String),
-        }),
-      );
+      _then(Input$InputEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (passWord != _undefined && passWord != null)
+          'passWord': (passWord as String),
+      }),);
 }
 
 class _CopyWithStubImpl$Input$InputEmail<TRes>
@@ -236,15 +234,13 @@ class _CopyWithImpl$Input$InputLogin<TRes>
     Object? deviceId = _undefined,
     Object? idToken = _undefined,
   }) =>
-      _then(
-        Input$InputLogin._({
-          ..._instance._$data,
-          if (deviceId != _undefined && deviceId != null)
-            'deviceId': (deviceId as String),
-          if (idToken != _undefined && idToken != null)
-            'idToken': (idToken as String),
-        }),
-      );
+      _then(Input$InputLogin._({
+        ..._instance._$data,
+        if (deviceId != _undefined && deviceId != null)
+          'deviceId': (deviceId as String),
+        if (idToken != _undefined && idToken != null)
+          'idToken': (idToken as String),
+      }),);
 }
 
 class _CopyWithStubImpl$Input$InputLogin<TRes>
@@ -308,7 +304,8 @@ class Input$InputVerifyEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputVerifyEmail || runtimeType != other.runtimeType) {
+    if (other is! Input$InputVerifyEmail ||
+        runtimeType != other.runtimeType) {
       return false;
     }
     final l$email = email;
@@ -368,13 +365,11 @@ class _CopyWithImpl$Input$InputVerifyEmail<TRes>
     Object? email = _undefined,
     Object? otp = _undefined,
   }) =>
-      _then(
-        Input$InputVerifyEmail._({
-          ..._instance._$data,
-          if (email != _undefined && email != null) 'email': (email as String),
-          if (otp != _undefined && otp != null) 'otp': (otp as String),
-        }),
-      );
+      _then(Input$InputVerifyEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (otp != _undefined && otp != null) 'otp': (otp as String),
+      }),);
 }
 
 class _CopyWithStubImpl$Input$InputVerifyEmail<TRes>
@@ -451,6 +446,42 @@ Enum$Reminder fromJson$Enum$Reminder(String value) {
       return Enum$Reminder.TwoHoursBefore;
     default:
       return Enum$Reminder.$unknown;
+  }
+}
+
+enum Enum$TopicNotification { Board, Card, CheckList, Comment, $List, $unknown }
+
+String toJson$Enum$TopicNotification(Enum$TopicNotification e) {
+  switch (e) {
+    case Enum$TopicNotification.Board:
+      return r'Board';
+    case Enum$TopicNotification.Card:
+      return r'Card';
+    case Enum$TopicNotification.CheckList:
+      return r'CheckList';
+    case Enum$TopicNotification.Comment:
+      return r'Comment';
+    case Enum$TopicNotification.$List:
+      return r'List';
+    case Enum$TopicNotification.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$TopicNotification fromJson$Enum$TopicNotification(String value) {
+  switch (value) {
+    case r'Board':
+      return Enum$TopicNotification.Board;
+    case r'Card':
+      return Enum$TopicNotification.Card;
+    case r'CheckList':
+      return Enum$TopicNotification.CheckList;
+    case r'Comment':
+      return Enum$TopicNotification.Comment;
+    case r'List':
+      return Enum$TopicNotification.$List;
+    default:
+      return Enum$TopicNotification.$unknown;
   }
 }
 

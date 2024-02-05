@@ -1,0 +1,5 @@
+fragment CheckListFragment on CheckList{
+    id
+    content
+    isChecked
+}

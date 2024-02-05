@@ -1,0 +1,5 @@
+mutation CreateBoard($title: String!, $color: String, $isPublic: Boolean!) {
+  createBoard(title: $title, color: $color, isPublic: $isPublic) {
+    ...BoardFragment
+  }
+}

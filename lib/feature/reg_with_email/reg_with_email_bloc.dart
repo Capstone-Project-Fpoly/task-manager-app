@@ -183,7 +183,6 @@ class RegEmailBloc extends BlocBase {
       toastService.showText(message: 'Đăng ký không thành công');
       return;
     }
-    ;
     if (result.parsedData == null) return;
     routerService.pop();
     routerService.push(RouteInput.loginOtherEmail());

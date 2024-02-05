@@ -15,6 +15,12 @@ class RoutePage {
         return RouteScreen.loginOtherEmailPageRoute(settings);
       case RouteName.regEmail:
         return RouteScreen.regEmailPageRoute(settings);
+      case RouteName.dragAndDrop:
+        return RouteScreen.dragAndDropRoute(settings);
+      case RouteName.addBoard:
+        return RouteScreen.addBoard(settings);
+      case RouteName.addCard:
+        return RouteScreen.addCard(settings);
     }
     return RouteScreen.unknownPageRoute(settings);
   }

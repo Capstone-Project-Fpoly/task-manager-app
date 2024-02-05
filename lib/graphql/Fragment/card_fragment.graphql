@@ -1,0 +1,21 @@
+fragment CardFragment on Card{
+    id
+    title
+    description
+    users{
+        ...UserFragment
+    }
+    endDate
+    startedDate
+    reminder
+    comments{
+        ...CommentFragment
+    }
+    checkLists{
+        ...CheckListFragment
+    }
+    createdAt
+    createdBy{
+        ...UserFragment
+    }
+}

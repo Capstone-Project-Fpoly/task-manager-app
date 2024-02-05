@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/shared/widgets/icons/base/svg_icon.dart';
+import 'package:task_manager/shared/widgets/icons/base/png_images.dart';
 
-class TrelloIcon extends StatelessWidget {
+class CardIcon extends StatelessWidget {
   final double? width;
   final String assetName;
   final Color? color;
 
-  const TrelloIcon({
+  const CardIcon({
     super.key,
     this.width,
-    this.assetName = 'trello',
+    this.assetName = 'card',
     this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SvgIcon(
+    return PngImages(
       assetName: assetName,
       width: width,
       color: color,

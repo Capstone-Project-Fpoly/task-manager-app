@@ -87,7 +87,8 @@ class LoginWithOtherEmailBloc extends BlocBase {
       );
       token = await userCredential.user?.getIdToken();
       deviceId = await FirebaseMessagingUtils.getDeviceToken();
-    } on FirebaseAuthException {
+    } catch (error) {
+      print(error);
       toastService.showText(message: 'Sai mật khẩu');
     }
     if (token == null) return;
