@@ -1,0 +1,3 @@
+mutation MoveCard($idBoard: String!,$input: InputMoveCard!){
+    moveCard(idBoard: $idBoard, input: $input)
+}

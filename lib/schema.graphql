@@ -49,6 +49,18 @@ input InputLogin {
   idToken: String!
 }
 
+input InputMoveCard {
+  newItemIndex: Int!
+  newListIndex: Int!
+  oldItemIndex: Int!
+  oldListIndex: Int!
+}
+
+input InputMoveList {
+  newListIndex: Int!
+  oldListIndex: Int!
+}
+
 input InputUpdateCard {
   checkLists: [CheckListInput!]
   description: String
@@ -86,6 +98,8 @@ type Mutation {
   loginByEmail(input: InputLogin!): String
   loginByGoogle(input: InputLogin!): String
   logout: Boolean
+  moveCard(idBoard: String!, input: InputMoveCard!): Boolean
+  moveList(idBoard: String!, input: InputMoveList!): Boolean
   registerByEmail(input: InputEmail!): String
   sendOTPEmail(email: String!): Boolean
   testCallSubscription: String

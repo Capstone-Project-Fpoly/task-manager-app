@@ -42,7 +42,8 @@ class AddBoardBloc extends BlocBase {
     isLoadingSubject.value = false;
     if (result.hasException) {
       toastService.showText(
-          message: result.exception?.graphqlErrors[0].message,);
+        message: result.exception?.graphqlErrors[0].message,
+      );
       routerService.pop(result: false);
       return;
     }

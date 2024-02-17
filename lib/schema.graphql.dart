@@ -387,6 +387,306 @@ class _CopyWithStubImpl$Input$InputLogin<TRes>
       _res;
 }
 
+class Input$InputMoveCard {
+  factory Input$InputMoveCard({
+    required int newItemIndex,
+    required int newListIndex,
+    required int oldItemIndex,
+    required int oldListIndex,
+  }) =>
+      Input$InputMoveCard._({
+        r'newItemIndex': newItemIndex,
+        r'newListIndex': newListIndex,
+        r'oldItemIndex': oldItemIndex,
+        r'oldListIndex': oldListIndex,
+      });
+
+  Input$InputMoveCard._(this._$data);
+
+  factory Input$InputMoveCard.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$newItemIndex = data['newItemIndex'];
+    result$data['newItemIndex'] = (l$newItemIndex as int);
+    final l$newListIndex = data['newListIndex'];
+    result$data['newListIndex'] = (l$newListIndex as int);
+    final l$oldItemIndex = data['oldItemIndex'];
+    result$data['oldItemIndex'] = (l$oldItemIndex as int);
+    final l$oldListIndex = data['oldListIndex'];
+    result$data['oldListIndex'] = (l$oldListIndex as int);
+    return Input$InputMoveCard._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  int get newItemIndex => (_$data['newItemIndex'] as int);
+
+  int get newListIndex => (_$data['newListIndex'] as int);
+
+  int get oldItemIndex => (_$data['oldItemIndex'] as int);
+
+  int get oldListIndex => (_$data['oldListIndex'] as int);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$newItemIndex = newItemIndex;
+    result$data['newItemIndex'] = l$newItemIndex;
+    final l$newListIndex = newListIndex;
+    result$data['newListIndex'] = l$newListIndex;
+    final l$oldItemIndex = oldItemIndex;
+    result$data['oldItemIndex'] = l$oldItemIndex;
+    final l$oldListIndex = oldListIndex;
+    result$data['oldListIndex'] = l$oldListIndex;
+    return result$data;
+  }
+
+  CopyWith$Input$InputMoveCard<Input$InputMoveCard> get copyWith =>
+      CopyWith$Input$InputMoveCard(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$InputMoveCard || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$newItemIndex = newItemIndex;
+    final lOther$newItemIndex = other.newItemIndex;
+    if (l$newItemIndex != lOther$newItemIndex) {
+      return false;
+    }
+    final l$newListIndex = newListIndex;
+    final lOther$newListIndex = other.newListIndex;
+    if (l$newListIndex != lOther$newListIndex) {
+      return false;
+    }
+    final l$oldItemIndex = oldItemIndex;
+    final lOther$oldItemIndex = other.oldItemIndex;
+    if (l$oldItemIndex != lOther$oldItemIndex) {
+      return false;
+    }
+    final l$oldListIndex = oldListIndex;
+    final lOther$oldListIndex = other.oldListIndex;
+    if (l$oldListIndex != lOther$oldListIndex) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$newItemIndex = newItemIndex;
+    final l$newListIndex = newListIndex;
+    final l$oldItemIndex = oldItemIndex;
+    final l$oldListIndex = oldListIndex;
+    return Object.hashAll([
+      l$newItemIndex,
+      l$newListIndex,
+      l$oldItemIndex,
+      l$oldListIndex,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$InputMoveCard<TRes> {
+  factory CopyWith$Input$InputMoveCard(
+    Input$InputMoveCard instance,
+    TRes Function(Input$InputMoveCard) then,
+  ) = _CopyWithImpl$Input$InputMoveCard;
+
+  factory CopyWith$Input$InputMoveCard.stub(TRes res) =
+      _CopyWithStubImpl$Input$InputMoveCard;
+
+  TRes call({
+    int? newItemIndex,
+    int? newListIndex,
+    int? oldItemIndex,
+    int? oldListIndex,
+  });
+}
+
+class _CopyWithImpl$Input$InputMoveCard<TRes>
+    implements CopyWith$Input$InputMoveCard<TRes> {
+  _CopyWithImpl$Input$InputMoveCard(
+    this._instance,
+    this._then,
+  );
+
+  final Input$InputMoveCard _instance;
+
+  final TRes Function(Input$InputMoveCard) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  @override
+  TRes call({
+    Object? newItemIndex = _undefined,
+    Object? newListIndex = _undefined,
+    Object? oldItemIndex = _undefined,
+    Object? oldListIndex = _undefined,
+  }) =>
+      _then(Input$InputMoveCard._({
+        ..._instance._$data,
+        if (newItemIndex != _undefined && newItemIndex != null)
+          'newItemIndex': (newItemIndex as int),
+        if (newListIndex != _undefined && newListIndex != null)
+          'newListIndex': (newListIndex as int),
+        if (oldItemIndex != _undefined && oldItemIndex != null)
+          'oldItemIndex': (oldItemIndex as int),
+        if (oldListIndex != _undefined && oldListIndex != null)
+          'oldListIndex': (oldListIndex as int),
+      }),);
+}
+
+class _CopyWithStubImpl$Input$InputMoveCard<TRes>
+    implements CopyWith$Input$InputMoveCard<TRes> {
+  _CopyWithStubImpl$Input$InputMoveCard(this._res);
+
+  final TRes _res;
+
+  @override
+  call({
+    int? newItemIndex,
+    int? newListIndex,
+    int? oldItemIndex,
+    int? oldListIndex,
+  }) =>
+      _res;
+}
+
+class Input$InputMoveList {
+  factory Input$InputMoveList({
+    required int newListIndex,
+    required int oldListIndex,
+  }) =>
+      Input$InputMoveList._({
+        r'newListIndex': newListIndex,
+        r'oldListIndex': oldListIndex,
+      });
+
+  Input$InputMoveList._(this._$data);
+
+  factory Input$InputMoveList.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$newListIndex = data['newListIndex'];
+    result$data['newListIndex'] = (l$newListIndex as int);
+    final l$oldListIndex = data['oldListIndex'];
+    result$data['oldListIndex'] = (l$oldListIndex as int);
+    return Input$InputMoveList._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  int get newListIndex => (_$data['newListIndex'] as int);
+
+  int get oldListIndex => (_$data['oldListIndex'] as int);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$newListIndex = newListIndex;
+    result$data['newListIndex'] = l$newListIndex;
+    final l$oldListIndex = oldListIndex;
+    result$data['oldListIndex'] = l$oldListIndex;
+    return result$data;
+  }
+
+  CopyWith$Input$InputMoveList<Input$InputMoveList> get copyWith =>
+      CopyWith$Input$InputMoveList(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$InputMoveList || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$newListIndex = newListIndex;
+    final lOther$newListIndex = other.newListIndex;
+    if (l$newListIndex != lOther$newListIndex) {
+      return false;
+    }
+    final l$oldListIndex = oldListIndex;
+    final lOther$oldListIndex = other.oldListIndex;
+    if (l$oldListIndex != lOther$oldListIndex) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$newListIndex = newListIndex;
+    final l$oldListIndex = oldListIndex;
+    return Object.hashAll([
+      l$newListIndex,
+      l$oldListIndex,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$InputMoveList<TRes> {
+  factory CopyWith$Input$InputMoveList(
+    Input$InputMoveList instance,
+    TRes Function(Input$InputMoveList) then,
+  ) = _CopyWithImpl$Input$InputMoveList;
+
+  factory CopyWith$Input$InputMoveList.stub(TRes res) =
+      _CopyWithStubImpl$Input$InputMoveList;
+
+  TRes call({
+    int? newListIndex,
+    int? oldListIndex,
+  });
+}
+
+class _CopyWithImpl$Input$InputMoveList<TRes>
+    implements CopyWith$Input$InputMoveList<TRes> {
+  _CopyWithImpl$Input$InputMoveList(
+    this._instance,
+    this._then,
+  );
+
+  final Input$InputMoveList _instance;
+
+  final TRes Function(Input$InputMoveList) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  @override
+  TRes call({
+    Object? newListIndex = _undefined,
+    Object? oldListIndex = _undefined,
+  }) =>
+      _then(Input$InputMoveList._({
+        ..._instance._$data,
+        if (newListIndex != _undefined && newListIndex != null)
+          'newListIndex': (newListIndex as int),
+        if (oldListIndex != _undefined && oldListIndex != null)
+          'oldListIndex': (oldListIndex as int),
+      }),);
+}
+
+class _CopyWithStubImpl$Input$InputMoveList<TRes>
+    implements CopyWith$Input$InputMoveList<TRes> {
+  _CopyWithStubImpl$Input$InputMoveList(this._res);
+
+  final TRes _res;
+
+  @override
+  call({
+    int? newListIndex,
+    int? oldListIndex,
+  }) =>
+      _res;
+}
+
 class Input$InputUpdateCard {
   factory Input$InputUpdateCard({
     List<Input$CheckListInput>? checkLists,
