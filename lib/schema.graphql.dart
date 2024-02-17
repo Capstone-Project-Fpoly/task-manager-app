@@ -1,3 +1,133 @@
+class Input$CheckListInput {
+  factory Input$CheckListInput({
+    required String content,
+    required bool isChecked,
+  }) =>
+      Input$CheckListInput._({
+        r'content': content,
+        r'isChecked': isChecked,
+      });
+
+  Input$CheckListInput._(this._$data);
+
+  factory Input$CheckListInput.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    final l$content = data['content'];
+    result$data['content'] = (l$content as String);
+    final l$isChecked = data['isChecked'];
+    result$data['isChecked'] = (l$isChecked as bool);
+    return Input$CheckListInput._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String get content => (_$data['content'] as String);
+
+  bool get isChecked => (_$data['isChecked'] as bool);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    final l$content = content;
+    result$data['content'] = l$content;
+    final l$isChecked = isChecked;
+    result$data['isChecked'] = l$isChecked;
+    return result$data;
+  }
+
+  CopyWith$Input$CheckListInput<Input$CheckListInput> get copyWith =>
+      CopyWith$Input$CheckListInput(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$CheckListInput || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$content = content;
+    final lOther$content = other.content;
+    if (l$content != lOther$content) {
+      return false;
+    }
+    final l$isChecked = isChecked;
+    final lOther$isChecked = other.isChecked;
+    if (l$isChecked != lOther$isChecked) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$content = content;
+    final l$isChecked = isChecked;
+    return Object.hashAll([
+      l$content,
+      l$isChecked,
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$CheckListInput<TRes> {
+  factory CopyWith$Input$CheckListInput(
+    Input$CheckListInput instance,
+    TRes Function(Input$CheckListInput) then,
+  ) = _CopyWithImpl$Input$CheckListInput;
+
+  factory CopyWith$Input$CheckListInput.stub(TRes res) =
+      _CopyWithStubImpl$Input$CheckListInput;
+
+  TRes call({
+    String? content,
+    bool? isChecked,
+  });
+}
+
+class _CopyWithImpl$Input$CheckListInput<TRes>
+    implements CopyWith$Input$CheckListInput<TRes> {
+  _CopyWithImpl$Input$CheckListInput(
+    this._instance,
+    this._then,
+  );
+
+  final Input$CheckListInput _instance;
+
+  final TRes Function(Input$CheckListInput) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  @override
+  TRes call({
+    Object? content = _undefined,
+    Object? isChecked = _undefined,
+  }) =>
+      _then(Input$CheckListInput._({
+        ..._instance._$data,
+        if (content != _undefined && content != null)
+          'content': (content as String),
+        if (isChecked != _undefined && isChecked != null)
+          'isChecked': (isChecked as bool),
+      }),);
+}
+
+class _CopyWithStubImpl$Input$CheckListInput<TRes>
+    implements CopyWith$Input$CheckListInput<TRes> {
+  _CopyWithStubImpl$Input$CheckListInput(this._res);
+
+  final TRes _res;
+
+  @override
+  call({
+    String? content,
+    bool? isChecked,
+  }) =>
+      _res;
+}
+
 class Input$InputEmail {
   factory Input$InputEmail({
     required String email,
@@ -257,6 +387,351 @@ class _CopyWithStubImpl$Input$InputLogin<TRes>
       _res;
 }
 
+class Input$InputUpdateCard {
+  factory Input$InputUpdateCard({
+    List<Input$CheckListInput>? checkLists,
+    String? description,
+    String? endDate,
+    required String idCard,
+    required Enum$Reminder reminder,
+    String? startedDate,
+    String? title,
+    List<String>? users,
+  }) =>
+      Input$InputUpdateCard._({
+        if (checkLists != null) r'checkLists': checkLists,
+        if (description != null) r'description': description,
+        if (endDate != null) r'endDate': endDate,
+        r'idCard': idCard,
+        r'reminder': reminder,
+        if (startedDate != null) r'startedDate': startedDate,
+        if (title != null) r'title': title,
+        if (users != null) r'users': users,
+      });
+
+  Input$InputUpdateCard._(this._$data);
+
+  factory Input$InputUpdateCard.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('checkLists')) {
+      final l$checkLists = data['checkLists'];
+      result$data['checkLists'] = (l$checkLists as List<dynamic>?)
+          ?.map(
+              (e) => Input$CheckListInput.fromJson((e as Map<String, dynamic>)),)
+          .toList();
+    }
+    if (data.containsKey('description')) {
+      final l$description = data['description'];
+      result$data['description'] = (l$description as String?);
+    }
+    if (data.containsKey('endDate')) {
+      final l$endDate = data['endDate'];
+      result$data['endDate'] = (l$endDate as String?);
+    }
+    final l$idCard = data['idCard'];
+    result$data['idCard'] = (l$idCard as String);
+    final l$reminder = data['reminder'];
+    result$data['reminder'] = fromJson$Enum$Reminder((l$reminder as String));
+    if (data.containsKey('startedDate')) {
+      final l$startedDate = data['startedDate'];
+      result$data['startedDate'] = (l$startedDate as String?);
+    }
+    if (data.containsKey('title')) {
+      final l$title = data['title'];
+      result$data['title'] = (l$title as String?);
+    }
+    if (data.containsKey('users')) {
+      final l$users = data['users'];
+      result$data['users'] =
+          (l$users as List<dynamic>?)?.map((e) => (e as String)).toList();
+    }
+    return Input$InputUpdateCard._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  List<Input$CheckListInput>? get checkLists =>
+      (_$data['checkLists'] as List<Input$CheckListInput>?);
+
+  String? get description => (_$data['description'] as String?);
+
+  String? get endDate => (_$data['endDate'] as String?);
+
+  String get idCard => (_$data['idCard'] as String);
+
+  Enum$Reminder get reminder => (_$data['reminder'] as Enum$Reminder);
+
+  String? get startedDate => (_$data['startedDate'] as String?);
+
+  String? get title => (_$data['title'] as String?);
+
+  List<String>? get users => (_$data['users'] as List<String>?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('checkLists')) {
+      final l$checkLists = checkLists;
+      result$data['checkLists'] = l$checkLists?.map((e) => e.toJson()).toList();
+    }
+    if (_$data.containsKey('description')) {
+      final l$description = description;
+      result$data['description'] = l$description;
+    }
+    if (_$data.containsKey('endDate')) {
+      final l$endDate = endDate;
+      result$data['endDate'] = l$endDate;
+    }
+    final l$idCard = idCard;
+    result$data['idCard'] = l$idCard;
+    final l$reminder = reminder;
+    result$data['reminder'] = toJson$Enum$Reminder(l$reminder);
+    if (_$data.containsKey('startedDate')) {
+      final l$startedDate = startedDate;
+      result$data['startedDate'] = l$startedDate;
+    }
+    if (_$data.containsKey('title')) {
+      final l$title = title;
+      result$data['title'] = l$title;
+    }
+    if (_$data.containsKey('users')) {
+      final l$users = users;
+      result$data['users'] = l$users?.map((e) => e).toList();
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$InputUpdateCard<Input$InputUpdateCard> get copyWith =>
+      CopyWith$Input$InputUpdateCard(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$InputUpdateCard || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$checkLists = checkLists;
+    final lOther$checkLists = other.checkLists;
+    if (_$data.containsKey('checkLists') !=
+        other._$data.containsKey('checkLists')) {
+      return false;
+    }
+    if (l$checkLists != null && lOther$checkLists != null) {
+      if (l$checkLists.length != lOther$checkLists.length) {
+        return false;
+      }
+      for (int i = 0; i < l$checkLists.length; i++) {
+        final l$checkLists$entry = l$checkLists[i];
+        final lOther$checkLists$entry = lOther$checkLists[i];
+        if (l$checkLists$entry != lOther$checkLists$entry) {
+          return false;
+        }
+      }
+    } else if (l$checkLists != lOther$checkLists) {
+      return false;
+    }
+    final l$description = description;
+    final lOther$description = other.description;
+    if (_$data.containsKey('description') !=
+        other._$data.containsKey('description')) {
+      return false;
+    }
+    if (l$description != lOther$description) {
+      return false;
+    }
+    final l$endDate = endDate;
+    final lOther$endDate = other.endDate;
+    if (_$data.containsKey('endDate') != other._$data.containsKey('endDate')) {
+      return false;
+    }
+    if (l$endDate != lOther$endDate) {
+      return false;
+    }
+    final l$idCard = idCard;
+    final lOther$idCard = other.idCard;
+    if (l$idCard != lOther$idCard) {
+      return false;
+    }
+    final l$reminder = reminder;
+    final lOther$reminder = other.reminder;
+    if (l$reminder != lOther$reminder) {
+      return false;
+    }
+    final l$startedDate = startedDate;
+    final lOther$startedDate = other.startedDate;
+    if (_$data.containsKey('startedDate') !=
+        other._$data.containsKey('startedDate')) {
+      return false;
+    }
+    if (l$startedDate != lOther$startedDate) {
+      return false;
+    }
+    final l$title = title;
+    final lOther$title = other.title;
+    if (_$data.containsKey('title') != other._$data.containsKey('title')) {
+      return false;
+    }
+    if (l$title != lOther$title) {
+      return false;
+    }
+    final l$users = users;
+    final lOther$users = other.users;
+    if (_$data.containsKey('users') != other._$data.containsKey('users')) {
+      return false;
+    }
+    if (l$users != null && lOther$users != null) {
+      if (l$users.length != lOther$users.length) {
+        return false;
+      }
+      for (int i = 0; i < l$users.length; i++) {
+        final l$users$entry = l$users[i];
+        final lOther$users$entry = lOther$users[i];
+        if (l$users$entry != lOther$users$entry) {
+          return false;
+        }
+      }
+    } else if (l$users != lOther$users) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$checkLists = checkLists;
+    final l$description = description;
+    final l$endDate = endDate;
+    final l$idCard = idCard;
+    final l$reminder = reminder;
+    final l$startedDate = startedDate;
+    final l$title = title;
+    final l$users = users;
+    return Object.hashAll([
+      _$data.containsKey('checkLists')
+          ? l$checkLists == null
+              ? null
+              : Object.hashAll(l$checkLists.map((v) => v))
+          : const {},
+      _$data.containsKey('description') ? l$description : const {},
+      _$data.containsKey('endDate') ? l$endDate : const {},
+      l$idCard,
+      l$reminder,
+      _$data.containsKey('startedDate') ? l$startedDate : const {},
+      _$data.containsKey('title') ? l$title : const {},
+      _$data.containsKey('users')
+          ? l$users == null
+              ? null
+              : Object.hashAll(l$users.map((v) => v))
+          : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$InputUpdateCard<TRes> {
+  factory CopyWith$Input$InputUpdateCard(
+    Input$InputUpdateCard instance,
+    TRes Function(Input$InputUpdateCard) then,
+  ) = _CopyWithImpl$Input$InputUpdateCard;
+
+  factory CopyWith$Input$InputUpdateCard.stub(TRes res) =
+      _CopyWithStubImpl$Input$InputUpdateCard;
+
+  TRes call({
+    List<Input$CheckListInput>? checkLists,
+    String? description,
+    String? endDate,
+    String? idCard,
+    Enum$Reminder? reminder,
+    String? startedDate,
+    String? title,
+    List<String>? users,
+  });
+  TRes checkLists(
+      Iterable<Input$CheckListInput>? Function(
+              Iterable<CopyWith$Input$CheckListInput<Input$CheckListInput>>?,)
+          fn,);
+}
+
+class _CopyWithImpl$Input$InputUpdateCard<TRes>
+    implements CopyWith$Input$InputUpdateCard<TRes> {
+  _CopyWithImpl$Input$InputUpdateCard(
+    this._instance,
+    this._then,
+  );
+
+  final Input$InputUpdateCard _instance;
+
+  final TRes Function(Input$InputUpdateCard) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  @override
+  TRes call({
+    Object? checkLists = _undefined,
+    Object? description = _undefined,
+    Object? endDate = _undefined,
+    Object? idCard = _undefined,
+    Object? reminder = _undefined,
+    Object? startedDate = _undefined,
+    Object? title = _undefined,
+    Object? users = _undefined,
+  }) =>
+      _then(Input$InputUpdateCard._({
+        ..._instance._$data,
+        if (checkLists != _undefined)
+          'checkLists': (checkLists as List<Input$CheckListInput>?),
+        if (description != _undefined) 'description': (description as String?),
+        if (endDate != _undefined) 'endDate': (endDate as String?),
+        if (idCard != _undefined && idCard != null)
+          'idCard': (idCard as String),
+        if (reminder != _undefined && reminder != null)
+          'reminder': (reminder as Enum$Reminder),
+        if (startedDate != _undefined) 'startedDate': (startedDate as String?),
+        if (title != _undefined) 'title': (title as String?),
+        if (users != _undefined) 'users': (users as List<String>?),
+      }),);
+
+  @override
+  TRes checkLists(
+          Iterable<Input$CheckListInput>? Function(
+                  Iterable<
+                      CopyWith$Input$CheckListInput<Input$CheckListInput>>?,)
+              fn,) =>
+      call(
+          checkLists: fn(
+              _instance.checkLists?.map((e) => CopyWith$Input$CheckListInput(
+                    e,
+                    (i) => i,
+                  ),),)?.toList(),);
+}
+
+class _CopyWithStubImpl$Input$InputUpdateCard<TRes>
+    implements CopyWith$Input$InputUpdateCard<TRes> {
+  _CopyWithStubImpl$Input$InputUpdateCard(this._res);
+
+  final TRes _res;
+
+  @override
+  call({
+    List<Input$CheckListInput>? checkLists,
+    String? description,
+    String? endDate,
+    String? idCard,
+    Enum$Reminder? reminder,
+    String? startedDate,
+    String? title,
+    List<String>? users,
+  }) =>
+      _res;
+
+  @override
+  checkLists(fn) => _res;
+}
+
 class Input$InputVerifyEmail {
   factory Input$InputVerifyEmail({
     required String email,
@@ -389,13 +864,13 @@ class _CopyWithStubImpl$Input$InputVerifyEmail<TRes>
 enum Enum$Reminder {
   FifteenMinutesBefore,
   FiveMinutesBefore,
-  NoReminder,
   OnDueDate,
   OneDayBefore,
   OneHourBefore,
   TenMinutesBefore,
   TwoDaysBefore,
   TwoHoursBefore,
+  Unknown,
   $unknown
 }
 
@@ -405,8 +880,6 @@ String toJson$Enum$Reminder(Enum$Reminder e) {
       return r'FifteenMinutesBefore';
     case Enum$Reminder.FiveMinutesBefore:
       return r'FiveMinutesBefore';
-    case Enum$Reminder.NoReminder:
-      return r'NoReminder';
     case Enum$Reminder.OnDueDate:
       return r'OnDueDate';
     case Enum$Reminder.OneDayBefore:
@@ -419,6 +892,8 @@ String toJson$Enum$Reminder(Enum$Reminder e) {
       return r'TwoDaysBefore';
     case Enum$Reminder.TwoHoursBefore:
       return r'TwoHoursBefore';
+    case Enum$Reminder.Unknown:
+      return r'Unknown';
     case Enum$Reminder.$unknown:
       return r'$unknown';
   }
@@ -430,8 +905,6 @@ Enum$Reminder fromJson$Enum$Reminder(String value) {
       return Enum$Reminder.FifteenMinutesBefore;
     case r'FiveMinutesBefore':
       return Enum$Reminder.FiveMinutesBefore;
-    case r'NoReminder':
-      return Enum$Reminder.NoReminder;
     case r'OnDueDate':
       return Enum$Reminder.OnDueDate;
     case r'OneDayBefore':
@@ -444,6 +917,8 @@ Enum$Reminder fromJson$Enum$Reminder(String value) {
       return Enum$Reminder.TwoDaysBefore;
     case r'TwoHoursBefore':
       return Enum$Reminder.TwoHoursBefore;
+    case r'Unknown':
+      return Enum$Reminder.Unknown;
     default:
       return Enum$Reminder.$unknown;
   }

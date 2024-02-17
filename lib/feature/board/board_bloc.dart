@@ -5,7 +5,7 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
-import 'package:task_manager/graphql/Mutations/get_boards.graphql.dart';
+import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
 
 class BoardBloc extends BlocBase {
   final Ref ref;
@@ -46,8 +46,13 @@ class BoardBloc extends BlocBase {
     routerService.push(RouteInput.dragAndDrop(board.id));
   }
 
-  void onTapToAddBoard() {
-    routerService.push(RouteInput.addBoard());
+  Future<void> onTapToAddBoard() async {
+    try {
+      final result = await routerService.push(RouteInput.addBoard()) as bool;
+      if (result) getBoard();
+    } catch (e) {
+      return;
+    }
   }
 
   void onTapToAddCard() {

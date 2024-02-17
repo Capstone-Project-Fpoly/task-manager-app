@@ -77,12 +77,24 @@ class DragDropScreen extends ConsumerWidget {
                         onTap: () {
                           bloc.add();
                         },
-                        child: Icon(
-                          Icons.check,
-                          color: bloc.listController.text.isEmpty &&
-                                  bloc.cardController.value.text.isEmpty
-                              ? Colors.grey
-                              : Colors.white,
+                        child: ObsBuilder(
+                          streams: [bloc.isLoadingAddSubject],
+                          builder: (context) {
+                            final isLoading = bloc.isLoadingAddSubject.value;
+                            if (isLoading) {
+                              return const SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              );
+                            }
+                            return const Icon(
+                              Icons.check,
+                              color: Colors.white,
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -99,89 +111,92 @@ class DragDropScreen extends ConsumerWidget {
                 return const Center(child: CircularProgressIndicator());
               }
               final scaleFactor = bloc.isZoomSubject.value ? 0.8 : 1.0;
-              return DragAndDropLists(
-                contentsWhenEmpty: const Text(
-                  'Chưa có danh sách nào!',
-                  style: TextStyle(color: Colors.white),
-                ),
-                listTarget: InkWell(
-                  onTap: bloc.onTapAddList,
-                  child: AnimatedSwitcher(
-                    key: const ValueKey('key_animated'),
-                    duration: const Duration(milliseconds: 100),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      return ScaleTransition(scale: animation, child: child);
-                    },
-                    child: !bloc.isAddListSubject.value
-                        ? Container(
-                            // key: const ValueKey('1'),
-                            alignment: Alignment.center,
-                            width: 250,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: CupertinoColors.extraLightBackgroundGray,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Text(
-                              'Thêm danh sách',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
+              return RefreshIndicator(
+                onRefresh: () async {},
+                child: DragAndDropLists(
+                  contentsWhenEmpty: const Text(
+                    'Chưa có danh sách nào!',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  listTarget: InkWell(
+                    onTap: bloc.onTapAddList,
+                    child: AnimatedSwitcher(
+                      key: const ValueKey('key_animated'),
+                      duration: const Duration(milliseconds: 100),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return ScaleTransition(scale: animation, child: child);
+                      },
+                      child: !bloc.isAddListSubject.value
+                          ? Container(
+                              // key: const ValueKey('1'),
+                              alignment: Alignment.center,
+                              width: 300,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: CupertinoColors.extraLightBackgroundGray,
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            ),
-                          )
-                        : Container(
-                            padding: EdgeInsetsConstants.horizontal10,
-                            key: const ValueKey('2'),
-                            width: 250,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: CupertinoColors.extraLightBackgroundGray,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: TextFormField(
-                              autofocus: true,
-                              style: const TextStyle(color: Colors.black),
-                              controller: bloc.listController,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Tên danh sách',
-                                hintStyle: TextStyle(
-                                  color: Colors.black.withOpacity(0.4),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
+                              child: const Text(
+                                'Thêm danh sách',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              padding: EdgeInsetsConstants.horizontal10,
+                              key: const ValueKey('2'),
+                              width: 300,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: CupertinoColors.extraLightBackgroundGray,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: TextFormField(
+                                autofocus: true,
+                                style: const TextStyle(color: Colors.black),
+                                controller: bloc.listController,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Tên danh sách',
+                                  hintStyle: TextStyle(
+                                    color: Colors.black.withOpacity(0.4),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                  ),
-                ),
-                children: List.generate(
-                  bloc.listFragmentsSubject.value.length,
-                  (index) {
-                    return _buildList(index, bloc, width, height, context);
-                  },
-                ),
-                onItemReorder: bloc.onItemReorder,
-                onListReorder: bloc.onListReorder,
-                axis: Axis.horizontal,
-                listWidth: 250,
-                listDraggingWidth: 200,
-                listDecoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: const BorderRadius.all(Radius.circular(7.0)),
-                  boxShadow: const <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.black45,
-                      spreadRadius: 1.0,
-                      blurRadius: 1.0,
-                      offset: Offset(2, 3),
                     ),
-                  ],
+                  ),
+                  children: List.generate(
+                    bloc.listFragmentsSubject.value.length,
+                    (index) {
+                      return _buildList(index, bloc, width, height, context);
+                    },
+                  ),
+                  onItemReorder: bloc.onItemReorder,
+                  onListReorder: bloc.onListReorder,
+                  axis: Axis.horizontal,
+                  listWidth: 300,
+                  listDraggingWidth: 200,
+                  listDecoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                    boxShadow: const <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.black45,
+                        spreadRadius: 1.0,
+                        blurRadius: 1.0,
+                        offset: Offset(2, 3),
+                      ),
+                    ],
+                  ),
+                  listPadding: EdgeInsetsConstants.all10,
+                  lastListTargetSize: 400,
                 ),
-                listPadding: EdgeInsetsConstants.all10,
-                lastListTargetSize: 400,
               );
             },
           ),
@@ -340,7 +355,10 @@ class DragDropScreen extends ConsumerWidget {
   }
 
   DragAndDropItem _buildItem(
-      Fragment$CardFragment? item, double width, double height,) {
+    Fragment$CardFragment? item,
+    double width,
+    double height,
+  ) {
     return DragAndDropItem(
       child: Card(
         elevation: 0,

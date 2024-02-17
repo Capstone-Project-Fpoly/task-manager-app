@@ -1,0 +1,5 @@
+mutation CreateList($idBoard: String!,$label: String!){
+    createList(idBoard: $idBoard,label: $label){
+        ...ListFragment
+    }
+}

@@ -12,8 +12,8 @@ class Fragment$CardFragment {
     this.description,
     this.users,
     this.endDate,
-    required this.startedDate,
-    this.reminder,
+    this.startedDate,
+    required this.reminder,
     this.comments,
     this.checkLists,
     required this.createdAt,
@@ -43,10 +43,8 @@ class Fragment$CardFragment {
               Fragment$UserFragment.fromJson((e as Map<String, dynamic>)),)
           .toList(),
       endDate: (l$endDate as String?),
-      startedDate: (l$startedDate as String),
-      reminder: l$reminder == null
-          ? null
-          : fromJson$Enum$Reminder((l$reminder as String)),
+      startedDate: (l$startedDate as String?),
+      reminder: fromJson$Enum$Reminder((l$reminder as String)),
       comments: (l$comments as List<dynamic>?)
           ?.map((e) =>
               Fragment$CommentFragment.fromJson((e as Map<String, dynamic>)),)
@@ -72,9 +70,9 @@ class Fragment$CardFragment {
 
   final String? endDate;
 
-  final String startedDate;
+  final String? startedDate;
 
-  final Enum$Reminder? reminder;
+  final Enum$Reminder reminder;
 
   final List<Fragment$CommentFragment>? comments;
 
@@ -101,8 +99,7 @@ class Fragment$CardFragment {
     final l$startedDate = startedDate;
     resultData['startedDate'] = l$startedDate;
     final l$reminder = reminder;
-    resultData['reminder'] =
-        l$reminder == null ? null : toJson$Enum$Reminder(l$reminder);
+    resultData['reminder'] = toJson$Enum$Reminder(l$reminder);
     final l$comments = comments;
     resultData['comments'] = l$comments?.map((e) => e.toJson()).toList();
     final l$checkLists = checkLists;
@@ -339,12 +336,12 @@ class _CopyWithImpl$Fragment$CardFragment<TRes>
             : (users as List<Fragment$UserFragment>?),
         endDate:
             endDate == _undefined ? _instance.endDate : (endDate as String?),
-        startedDate: startedDate == _undefined || startedDate == null
+        startedDate: startedDate == _undefined
             ? _instance.startedDate
-            : (startedDate as String),
-        reminder: reminder == _undefined
+            : (startedDate as String?),
+        reminder: reminder == _undefined || reminder == null
             ? _instance.reminder
-            : (reminder as Enum$Reminder?),
+            : (reminder as Enum$Reminder),
         comments: comments == _undefined
             ? _instance.comments
             : (comments as List<Fragment$CommentFragment>?),

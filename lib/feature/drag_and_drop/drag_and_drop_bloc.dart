@@ -4,10 +4,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
-import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
+import 'package:task_manager/feature/drag_and_drop/drag_and_drop_card_extention.dart';
+import 'package:task_manager/feature/drag_and_drop/drag_and_drop_list_extention.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
-import 'package:task_manager/graphql/Mutations/get_lists.graphql.dart';
+import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 
 class DragAndDropBloc extends BlocBase {
   final Ref ref;
@@ -16,6 +16,7 @@ class DragAndDropBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
   late final boardBloc = ref.read(BlocProvider.board);
+  late final localStorage = ref.read(AppService.localStorage);
 
   final isAddListSubject = BehaviorSubject<bool>.seeded(false);
   final isAddCardSubject = BehaviorSubject<bool>.seeded(false);
@@ -23,6 +24,7 @@ class DragAndDropBloc extends BlocBase {
   final listFragmentsSubject =
       BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
+  final isLoadingAddSubject = BehaviorSubject<bool>.seeded(false);
 
   final isZoomSubject = BehaviorSubject<bool>.seeded(false);
 
@@ -45,22 +47,6 @@ class DragAndDropBloc extends BlocBase {
 
   void init() {
     fetchListFragmentByIdBoard();
-    // listFragmentsSubject.value.addAll(
-    //   [
-    //     InnerList(
-    //       id: 1,
-    //       name: 'Khoan',
-    //       task: ['test', 'test 2', 'test 3', 'test 4'],
-    //     ),
-    //     InnerList(
-    //       id: 2,
-    //       name: 'Thành Kc',
-    //       task: ['test', 'test 2', 'test 3', 'test 4'],
-    //     ),
-    //     InnerList(id: 3, name: 'Khang', task: []),
-    //     InnerList(id: 4, name: 'Lành', task: ['login']),
-    //   ],
-    // );
   }
 
   void onTapAddList() {
@@ -88,6 +74,7 @@ class DragAndDropBloc extends BlocBase {
     isLoadingSubject.close();
     indexAddCardSubject.close();
     isZoomSubject.close();
+    isLoadingAddSubject.close();
   }
 
   void onBackToBoardScreen() {
@@ -103,45 +90,39 @@ class DragAndDropBloc extends BlocBase {
   void add() {
     if (listController.text == '' && cardController.text == '') return;
     if (isAddListSubject.value) {
-      listFragmentsSubject.value.add(
-        Fragment$ListFragment(
-          id: 'id',
-          label: listController.text,
-          cards: [],
-          createdAt: '',
-          createdBy: Fragment$UserFragment(uid: 'uid'),
-        ),
-      );
-      isAddListSubject.value = false;
-      listController.clear();
+      addList();
       return;
     }
+    addCard();
+  }
 
+  Future<void> addList() async {
+    final result = await fetchCreateList(label: listController.text);
+    if (result == null) {
+      toastService.showText(message: 'Lỗi không thể tạo list');
+    }
+    listFragmentsSubject.value.add(result);
+    isAddListSubject.value = false;
+    listController.clear();
+  }
+
+  Future<void> addCard() async {
     final indexAddCard = indexAddCardSubject.value;
     if (indexAddCard == null) return;
-    listFragmentsSubject.value[indexAddCard]?.cards?.add(
-      Fragment$CardFragment(
-        id: '',
-        startedDate: '',
-        title: cardController.text,
-        createdAt: '',
-        createdBy: Fragment$UserFragment(uid: ''),
-      ),
+    final idList = listFragmentsSubject.value[indexAddCard]?.id;
+    if (idList == null) return;
+    final result = await fetchCreateCard(
+      idList: idList,
+      title: cardController.text,
     );
+    if (result == null) {
+      toastService.showText(message: 'Lỗi không thể tạo card');
+    }
+    listFragmentsSubject.value[indexAddCard]?.cards?.add(result!);
     indexAddCardSubject.value = null;
     isAddCardSubject.value = false;
     cardController.clear();
   }
-
-  // void checkAddCard(InnerList innerList) {
-  //   // isAddCardSubject.value = true;
-  //   // innerList.isAddCard = true;
-  //   // for (final e in listInnerSubject.value) {
-  //   //   if (e != innerList) {
-  //   //     e.isAddCard = false;
-  //   //   }
-  //   // }
-  // }
 
   void onItemReorder(
     int oldItemIndex,

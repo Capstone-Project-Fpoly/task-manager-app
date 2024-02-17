@@ -15,8 +15,8 @@ type Card {
   description: String
   endDate: String
   id: String!
-  reminder: Reminder
-  startedDate: String!
+  reminder: Reminder!
+  startedDate: String
   title: String
   users: [User!]
 }
@@ -24,6 +24,11 @@ type Card {
 type CheckList {
   content: String!
   id: String!
+  isChecked: Boolean!
+}
+
+input CheckListInput {
+  content: String!
   isChecked: Boolean!
 }
 
@@ -44,6 +49,17 @@ input InputLogin {
   idToken: String!
 }
 
+input InputUpdateCard {
+  checkLists: [CheckListInput!]
+  description: String
+  endDate: String
+  idCard: String!
+  reminder: Reminder!
+  startedDate: String
+  title: String
+  users: [String!]
+}
+
 input InputVerifyEmail {
   email: String!
   otp: String!
@@ -59,9 +75,12 @@ type List {
 
 type Mutation {
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
+  createCard(idList: String!, title: String!): Card
   createList(idBoard: String!, label: String!): List
+  deleteCard(idCard: String!): Boolean
   deleteList(idList: String!): Boolean
   getBoards: [Board]
+  getCard(idCard: String!): Card
   getLists(idBoard: String!): [List]
   leaveBoard(idBoard: String!): Boolean
   loginByEmail(input: InputLogin!): String
@@ -70,6 +89,7 @@ type Mutation {
   registerByEmail(input: InputEmail!): String
   sendOTPEmail(email: String!): Boolean
   testCallSubscription: String
+  updateCard(input: InputUpdateCard!): Card
   updateList(idList: String!, label: String!): List
   verifyEmail(input: InputVerifyEmail!): Boolean
 }
@@ -92,13 +112,13 @@ type Query {
 enum Reminder {
   FifteenMinutesBefore
   FiveMinutesBefore
-  NoReminder
   OnDueDate
   OneDayBefore
   OneHourBefore
   TenMinutesBefore
   TwoDaysBefore
   TwoHoursBefore
+  Unknown
 }
 
 type Subscription {
