@@ -32,7 +32,6 @@ class DragAndDropBloc extends BlocBase {
   final cardController = TextEditingController();
 
   Future<void> fetchListFragmentByIdBoard() async {
-    isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$getList(
       Options$Mutation$getList(
         variables: Variables$Mutation$getList(
@@ -40,13 +39,14 @@ class DragAndDropBloc extends BlocBase {
         ),
       ),
     );
-    isLoadingSubject.value = false;
     if (result.hasException || result.parsedData == null) return;
     listFragmentsSubject.value = result.parsedData?.getLists ?? [];
   }
 
-  void init() {
-    fetchListFragmentByIdBoard();
+  Future<void> init() async {
+    isLoadingSubject.value = true;
+    await fetchListFragmentByIdBoard();
+    isLoadingSubject.value = false;
   }
 
   void onTapAddList() {
@@ -99,7 +99,8 @@ class DragAndDropBloc extends BlocBase {
   Future<void> addList() async {
     final result = await fetchCreateList(label: listController.text);
     if (result == null) {
-      toastService.showText(message: 'Lỗi không thể tạo list');
+      toastService.showText(message: 'Lỗi không thể tạo danh sách');
+      return;
     }
     listFragmentsSubject.value.add(result);
     isAddListSubject.value = false;
@@ -117,8 +118,9 @@ class DragAndDropBloc extends BlocBase {
     );
     if (result == null) {
       toastService.showText(message: 'Lỗi không thể tạo card');
+      return;
     }
-    listFragmentsSubject.value[indexAddCard]?.cards?.add(result!);
+    listFragmentsSubject.value[indexAddCard]?.cards?.add(result);
     indexAddCardSubject.value = null;
     isAddCardSubject.value = false;
     cardController.clear();
@@ -130,6 +132,12 @@ class DragAndDropBloc extends BlocBase {
     int newItemIndex,
     int newListIndex,
   ) {
+    fetchMoveCard(
+      oldItemIndex: oldItemIndex,
+      oldListIndex: oldListIndex,
+      newItemIndex: newItemIndex,
+      newListIndex: newListIndex,
+    );
     final lisTemp = listFragmentsSubject.value;
     final movedItem = lisTemp[oldListIndex]?.cards?.removeAt(oldItemIndex);
     lisTemp[newListIndex]?.cards?.insert(newItemIndex, movedItem!);
@@ -137,6 +145,7 @@ class DragAndDropBloc extends BlocBase {
   }
 
   void onListReorder(int oldListIndex, int newListIndex) {
+    fetchMoveList(oldListIndex: oldListIndex, newListIndex: newListIndex);
     final lisTemp = listFragmentsSubject.value;
     final movedList = lisTemp.removeAt(oldListIndex);
     lisTemp.insert(newListIndex, movedList);

@@ -1,6 +1,8 @@
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/create_list.graphql.dart';
+import 'package:task_manager/graphql/Mutations/list/moveList.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
 
 extension DragAndDropListExtention on DragAndDropBloc {
   Future<Fragment$ListFragment?> fetchCreateList({
@@ -17,10 +19,32 @@ extension DragAndDropListExtention on DragAndDropBloc {
     );
     isLoadingAddSubject.value = false;
     if (result.hasException) {
-      toastService.showText(
-          message: result.exception?.graphqlErrors[0].message,);
       return null;
     }
     return result.parsedData?.createList;
+  }
+
+  Future<void> fetchMoveList({
+    required int oldListIndex,
+    required int newListIndex,
+  }) async {
+    final result = await graphqlService.client.mutate$MoveList(
+      Options$Mutation$MoveList(
+        variables: Variables$Mutation$MoveList(
+          idBoard: idBoard,
+          input: Input$InputMoveList(
+            newListIndex: newListIndex,
+            oldListIndex: oldListIndex,
+          ),
+        ),
+      ),
+    );
+    if (result.hasException || result.parsedData == null) {
+      toastService.showText(
+        message: 'Di chuyển danh sách thất bại. Hãy thử lại',
+      );
+      fetchListFragmentByIdBoard();
+      return;
+    }
   }
 }

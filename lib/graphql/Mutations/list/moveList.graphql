@@ -1,0 +1,3 @@
+mutation MoveList($idBoard: String!,$input: InputMoveList!){
+    moveList(idBoard: $idBoard, input: $input)
+}
