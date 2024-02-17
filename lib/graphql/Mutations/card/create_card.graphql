@@ -1,0 +1,6 @@
+mutation CreateCard($idList: String!,$title: String!
+){
+    createCard(idList: $idList,title: $title){
+        ...CardFragment
+    }
+}

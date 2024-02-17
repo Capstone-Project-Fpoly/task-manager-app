@@ -12,7 +12,7 @@
 - **Tổ Chức Thư Mục:** Tổ chức thư mục một cách có tổ chức và dễ đọc.
 - **Module và Components:** Tách code thành các module và components để tăng sự tái sử dụng và dễ duy trì.
 - **Tóm Lược Code:** Sử dụng comment để mô tả các đoạn mã quan trọng.
-- **Làm đẹp code:** Chạy lệnh `npm run dart:fix` và  `npm run dart:format` trước khi đẩy code lên github
+- **Làm đẹp code:** Chạy lệnh `npm run dart:format_fix` trước khi đẩy code lên github
 
 ### 3. Xử Lý Ngoại Lệ
 

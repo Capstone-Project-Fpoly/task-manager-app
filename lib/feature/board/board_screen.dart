@@ -60,7 +60,10 @@ class BoardScreen extends ConsumerWidget {
                     ],
                   ),
                 )
-              : SingleChildScrollView(
+              : RefreshIndicator(
+                  onRefresh: () async {
+                    bloc.getBoard();
+                  },
                   child: Column(
                     children: [
                       Container(
@@ -85,49 +88,52 @@ class BoardScreen extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: height - 50,
-                        child: ListView.separated(
-                          itemBuilder: (context, index) {
-                            final board = boards[index];
-                            return InkWell(
-                              onTap: () => bloc.onTapToDragAndDrop(
-                                board: board,
-                              ),
-                              child: Container(
-                                padding: EdgeInsetsConstants.vertical10 +
-                                    EdgeInsetsConstants.horizontal12,
-                                width: width,
-                                height: 60,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: 60,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        color: ColorUtils.getColorFromHex(
-                                          board?.color,
-                                        ),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      board?.title ?? '',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                      Expanded(
+                        child: SizedBox(
+                          height: height - 50,
+                          child: ListView.separated(
+                            itemBuilder: (context, index) {
+                              final board = boards[index];
+                              return InkWell(
+                                onTap: () => bloc.onTapToDragAndDrop(
+                                  board: board,
                                 ),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(),
-                          itemCount: boards.length,
+                                child: Container(
+                                  padding: EdgeInsetsConstants.vertical10 +
+                                      EdgeInsetsConstants.horizontal12,
+                                  width: width,
+                                  height: 60,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: ColorUtils.getColorFromHex(
+                                            board?.color,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        board?.title ?? '',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(),
+                            itemCount: boards.length,
+                          ),
                         ),
                       ),
                     ],

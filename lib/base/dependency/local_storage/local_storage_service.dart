@@ -12,6 +12,10 @@ class LocalStorageService {
     return box.put(key, value);
   }
 
+  dynamic get(String key) {
+    return box.get(key);
+  }
+
   String? getString(String key) {
     return box.get(key);
   }
