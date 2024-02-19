@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
@@ -28,8 +30,10 @@ class DragAndDropBloc extends BlocBase {
 
   final isZoomSubject = BehaviorSubject<bool>.seeded(false);
 
-  final listController = TextEditingController();
-  final cardController = TextEditingController();
+  final addListController = TextEditingController();
+  final addCardController = TextEditingController();
+
+  final scrollListController = ScrollController();
 
   Future<void> fetchListFragmentByIdBoard() async {
     final result = await graphqlService.client.mutate$getList(
@@ -47,17 +51,40 @@ class DragAndDropBloc extends BlocBase {
     isLoadingSubject.value = true;
     await fetchListFragmentByIdBoard();
     isLoadingSubject.value = false;
+
+    // nếu dừng scroll thì sẽ tự động cuộn đến vị trí gần nhất và căn giữa
+    // nếu là vị trí đầu hoặc cuối thì không cuộn
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Timer? timer;
+      scrollListController.position.isScrollingNotifier.addListener(() {
+        if (scrollListController.position.isScrollingNotifier.value) {
+          timer?.cancel();
+          return;
+        }
+        timer = Timer(const Duration(milliseconds: 100), () {
+          const itemWidth = 300.0;
+          final pageIndex = (scrollListController.offset / itemWidth).round();
+          if (pageIndex == 0 ||
+              pageIndex == listFragmentsSubject.value.length - 1) return;
+          scrollListController.animateTo(
+            pageIndex * itemWidth - 90,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+          );
+        });
+      });
+    });
   }
 
   void onTapAddList() {
-    listController.text = '';
+    addListController.text = '';
     isAddListSubject.value = true;
     isAddCardSubject.value = false;
     indexAddCardSubject.value = null;
   }
 
   void onTapAddCard(int index) {
-    cardController.text = '';
+    addCardController.text = '';
     indexAddCardSubject.value = index;
     isAddCardSubject.value = true;
     isAddListSubject.value = false;
@@ -69,12 +96,13 @@ class DragAndDropBloc extends BlocBase {
     isAddListSubject.close();
     isAddCardSubject.close();
     listFragmentsSubject.close();
-    listController.dispose();
-    cardController.dispose();
+    addListController.dispose();
+    addCardController.dispose();
     isLoadingSubject.close();
     indexAddCardSubject.close();
     isZoomSubject.close();
     isLoadingAddSubject.close();
+    scrollListController.dispose();
   }
 
   void onBackToBoardScreen() {
@@ -88,7 +116,7 @@ class DragAndDropBloc extends BlocBase {
   }
 
   void add() {
-    if (listController.text == '' && cardController.text == '') return;
+    if (addListController.text == '' && addCardController.text == '') return;
     if (isAddListSubject.value) {
       addList();
       return;
@@ -97,14 +125,14 @@ class DragAndDropBloc extends BlocBase {
   }
 
   Future<void> addList() async {
-    final result = await fetchCreateList(label: listController.text);
+    final result = await fetchCreateList(label: addListController.text);
     if (result == null) {
       toastService.showText(message: 'Lỗi không thể tạo danh sách');
       return;
     }
     listFragmentsSubject.value.add(result);
     isAddListSubject.value = false;
-    listController.clear();
+    addListController.clear();
   }
 
   Future<void> addCard() async {
@@ -114,7 +142,7 @@ class DragAndDropBloc extends BlocBase {
     if (idList == null) return;
     final result = await fetchCreateCard(
       idList: idList,
-      title: cardController.text,
+      title: addCardController.text,
     );
     if (result == null) {
       toastService.showText(message: 'Lỗi không thể tạo card');
@@ -123,7 +151,7 @@ class DragAndDropBloc extends BlocBase {
     listFragmentsSubject.value[indexAddCard]?.cards?.add(result);
     indexAddCardSubject.value = null;
     isAddCardSubject.value = false;
-    cardController.clear();
+    addCardController.clear();
   }
 
   void onItemReorder(
