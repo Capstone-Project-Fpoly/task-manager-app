@@ -46,5 +46,5 @@
 - Giữ thông điệp commit ngắn gọn và súc tích. Nếu bạn cần viết một thông điệp commit dài, hãy viết trong phần mô tả của yêu cầu kéo thay vì trong thông điệp commit.
 
 ## Cài Đặt Dự Án Trước Khi Chạy
-### 1. Thêm 1 file .env vào thư mục gốc của dự án và sau đó chạy lệnh `npm run build:runner`. Nếu xảy ra lỗi hãy chạy lệnh `npm run build_runner:clean` rồi chạy lại lệnh `npm run build:runner`
-### 2. Cài đặt các thư viện sử dụng lệnh `npm install`. Sau đó bạn chạy `npm run graphql:codegen`
+  1. Thêm 1 file .env vào thư mục gốc của dự án và sau đó chạy lệnh `npm run build:runner`. Nếu xảy ra lỗi hãy chạy lệnh `npm run build_runner:clean` rồi chạy lại lệnh `npm run build:runner`
+  2. Cài đặt các thư viện sử dụng lệnh `npm install`. Sau đó bạn chạy `npm run graphql:codegen`
