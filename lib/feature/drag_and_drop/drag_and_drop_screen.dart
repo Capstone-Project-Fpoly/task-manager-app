@@ -216,7 +216,7 @@ class DragDropScreen extends ConsumerWidget {
   }
 
   void showBottomSheet(BuildContext context, DragAndDropBloc bloc,
-      String nameList, String idList) {
+      String nameList, String idList,) {
     const TextStyle style = TextStyle(fontSize: 15, color: Colors.black);
     showModalBottomSheet<void>(
       shape: const RoundedRectangleBorder(
@@ -259,7 +259,7 @@ class DragDropScreen extends ConsumerWidget {
                           child: const Text(
                             'Hủy',
                             style: TextStyle(
-                                color: Colors.blueAccent, fontSize: 15),
+                                color: Colors.blueAccent, fontSize: 15,),
                             textAlign: TextAlign.center,
                           ),
                           onTap: () {
@@ -331,7 +331,7 @@ class DragDropScreen extends ConsumerWidget {
                   'lưu trữ danh sách',
                   () => dialogShow(context, nameList, 'Bạn chắc chưa', () {
                     bloc.onTapArichiveList(idList);
-                  }, bloc),
+                  }, bloc,),
                 ),
               ],
             ),
@@ -342,7 +342,7 @@ class DragDropScreen extends ConsumerWidget {
   }
 
   void dialogShow(BuildContext context, String title, String content,
-      VoidCallback onTap, DragAndDropBloc bloc) {
+      VoidCallback onTap, DragAndDropBloc bloc,) {
     showDialog(
       context: context,
       builder: (context) {
@@ -443,7 +443,7 @@ class DragDropScreen extends ConsumerWidget {
           ),
           GestureDetector(
             onTap: () => showBottomSheet(
-                context, bloc, innerList?.label ?? '', innerList!.id),
+                context, bloc, innerList?.label ?? '', innerList!.id,),
             child: const Icon(
               Icons.more_vert,
               color: Colors.black,
