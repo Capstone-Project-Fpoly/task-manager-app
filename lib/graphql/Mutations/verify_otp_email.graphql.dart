@@ -1,4 +1,4 @@
-import 'package:task_manager/schema.graphql.dart';
+import '../../schema.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -7,7 +7,7 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
 class Variables$Mutation$VerifyOTPEMail {
   factory Variables$Mutation$VerifyOTPEMail(
-          {required Input$InputVerifyEmail input,}) =>
+          {required Input$InputVerifyEmail input}) =>
       Variables$Mutation$VerifyOTPEMail._({
         r'input': input,
       });
@@ -15,7 +15,7 @@ class Variables$Mutation$VerifyOTPEMail {
   Variables$Mutation$VerifyOTPEMail._(this._$data);
 
   factory Variables$Mutation$VerifyOTPEMail.fromJson(
-      Map<String, dynamic> data,) {
+      Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
     final l$input = data['input'];
     result$data['input'] =
@@ -46,7 +46,7 @@ class Variables$Mutation$VerifyOTPEMail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Mutation$VerifyOTPEMail ||
+    if (!(other is Variables$Mutation$VerifyOTPEMail) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -90,22 +90,20 @@ class _CopyWithImpl$Variables$Mutation$VerifyOTPEMail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({Object? input = _undefined}) =>
       _then(Variables$Mutation$VerifyOTPEMail._({
         ..._instance._$data,
         if (input != _undefined && input != null)
           'input': (input as Input$InputVerifyEmail),
-      }),);
+      }));
 }
 
 class _CopyWithStubImpl$Variables$Mutation$VerifyOTPEMail<TRes>
     implements CopyWith$Variables$Mutation$VerifyOTPEMail<TRes> {
   _CopyWithStubImpl$Variables$Mutation$VerifyOTPEMail(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({Input$InputVerifyEmail? input}) => _res;
 }
 
@@ -129,12 +127,12 @@ class Mutation$VerifyOTPEMail {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$verifyEmail = verifyEmail;
-    resultData['verifyEmail'] = l$verifyEmail;
+    _resultData['verifyEmail'] = l$verifyEmail;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -152,7 +150,7 @@ class Mutation$VerifyOTPEMail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$VerifyOTPEMail ||
+    if (!(other is Mutation$VerifyOTPEMail) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -206,7 +204,6 @@ class _CopyWithImpl$Mutation$VerifyOTPEMail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? verifyEmail = _undefined,
     Object? $__typename = _undefined,
@@ -218,16 +215,15 @@ class _CopyWithImpl$Mutation$VerifyOTPEMail<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ),);
+      ));
 }
 
 class _CopyWithStubImpl$Mutation$VerifyOTPEMail<TRes>
     implements CopyWith$Mutation$VerifyOTPEMail<TRes> {
   _CopyWithStubImpl$Mutation$VerifyOTPEMail(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     bool? verifyEmail,
     String? $__typename,
@@ -248,7 +244,7 @@ const documentNodeMutationVerifyOTPEMail = DocumentNode(definitions: [
         ),
         defaultValue: DefaultValueNode(value: null),
         directives: [],
-      ),
+      )
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -259,7 +255,7 @@ const documentNodeMutationVerifyOTPEMail = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'input'),
             value: VariableNode(name: NameNode(value: 'input')),
-          ),
+          )
         ],
         directives: [],
         selectionSet: null,
@@ -271,11 +267,11 @@ const documentNodeMutationVerifyOTPEMail = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ],),
+    ]),
   ),
-],);
+]);
 Mutation$VerifyOTPEMail _parserFn$Mutation$VerifyOTPEMail(
-        Map<String, dynamic> data,) =>
+        Map<String, dynamic> data) =>
     Mutation$VerifyOTPEMail.fromJson(data);
 typedef OnMutationCompleted$Mutation$VerifyOTPEMail = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -364,11 +360,11 @@ class WatchOptions$Mutation$VerifyOTPEMail
 
 extension ClientExtension$Mutation$VerifyOTPEMail on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$VerifyOTPEMail>> mutate$VerifyOTPEMail(
-          Options$Mutation$VerifyOTPEMail options,) async =>
-      await mutate(options);
+          Options$Mutation$VerifyOTPEMail options) async =>
+      await this.mutate(options);
   graphql.ObservableQuery<Mutation$VerifyOTPEMail> watchMutation$VerifyOTPEMail(
-          WatchOptions$Mutation$VerifyOTPEMail options,) =>
-      watchMutation(options);
+          WatchOptions$Mutation$VerifyOTPEMail options) =>
+      this.watchMutation(options);
 }
 
 class Mutation$VerifyOTPEMail$HookResult {
@@ -383,7 +379,7 @@ class Mutation$VerifyOTPEMail$HookResult {
 }
 
 Mutation$VerifyOTPEMail$HookResult useMutation$VerifyOTPEMail(
-    [WidgetOptions$Mutation$VerifyOTPEMail? options,]) {
+    [WidgetOptions$Mutation$VerifyOTPEMail? options]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$VerifyOTPEMail());
   return Mutation$VerifyOTPEMail$HookResult(
@@ -398,7 +394,7 @@ Mutation$VerifyOTPEMail$HookResult useMutation$VerifyOTPEMail(
 
 graphql.ObservableQuery<Mutation$VerifyOTPEMail>
     useWatchMutation$VerifyOTPEMail(
-            WatchOptions$Mutation$VerifyOTPEMail options,) =>
+            WatchOptions$Mutation$VerifyOTPEMail options) =>
         graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$VerifyOTPEMail

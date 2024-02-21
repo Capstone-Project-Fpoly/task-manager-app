@@ -3,6 +3,8 @@ import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/feature/add_board/add_board_bloc.dart';
 import 'package:task_manager/feature/add_board/add_board_screen.dart';
+import 'package:task_manager/feature/add_board/widget/background_widget/background_board_bloc.dart';
+import 'package:task_manager/feature/add_board/widget/background_widget/background_board_widget.dart';
 import 'package:task_manager/feature/add_card/add_card_bloc.dart';
 import 'package:task_manager/feature/add_card/add_card_screen.dart';
 import 'package:task_manager/feature/board/board_bloc.dart';
@@ -155,6 +157,18 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const AddCardScreen(),
+    );
+  }
+
+  static PageRoute backgroundBoardRoute(RouteSettings settings) {
+    // final id = settings.arguments as String;
+    BlocProvider.backgroundBoardBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => BackgroundBoardBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const BackgroundBoardWidget(),
     );
   }
 }
