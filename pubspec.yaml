@@ -55,6 +55,7 @@ dependencies:
   drag_and_drop_lists: ^0.3.3
   flutter_speed_dial: ^7.0.0
   firebase_analytics: ^10.8.0
+  modal_bottom_sheet: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

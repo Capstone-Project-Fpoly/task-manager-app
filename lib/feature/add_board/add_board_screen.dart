@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
@@ -16,7 +17,11 @@ class AddBoardScreen extends ConsumerWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     return ObsBuilder(
-      streams: [bloc.isLoadingSubject],
+      streams: [
+        bloc.isLoadingSubject,
+        bloc.colorButtonSubject,
+        bloc.backgroundColorSubject,
+      ],
       builder: (context) {
         return LoadingOverlay(
           isLoading: bloc.isLoadingSubject.value,
@@ -60,6 +65,7 @@ class AddBoardScreen extends ConsumerWidget {
                             autofocus: true,
                             onChanged: (value) {
                               bloc.nameBoardSubject.value = value;
+                              bloc.onChanged();
                             },
                             style: const TextStyle(color: Colors.black),
                             decoration: const InputDecoration(
@@ -80,14 +86,28 @@ class AddBoardScreen extends ConsumerWidget {
                     'Quyền xem',
                     style: TextStyle(color: Colors.blue),
                   ),
-                  const Row(
-                    children: [
-                      Text(
-                        'Không gian làm việc',
+                  PopupMenuButton(
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        value: bloc.privateOptionSubject.value,
+                        child: Text(bloc.privateOptionSubject.value),
                       ),
-                      Spacer(),
-                      Icon(Icons.arrow_drop_down),
+                      PopupMenuItem(
+                        value: bloc.publicOptionSubject.value,
+                        child: Text(bloc.publicOptionSubject.value),
+                      ),
                     ],
+                    onSelected: (value) => bloc.chooseRight(value),
+                    constraints: BoxConstraints(
+                      minWidth: width - 50,
+                    ),
+                    child: ListTile(
+                      title: Text(bloc.titleOptionSubject.value),
+                      trailing: const SizedBox(
+                        width: 5,
+                        child: Icon(Icons.arrow_drop_down),
+                      ),
+                    ),
                   ),
                   const Divider(
                     height: 0,
@@ -101,12 +121,17 @@ class AddBoardScreen extends ConsumerWidget {
                         style: TextStyle(color: Colors.blue),
                       ),
                       const Spacer(),
-                      Container(
-                        width: 35,
-                        height: 35,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(5),
+                      InkWell(
+                        onTap: () {
+                          bloc.onNextToBackgroundBoardWidget();
+                        },
+                        child: Ink(
+                          width: 35,
+                          height: 35,
+                          decoration: BoxDecoration(
+                            color: bloc.backgroundColorSubject.value,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
                       ),
                     ],
@@ -119,9 +144,10 @@ class AddBoardScreen extends ConsumerWidget {
                     child: Container(
                       width: width,
                       height: 45,
-                      decoration: const BoxDecoration(
-                        color: ColorConstants.primary,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      decoration: BoxDecoration(
+                        color: bloc.colorButtonSubject.value,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
                       ),
                       alignment: Alignment.center,
                       child: const Text(
