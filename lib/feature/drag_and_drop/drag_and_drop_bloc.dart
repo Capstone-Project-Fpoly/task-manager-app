@@ -56,18 +56,22 @@ class DragAndDropBloc extends BlocBase {
     // nếu là vị trí đầu hoặc cuối thì không cuộn
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Timer? timer;
+      if (listFragmentsSubject.value.isEmpty) return;
       scrollListController.position.isScrollingNotifier.addListener(() {
         if (scrollListController.position.isScrollingNotifier.value) {
           timer?.cancel();
           return;
         }
         timer = Timer(const Duration(milliseconds: 100), () {
+          final screenWidth =
+              MediaQuery.of(routerService.rootContext).size.width;
           const itemWidth = 300.0;
+          final offset = screenWidth / 2 - itemWidth / 2;
           final pageIndex = (scrollListController.offset / itemWidth).round();
           if (pageIndex == 0 ||
-              pageIndex == listFragmentsSubject.value.length - 1) return;
+              pageIndex >= listFragmentsSubject.value.length - 1) return;
           scrollListController.animateTo(
-            pageIndex * itemWidth - 90,
+            pageIndex * itemWidth - offset,
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut,
           );
