@@ -9,6 +9,7 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_card_extention.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_list_extention.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
+import 'package:task_manager/graphql/Mutations/list/delete_list.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 
 class DragAndDropBloc extends BlocBase {
@@ -189,5 +190,32 @@ class DragAndDropBloc extends BlocBase {
   void onTapZoom() {
     final check = isZoomSubject.value;
     isZoomSubject.value = !check;
+  }
+
+  void popSC() {
+    routerService.pop();
+  }
+
+  void nextTapCopyList() {}
+
+  void nextTapMoveList() {}
+
+  void nextTapSortList() {}
+
+  void onTapMoverAllCard() {}
+
+  void onTapArichiveCard() {}
+
+  Future<void> onTapArichiveList(String idList) async {
+    isLoadingSubject.value = true;
+    final delete = await graphqlService.client.mutate$DeleteList(
+        Options$Mutation$DeleteList(
+            variables: Variables$Mutation$DeleteList(idList: idList),),);
+    fetchListFragmentByIdBoard();
+    isLoadingSubject.value = false;
+    if (delete.hasException) return;
+    toastService.showText(message: 'lưu trữ thành công');
+    routerService.pop(result: false);
+    routerService.pop(result: false);
   }
 }

@@ -136,18 +136,20 @@ class _CopyWithImpl$Fragment$CheckListFragment<TRes>
     Object? isChecked = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Fragment$CheckListFragment(
-        id: id == _undefined || id == null ? _instance.id : (id as String),
-        content: content == _undefined || content == null
-            ? _instance.content
-            : (content as String),
-        isChecked: isChecked == _undefined || isChecked == null
-            ? _instance.isChecked
-            : (isChecked as bool),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ),);
+      _then(
+        Fragment$CheckListFragment(
+          id: id == _undefined || id == null ? _instance.id : (id as String),
+          content: content == _undefined || content == null
+              ? _instance.content
+              : (content as String),
+          isChecked: isChecked == _undefined || isChecked == null
+              ? _instance.isChecked
+              : (isChecked as bool),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 }
 
 class _CopyWithStubImpl$Fragment$CheckListFragment<TRes>
@@ -169,45 +171,50 @@ class _CopyWithStubImpl$Fragment$CheckListFragment<TRes>
 const fragmentDefinitionCheckListFragment = FragmentDefinitionNode(
   name: NameNode(value: 'CheckListFragment'),
   typeCondition: TypeConditionNode(
-      on: NamedTypeNode(
-    name: NameNode(value: 'CheckList'),
-    isNonNull: false,
-  ),),
+    on: NamedTypeNode(
+      name: NameNode(value: 'CheckList'),
+      isNonNull: false,
+    ),
+  ),
   directives: [],
-  selectionSet: SelectionSetNode(selections: [
-    FieldNode(
-      name: NameNode(value: 'id'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'content'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'isChecked'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ],),
+  selectionSet: SelectionSetNode(
+    selections: [
+      FieldNode(
+        name: NameNode(value: 'id'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'content'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'isChecked'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const documentNodeFragmentCheckListFragment = DocumentNode(definitions: [
-  fragmentDefinitionCheckListFragment,
-],);
+const documentNodeFragmentCheckListFragment = DocumentNode(
+  definitions: [
+    fragmentDefinitionCheckListFragment,
+  ],
+);
 
 extension ClientExtension$Fragment$CheckListFragment on graphql.GraphQLClient {
   void writeFragment$CheckListFragment({

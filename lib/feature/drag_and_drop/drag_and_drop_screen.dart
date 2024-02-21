@@ -110,7 +110,7 @@ class DragDropScreen extends ConsumerWidget {
               if (bloc.isLoadingSubject.value) {
                 return const Center(child: CircularProgressIndicator());
               }
-              final scaleFactor = bloc.isZoomSubject.value ? 0.8 : 1.0;
+              // final scaleFactor = bloc.isZoomSubject.value ? 0.8 : 1.0;
               return DragAndDropLists(
                 scrollController: bloc.scrollListController,
                 contentsWhenEmpty: const Text(
@@ -215,6 +215,200 @@ class DragDropScreen extends ConsumerWidget {
     );
   }
 
+  void showBottomSheet(BuildContext context, DragAndDropBloc bloc,
+      String nameList, String idList) {
+    const TextStyle style = TextStyle(fontSize: 15, color: Colors.black);
+    showModalBottomSheet<void>(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(7),
+        ),
+      ),
+      enableDrag: true,
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (context) {
+        return SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.25),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  padding: EdgeInsetsConstants.left20,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.1,
+                        child: GestureDetector(
+                          child: const Text(
+                            'Hủy',
+                            style: TextStyle(
+                                color: Colors.blueAccent, fontSize: 15),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            bloc.popSC();
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        alignment: Alignment.center,
+                        child: Text(
+                          nameList,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.1,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBoxConstants.h20,
+                itemSelect(
+                  context,
+                  style,
+                  'Sao chép danh sách',
+                  () => bloc.nextTapCopyList(),
+                ),
+                itemSelect(
+                  context,
+                  style,
+                  'Di chuyển danh sách',
+                  () => bloc.nextTapCopyList(),
+                ),
+                itemSelect(
+                  context,
+                  style,
+                  'Sắp xếp danh sách',
+                  () => bloc.nextTapCopyList(),
+                ),
+                itemSelect(
+                  context,
+                  style,
+                  'Xem',
+                  () => bloc.nextTapCopyList(),
+                ),
+                SizedBoxConstants.h20,
+                itemSelect(
+                  context,
+                  style,
+                  'Di chuyển tất cả các thẻ trong danh sách này',
+                  () => bloc.nextTapCopyList(),
+                ),
+                itemSelect(
+                  context,
+                  style,
+                  'Lưu trữ tất cả các thẻ trong danh sách này',
+                  () => bloc.nextTapCopyList(),
+                ),
+                SizedBoxConstants.h20,
+                itemSelect(
+                  context,
+                  style,
+                  'lưu trữ danh sách',
+                  () => dialogShow(context, nameList, 'Bạn chắc chưa', () {
+                    bloc.onTapArichiveList(idList);
+                  }, bloc),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void dialogShow(BuildContext context, String title, String content,
+      VoidCallback onTap, DragAndDropBloc bloc) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () {
+                bloc.popSC();
+              },
+              child: const Text('hủy'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Xử lý khi nhấn vào nút
+                onTap();
+              },
+              child: const Text('đồng ý'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Container itemSelect(
+    BuildContext context,
+    TextStyle style,
+    String itemName,
+    VoidCallback onTap,
+  ) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(width: 1, color: Colors.grey),
+        ),
+      ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        onPressed: () => onTap(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              itemName,
+              style: style,
+            ),
+            itemName == 'Xem'
+                ? Container()
+                : Icon(
+                    Icons.navigate_next,
+                    color: Colors.black.withOpacity(0.5),
+                    size: 15,
+                  ),
+          ],
+        ),
+      ),
+    );
+  }
+
   DragAndDropList _buildList(
     int outerIndex,
     DragAndDropBloc bloc,
@@ -235,13 +429,11 @@ class DragDropScreen extends ConsumerWidget {
             child: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(7.0)),
-                color: CupertinoColors.extraLightBackgroundGray,
               ),
               padding: EdgeInsetsConstants.all10,
               child: Text(
                 innerList?.label ?? '',
                 maxLines: 1,
-                overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
@@ -249,9 +441,13 @@ class DragDropScreen extends ConsumerWidget {
               ),
             ),
           ),
-          const Icon(
-            Icons.more_vert,
-            color: Colors.black,
+          GestureDetector(
+            onTap: () => showBottomSheet(
+                context, bloc, innerList?.label ?? '', innerList!.id),
+            child: const Icon(
+              Icons.more_vert,
+              color: Colors.black,
+            ),
           ),
         ],
       ),
