@@ -213,7 +213,10 @@ class DragAndDropBloc extends BlocBase {
             variables: Variables$Mutation$DeleteList(idList: idList),),);
     fetchListFragmentByIdBoard();
     isLoadingSubject.value = false;
-    if (delete.hasException) return;
+    if (delete.hasException) {
+      toastService.showText(message: 'không thành công');
+      return;
+    };
     toastService.showText(message: 'lưu trữ thành công');
     routerService.pop(result: false);
     routerService.pop(result: false);
