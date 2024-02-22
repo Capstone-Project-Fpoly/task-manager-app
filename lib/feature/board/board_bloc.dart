@@ -67,12 +67,14 @@ class BoardBloc extends BlocBase {
   }
 
   void onTapToDragAndDrop({required Fragment$BoardFragment? board}) {
+    selectedSearchSubject.value = false;
     selectedBoardSubject.value = board;
     if (board == null) return;
     routerService.push(RouteInput.dragAndDrop(boardFragment: board));
   }
 
   Future<void> onTapToAddBoard() async {
+    selectedSearchSubject.value = false;
     try {
       final result = await routerService.push(RouteInput.addBoard()) as bool;
       if (result) getBoard();
@@ -82,6 +84,7 @@ class BoardBloc extends BlocBase {
   }
 
   void onTapToAddCard() {
+    selectedSearchSubject.value = false;
     routerService.push(RouteInput.addCard());
   }
 

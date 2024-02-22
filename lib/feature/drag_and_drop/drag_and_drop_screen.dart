@@ -20,7 +20,7 @@ class DragDropScreen extends ConsumerWidget {
     final bloc = ref.watch(BlocProvider.dragAndDrop);
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    final color = ColorUtils.getColorFromHex(board?.color);
+    final color = ColorUtils.getColorFromHex(bloc.boardFragment.color);
     final hslColor = HSLColor.fromColor(color);
 
     final darkerColor =
