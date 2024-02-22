@@ -46,22 +46,22 @@ class Fragment$UserFragment {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$uid = uid;
-    resultData['uid'] = l$uid;
+    _resultData['uid'] = l$uid;
     final l$updatedAt = updatedAt;
-    resultData['updatedAt'] = l$updatedAt;
+    _resultData['updatedAt'] = l$updatedAt;
     final l$email = email;
-    resultData['email'] = l$email;
+    _resultData['email'] = l$email;
     final l$createdAt = createdAt;
-    resultData['createdAt'] = l$createdAt;
+    _resultData['createdAt'] = l$createdAt;
     final l$avatar = avatar;
-    resultData['avatar'] = l$avatar;
+    _resultData['avatar'] = l$avatar;
     final l$fullName = fullName;
-    resultData['fullName'] = l$fullName;
+    _resultData['fullName'] = l$fullName;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -89,7 +89,7 @@ class Fragment$UserFragment {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Fragment$UserFragment || runtimeType != other.runtimeType) {
+    if (!(other is Fragment$UserFragment) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$uid = uid;
@@ -172,7 +172,6 @@ class _CopyWithImpl$Fragment$UserFragment<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? uid = _undefined,
     Object? updatedAt = _undefined,
@@ -197,16 +196,15 @@ class _CopyWithImpl$Fragment$UserFragment<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ),);
+      ));
 }
 
 class _CopyWithStubImpl$Fragment$UserFragment<TRes>
     implements CopyWith$Fragment$UserFragment<TRes> {
   _CopyWithStubImpl$Fragment$UserFragment(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? uid,
     String? updatedAt,
@@ -225,7 +223,7 @@ const fragmentDefinitionUserFragment = FragmentDefinitionNode(
       on: NamedTypeNode(
     name: NameNode(value: 'User'),
     isNonNull: false,
-  ),),
+  )),
   directives: [],
   selectionSet: SelectionSetNode(selections: [
     FieldNode(
@@ -277,11 +275,11 @@ const fragmentDefinitionUserFragment = FragmentDefinitionNode(
       directives: [],
       selectionSet: null,
     ),
-  ],),
+  ]),
 );
 const documentNodeFragmentUserFragment = DocumentNode(definitions: [
   fragmentDefinitionUserFragment,
-],);
+]);
 
 extension ClientExtension$Fragment$UserFragment on graphql.GraphQLClient {
   void writeFragment$UserFragment({
@@ -289,7 +287,7 @@ extension ClientExtension$Fragment$UserFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool broadcast = true,
   }) =>
-      writeFragment(
+      this.writeFragment(
         graphql.FragmentRequest(
           idFields: idFields,
           fragment: const graphql.Fragment(
@@ -304,7 +302,7 @@ extension ClientExtension$Fragment$UserFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool optimistic = true,
   }) {
-    final result = readFragment(
+    final result = this.readFragment(
       graphql.FragmentRequest(
         idFields: idFields,
         fragment: const graphql.Fragment(

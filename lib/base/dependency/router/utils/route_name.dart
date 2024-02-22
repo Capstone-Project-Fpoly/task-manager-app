@@ -12,5 +12,6 @@ class RouteName {
   static const dragAndDrop = 'dragAndDrop';
   static const addBoard = 'addBoard';
   static const addCard = 'addCard';
+  static const backgroundBoard = 'backgroundBoard';
   RouteName._();
 }
