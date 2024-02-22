@@ -195,4 +195,12 @@ class DragAndDropBloc extends BlocBase {
     final check = isZoomSubject.value;
     isZoomSubject.value = !check;
   }
+
+  void popSC() {
+    routerService.pop();
+  }
+
+  void onTapDeleteList(String idList) {
+    deleteList(idList);
+  }
 }

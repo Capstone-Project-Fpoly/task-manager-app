@@ -18,6 +18,8 @@ class ColorConstants {
   static final darkColorOpacity70 = darkColor.withOpacity(0.7);
   static final darkColorOpacity30 = darkColor.withOpacity(0.3);
 
+  static final grayBoderColorOpacity30 = grayText.withOpacity(0.3);
+
   static const primaryBlack = Color(0xFF111111);
   static const disabledButton = Color(0xFFEDF1FB);
   static final primaryBlackOpacity40 =
