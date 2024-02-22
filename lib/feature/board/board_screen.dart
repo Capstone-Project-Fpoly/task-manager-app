@@ -75,7 +75,7 @@ class BoardScreen extends ConsumerWidget {
                         child: const Row(
                           children: [
                             Text(
-                              'Không gian làm việc của tôi',
+                              'Không gian làm việc ',
                               style: TextStyle(color: Colors.white),
                             ),
                             Spacer(),

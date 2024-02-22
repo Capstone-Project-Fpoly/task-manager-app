@@ -6,7 +6,7 @@ extension NavigationEnumExtention on NavigationEnum {
   String get label {
     switch (this) {
       case NavigationEnum.myBroad:
-        return 'Không gian làm việc của tôi';
+        return 'Bảng của tôi';
       case NavigationEnum.broad:
         return 'Bảng';
       case NavigationEnum.myCard:
