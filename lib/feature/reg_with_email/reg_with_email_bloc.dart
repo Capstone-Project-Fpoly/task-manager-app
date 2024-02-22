@@ -184,8 +184,8 @@ class RegEmailBloc extends BlocBase {
       return;
     }
     if (result.parsedData == null) return;
-    routerService.pop();
     routerService.push(RouteInput.loginOtherEmail());
+    routerService.pop();
   }
 
   @override

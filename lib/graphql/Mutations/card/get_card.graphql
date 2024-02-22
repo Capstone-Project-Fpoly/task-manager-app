@@ -1,0 +1,5 @@
+mutation GetCard($idCard : String!){
+    getCard(idCard: $idCard){
+        ...CardFragment
+    }
+}

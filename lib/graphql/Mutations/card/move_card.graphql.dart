@@ -1,4 +1,4 @@
-import '../../../schema.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -53,7 +53,7 @@ class Variables$Mutation$MoveCard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Mutation$MoveCard) ||
+    if (other is! Variables$Mutation$MoveCard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -109,25 +109,29 @@ class _CopyWithImpl$Variables$Mutation$MoveCard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? idBoard = _undefined,
     Object? input = _undefined,
   }) =>
-      _then(Variables$Mutation$MoveCard._({
-        ..._instance._$data,
-        if (idBoard != _undefined && idBoard != null)
-          'idBoard': (idBoard as String),
-        if (input != _undefined && input != null)
-          'input': (input as Input$InputMoveCard),
-      }));
+      _then(
+        Variables$Mutation$MoveCard._({
+          ..._instance._$data,
+          if (idBoard != _undefined && idBoard != null)
+            'idBoard': (idBoard as String),
+          if (input != _undefined && input != null)
+            'input': (input as Input$InputMoveCard),
+        }),
+      );
 }
 
 class _CopyWithStubImpl$Variables$Mutation$MoveCard<TRes>
     implements CopyWith$Variables$Mutation$MoveCard<TRes> {
   _CopyWithStubImpl$Variables$Mutation$MoveCard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? idBoard,
     Input$InputMoveCard? input,
@@ -155,12 +159,12 @@ class Mutation$MoveCard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$moveCard = moveCard;
-    _resultData['moveCard'] = l$moveCard;
+    resultData['moveCard'] = l$moveCard;
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -178,7 +182,7 @@ class Mutation$MoveCard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Mutation$MoveCard) || runtimeType != other.runtimeType) {
+    if (other is! Mutation$MoveCard || runtimeType != other.runtimeType) {
       return false;
     }
     final l$moveCard = moveCard;
@@ -231,25 +235,29 @@ class _CopyWithImpl$Mutation$MoveCard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? moveCard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Mutation$MoveCard(
-        moveCard:
-            moveCard == _undefined ? _instance.moveCard : (moveCard as bool?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ));
+      _then(
+        Mutation$MoveCard(
+          moveCard:
+              moveCard == _undefined ? _instance.moveCard : (moveCard as bool?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 }
 
 class _CopyWithStubImpl$Mutation$MoveCard<TRes>
     implements CopyWith$Mutation$MoveCard<TRes> {
   _CopyWithStubImpl$Mutation$MoveCard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     bool? moveCard,
     String? $__typename,
@@ -257,58 +265,62 @@ class _CopyWithStubImpl$Mutation$MoveCard<TRes>
       _res;
 }
 
-const documentNodeMutationMoveCard = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.mutation,
-    name: NameNode(value: 'MoveCard'),
-    variableDefinitions: [
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idBoard')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'input')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'InputMoveCard'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-    ],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'moveCard'),
-        alias: null,
-        arguments: [
-          ArgumentNode(
-            name: NameNode(value: 'idBoard'),
-            value: VariableNode(name: NameNode(value: 'idBoard')),
+const documentNodeMutationMoveCard = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.mutation,
+      name: NameNode(value: 'MoveCard'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idBoard')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
           ),
-          ArgumentNode(
-            name: NameNode(value: 'input'),
-            value: VariableNode(name: NameNode(value: 'input')),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'input')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'InputMoveCard'),
+            isNonNull: true,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'moveCard'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'idBoard'),
+                value: VariableNode(name: NameNode(value: 'idBoard')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'input'),
+                value: VariableNode(name: NameNode(value: 'input')),
+              ),
+            ],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
           ),
         ],
-        directives: [],
-        selectionSet: null,
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ]),
-  ),
-]);
+    ),
+  ],
+);
 Mutation$MoveCard _parserFn$Mutation$MoveCard(Map<String, dynamic> data) =>
     Mutation$MoveCard.fromJson(data);
 typedef OnMutationCompleted$Mutation$MoveCard = FutureOr<void> Function(
@@ -396,11 +408,13 @@ class WatchOptions$Mutation$MoveCard
 
 extension ClientExtension$Mutation$MoveCard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$MoveCard>> mutate$MoveCard(
-          Options$Mutation$MoveCard options) async =>
-      await this.mutate(options);
+    Options$Mutation$MoveCard options,
+  ) async =>
+      await mutate(options);
   graphql.ObservableQuery<Mutation$MoveCard> watchMutation$MoveCard(
-          WatchOptions$Mutation$MoveCard options) =>
-      this.watchMutation(options);
+    WatchOptions$Mutation$MoveCard options,
+  ) =>
+      watchMutation(options);
 }
 
 class Mutation$MoveCard$HookResult {
@@ -414,8 +428,9 @@ class Mutation$MoveCard$HookResult {
   final graphql.QueryResult<Mutation$MoveCard> result;
 }
 
-Mutation$MoveCard$HookResult useMutation$MoveCard(
-    [WidgetOptions$Mutation$MoveCard? options]) {
+Mutation$MoveCard$HookResult useMutation$MoveCard([
+  WidgetOptions$Mutation$MoveCard? options,
+]) {
   final result =
       graphql_flutter.useMutation(options ?? WidgetOptions$Mutation$MoveCard());
   return Mutation$MoveCard$HookResult(
@@ -429,7 +444,8 @@ Mutation$MoveCard$HookResult useMutation$MoveCard(
 }
 
 graphql.ObservableQuery<Mutation$MoveCard> useWatchMutation$MoveCard(
-        WatchOptions$Mutation$MoveCard options) =>
+  WatchOptions$Mutation$MoveCard options,
+) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$MoveCard
