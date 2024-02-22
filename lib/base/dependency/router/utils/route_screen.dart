@@ -19,13 +19,14 @@ import 'package:task_manager/feature/login_with_email/login_with_email_screen.da
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_bloc.dart';
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_screen.dart';
 import 'package:task_manager/feature/my_board/my_board_screen.dart';
-import 'package:task_manager/feature/my_board/my_borad_bloc.dart';
+import 'package:task_manager/feature/my_board/my_board_bloc.dart';
 import 'package:task_manager/feature/my_card/my_card_screen.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_bloc.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_screen.dart';
 import 'package:task_manager/feature/root/root_screen.dart';
 import 'package:task_manager/feature/setting/setting_screen.dart';
 import 'package:task_manager/feature/unknown/unknown_screen.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 
 class RouteScreen {
   static PageRoute unknownPageRoute(RouteSettings settings) {
@@ -56,7 +57,7 @@ class RouteScreen {
   static PageRoute myBoardPageRoute(RouteSettings settings) {
     BlocProvider.myBoard = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-          (ref) => MyBoardBloc(ref),
+      (ref) => MyBoardBloc(ref),
     );
     return MaterialPageRoute(
       settings: settings,
@@ -130,10 +131,10 @@ class RouteScreen {
   }
 
   static PageRoute dragAndDropRoute(RouteSettings settings) {
-    final idBoard = settings.arguments as String;
+    final boardFragment = settings.arguments as Fragment$BoardFragment;
     BlocProvider.dragAndDrop = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-      (ref) => DragAndDropBloc(ref, idBoard: idBoard),
+      (ref) => DragAndDropBloc(ref, boardFragment: boardFragment),
     );
     return MaterialPageRoute(
       settings: settings,

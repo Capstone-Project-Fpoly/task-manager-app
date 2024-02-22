@@ -14,9 +14,9 @@ class MyBoardBloc extends BlocBase {
   final extendSubject = BehaviorSubject<bool>.seeded(false);
   final clickSubject = BehaviorSubject<bool>.seeded(false);
   final selectedBoardSubject =
-  BehaviorSubject<Fragment$BoardFragment?>.seeded(null);
+      BehaviorSubject<Fragment$BoardFragment?>.seeded(null);
   final listBoardSubject =
-  BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
+      BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
@@ -43,7 +43,8 @@ class MyBoardBloc extends BlocBase {
   void onTapToDragAndDrop({required Fragment$BoardFragment? board}) {
     selectedBoardSubject.value = board;
     if (board == null) return;
-    routerService.push(RouteInput.dragAndDrop(board.id));
+    print('board.id: ${board.id}');
+    routerService.push(RouteInput.dragAndDrop(boardFragment: board));
   }
 
   Future<void> onTapToAddBoard() async {

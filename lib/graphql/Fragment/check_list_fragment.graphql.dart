@@ -31,16 +31,16 @@ class Fragment$CheckListFragment {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$id = id;
-    _resultData['id'] = l$id;
+    resultData['id'] = l$id;
     final l$content = content;
-    _resultData['content'] = l$content;
+    resultData['content'] = l$content;
     final l$isChecked = isChecked;
-    _resultData['isChecked'] = l$isChecked;
+    resultData['isChecked'] = l$isChecked;
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -62,7 +62,7 @@ class Fragment$CheckListFragment {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Fragment$CheckListFragment) ||
+    if (other is! Fragment$CheckListFragment ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -129,32 +129,36 @@ class _CopyWithImpl$Fragment$CheckListFragment<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? id = _undefined,
     Object? content = _undefined,
     Object? isChecked = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Fragment$CheckListFragment(
-        id: id == _undefined || id == null ? _instance.id : (id as String),
-        content: content == _undefined || content == null
-            ? _instance.content
-            : (content as String),
-        isChecked: isChecked == _undefined || isChecked == null
-            ? _instance.isChecked
-            : (isChecked as bool),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ));
+      _then(
+        Fragment$CheckListFragment(
+          id: id == _undefined || id == null ? _instance.id : (id as String),
+          content: content == _undefined || content == null
+              ? _instance.content
+              : (content as String),
+          isChecked: isChecked == _undefined || isChecked == null
+              ? _instance.isChecked
+              : (isChecked as bool),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 }
 
 class _CopyWithStubImpl$Fragment$CheckListFragment<TRes>
     implements CopyWith$Fragment$CheckListFragment<TRes> {
   _CopyWithStubImpl$Fragment$CheckListFragment(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? id,
     String? content,
@@ -167,45 +171,50 @@ class _CopyWithStubImpl$Fragment$CheckListFragment<TRes>
 const fragmentDefinitionCheckListFragment = FragmentDefinitionNode(
   name: NameNode(value: 'CheckListFragment'),
   typeCondition: TypeConditionNode(
-      on: NamedTypeNode(
-    name: NameNode(value: 'CheckList'),
-    isNonNull: false,
-  )),
+    on: NamedTypeNode(
+      name: NameNode(value: 'CheckList'),
+      isNonNull: false,
+    ),
+  ),
   directives: [],
-  selectionSet: SelectionSetNode(selections: [
-    FieldNode(
-      name: NameNode(value: 'id'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'content'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'isChecked'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+  selectionSet: SelectionSetNode(
+    selections: [
+      FieldNode(
+        name: NameNode(value: 'id'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'content'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'isChecked'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const documentNodeFragmentCheckListFragment = DocumentNode(definitions: [
-  fragmentDefinitionCheckListFragment,
-]);
+const documentNodeFragmentCheckListFragment = DocumentNode(
+  definitions: [
+    fragmentDefinitionCheckListFragment,
+  ],
+);
 
 extension ClientExtension$Fragment$CheckListFragment on graphql.GraphQLClient {
   void writeFragment$CheckListFragment({
@@ -213,7 +222,7 @@ extension ClientExtension$Fragment$CheckListFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool broadcast = true,
   }) =>
-      this.writeFragment(
+      writeFragment(
         graphql.FragmentRequest(
           idFields: idFields,
           fragment: const graphql.Fragment(
@@ -228,7 +237,7 @@ extension ClientExtension$Fragment$CheckListFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool optimistic = true,
   }) {
-    final result = this.readFragment(
+    final result = readFragment(
       graphql.FragmentRequest(
         idFields: idFields,
         fragment: const graphql.Fragment(

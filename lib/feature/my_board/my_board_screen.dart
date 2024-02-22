@@ -45,100 +45,100 @@ class MyBoardScreen extends ConsumerWidget {
           final boards = bloc.listBoardSubject.value;
           return bloc.listBoardSubject.value.isEmpty
               ? SizedBox(
-            width: width,
-            height: height,
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Bạn hiện chưa có bảng nào...',
-                  style: TextStyle(fontSize: 15),
-                ),
-                EmptyIcon(
-                  width: 100,
-                ),
-              ],
-            ),
-          )
-              : RefreshIndicator(
-            onRefresh: () async {
-              bloc.getMyBoard();
-            },
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
                   width: width,
-                  height: 50,
-                  color: Colors.black.withOpacity(0.7),
-                  padding: EdgeInsetsConstants.horizontal12,
-                  child: const Row(
+                  height: height,
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Không gian làm việc của tôi',
-                        style: TextStyle(color: Colors.white),
+                        'Bạn hiện chưa có bảng nào...',
+                        style: TextStyle(fontSize: 15),
                       ),
-                      Spacer(),
-                      InkWell(
-                        child: Icon(
-                          Icons.more_horiz,
-                          color: Color(0xFFFFFFFF),
+                      EmptyIcon(
+                        width: 100,
+                      ),
+                    ],
+                  ),
+                )
+              : RefreshIndicator(
+                  onRefresh: () async {
+                    bloc.getMyBoard();
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        width: width,
+                        height: 50,
+                        color: Colors.black.withOpacity(0.7),
+                        padding: EdgeInsetsConstants.horizontal12,
+                        child: const Row(
+                          children: [
+                            Text(
+                              'Không gian làm việc của tôi',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Spacer(),
+                            InkWell(
+                              child: Icon(
+                                Icons.more_horiz,
+                                color: Color(0xFFFFFFFF),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: height - 50,
+                          child: ListView.separated(
+                            itemBuilder: (context, index) {
+                              final board = boards[index];
+                              return InkWell(
+                                onTap: () => bloc.onTapToDragAndDrop(
+                                  board: board,
+                                ),
+                                child: Container(
+                                  padding: EdgeInsetsConstants.vertical10 +
+                                      EdgeInsetsConstants.horizontal12,
+                                  width: width,
+                                  height: 60,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          color: ColorUtils.getColorFromHex(
+                                            board?.color,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        board?.title ?? '',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(),
+                            itemCount: boards.length,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    height: height - 50,
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        final board = boards[index];
-                        return InkWell(
-                          onTap: () => bloc.onTapToDragAndDrop(
-                            board: board,
-                          ),
-                          child: Container(
-                            padding: EdgeInsetsConstants.vertical10 +
-                                EdgeInsetsConstants.horizontal12,
-                            width: width,
-                            height: 60,
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 60,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: ColorUtils.getColorFromHex(
-                                      board?.color,
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(5),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Text(
-                                  board?.title ?? '',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                      const SizedBox(),
-                      itemCount: boards.length,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
+                );
         },
       ),
       floatingActionButton: ObsBuilder(

@@ -21,11 +21,48 @@ class BoardScreen extends ConsumerWidget {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bảng'),
+        title: ObsBuilder(
+          streams: [bloc.selectedSearchSubject],
+          builder: (context) {
+            final isSearch = bloc.selectedSearchSubject.value;
+            if (isSearch) {
+              return TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Tìm kiếm bảng...',
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: Colors.white),
+                ),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+                onChanged: (value) {
+                  bloc.searchLocalBoard(value);
+                },
+              );
+            }
+            return const Text('Bảng');
+          },
+        ),
         actions: <Widget>[
-          InkWell(
-            child: const Icon(Icons.search),
-            onTap: () {},
+          ObsBuilder(
+            streams: [bloc.selectedSearchSubject],
+            builder: (context) {
+              final isSearch = bloc.selectedSearchSubject.value;
+              if (isSearch) {
+                return InkWell(
+                  child: const Icon(Icons.close),
+                  onTap: () {
+                    bloc.openSearch(false);
+                  },
+                );
+              }
+              return InkWell(
+                child: const Icon(Icons.search),
+                onTap: () {
+                  bloc.openSearch(true);
+                },
+              );
+            },
           ),
           SizedBoxConstants.w20,
           InkWell(
@@ -37,12 +74,20 @@ class BoardScreen extends ConsumerWidget {
       ),
       drawer: const AppDrawer(),
       body: ObsBuilder(
-        streams: [bloc.listBoardSubject, bloc.isLoadingSubject],
+        streams: [
+          bloc.listBoardSubject,
+          bloc.isLoadingSubject,
+          bloc.listBoardSearchSubject,
+          bloc.selectedSearchSubject,
+        ],
         builder: (context) {
+          final isSearch = bloc.selectedSearchSubject.value;
           if (bloc.isLoadingSubject.value) {
             return const Center(child: CircularProgressIndicator());
           }
-          final boards = bloc.listBoardSubject.value;
+          final boards = isSearch
+              ? bloc.listBoardSearchSubject.value
+              : bloc.listBoardSubject.value;
           return bloc.listBoardSubject.value.isEmpty
               ? SizedBox(
                   width: width,

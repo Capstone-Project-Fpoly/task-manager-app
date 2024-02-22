@@ -1,5 +1,5 @@
-import '../../Fragment/board_fragment.graphql.dart';
-import '../../Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -17,9 +17,11 @@ class Mutation$getBoards {
     final l$$__typename = json['__typename'];
     return Mutation$getBoards(
       getBoards: (l$getBoards as List<dynamic>?)
-          ?.map((e) => e == null
-              ? null
-              : Fragment$BoardFragment.fromJson((e as Map<String, dynamic>)))
+          ?.map(
+            (e) => e == null
+                ? null
+                : Fragment$BoardFragment.fromJson((e as Map<String, dynamic>)),
+          )
           .toList(),
       $__typename: (l$$__typename as String),
     );
@@ -30,12 +32,12 @@ class Mutation$getBoards {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$getBoards = getBoards;
-    _resultData['getBoards'] = l$getBoards?.map((e) => e?.toJson()).toList();
+    resultData['getBoards'] = l$getBoards?.map((e) => e?.toJson()).toList();
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -53,7 +55,7 @@ class Mutation$getBoards {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Mutation$getBoards) || runtimeType != other.runtimeType) {
+    if (other is! Mutation$getBoards || runtimeType != other.runtimeType) {
       return false;
     }
     final l$getBoards = getBoards;
@@ -103,10 +105,10 @@ abstract class CopyWith$Mutation$getBoards<TRes> {
     String? $__typename,
   });
   TRes getBoards(
-      Iterable<Fragment$BoardFragment?>? Function(
-              Iterable<
-                  CopyWith$Fragment$BoardFragment<Fragment$BoardFragment>?>?)
-          _fn);
+    Iterable<Fragment$BoardFragment?>? Function(
+      Iterable<CopyWith$Fragment$BoardFragment<Fragment$BoardFragment>?>?,
+    ) fn,
+  );
 }
 
 class _CopyWithImpl$Mutation$getBoards<TRes>
@@ -122,65 +124,88 @@ class _CopyWithImpl$Mutation$getBoards<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? getBoards = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Mutation$getBoards(
-        getBoards: getBoards == _undefined
-            ? _instance.getBoards
-            : (getBoards as List<Fragment$BoardFragment?>?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ));
+      _then(
+        Mutation$getBoards(
+          getBoards: getBoards == _undefined
+              ? _instance.getBoards
+              : (getBoards as List<Fragment$BoardFragment?>?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 
+  @override
   TRes getBoards(
-          Iterable<Fragment$BoardFragment?>? Function(
-                  Iterable<
-                      CopyWith$Fragment$BoardFragment<
-                          Fragment$BoardFragment>?>?)
-              _fn) =>
+    Iterable<Fragment$BoardFragment?>? Function(
+      Iterable<CopyWith$Fragment$BoardFragment<Fragment$BoardFragment>?>?,
+    ) fn,
+  ) =>
       call(
-          getBoards: _fn(_instance.getBoards?.map((e) => e == null
-              ? null
-              : CopyWith$Fragment$BoardFragment(
-                  e,
-                  (i) => i,
-                )))?.toList());
+        getBoards: fn(
+          _instance.getBoards?.map(
+            (e) => e == null
+                ? null
+                : CopyWith$Fragment$BoardFragment(
+                    e,
+                    (i) => i,
+                  ),
+          ),
+        )?.toList(),
+      );
 }
 
 class _CopyWithStubImpl$Mutation$getBoards<TRes>
     implements CopyWith$Mutation$getBoards<TRes> {
   _CopyWithStubImpl$Mutation$getBoards(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     List<Fragment$BoardFragment?>? getBoards,
     String? $__typename,
   }) =>
       _res;
 
-  getBoards(_fn) => _res;
+  @override
+  getBoards(fn) => _res;
 }
 
-const documentNodeMutationgetBoards = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.mutation,
-    name: NameNode(value: 'getBoards'),
-    variableDefinitions: [],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'getBoards'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-            name: NameNode(value: 'BoardFragment'),
+const documentNodeMutationgetBoards = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.mutation,
+      name: NameNode(value: 'getBoards'),
+      variableDefinitions: [],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'getBoards'),
+            alias: null,
+            arguments: [],
             directives: [],
+            selectionSet: SelectionSetNode(
+              selections: [
+                FragmentSpreadNode(
+                  name: NameNode(value: 'BoardFragment'),
+                  directives: [],
+                ),
+                FieldNode(
+                  name: NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ],
+            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -189,20 +214,13 @@ const documentNodeMutationgetBoards = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ]),
+        ],
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ]),
-  ),
-  fragmentDefinitionBoardFragment,
-  fragmentDefinitionUserFragment,
-]);
+    ),
+    fragmentDefinitionBoardFragment,
+    fragmentDefinitionUserFragment,
+  ],
+);
 Mutation$getBoards _parserFn$Mutation$getBoards(Map<String, dynamic> data) =>
     Mutation$getBoards.fromJson(data);
 typedef OnMutationCompleted$Mutation$getBoards = FutureOr<void> Function(
@@ -285,12 +303,14 @@ class WatchOptions$Mutation$getBoards
 }
 
 extension ClientExtension$Mutation$getBoards on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Mutation$getBoards>> mutate$getBoards(
-          [Options$Mutation$getBoards? options]) async =>
-      await this.mutate(options ?? Options$Mutation$getBoards());
-  graphql.ObservableQuery<Mutation$getBoards> watchMutation$getBoards(
-          [WatchOptions$Mutation$getBoards? options]) =>
-      this.watchMutation(options ?? WatchOptions$Mutation$getBoards());
+  Future<graphql.QueryResult<Mutation$getBoards>> mutate$getBoards([
+    Options$Mutation$getBoards? options,
+  ]) async =>
+      await mutate(options ?? Options$Mutation$getBoards());
+  graphql.ObservableQuery<Mutation$getBoards> watchMutation$getBoards([
+    WatchOptions$Mutation$getBoards? options,
+  ]) =>
+      watchMutation(options ?? WatchOptions$Mutation$getBoards());
 }
 
 class Mutation$getBoards$HookResult {
@@ -304,8 +324,9 @@ class Mutation$getBoards$HookResult {
   final graphql.QueryResult<Mutation$getBoards> result;
 }
 
-Mutation$getBoards$HookResult useMutation$getBoards(
-    [WidgetOptions$Mutation$getBoards? options]) {
+Mutation$getBoards$HookResult useMutation$getBoards([
+  WidgetOptions$Mutation$getBoards? options,
+]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$getBoards());
   return Mutation$getBoards$HookResult(
@@ -317,8 +338,9 @@ Mutation$getBoards$HookResult useMutation$getBoards(
   );
 }
 
-graphql.ObservableQuery<Mutation$getBoards> useWatchMutation$getBoards(
-        [WatchOptions$Mutation$getBoards? options]) =>
+graphql.ObservableQuery<Mutation$getBoards> useWatchMutation$getBoards([
+  WatchOptions$Mutation$getBoards? options,
+]) =>
     graphql_flutter
         .useWatchMutation(options ?? WatchOptions$Mutation$getBoards());
 

@@ -17,9 +17,15 @@ class BoardBloc extends BlocBase {
       BehaviorSubject<Fragment$BoardFragment?>.seeded(null);
   final listBoardSubject =
       BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
+  final listBoardSearchSubject =
+      BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
+
+  //
+  final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
+  final searchTextSubject = BehaviorSubject<String>.seeded('');
 
   void init() {
     getBoard();
@@ -34,16 +40,36 @@ class BoardBloc extends BlocBase {
     isLoadingSubject.close();
     listBoardSubject.close();
     selectedBoardSubject.close();
+    selectedSearchSubject.close();
+    searchTextSubject.close();
+    listBoardSearchSubject.close();
+  }
+
+  void openSearch(bool open) {
+    listBoardSearchSubject.value = listBoardSubject.value;
+    selectedSearchSubject.value = open;
   }
 
   void changeClick(bool change) {
     clickSubject.value = change;
   }
 
+  void searchLocalBoard(String query) {
+    if (query.isEmpty) {
+      listBoardSearchSubject.value = listBoardSubject.value;
+      return;
+    }
+    final list = listBoardSubject.value;
+    final result = list
+        .where((element) => element?.title?.contains(query) ?? false)
+        .toList();
+    listBoardSearchSubject.value = result;
+  }
+
   void onTapToDragAndDrop({required Fragment$BoardFragment? board}) {
     selectedBoardSubject.value = board;
     if (board == null) return;
-    routerService.push(RouteInput.dragAndDrop(board.id));
+    routerService.push(RouteInput.dragAndDrop(boardFragment: board));
   }
 
   Future<void> onTapToAddBoard() async {
