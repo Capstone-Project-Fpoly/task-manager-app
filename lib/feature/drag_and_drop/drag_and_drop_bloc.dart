@@ -196,30 +196,7 @@ class DragAndDropBloc extends BlocBase {
     routerService.pop();
   }
 
-  void nextTapCopyList() {}
-
-  void nextTapMoveList() {}
-
-  void nextTapSortList() {}
-
-  void onTapMoverAllCard() {}
-
-
-  void onTapArichiveCard() {}
-
-  Future<void> onTapArichiveList(String idList) async {
-    isLoadingSubject.value = true;
-    final delete = await graphqlService.client.mutate$DeleteList(
-        Options$Mutation$DeleteList(
-            variables: Variables$Mutation$DeleteList(idList: idList),),);
-    fetchListFragmentByIdBoard();
-    isLoadingSubject.value = false;
-    if (delete.hasException) {
-      toastService.showText(message: 'không thành công');
-      return;
-    };
-    toastService.showText(message: 'lưu trữ thành công');
-    routerService.pop(result: false);
-    routerService.pop(result: false);
+  void onTapDeleteList(String idList) {
+    deleteList(idList);
   }
 }

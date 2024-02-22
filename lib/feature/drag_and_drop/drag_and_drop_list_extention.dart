@@ -1,10 +1,13 @@
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/create_list.graphql.dart';
+import 'package:task_manager/graphql/Mutations/list/delete_list.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/moveList.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 
 extension DragAndDropListExtention on DragAndDropBloc {
+
+
   Future<Fragment$ListFragment?> fetchCreateList({
     required String label,
   }) async {
@@ -46,5 +49,20 @@ extension DragAndDropListExtention on DragAndDropBloc {
       fetchListFragmentByIdBoard();
       return;
     }
+  }
+
+  Future<void> deleteList(String idList) async {
+    isLoadingSubject.value = true;
+    final delete = await graphqlService.client.mutate$DeleteList(
+      Options$Mutation$DeleteList(
+        variables: Variables$Mutation$DeleteList(idList: idList),),);
+    fetchListFragmentByIdBoard();
+    isLoadingSubject.value = false;
+    if (delete.hasException) {
+      toastService.showText(message: 'không thành công');
+      return;
+    }
+    routerService.pop(result: false);
+    routerService.pop(result: false);
   }
 }
