@@ -16,7 +16,7 @@ class MyBoardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final bloc = ref.watch(BlocProvider.board);
+    final bloc = ref.watch(BlocProvider.myBoard);
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -62,7 +62,7 @@ class MyBoardScreen extends ConsumerWidget {
           )
               : RefreshIndicator(
             onRefresh: () async {
-              bloc.getBoard();
+              bloc.getMyBoard();
             },
             child: Column(
               children: [
