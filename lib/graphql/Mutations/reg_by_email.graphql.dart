@@ -1,4 +1,4 @@
-import 'package:task_manager/schema.graphql.dart';
+import '../../schema.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -43,7 +43,7 @@ class Variables$Mutation$regByEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Mutation$regByEmail ||
+    if (!(other is Variables$Mutation$regByEmail) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -87,22 +87,20 @@ class _CopyWithImpl$Variables$Mutation$regByEmail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({Object? input = _undefined}) =>
       _then(Variables$Mutation$regByEmail._({
         ..._instance._$data,
         if (input != _undefined && input != null)
           'input': (input as Input$InputEmail),
-      }),);
+      }));
 }
 
 class _CopyWithStubImpl$Variables$Mutation$regByEmail<TRes>
     implements CopyWith$Variables$Mutation$regByEmail<TRes> {
   _CopyWithStubImpl$Variables$Mutation$regByEmail(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({Input$InputEmail? input}) => _res;
 }
 
@@ -126,12 +124,12 @@ class Mutation$regByEmail {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$registerByEmail = registerByEmail;
-    resultData['registerByEmail'] = l$registerByEmail;
+    _resultData['registerByEmail'] = l$registerByEmail;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -149,7 +147,7 @@ class Mutation$regByEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$regByEmail || runtimeType != other.runtimeType) {
+    if (!(other is Mutation$regByEmail) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$registerByEmail = registerByEmail;
@@ -202,7 +200,6 @@ class _CopyWithImpl$Mutation$regByEmail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? registerByEmail = _undefined,
     Object? $__typename = _undefined,
@@ -214,16 +211,15 @@ class _CopyWithImpl$Mutation$regByEmail<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ),);
+      ));
 }
 
 class _CopyWithStubImpl$Mutation$regByEmail<TRes>
     implements CopyWith$Mutation$regByEmail<TRes> {
   _CopyWithStubImpl$Mutation$regByEmail(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? registerByEmail,
     String? $__typename,
@@ -244,7 +240,7 @@ const documentNodeMutationregByEmail = DocumentNode(definitions: [
         ),
         defaultValue: DefaultValueNode(value: null),
         directives: [],
-      ),
+      )
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -255,7 +251,7 @@ const documentNodeMutationregByEmail = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'input'),
             value: VariableNode(name: NameNode(value: 'input')),
-          ),
+          )
         ],
         directives: [],
         selectionSet: null,
@@ -267,9 +263,9 @@ const documentNodeMutationregByEmail = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ],),
+    ]),
   ),
-],);
+]);
 Mutation$regByEmail _parserFn$Mutation$regByEmail(Map<String, dynamic> data) =>
     Mutation$regByEmail.fromJson(data);
 typedef OnMutationCompleted$Mutation$regByEmail = FutureOr<void> Function(
@@ -357,11 +353,11 @@ class WatchOptions$Mutation$regByEmail
 
 extension ClientExtension$Mutation$regByEmail on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$regByEmail>> mutate$regByEmail(
-          Options$Mutation$regByEmail options,) async =>
-      await mutate(options);
+          Options$Mutation$regByEmail options) async =>
+      await this.mutate(options);
   graphql.ObservableQuery<Mutation$regByEmail> watchMutation$regByEmail(
-          WatchOptions$Mutation$regByEmail options,) =>
-      watchMutation(options);
+          WatchOptions$Mutation$regByEmail options) =>
+      this.watchMutation(options);
 }
 
 class Mutation$regByEmail$HookResult {
@@ -376,7 +372,7 @@ class Mutation$regByEmail$HookResult {
 }
 
 Mutation$regByEmail$HookResult useMutation$regByEmail(
-    [WidgetOptions$Mutation$regByEmail? options,]) {
+    [WidgetOptions$Mutation$regByEmail? options]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$regByEmail());
   return Mutation$regByEmail$HookResult(
@@ -390,7 +386,7 @@ Mutation$regByEmail$HookResult useMutation$regByEmail(
 }
 
 graphql.ObservableQuery<Mutation$regByEmail> useWatchMutation$regByEmail(
-        WatchOptions$Mutation$regByEmail options,) =>
+        WatchOptions$Mutation$regByEmail options) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$regByEmail

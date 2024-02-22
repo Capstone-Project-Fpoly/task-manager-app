@@ -24,12 +24,12 @@ class Mutation$Logout {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$logout = logout;
-    resultData['logout'] = l$logout;
+    _resultData['logout'] = l$logout;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -47,7 +47,7 @@ class Mutation$Logout {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$Logout || runtimeType != other.runtimeType) {
+    if (!(other is Mutation$Logout) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$logout = logout;
@@ -100,7 +100,6 @@ class _CopyWithImpl$Mutation$Logout<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? logout = _undefined,
     Object? $__typename = _undefined,
@@ -110,16 +109,15 @@ class _CopyWithImpl$Mutation$Logout<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ),);
+      ));
 }
 
 class _CopyWithStubImpl$Mutation$Logout<TRes>
     implements CopyWith$Mutation$Logout<TRes> {
   _CopyWithStubImpl$Mutation$Logout(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     bool? logout,
     String? $__typename,
@@ -148,9 +146,9 @@ const documentNodeMutationLogout = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ],),
+    ]),
   ),
-],);
+]);
 Mutation$Logout _parserFn$Mutation$Logout(Map<String, dynamic> data) =>
     Mutation$Logout.fromJson(data);
 typedef OnMutationCompleted$Mutation$Logout = FutureOr<void> Function(
@@ -233,11 +231,11 @@ class WatchOptions$Mutation$Logout
 
 extension ClientExtension$Mutation$Logout on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$Logout>> mutate$Logout(
-          [Options$Mutation$Logout? options,]) async =>
-      await mutate(options ?? Options$Mutation$Logout());
+          [Options$Mutation$Logout? options]) async =>
+      await this.mutate(options ?? Options$Mutation$Logout());
   graphql.ObservableQuery<Mutation$Logout> watchMutation$Logout(
-          [WatchOptions$Mutation$Logout? options,]) =>
-      watchMutation(options ?? WatchOptions$Mutation$Logout());
+          [WatchOptions$Mutation$Logout? options]) =>
+      this.watchMutation(options ?? WatchOptions$Mutation$Logout());
 }
 
 class Mutation$Logout$HookResult {
@@ -252,7 +250,7 @@ class Mutation$Logout$HookResult {
 }
 
 Mutation$Logout$HookResult useMutation$Logout(
-    [WidgetOptions$Mutation$Logout? options,]) {
+    [WidgetOptions$Mutation$Logout? options]) {
   final result =
       graphql_flutter.useMutation(options ?? WidgetOptions$Mutation$Logout());
   return Mutation$Logout$HookResult(
@@ -265,7 +263,7 @@ Mutation$Logout$HookResult useMutation$Logout(
 }
 
 graphql.ObservableQuery<Mutation$Logout> useWatchMutation$Logout(
-        [WatchOptions$Mutation$Logout? options,]) =>
+        [WatchOptions$Mutation$Logout? options]) =>
     graphql_flutter.useWatchMutation(options ?? WatchOptions$Mutation$Logout());
 
 class WidgetOptions$Mutation$Logout

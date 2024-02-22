@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
@@ -5,6 +6,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/shared/enum/board_status_enum.dart';
 import 'package:task_manager/shared/loading/loading_overlay.dart';
 
 class AddBoardScreen extends ConsumerWidget {
@@ -16,7 +18,11 @@ class AddBoardScreen extends ConsumerWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     return ObsBuilder(
-      streams: [bloc.isLoadingSubject],
+      streams: [
+        bloc.isLoadingSubject,
+        bloc.colorButtonSubject,
+        bloc.backgroundColorSubject,
+      ],
       builder: (context) {
         return LoadingOverlay(
           isLoading: bloc.isLoadingSubject.value,
@@ -57,9 +63,10 @@ class AddBoardScreen extends ConsumerWidget {
                         SizedBox(
                           height: 30,
                           child: TextFormField(
-                            autofocus: true,
+                            focusNode: bloc.focusNode,
                             onChanged: (value) {
                               bloc.nameBoardSubject.value = value;
+                              bloc.onChanged();
                             },
                             style: const TextStyle(color: Colors.black),
                             decoration: const InputDecoration(
@@ -80,14 +87,26 @@ class AddBoardScreen extends ConsumerWidget {
                     'Quyền xem',
                     style: TextStyle(color: Colors.blue),
                   ),
-                  const Row(
-                    children: [
-                      Text(
-                        'Không gian làm việc',
+                  PopupMenuButton(
+                    itemBuilder: (context) => BoardStatusEnum.values
+                        .map(
+                          (e) => PopupMenuItem(
+                            value: e,
+                            child: Text(e.title),
+                          ),
+                        )
+                        .toList(),
+                    onSelected: (value) => bloc.chooseRight(value),
+                    constraints: BoxConstraints(
+                      minWidth: width - 50,
+                    ),
+                    child: ListTile(
+                      title: Text(bloc.selectedStatusSubject.value.title),
+                      trailing: const SizedBox(
+                        width: 5,
+                        child: Icon(Icons.arrow_drop_down),
                       ),
-                      Spacer(),
-                      Icon(Icons.arrow_drop_down),
-                    ],
+                    ),
                   ),
                   const Divider(
                     height: 0,
@@ -101,12 +120,17 @@ class AddBoardScreen extends ConsumerWidget {
                         style: TextStyle(color: Colors.blue),
                       ),
                       const Spacer(),
-                      Container(
-                        width: 35,
-                        height: 35,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(5),
+                      InkWell(
+                        onTap: () {
+                          bloc.onNextToBackgroundBoardWidget();
+                        },
+                        child: Ink(
+                          width: 35,
+                          height: 35,
+                          decoration: BoxDecoration(
+                            color: bloc.backgroundColorSubject.value,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
                       ),
                     ],
@@ -119,9 +143,10 @@ class AddBoardScreen extends ConsumerWidget {
                     child: Container(
                       width: width,
                       height: 45,
-                      decoration: const BoxDecoration(
-                        color: ColorConstants.primary,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      decoration: BoxDecoration(
+                        color: bloc.colorButtonSubject.value,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
                       ),
                       alignment: Alignment.center,
                       child: const Text(
