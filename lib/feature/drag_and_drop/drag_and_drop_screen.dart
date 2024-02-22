@@ -7,8 +7,9 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
-import 'package:task_manager/feature/drag_and_drop/widget/show_bottom_widget.dart';
+import 'package:task_manager/feature/drag_and_drop/widget/drag_and_drop_show_bottom_widget.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/color.dart';
 
 class DragDropScreen extends ConsumerWidget {
@@ -20,6 +21,11 @@ class DragDropScreen extends ConsumerWidget {
     final board = bloc.boardBloc.selectedBoardSubject.value;
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
+    final color = ColorUtils.getColorFromHex(board?.color);
+    final hslColor = HSLColor.fromColor(color);
+
+    final darkerColor =
+        hslColor.withLightness(hslColor.lightness * 0.5).toColor();
     return ObsBuilder(
       streams: [
         bloc.isAddCardSubject,
@@ -48,7 +54,7 @@ class DragDropScreen extends ConsumerWidget {
                     ? const Text('Thêm thẻ...')
                     : Text(board?.title ?? 'Bảng thử nghiệm')
                 : const Text('Thêm danh sách'),
-            backgroundColor: const Color(0xFF0071CE),
+            backgroundColor: darkerColor,
             leadingWidth: 50,
             actions: [
               bloc.isAddListSubject.value == false &&
@@ -174,7 +180,13 @@ class DragDropScreen extends ConsumerWidget {
                 children: List.generate(
                   bloc.listFragmentsSubject.value.length,
                   (index) {
-                    return _buildList(index, bloc, width, height, context);
+                    return dragDropList(
+                      context: context,
+                      width: width,
+                      bloc: bloc,
+                      height: height,
+                      outerIndex: index,
+                    );
                   },
                 ),
                 onItemReorder: bloc.onItemReorder,
@@ -216,8 +228,11 @@ class DragDropScreen extends ConsumerWidget {
     );
   }
 
-  void showBottomSheet(BuildContext context, String nameList, String idList,) {
-    const TextStyle style = TextStyle(fontSize: 15, color: Colors.black);
+  void showBottomSheet({
+    required BuildContext context,
+    required Fragment$ListFragment? listFragment,
+  }) {
+    if (listFragment == null) return;
     showModalBottomSheet<void>(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -228,19 +243,20 @@ class DragDropScreen extends ConsumerWidget {
       backgroundColor: Colors.white,
       context: context,
       builder: (context) {
-        return DragAndDropShowBottomSheet(nameList: nameList, idList: idList);
+        return DragAndDropShowBottomSheet(
+          listFragment: listFragment,
+        );
       },
     );
   }
 
-
-  DragAndDropList _buildList(
-    int outerIndex,
-    DragAndDropBloc bloc,
-    double width,
-    double height,
-    BuildContext context,
-  ) {
+  DragAndDropList dragDropList({
+    required int outerIndex,
+    required DragAndDropBloc bloc,
+    required double width,
+    required double height,
+    required BuildContext context,
+  }) {
     final innerList = bloc.listFragmentsSubject.value[outerIndex];
     return DragAndDropList(
       decoration: BoxDecoration(
@@ -267,7 +283,8 @@ class DragDropScreen extends ConsumerWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => showBottomSheet(context,innerList?.label ?? '',innerList!.id),
+            onTap: () =>
+                showBottomSheet(context: context, listFragment: innerList),
             child: const Icon(
               Icons.more_vert,
               color: Colors.black,
@@ -366,27 +383,22 @@ class DragDropScreen extends ConsumerWidget {
       ),
       children: List.generate(
         innerList?.cards?.length ?? 0,
-        (index) => _buildItem(innerList!.cards?[index], width, height),
+        (index) => dragDropItem(item: innerList?.cards?[index]),
       ),
       lastTarget: SizedBoxConstants.h8,
     );
   }
 
-  DragAndDropItem _buildItem(
-    Fragment$CardFragment? item,
-    double width,
-    double height,
-  ) {
+  DragAndDropItem dragDropItem({Fragment$CardFragment? item}) {
     return DragAndDropItem(
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10), // Bo góc của Card
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Container(
           padding:
               EdgeInsetsConstants.horizontal10 + EdgeInsetsConstants.vertical16,
-          width: width,
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
             color: Colors.white,

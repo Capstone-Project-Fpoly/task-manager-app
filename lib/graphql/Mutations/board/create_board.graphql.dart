@@ -1,5 +1,5 @@
-import '../../Fragment/board_fragment.graphql.dart';
-import '../../Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -65,7 +65,7 @@ class Variables$Mutation$CreateBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Mutation$CreateBoard) ||
+    if (other is! Variables$Mutation$CreateBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -132,6 +132,7 @@ class _CopyWithImpl$Variables$Mutation$CreateBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? title = _undefined,
     Object? color = _undefined,
@@ -143,15 +144,16 @@ class _CopyWithImpl$Variables$Mutation$CreateBoard<TRes>
         if (color != _undefined) 'color': (color as String?),
         if (isPublic != _undefined && isPublic != null)
           'isPublic': (isPublic as bool),
-      }));
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Mutation$CreateBoard<TRes>
     implements CopyWith$Variables$Mutation$CreateBoard<TRes> {
   _CopyWithStubImpl$Variables$Mutation$CreateBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? title,
     String? color,
@@ -173,7 +175,7 @@ class Mutation$CreateBoard {
       createBoard: l$createBoard == null
           ? null
           : Fragment$BoardFragment.fromJson(
-              (l$createBoard as Map<String, dynamic>)),
+              (l$createBoard as Map<String, dynamic>),),
       $__typename: (l$$__typename as String),
     );
   }
@@ -183,12 +185,12 @@ class Mutation$CreateBoard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$createBoard = createBoard;
-    _resultData['createBoard'] = l$createBoard?.toJson();
+    resultData['createBoard'] = l$createBoard?.toJson();
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -206,7 +208,7 @@ class Mutation$CreateBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Mutation$CreateBoard) || runtimeType != other.runtimeType) {
+    if (other is! Mutation$CreateBoard || runtimeType != other.runtimeType) {
       return false;
     }
     final l$createBoard = createBoard;
@@ -260,6 +262,7 @@ class _CopyWithImpl$Mutation$CreateBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? createBoard = _undefined,
     Object? $__typename = _undefined,
@@ -271,14 +274,15 @@ class _CopyWithImpl$Mutation$CreateBoard<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 
+  @override
   CopyWith$Fragment$BoardFragment<TRes> get createBoard {
     final local$createBoard = _instance.createBoard;
     return local$createBoard == null
         ? CopyWith$Fragment$BoardFragment.stub(_then(_instance))
         : CopyWith$Fragment$BoardFragment(
-            local$createBoard, (e) => call(createBoard: e));
+            local$createBoard, (e) => call(createBoard: e),);
   }
 }
 
@@ -286,14 +290,16 @@ class _CopyWithStubImpl$Mutation$CreateBoard<TRes>
     implements CopyWith$Mutation$CreateBoard<TRes> {
   _CopyWithStubImpl$Mutation$CreateBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     Fragment$BoardFragment? createBoard,
     String? $__typename,
   }) =>
       _res;
 
+  @override
   CopyWith$Fragment$BoardFragment<TRes> get createBoard =>
       CopyWith$Fragment$BoardFragment.stub(_res);
 }
@@ -363,7 +369,7 @@ const documentNodeMutationCreateBoard = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ]),
+        ],),
       ),
       FieldNode(
         name: NameNode(value: '__typename'),
@@ -372,13 +378,13 @@ const documentNodeMutationCreateBoard = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ]),
+    ],),
   ),
   fragmentDefinitionBoardFragment,
   fragmentDefinitionUserFragment,
-]);
+],);
 Mutation$CreateBoard _parserFn$Mutation$CreateBoard(
-        Map<String, dynamic> data) =>
+        Map<String, dynamic> data,) =>
     Mutation$CreateBoard.fromJson(data);
 typedef OnMutationCompleted$Mutation$CreateBoard = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -465,11 +471,11 @@ class WatchOptions$Mutation$CreateBoard
 
 extension ClientExtension$Mutation$CreateBoard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$CreateBoard>> mutate$CreateBoard(
-          Options$Mutation$CreateBoard options) async =>
-      await this.mutate(options);
+          Options$Mutation$CreateBoard options,) async =>
+      await mutate(options);
   graphql.ObservableQuery<Mutation$CreateBoard> watchMutation$CreateBoard(
-          WatchOptions$Mutation$CreateBoard options) =>
-      this.watchMutation(options);
+          WatchOptions$Mutation$CreateBoard options,) =>
+      watchMutation(options);
 }
 
 class Mutation$CreateBoard$HookResult {
@@ -484,7 +490,7 @@ class Mutation$CreateBoard$HookResult {
 }
 
 Mutation$CreateBoard$HookResult useMutation$CreateBoard(
-    [WidgetOptions$Mutation$CreateBoard? options]) {
+    [WidgetOptions$Mutation$CreateBoard? options,]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$CreateBoard());
   return Mutation$CreateBoard$HookResult(
@@ -498,7 +504,7 @@ Mutation$CreateBoard$HookResult useMutation$CreateBoard(
 }
 
 graphql.ObservableQuery<Mutation$CreateBoard> useWatchMutation$CreateBoard(
-        WatchOptions$Mutation$CreateBoard options) =>
+        WatchOptions$Mutation$CreateBoard options,) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$CreateBoard

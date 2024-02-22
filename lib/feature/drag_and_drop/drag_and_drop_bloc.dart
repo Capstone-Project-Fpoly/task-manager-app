@@ -9,7 +9,6 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_card_extention.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_list_extention.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
-import 'package:task_manager/graphql/Mutations/list/delete_list.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 
 class DragAndDropBloc extends BlocBase {
