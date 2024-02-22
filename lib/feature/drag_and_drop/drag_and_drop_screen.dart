@@ -16,7 +16,6 @@ class DragDropScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.dragAndDrop);
-    final board = bloc.boardBloc.selectedBoardSubject.value;
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     return ObsBuilder(
@@ -26,7 +25,7 @@ class DragDropScreen extends ConsumerWidget {
       ],
       builder: (context) {
         return Scaffold(
-          backgroundColor: ColorUtils.getColorFromHex(board?.color),
+          backgroundColor: ColorUtils.getColorFromHex(bloc.boardFragment.color),
           appBar: AppBar(
             leading: bloc.isAddListSubject.value == false &&
                     bloc.isAddCardSubject.value == false
@@ -45,7 +44,7 @@ class DragDropScreen extends ConsumerWidget {
             title: bloc.isAddListSubject.value == false
                 ? bloc.isAddCardSubject.value == true
                     ? const Text('Thêm thẻ...')
-                    : Text(board?.title ?? 'Bảng thử nghiệm')
+                    : Text(bloc.boardFragment.title ?? 'Bảng thử nghiệm')
                 : const Text('Thêm danh sách'),
             backgroundColor: const Color(0xFF0071CE),
             leadingWidth: 50,

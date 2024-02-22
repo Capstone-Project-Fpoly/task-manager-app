@@ -1,4 +1,5 @@
 import 'package:task_manager/base/dependency/router/utils/route_name.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 
 class RouteInput {
   String routeName;
@@ -9,9 +10,9 @@ class RouteInput {
   RouteInput.loginEmail() : routeName = RouteName.loginEmail;
   RouteInput.loginOtherEmail() : routeName = RouteName.loginOtherEmail;
   RouteInput.regEmail() : routeName = RouteName.regEmail;
-  RouteInput.dragAndDrop(String idBoard)
+  RouteInput.dragAndDrop({required Fragment$BoardFragment boardFragment})
       : routeName = RouteName.dragAndDrop,
-        arguments = idBoard;
+        arguments = boardFragment;
   RouteInput.addBoard() : routeName = RouteName.addBoard;
   RouteInput.addCard() : routeName = RouteName.addCard;
   RouteInput.backgroundBoard() : routeName = RouteName.backgroundBoard;

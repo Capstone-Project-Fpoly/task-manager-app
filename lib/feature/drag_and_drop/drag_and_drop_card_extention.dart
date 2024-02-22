@@ -40,7 +40,7 @@ extension DragAndDropCardExtention on DragAndDropBloc {
     final result = await graphqlService.client.mutate$MoveCard(
       Options$Mutation$MoveCard(
         variables: Variables$Mutation$MoveCard(
-          idBoard: idBoard,
+          idBoard: boardFragment.id,
           input: input,
         ),
       ),

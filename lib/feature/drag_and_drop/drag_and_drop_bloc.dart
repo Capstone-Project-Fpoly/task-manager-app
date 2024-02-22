@@ -8,12 +8,13 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_card_extention.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_list_extention.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 
 class DragAndDropBloc extends BlocBase {
   final Ref ref;
-  final String idBoard;
+  final Fragment$BoardFragment boardFragment;
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
@@ -39,7 +40,7 @@ class DragAndDropBloc extends BlocBase {
     final result = await graphqlService.client.mutate$getList(
       Options$Mutation$getList(
         variables: Variables$Mutation$getList(
-          idBoard: idBoard,
+          idBoard: boardFragment.id,
         ),
       ),
     );
@@ -186,7 +187,7 @@ class DragAndDropBloc extends BlocBase {
 
   late final appBloc = ref.read(BlocProvider.app);
 
-  DragAndDropBloc(this.ref, {required this.idBoard}) {
+  DragAndDropBloc(this.ref, {required this.boardFragment}) {
     init();
   }
 

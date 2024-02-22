@@ -12,7 +12,7 @@ extension DragAndDropListExtention on DragAndDropBloc {
     final result = await graphqlService.client.mutate$CreateList(
       Options$Mutation$CreateList(
         variables: Variables$Mutation$CreateList(
-          idBoard: idBoard,
+          idBoard: boardFragment.id,
           label: label,
         ),
       ),
@@ -31,7 +31,7 @@ extension DragAndDropListExtention on DragAndDropBloc {
     final result = await graphqlService.client.mutate$MoveList(
       Options$Mutation$MoveList(
         variables: Variables$Mutation$MoveList(
-          idBoard: idBoard,
+          idBoard: boardFragment.id,
           input: Input$InputMoveList(
             newListIndex: newListIndex,
             oldListIndex: oldListIndex,
