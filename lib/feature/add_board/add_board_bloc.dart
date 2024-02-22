@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
@@ -8,6 +9,7 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/graphql/Mutations/board/create_board.graphql.dart';
+import 'package:task_manager/shared/enum/board_status_enum.dart';
 
 class AddBoardBloc extends BlocBase {
   final Ref ref;
@@ -22,24 +24,23 @@ class AddBoardBloc extends BlocBase {
   final backgroundColorSubject = BehaviorSubject<Color>.seeded(
     const Color(0XFF2196F3),
   );
+  final selectedStatusSubject = BehaviorSubject<BoardStatusEnum>.seeded(
+    BoardStatusEnum.public,
+  );
   final nameBoardSubject = BehaviorSubject<String>.seeded('');
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   final isPublicSubject = BehaviorSubject<bool>.seeded(false);
-  final titleOptionSubject = BehaviorSubject<String>.seeded('Riêng tư');
-  final privateOptionSubject = BehaviorSubject<String>.seeded('Riêng tư');
-  final publicOptionSubject = BehaviorSubject<String>.seeded('Công khai');
+  final focusNode = FocusNode();
 
   @override
   void dispose() {
     nameBoardSubject.close();
     isLoadingSubject.close();
-    titleOptionSubject.close();
-    privateOptionSubject.close();
-    publicOptionSubject.close();
     isPublicSubject.close();
     colorButtonSubject.close();
     backgroundColorSubject.close();
     colorSubject.close();
+    selectedStatusSubject.close();
     super.dispose();
   }
 
@@ -47,15 +48,16 @@ class AddBoardBloc extends BlocBase {
     routerService.pop();
   }
 
-  void init() {}
+  void init() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      focusNode.requestFocus();
+    });
+  }
 
-  void chooseRight(String value) {
-    titleOptionSubject.value = value;
-    if (titleOptionSubject.value == privateOptionSubject.value) {
-      isPublicSubject.value = false;
-    } else {
-      isPublicSubject.value = true;
-    }
+  void chooseRight(BoardStatusEnum value) {
+    selectedStatusSubject.value = value;
+    isPublicSubject.value =
+        selectedStatusSubject.value == BoardStatusEnum.public;
   }
 
   void onChanged() {
@@ -67,6 +69,7 @@ class AddBoardBloc extends BlocBase {
   }
 
   Future<void> onTapAddBoard() async {
+    focusNode.unfocus();
     if (nameBoardSubject.value.trim().isEmpty) return;
     isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$CreateBoard(

@@ -6,6 +6,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/shared/enum/board_status_enum.dart';
 import 'package:task_manager/shared/loading/loading_overlay.dart';
 
 class AddBoardScreen extends ConsumerWidget {
@@ -62,7 +63,7 @@ class AddBoardScreen extends ConsumerWidget {
                         SizedBox(
                           height: 30,
                           child: TextFormField(
-                            autofocus: true,
+                            focusNode: bloc.focusNode,
                             onChanged: (value) {
                               bloc.nameBoardSubject.value = value;
                               bloc.onChanged();
@@ -87,22 +88,20 @@ class AddBoardScreen extends ConsumerWidget {
                     style: TextStyle(color: Colors.blue),
                   ),
                   PopupMenuButton(
-                    itemBuilder: (context) => [
-                      PopupMenuItem(
-                        value: bloc.privateOptionSubject.value,
-                        child: Text(bloc.privateOptionSubject.value),
-                      ),
-                      PopupMenuItem(
-                        value: bloc.publicOptionSubject.value,
-                        child: Text(bloc.publicOptionSubject.value),
-                      ),
-                    ],
+                    itemBuilder: (context) => BoardStatusEnum.values
+                        .map(
+                          (e) => PopupMenuItem(
+                            value: e,
+                            child: Text(e.title),
+                          ),
+                        )
+                        .toList(),
                     onSelected: (value) => bloc.chooseRight(value),
                     constraints: BoxConstraints(
                       minWidth: width - 50,
                     ),
                     child: ListTile(
-                      title: Text(bloc.titleOptionSubject.value),
+                      title: Text(bloc.selectedStatusSubject.value.title),
                       trailing: const SizedBox(
                         width: 5,
                         child: Icon(Icons.arrow_drop_down),
