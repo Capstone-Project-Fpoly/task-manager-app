@@ -204,6 +204,7 @@ class DragAndDropBloc extends BlocBase {
 
   void onTapMoverAllCard() {}
 
+
   void onTapArichiveCard() {}
 
   Future<void> onTapArichiveList(String idList) async {
