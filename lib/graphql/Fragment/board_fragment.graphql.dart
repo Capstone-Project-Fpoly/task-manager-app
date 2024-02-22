@@ -1,6 +1,6 @@
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
-import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
+import 'user_fragment.graphql.dart';
 
 class Fragment$BoardFragment {
   Fragment$BoardFragment({
@@ -48,22 +48,22 @@ class Fragment$BoardFragment {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$title = title;
-    resultData['title'] = l$title;
+    _resultData['title'] = l$title;
     final l$createdAt = createdAt;
-    resultData['createdAt'] = l$createdAt;
+    _resultData['createdAt'] = l$createdAt;
     final l$ownerUser = ownerUser;
-    resultData['ownerUser'] = l$ownerUser.toJson();
+    _resultData['ownerUser'] = l$ownerUser.toJson();
     final l$id = id;
-    resultData['id'] = l$id;
+    _resultData['id'] = l$id;
     final l$isPublic = isPublic;
-    resultData['isPublic'] = l$isPublic;
+    _resultData['isPublic'] = l$isPublic;
     final l$color = color;
-    resultData['color'] = l$color;
+    _resultData['color'] = l$color;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -91,7 +91,7 @@ class Fragment$BoardFragment {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Fragment$BoardFragment ||
+    if (!(other is Fragment$BoardFragment) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -176,7 +176,6 @@ class _CopyWithImpl$Fragment$BoardFragment<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? title = _undefined,
     Object? createdAt = _undefined,
@@ -202,13 +201,12 @@ class _CopyWithImpl$Fragment$BoardFragment<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ),);
+      ));
 
-  @override
   CopyWith$Fragment$UserFragment<TRes> get ownerUser {
     final local$ownerUser = _instance.ownerUser;
     return CopyWith$Fragment$UserFragment(
-        local$ownerUser, (e) => call(ownerUser: e),);
+        local$ownerUser, (e) => call(ownerUser: e));
   }
 }
 
@@ -216,9 +214,8 @@ class _CopyWithStubImpl$Fragment$BoardFragment<TRes>
     implements CopyWith$Fragment$BoardFragment<TRes> {
   _CopyWithStubImpl$Fragment$BoardFragment(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? title,
     String? createdAt,
@@ -230,7 +227,6 @@ class _CopyWithStubImpl$Fragment$BoardFragment<TRes>
   }) =>
       _res;
 
-  @override
   CopyWith$Fragment$UserFragment<TRes> get ownerUser =>
       CopyWith$Fragment$UserFragment.stub(_res);
 }
@@ -241,7 +237,7 @@ const fragmentDefinitionBoardFragment = FragmentDefinitionNode(
       on: NamedTypeNode(
     name: NameNode(value: 'Board'),
     isNonNull: false,
-  ),),
+  )),
   directives: [],
   selectionSet: SelectionSetNode(selections: [
     FieldNode(
@@ -275,7 +271,7 @@ const fragmentDefinitionBoardFragment = FragmentDefinitionNode(
           directives: [],
           selectionSet: null,
         ),
-      ],),
+      ]),
     ),
     FieldNode(
       name: NameNode(value: 'id'),
@@ -305,12 +301,12 @@ const fragmentDefinitionBoardFragment = FragmentDefinitionNode(
       directives: [],
       selectionSet: null,
     ),
-  ],),
+  ]),
 );
 const documentNodeFragmentBoardFragment = DocumentNode(definitions: [
   fragmentDefinitionBoardFragment,
   fragmentDefinitionUserFragment,
-],);
+]);
 
 extension ClientExtension$Fragment$BoardFragment on graphql.GraphQLClient {
   void writeFragment$BoardFragment({
@@ -318,7 +314,7 @@ extension ClientExtension$Fragment$BoardFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool broadcast = true,
   }) =>
-      writeFragment(
+      this.writeFragment(
         graphql.FragmentRequest(
           idFields: idFields,
           fragment: const graphql.Fragment(
@@ -333,7 +329,7 @@ extension ClientExtension$Fragment$BoardFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool optimistic = true,
   }) {
-    final result = readFragment(
+    final result = this.readFragment(
       graphql.FragmentRequest(
         idFields: idFields,
         fragment: const graphql.Fragment(
