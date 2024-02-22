@@ -31,16 +31,16 @@ class Fragment$CheckListFragment {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$id = id;
-    resultData['id'] = l$id;
+    _resultData['id'] = l$id;
     final l$content = content;
-    resultData['content'] = l$content;
+    _resultData['content'] = l$content;
     final l$isChecked = isChecked;
-    resultData['isChecked'] = l$isChecked;
+    _resultData['isChecked'] = l$isChecked;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -62,7 +62,7 @@ class Fragment$CheckListFragment {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Fragment$CheckListFragment ||
+    if (!(other is Fragment$CheckListFragment) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -129,7 +129,6 @@ class _CopyWithImpl$Fragment$CheckListFragment<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? id = _undefined,
     Object? content = _undefined,
@@ -147,16 +146,15 @@ class _CopyWithImpl$Fragment$CheckListFragment<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ),);
+      ));
 }
 
 class _CopyWithStubImpl$Fragment$CheckListFragment<TRes>
     implements CopyWith$Fragment$CheckListFragment<TRes> {
   _CopyWithStubImpl$Fragment$CheckListFragment(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? id,
     String? content,
@@ -172,7 +170,7 @@ const fragmentDefinitionCheckListFragment = FragmentDefinitionNode(
       on: NamedTypeNode(
     name: NameNode(value: 'CheckList'),
     isNonNull: false,
-  ),),
+  )),
   directives: [],
   selectionSet: SelectionSetNode(selections: [
     FieldNode(
@@ -203,11 +201,11 @@ const fragmentDefinitionCheckListFragment = FragmentDefinitionNode(
       directives: [],
       selectionSet: null,
     ),
-  ],),
+  ]),
 );
 const documentNodeFragmentCheckListFragment = DocumentNode(definitions: [
   fragmentDefinitionCheckListFragment,
-],);
+]);
 
 extension ClientExtension$Fragment$CheckListFragment on graphql.GraphQLClient {
   void writeFragment$CheckListFragment({
@@ -215,7 +213,7 @@ extension ClientExtension$Fragment$CheckListFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool broadcast = true,
   }) =>
-      writeFragment(
+      this.writeFragment(
         graphql.FragmentRequest(
           idFields: idFields,
           fragment: const graphql.Fragment(
@@ -230,7 +228,7 @@ extension ClientExtension$Fragment$CheckListFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool optimistic = true,
   }) {
-    final result = readFragment(
+    final result = this.readFragment(
       graphql.FragmentRequest(
         idFields: idFields,
         fragment: const graphql.Fragment(
