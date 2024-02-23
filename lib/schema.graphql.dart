@@ -105,15 +105,13 @@ class _CopyWithImpl$Input$CheckListInput<TRes>
     Object? content = _undefined,
     Object? isChecked = _undefined,
   }) =>
-      _then(
-        Input$CheckListInput._({
-          ..._instance._$data,
-          if (content != _undefined && content != null)
-            'content': (content as String),
-          if (isChecked != _undefined && isChecked != null)
-            'isChecked': (isChecked as bool),
-        }),
-      );
+      _then(Input$CheckListInput._({
+        ..._instance._$data,
+        if (content != _undefined && content != null)
+          'content': (content as String),
+        if (isChecked != _undefined && isChecked != null)
+          'isChecked': (isChecked as bool),
+      }),);
 }
 
 class _CopyWithStubImpl$Input$CheckListInput<TRes>
@@ -237,14 +235,12 @@ class _CopyWithImpl$Input$InputEmail<TRes>
     Object? email = _undefined,
     Object? passWord = _undefined,
   }) =>
-      _then(
-        Input$InputEmail._({
-          ..._instance._$data,
-          if (email != _undefined && email != null) 'email': (email as String),
-          if (passWord != _undefined && passWord != null)
-            'passWord': (passWord as String),
-        }),
-      );
+      _then(Input$InputEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (passWord != _undefined && passWord != null)
+          'passWord': (passWord as String),
+      }),);
 }
 
 class _CopyWithStubImpl$Input$InputEmail<TRes>
@@ -368,15 +364,13 @@ class _CopyWithImpl$Input$InputLogin<TRes>
     Object? deviceId = _undefined,
     Object? idToken = _undefined,
   }) =>
-      _then(
-        Input$InputLogin._({
-          ..._instance._$data,
-          if (deviceId != _undefined && deviceId != null)
-            'deviceId': (deviceId as String),
-          if (idToken != _undefined && idToken != null)
-            'idToken': (idToken as String),
-        }),
-      );
+      _then(Input$InputLogin._({
+        ..._instance._$data,
+        if (deviceId != _undefined && deviceId != null)
+          'deviceId': (deviceId as String),
+        if (idToken != _undefined && idToken != null)
+          'idToken': (idToken as String),
+      }),);
 }
 
 class _CopyWithStubImpl$Input$InputLogin<TRes>
@@ -534,19 +528,17 @@ class _CopyWithImpl$Input$InputMoveCard<TRes>
     Object? oldItemIndex = _undefined,
     Object? oldListIndex = _undefined,
   }) =>
-      _then(
-        Input$InputMoveCard._({
-          ..._instance._$data,
-          if (newItemIndex != _undefined && newItemIndex != null)
-            'newItemIndex': (newItemIndex as int),
-          if (newListIndex != _undefined && newListIndex != null)
-            'newListIndex': (newListIndex as int),
-          if (oldItemIndex != _undefined && oldItemIndex != null)
-            'oldItemIndex': (oldItemIndex as int),
-          if (oldListIndex != _undefined && oldListIndex != null)
-            'oldListIndex': (oldListIndex as int),
-        }),
-      );
+      _then(Input$InputMoveCard._({
+        ..._instance._$data,
+        if (newItemIndex != _undefined && newItemIndex != null)
+          'newItemIndex': (newItemIndex as int),
+        if (newListIndex != _undefined && newListIndex != null)
+          'newListIndex': (newListIndex as int),
+        if (oldItemIndex != _undefined && oldItemIndex != null)
+          'oldItemIndex': (oldItemIndex as int),
+        if (oldListIndex != _undefined && oldListIndex != null)
+          'oldListIndex': (oldListIndex as int),
+      }),);
 }
 
 class _CopyWithStubImpl$Input$InputMoveCard<TRes>
@@ -672,15 +664,13 @@ class _CopyWithImpl$Input$InputMoveList<TRes>
     Object? newListIndex = _undefined,
     Object? oldListIndex = _undefined,
   }) =>
-      _then(
-        Input$InputMoveList._({
-          ..._instance._$data,
-          if (newListIndex != _undefined && newListIndex != null)
-            'newListIndex': (newListIndex as int),
-          if (oldListIndex != _undefined && oldListIndex != null)
-            'oldListIndex': (oldListIndex as int),
-        }),
-      );
+      _then(Input$InputMoveList._({
+        ..._instance._$data,
+        if (newListIndex != _undefined && newListIndex != null)
+          'newListIndex': (newListIndex as int),
+        if (oldListIndex != _undefined && oldListIndex != null)
+          'oldListIndex': (oldListIndex as int),
+      }),);
 }
 
 class _CopyWithStubImpl$Input$InputMoveList<TRes>
@@ -727,8 +717,7 @@ class Input$InputUpdateCard {
       final l$checkLists = data['checkLists'];
       result$data['checkLists'] = (l$checkLists as List<dynamic>?)
           ?.map(
-            (e) => Input$CheckListInput.fromJson((e as Map<String, dynamic>)),
-          )
+              (e) => Input$CheckListInput.fromJson((e as Map<String, dynamic>)),)
           .toList();
     }
     if (data.containsKey('description')) {
@@ -962,10 +951,9 @@ abstract class CopyWith$Input$InputUpdateCard<TRes> {
     List<String>? users,
   });
   TRes checkLists(
-    Iterable<Input$CheckListInput>? Function(
-      Iterable<CopyWith$Input$CheckListInput<Input$CheckListInput>>?,
-    ) fn,
-  );
+      Iterable<Input$CheckListInput>? Function(
+              Iterable<CopyWith$Input$CheckListInput<Input$CheckListInput>>?,)
+          fn,);
 }
 
 class _CopyWithImpl$Input$InputUpdateCard<TRes>
@@ -992,41 +980,33 @@ class _CopyWithImpl$Input$InputUpdateCard<TRes>
     Object? title = _undefined,
     Object? users = _undefined,
   }) =>
-      _then(
-        Input$InputUpdateCard._({
-          ..._instance._$data,
-          if (checkLists != _undefined)
-            'checkLists': (checkLists as List<Input$CheckListInput>?),
-          if (description != _undefined)
-            'description': (description as String?),
-          if (endDate != _undefined) 'endDate': (endDate as String?),
-          if (idCard != _undefined && idCard != null)
-            'idCard': (idCard as String),
-          if (reminder != _undefined && reminder != null)
-            'reminder': (reminder as Enum$Reminder),
-          if (startedDate != _undefined)
-            'startedDate': (startedDate as String?),
-          if (title != _undefined) 'title': (title as String?),
-          if (users != _undefined) 'users': (users as List<String>?),
-        }),
-      );
+      _then(Input$InputUpdateCard._({
+        ..._instance._$data,
+        if (checkLists != _undefined)
+          'checkLists': (checkLists as List<Input$CheckListInput>?),
+        if (description != _undefined) 'description': (description as String?),
+        if (endDate != _undefined) 'endDate': (endDate as String?),
+        if (idCard != _undefined && idCard != null)
+          'idCard': (idCard as String),
+        if (reminder != _undefined && reminder != null)
+          'reminder': (reminder as Enum$Reminder),
+        if (startedDate != _undefined) 'startedDate': (startedDate as String?),
+        if (title != _undefined) 'title': (title as String?),
+        if (users != _undefined) 'users': (users as List<String>?),
+      }),);
 
   @override
   TRes checkLists(
-    Iterable<Input$CheckListInput>? Function(
-      Iterable<CopyWith$Input$CheckListInput<Input$CheckListInput>>?,
-    ) fn,
-  ) =>
+          Iterable<Input$CheckListInput>? Function(
+                  Iterable<
+                      CopyWith$Input$CheckListInput<Input$CheckListInput>>?,)
+              fn,) =>
       call(
-        checkLists: fn(
-          _instance.checkLists?.map(
-            (e) => CopyWith$Input$CheckListInput(
-              e,
-              (i) => i,
-            ),
-          ),
-        )?.toList(),
-      );
+          checkLists: fn(
+              _instance.checkLists?.map((e) => CopyWith$Input$CheckListInput(
+                    e,
+                    (i) => i,
+                  ),),)?.toList(),);
 }
 
 class _CopyWithStubImpl$Input$InputUpdateCard<TRes>
@@ -1099,7 +1079,8 @@ class Input$InputVerifyEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputVerifyEmail || runtimeType != other.runtimeType) {
+    if (other is! Input$InputVerifyEmail ||
+        runtimeType != other.runtimeType) {
       return false;
     }
     final l$email = email;
@@ -1159,13 +1140,11 @@ class _CopyWithImpl$Input$InputVerifyEmail<TRes>
     Object? email = _undefined,
     Object? otp = _undefined,
   }) =>
-      _then(
-        Input$InputVerifyEmail._({
-          ..._instance._$data,
-          if (email != _undefined && email != null) 'email': (email as String),
-          if (otp != _undefined && otp != null) 'otp': (otp as String),
-        }),
-      );
+      _then(Input$InputVerifyEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (otp != _undefined && otp != null) 'otp': (otp as String),
+      }),);
 }
 
 class _CopyWithStubImpl$Input$InputVerifyEmail<TRes>

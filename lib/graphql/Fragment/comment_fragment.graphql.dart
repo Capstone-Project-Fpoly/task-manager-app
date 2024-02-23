@@ -154,23 +154,21 @@ class _CopyWithImpl$Fragment$CommentFragment<TRes>
     Object? comment = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Fragment$CommentFragment(
-          id: id == _undefined || id == null ? _instance.id : (id as String),
-          createdAt: createdAt == _undefined || createdAt == null
-              ? _instance.createdAt
-              : (createdAt as String),
-          user: user == _undefined || user == null
-              ? _instance.user
-              : (user as Fragment$UserFragment),
-          comment: comment == _undefined || comment == null
-              ? _instance.comment
-              : (comment as String),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Fragment$CommentFragment(
+        id: id == _undefined || id == null ? _instance.id : (id as String),
+        createdAt: createdAt == _undefined || createdAt == null
+            ? _instance.createdAt
+            : (createdAt as String),
+        user: user == _undefined || user == null
+            ? _instance.user
+            : (user as Fragment$UserFragment),
+        comment: comment == _undefined || comment == null
+            ? _instance.comment
+            : (comment as String),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ),);
 
   @override
   CopyWith$Fragment$UserFragment<TRes> get user {
@@ -203,72 +201,65 @@ class _CopyWithStubImpl$Fragment$CommentFragment<TRes>
 const fragmentDefinitionCommentFragment = FragmentDefinitionNode(
   name: NameNode(value: 'CommentFragment'),
   typeCondition: TypeConditionNode(
-    on: NamedTypeNode(
-      name: NameNode(value: 'Comment'),
-      isNonNull: false,
-    ),
-  ),
+      on: NamedTypeNode(
+    name: NameNode(value: 'Comment'),
+    isNonNull: false,
+  ),),
   directives: [],
-  selectionSet: SelectionSetNode(
-    selections: [
-      FieldNode(
-        name: NameNode(value: 'id'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'createdAt'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'user'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: SelectionSetNode(
-          selections: [
-            FragmentSpreadNode(
-              name: NameNode(value: 'UserFragment'),
-              directives: [],
-            ),
-            FieldNode(
-              name: NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ],
+  selectionSet: SelectionSetNode(selections: [
+    FieldNode(
+      name: NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'createdAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'user'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: SelectionSetNode(selections: [
+        FragmentSpreadNode(
+          name: NameNode(value: 'UserFragment'),
+          directives: [],
         ),
-      ),
-      FieldNode(
-        name: NameNode(value: 'comment'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],
-  ),
+        FieldNode(
+          name: NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ],),
+    ),
+    FieldNode(
+      name: NameNode(value: 'comment'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ],),
 );
-const documentNodeFragmentCommentFragment = DocumentNode(
-  definitions: [
-    fragmentDefinitionCommentFragment,
-    fragmentDefinitionUserFragment,
-  ],
-);
+const documentNodeFragmentCommentFragment = DocumentNode(definitions: [
+  fragmentDefinitionCommentFragment,
+  fragmentDefinitionUserFragment,
+],);
 
 extension ClientExtension$Fragment$CommentFragment on graphql.GraphQLClient {
   void writeFragment$CommentFragment({

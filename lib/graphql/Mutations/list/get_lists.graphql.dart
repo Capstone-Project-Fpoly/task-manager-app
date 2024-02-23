@@ -91,13 +91,12 @@ class _CopyWithImpl$Variables$Mutation$getList<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   @override
-  TRes call({Object? idBoard = _undefined}) => _then(
-        Variables$Mutation$getList._({
-          ..._instance._$data,
-          if (idBoard != _undefined && idBoard != null)
-            'idBoard': (idBoard as String),
-        }),
-      );
+  TRes call({Object? idBoard = _undefined}) =>
+      _then(Variables$Mutation$getList._({
+        ..._instance._$data,
+        if (idBoard != _undefined && idBoard != null)
+          'idBoard': (idBoard as String),
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Mutation$getList<TRes>
@@ -121,11 +120,9 @@ class Mutation$getList {
     final l$$__typename = json['__typename'];
     return Mutation$getList(
       getLists: (l$getLists as List<dynamic>?)
-          ?.map(
-            (e) => e == null
-                ? null
-                : Fragment$ListFragment.fromJson((e as Map<String, dynamic>)),
-          )
+          ?.map((e) => e == null
+              ? null
+              : Fragment$ListFragment.fromJson((e as Map<String, dynamic>)),)
           .toList(),
       $__typename: (l$$__typename as String),
     );
@@ -209,10 +206,9 @@ abstract class CopyWith$Mutation$getList<TRes> {
     String? $__typename,
   });
   TRes getLists(
-    Iterable<Fragment$ListFragment?>? Function(
-      Iterable<CopyWith$Fragment$ListFragment<Fragment$ListFragment>?>?,
-    ) fn,
-  );
+      Iterable<Fragment$ListFragment?>? Function(
+              Iterable<CopyWith$Fragment$ListFragment<Fragment$ListFragment>?>?,)
+          fn,);
 }
 
 class _CopyWithImpl$Mutation$getList<TRes>
@@ -233,35 +229,28 @@ class _CopyWithImpl$Mutation$getList<TRes>
     Object? getLists = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Mutation$getList(
-          getLists: getLists == _undefined
-              ? _instance.getLists
-              : (getLists as List<Fragment$ListFragment?>?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Mutation$getList(
+        getLists: getLists == _undefined
+            ? _instance.getLists
+            : (getLists as List<Fragment$ListFragment?>?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ),);
 
   @override
   TRes getLists(
-    Iterable<Fragment$ListFragment?>? Function(
-      Iterable<CopyWith$Fragment$ListFragment<Fragment$ListFragment>?>?,
-    ) fn,
-  ) =>
+          Iterable<Fragment$ListFragment?>? Function(
+                  Iterable<
+                      CopyWith$Fragment$ListFragment<Fragment$ListFragment>?>?,)
+              fn,) =>
       call(
-        getLists: fn(
-          _instance.getLists?.map(
-            (e) => e == null
-                ? null
-                : CopyWith$Fragment$ListFragment(
-                    e,
-                    (i) => i,
-                  ),
-          ),
-        )?.toList(),
-      );
+          getLists: fn(_instance.getLists?.map((e) => e == null
+              ? null
+              : CopyWith$Fragment$ListFragment(
+                  e,
+                  (i) => i,
+                ),),)?.toList(),);
 }
 
 class _CopyWithStubImpl$Mutation$getList<TRes>
@@ -281,50 +270,37 @@ class _CopyWithStubImpl$Mutation$getList<TRes>
   getLists(fn) => _res;
 }
 
-const documentNodeMutationgetList = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.mutation,
-      name: NameNode(value: 'getList'),
-      variableDefinitions: [
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'idBoard')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+const documentNodeMutationgetList = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'getList'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'idBoard')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-      ],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'getLists'),
-            alias: null,
-            arguments: [
-              ArgumentNode(
-                name: NameNode(value: 'idBoard'),
-                value: VariableNode(name: NameNode(value: 'idBoard')),
-              ),
-            ],
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'getLists'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'idBoard'),
+            value: VariableNode(name: NameNode(value: 'idBoard')),
+          ),
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FragmentSpreadNode(
+            name: NameNode(value: 'ListFragment'),
             directives: [],
-            selectionSet: SelectionSetNode(
-              selections: [
-                FragmentSpreadNode(
-                  name: NameNode(value: 'ListFragment'),
-                  directives: [],
-                ),
-                FieldNode(
-                  name: NameNode(value: '__typename'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ],
-            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -333,16 +309,23 @@ const documentNodeMutationgetList = DocumentNode(
             directives: [],
             selectionSet: null,
           ),
-        ],
+        ],),
       ),
-    ),
-    fragmentDefinitionListFragment,
-    fragmentDefinitionCardFragment,
-    fragmentDefinitionUserFragment,
-    fragmentDefinitionCommentFragment,
-    fragmentDefinitionCheckListFragment,
-  ],
-);
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],),
+  ),
+  fragmentDefinitionListFragment,
+  fragmentDefinitionCardFragment,
+  fragmentDefinitionUserFragment,
+  fragmentDefinitionCommentFragment,
+  fragmentDefinitionCheckListFragment,
+],);
 Mutation$getList _parserFn$Mutation$getList(Map<String, dynamic> data) =>
     Mutation$getList.fromJson(data);
 typedef OnMutationCompleted$Mutation$getList = FutureOr<void> Function(
@@ -430,12 +413,10 @@ class WatchOptions$Mutation$getList
 
 extension ClientExtension$Mutation$getList on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$getList>> mutate$getList(
-    Options$Mutation$getList options,
-  ) async =>
+          Options$Mutation$getList options,) async =>
       await mutate(options);
   graphql.ObservableQuery<Mutation$getList> watchMutation$getList(
-    WatchOptions$Mutation$getList options,
-  ) =>
+          WatchOptions$Mutation$getList options,) =>
       watchMutation(options);
 }
 
@@ -450,9 +431,8 @@ class Mutation$getList$HookResult {
   final graphql.QueryResult<Mutation$getList> result;
 }
 
-Mutation$getList$HookResult useMutation$getList([
-  WidgetOptions$Mutation$getList? options,
-]) {
+Mutation$getList$HookResult useMutation$getList(
+    [WidgetOptions$Mutation$getList? options,]) {
   final result =
       graphql_flutter.useMutation(options ?? WidgetOptions$Mutation$getList());
   return Mutation$getList$HookResult(
@@ -466,8 +446,7 @@ Mutation$getList$HookResult useMutation$getList([
 }
 
 graphql.ObservableQuery<Mutation$getList> useWatchMutation$getList(
-  WatchOptions$Mutation$getList options,
-) =>
+        WatchOptions$Mutation$getList options,) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$getList
