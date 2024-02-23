@@ -57,19 +57,20 @@ class DragDropScreen extends ConsumerWidget {
                     decoration: const InputDecoration(
                       hintText: 'Tìm kiếm thẻ...',
                       border: InputBorder.none,
-                      hintStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w100),
+                      hintStyle: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w100),
                     ),
                     style: const TextStyle(
                       color: Colors.white,
                     ),
                     onChanged: (value) {
-                      //bloc.searchLocalBoard(value);
+                      bloc.searchLocalCard(value);
                     },
                   );
                 }
                 return bloc.isAddListSubject.value == false
                     ? bloc.isAddCardSubject.value == true
-                        ?  const Text('Thêm thẻ...')
+                        ? const Text('Thêm thẻ...')
                         : Text(bloc.boardFragment.title ?? 'Bảng thử nghiệm')
                     : const Text('Thêm danh sách');
               },
@@ -79,7 +80,7 @@ class DragDropScreen extends ConsumerWidget {
             actions: [
               bloc.isAddListSubject.value == false &&
                       bloc.isAddCardSubject.value == false
-                  ?  Row(
+                  ? Row(
                       children: [
                         ObsBuilder(
                           streams: [bloc.selectedSearchSubject],
@@ -88,8 +89,8 @@ class DragDropScreen extends ConsumerWidget {
                             if (isSearch) {
                               return InkWell(
                                 child: const Icon(
-                                    Icons.close,
-                                    color: Colors.white,
+                                  Icons.close,
+                                  color: Colors.white,
                                 ),
                                 onTap: () {
                                   bloc.openSearch(false);
@@ -152,13 +153,16 @@ class DragDropScreen extends ConsumerWidget {
           body: ObsBuilder(
             streams: [
               bloc.listFragmentsSubject,
+              bloc.listSearchSubject,
               bloc.isLoadingSubject,
               bloc.isZoomSubject,
+              bloc.selectedSearchSubject,
             ],
             builder: (context) {
               if (bloc.isLoadingSubject.value) {
                 return const Center(child: CircularProgressIndicator());
               }
+              final isSearch = bloc.selectedSearchSubject.value;
               // final scaleFactor = bloc.isZoomSubject.value ? 0.8 : 1.0;
               return DragAndDropLists(
                 scrollController: bloc.scrollListController,
@@ -220,7 +224,9 @@ class DragDropScreen extends ConsumerWidget {
                   ),
                 ),
                 children: List.generate(
-                  bloc.listFragmentsSubject.value.length,
+                  isSearch
+                      ? bloc.listSearchSubject.value.length
+                      : bloc.listFragmentsSubject.value.length,
                   (index) {
                     return dragDropList(
                       context: context,
@@ -299,7 +305,10 @@ class DragDropScreen extends ConsumerWidget {
     required double height,
     required BuildContext context,
   }) {
-    final innerList = bloc.listFragmentsSubject.value[outerIndex];
+    final isSearch = bloc.selectedSearchSubject.value;
+    final innerList = isSearch
+        ? bloc.listSearchSubject.value[outerIndex]
+        : bloc.listFragmentsSubject.value[outerIndex];
     return DragAndDropList(
       decoration: BoxDecoration(
         color: CupertinoColors.extraLightBackgroundGray,

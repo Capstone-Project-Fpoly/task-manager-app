@@ -12,6 +12,7 @@ import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
+import 'package:task_manager/shared/extensions/list.dart';
 
 class DragAndDropBloc extends BlocBase {
   final Ref ref;
@@ -37,10 +38,11 @@ class DragAndDropBloc extends BlocBase {
 
   final scrollListController = ScrollController();
 
+  //
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final searchTextSubject = BehaviorSubject<String>.seeded('');
   final listSearchSubject =
-  BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
+      BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
 
   Future<void> fetchListFragmentByIdBoard() async {
     final result = await graphqlService.client.mutate$getList(
@@ -120,17 +122,29 @@ class DragAndDropBloc extends BlocBase {
   }
 
   void openSearch(bool open) {
-    listSearchSubject.value = listFragmentsSubject.value;
+    listSearchSubject.value = [...listFragmentsSubject.value];
     selectedSearchSubject.value = open;
   }
 
   void searchLocalCard(String query) {
     if (query.isEmpty) {
-      listSearchSubject.value = listFragmentsSubject.value;
+      listSearchSubject.value = [...listFragmentsSubject.value];
       return;
     }
-    final listTemp = listSearchSubject.value.where;
+    final List<Fragment$ListFragment?> listSearch = [];
 
+    final listTemp = listSearchSubject.value;
+    for (final list in listTemp) {
+      if (list == null) continue;
+      if (list.cards == null || list.cards!.isEmpty) continue;
+      final cards = list.cards!
+          .where((element) => element.title?.contains(query) == true)
+          .toList();
+      if (cards.isEmpty) continue;
+      list.cards!.removeWhere((element) => !cards.contains(element));
+      listSearch.add(list);
+    }
+    listSearchSubject.value = listSearch;
   }
 
   void onBackToBoardScreen() {
