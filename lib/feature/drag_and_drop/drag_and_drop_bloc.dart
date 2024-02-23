@@ -68,6 +68,7 @@ class DragAndDropBloc extends BlocBase {
       Timer? timer;
       if (listFragmentsSubject.value.isEmpty) return;
       scrollListController.position.isScrollingNotifier.addListener(() {
+        if (selectedSearchSubject.value) return;
         if (scrollListController.position.isScrollingNotifier.value) {
           timer?.cancel();
           return;
