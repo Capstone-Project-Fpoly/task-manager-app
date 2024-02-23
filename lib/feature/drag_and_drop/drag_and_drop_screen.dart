@@ -7,9 +7,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
-import 'package:task_manager/feature/drag_and_drop/widget/drag_and_drop_show_bottom_widget.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/color.dart';
 
 class DragDropScreen extends ConsumerWidget {
@@ -54,11 +52,12 @@ class DragDropScreen extends ConsumerWidget {
                 final isSearch = bloc.selectedSearchSubject.value;
                 if (isSearch) {
                   return TextField(
+                    autofocus: true,
                     decoration: const InputDecoration(
                       hintText: 'Tìm kiếm thẻ...',
                       border: InputBorder.none,
                       hintStyle: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w100),
+                          color: Colors.white, fontWeight: FontWeight.w100,),
                     ),
                     style: const TextStyle(
                       color: Colors.white,
@@ -153,16 +152,13 @@ class DragDropScreen extends ConsumerWidget {
           body: ObsBuilder(
             streams: [
               bloc.listFragmentsSubject,
-              bloc.listSearchSubject,
               bloc.isLoadingSubject,
               bloc.isZoomSubject,
-              bloc.selectedSearchSubject,
             ],
             builder: (context) {
               if (bloc.isLoadingSubject.value) {
                 return const Center(child: CircularProgressIndicator());
               }
-              final isSearch = bloc.selectedSearchSubject.value;
               // final scaleFactor = bloc.isZoomSubject.value ? 0.8 : 1.0;
               return DragAndDropLists(
                 scrollController: bloc.scrollListController,
@@ -179,54 +175,63 @@ class DragDropScreen extends ConsumerWidget {
                         (Widget child, Animation<double> animation) {
                       return ScaleTransition(scale: animation, child: child);
                     },
-                    child: !bloc.isAddListSubject.value
-                        ? Container(
-                            // key: const ValueKey('1'),
-                            alignment: Alignment.center,
-                            width: 300,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: CupertinoColors.extraLightBackgroundGray,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Text(
-                              'Thêm danh sách',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )
-                        : Container(
-                            padding: EdgeInsetsConstants.horizontal10,
-                            key: const ValueKey('2'),
-                            width: 300,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: CupertinoColors.extraLightBackgroundGray,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: TextFormField(
-                              autofocus: true,
-                              style: const TextStyle(color: Colors.black),
-                              controller: bloc.addListController,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Tên danh sách',
-                                hintStyle: TextStyle(
-                                  color: Colors.black.withOpacity(0.4),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
+                    child: ObsBuilder(
+                      streams: [bloc.selectedSearchSubject],
+                      builder: (context) {
+                        final isSearch = bloc.selectedSearchSubject.value;
+                        if (isSearch) {
+                          return const SizedBox.shrink();
+                        }
+                        return !bloc.isAddListSubject.value
+                            ? Container(
+                                // key: const ValueKey('1'),
+                                alignment: Alignment.center,
+                                width: 300,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color:
+                                      CupertinoColors.extraLightBackgroundGray,
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                              ),
-                            ),
-                          ),
+                                child: const Text(
+                                  'Thêm danh sách',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                padding: EdgeInsetsConstants.horizontal10,
+                                key: const ValueKey('2'),
+                                width: 300,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color:
+                                      CupertinoColors.extraLightBackgroundGray,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: TextFormField(
+                                  autofocus: true,
+                                  style: const TextStyle(color: Colors.black),
+                                  controller: bloc.addListController,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Tên danh sách',
+                                    hintStyle: TextStyle(
+                                      color: Colors.black.withOpacity(0.4),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              );
+                      },
+                    ),
                   ),
                 ),
                 children: List.generate(
-                  isSearch
-                      ? bloc.listSearchSubject.value.length
-                      : bloc.listFragmentsSubject.value.length,
+                  bloc.listFragmentsSubject.value.length,
                   (index) {
                     return dragDropList(
                       context: context,
@@ -276,28 +281,6 @@ class DragDropScreen extends ConsumerWidget {
     );
   }
 
-  void showBottomSheet({
-    required BuildContext context,
-    required Fragment$ListFragment? listFragment,
-  }) {
-    if (listFragment == null) return;
-    showModalBottomSheet<void>(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(7),
-        ),
-      ),
-      enableDrag: true,
-      backgroundColor: Colors.white,
-      context: context,
-      builder: (context) {
-        return DragAndDropShowBottomSheet(
-          listFragment: listFragment,
-        );
-      },
-    );
-  }
-
   DragAndDropList dragDropList({
     required int outerIndex,
     required DragAndDropBloc bloc,
@@ -305,10 +288,7 @@ class DragDropScreen extends ConsumerWidget {
     required double height,
     required BuildContext context,
   }) {
-    final isSearch = bloc.selectedSearchSubject.value;
-    final innerList = isSearch
-        ? bloc.listSearchSubject.value[outerIndex]
-        : bloc.listFragmentsSubject.value[outerIndex];
+    final innerList = bloc.listFragmentsSubject.value[outerIndex];
     return DragAndDropList(
       decoration: BoxDecoration(
         color: CupertinoColors.extraLightBackgroundGray,
@@ -334,8 +314,10 @@ class DragDropScreen extends ConsumerWidget {
             ),
           ),
           GestureDetector(
-            onTap: () =>
-                showBottomSheet(context: context, listFragment: innerList),
+            onTap: () => bloc.showBottomSheet(
+              context: context,
+              listFragment: innerList,
+            ),
             child: const Icon(
               Icons.more_vert,
               color: Colors.black,
