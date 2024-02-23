@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
+import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/shared/utilities/color.dart';
@@ -21,6 +22,14 @@ class BoardScreen extends ConsumerWidget {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          color: ColorConstants.white,
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+            bloc.openSearch(false);
+          },
+        ),
         title: ObsBuilder(
           streams: [bloc.selectedSearchSubject],
           builder: (context) {
