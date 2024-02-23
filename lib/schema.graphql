@@ -89,7 +89,7 @@ type Mutation {
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
   createCard(idList: String!, title: String!): Card
   createList(idBoard: String!, label: String!): List
-  deleteCard(idCard: String!): Boolean
+  deleteCard(idCard: String!, idList: String!): Boolean
   deleteList(idList: String!): Boolean
   getBoards: [Board]
   getCard(idCard: String!): Card

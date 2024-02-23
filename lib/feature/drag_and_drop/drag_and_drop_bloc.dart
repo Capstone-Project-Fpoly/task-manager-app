@@ -9,6 +9,7 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_card_extention.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_list_extention.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 
@@ -35,6 +36,11 @@ class DragAndDropBloc extends BlocBase {
   final addCardController = TextEditingController();
 
   final scrollListController = ScrollController();
+
+  final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
+  final searchTextSubject = BehaviorSubject<String>.seeded('');
+  final listSearchSubject =
+  BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
 
   Future<void> fetchListFragmentByIdBoard() async {
     final result = await graphqlService.client.mutate$getList(
@@ -108,6 +114,23 @@ class DragAndDropBloc extends BlocBase {
     isZoomSubject.close();
     isLoadingAddSubject.close();
     scrollListController.dispose();
+    selectedSearchSubject.close();
+    searchTextSubject.close();
+    listSearchSubject.close();
+  }
+
+  void openSearch(bool open) {
+    listSearchSubject.value = listFragmentsSubject.value;
+    selectedSearchSubject.value = open;
+  }
+
+  void searchLocalCard(String query) {
+    if (query.isEmpty) {
+      listSearchSubject.value = listFragmentsSubject.value;
+      return;
+    }
+    final listTemp = listSearchSubject.value.where;
+
   }
 
   void onBackToBoardScreen() {
