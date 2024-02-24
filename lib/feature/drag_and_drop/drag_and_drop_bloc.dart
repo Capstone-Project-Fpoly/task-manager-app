@@ -300,6 +300,7 @@ class DragAndDropBloc extends BlocBase {
     );
   }
 
+
   void setId({required String idCard, required String idList}) {
     idCardSubject.value = idCard;
     idListSubject.value = idList;
