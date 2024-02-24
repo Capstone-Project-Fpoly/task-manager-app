@@ -20,7 +20,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
       streams: [
         bloc.listFragmentsSubject,
         bloc.isZoomSubject,
-        bloc.isDragIngCardSubject,
+        bloc.isDraggingCardSubject,
       ],
       builder: (context) {
         return DragAndDropLists(
@@ -104,6 +104,13 @@ class DragAndDropListsCustom extends ConsumerWidget {
           ),
           onItemReorder: bloc.onItemReorder,
           onListReorder: bloc.onListReorder,
+          // onItemDraggingChanged: (item, dragging) {
+          //   bloc.changeDragIngCard(
+          //     value: dragging,
+          //     item: item,
+          //     context: context,
+          //   );
+          // },
           axis: Axis.horizontal,
           listWidth: 300,
           listDraggingWidth: 300,
@@ -121,13 +128,6 @@ class DragAndDropListsCustom extends ConsumerWidget {
           ),
           listPadding: EdgeInsetsConstants.all10,
           lastListTargetSize: 400,
-          onItemDraggingChanged: (item, dragging) {
-            bloc.changeDragIngCard(
-              value: dragging,
-              item: item,
-              context: context,
-            );
-          },
         );
       },
     );
@@ -271,6 +271,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
           item: innerList?.cards?[index],
           bloc: bloc,
           listFragment: innerList,
+          context: context,
         ),
       ),
       lastTarget: SizedBoxConstants.h8,
@@ -278,36 +279,55 @@ class DragAndDropListsCustom extends ConsumerWidget {
   }
 
   DragAndDropItem dragDropItem({
+    required BuildContext context,
     required Fragment$CardFragment? item,
     required Fragment$ListFragment? listFragment,
     required BoardDetailBloc bloc,
   }) {
     return DragAndDropItem(
-      child: Card(
-        key: ObjectKey({'idCard': item?.id, 'idList': listFragment?.id}),
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Container(
-          padding:
-              EdgeInsetsConstants.horizontal10 + EdgeInsetsConstants.vertical16,
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
+      child: Listener(
+        onPointerDown: (event) {
+          bloc.changeDraggingCard(
+            value: true,
+            context: context,
+            idCard: item?.id,
+            idList: listFragment?.id,
+          );
+        },
+        onPointerUp: (event) {
+          bloc.changeDraggingCard(
+            value: false,
+            context: context,
+            idCard: item?.id,
+            idList: listFragment?.id,
+          );
+        },
+        child: Card(
+          key: ObjectKey({'idCard': item?.id, 'idList': listFragment?.id}),
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(
-            item?.title ?? '',
-            style: const TextStyle(color: Colors.black),
+          child: Container(
+            padding: EdgeInsetsConstants.horizontal10 +
+                EdgeInsetsConstants.vertical16,
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Text(
+              item?.title ?? '',
+              style: const TextStyle(color: Colors.black),
+            ),
           ),
         ),
       ),

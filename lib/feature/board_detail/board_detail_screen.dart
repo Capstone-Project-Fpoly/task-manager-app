@@ -22,14 +22,14 @@ class BoardDetailScreen extends ConsumerWidget {
       streams: [
         bloc.isAddCardSubject,
         bloc.isAddListSubject,
-        bloc.isDragIngCardSubject,
+        bloc.isDraggingCardSubject,
         bloc.isDragCardMoveContainerDeleteSubject,
       ],
       builder: (context) {
         final isDragCardMove = bloc.isDragCardMoveContainerDeleteSubject.value;
         return Scaffold(
           backgroundColor: ColorUtils.getColorFromHex(bloc.boardFragment.color),
-          appBar: bloc.isDragIngCardSubject.value
+          appBar: bloc.isDraggingCardSubject.value
               ? AppBar(
                   backgroundColor: isDragCardMove ? Colors.red : darkerColor,
                   leading: const Icon(null),
@@ -109,7 +109,8 @@ class BoardDetailScreen extends ConsumerWidget {
                           ? bloc.isAddCardSubject.value == true
                               ? const Text('Thêm thẻ...')
                               : Text(
-                                  bloc.boardFragment.title ?? 'Bảng thử nghiệm',)
+                                  bloc.boardFragment.title ?? 'Bảng thử nghiệm',
+                                )
                           : const Text('Thêm danh sách');
                     },
                   ),
