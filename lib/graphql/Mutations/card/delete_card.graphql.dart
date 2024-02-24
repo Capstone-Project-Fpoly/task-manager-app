@@ -5,9 +5,13 @@ import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
 class Variables$Mutation$DeleteCard {
-  factory Variables$Mutation$DeleteCard({required String idCard}) =>
+  factory Variables$Mutation$DeleteCard({
+    required String idCard,
+    required String idList,
+  }) =>
       Variables$Mutation$DeleteCard._({
         r'idCard': idCard,
+        r'idList': idList,
       });
 
   Variables$Mutation$DeleteCard._(this._$data);
@@ -16,6 +20,8 @@ class Variables$Mutation$DeleteCard {
     final result$data = <String, dynamic>{};
     final l$idCard = data['idCard'];
     result$data['idCard'] = (l$idCard as String);
+    final l$idList = data['idList'];
+    result$data['idList'] = (l$idList as String);
     return Variables$Mutation$DeleteCard._(result$data);
   }
 
@@ -23,10 +29,14 @@ class Variables$Mutation$DeleteCard {
 
   String get idCard => (_$data['idCard'] as String);
 
+  String get idList => (_$data['idList'] as String);
+
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$idCard = idCard;
     result$data['idCard'] = l$idCard;
+    final l$idList = idList;
+    result$data['idList'] = l$idList;
     return result$data;
   }
 
@@ -50,13 +60,22 @@ class Variables$Mutation$DeleteCard {
     if (l$idCard != lOther$idCard) {
       return false;
     }
+    final l$idList = idList;
+    final lOther$idList = other.idList;
+    if (l$idList != lOther$idList) {
+      return false;
+    }
     return true;
   }
 
   @override
   int get hashCode {
     final l$idCard = idCard;
-    return Object.hashAll([l$idCard]);
+    final l$idList = idList;
+    return Object.hashAll([
+      l$idCard,
+      l$idList,
+    ]);
   }
 }
 
@@ -69,7 +88,10 @@ abstract class CopyWith$Variables$Mutation$DeleteCard<TRes> {
   factory CopyWith$Variables$Mutation$DeleteCard.stub(TRes res) =
       _CopyWithStubImpl$Variables$Mutation$DeleteCard;
 
-  TRes call({String? idCard});
+  TRes call({
+    String? idCard,
+    String? idList,
+  });
 }
 
 class _CopyWithImpl$Variables$Mutation$DeleteCard<TRes>
@@ -86,12 +108,19 @@ class _CopyWithImpl$Variables$Mutation$DeleteCard<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   @override
-  TRes call({Object? idCard = _undefined}) =>
-      _then(Variables$Mutation$DeleteCard._({
-        ..._instance._$data,
-        if (idCard != _undefined && idCard != null)
-          'idCard': (idCard as String),
-      }),);
+  TRes call({
+    Object? idCard = _undefined,
+    Object? idList = _undefined,
+  }) =>
+      _then(
+        Variables$Mutation$DeleteCard._({
+          ..._instance._$data,
+          if (idCard != _undefined && idCard != null)
+            'idCard': (idCard as String),
+          if (idList != _undefined && idList != null)
+            'idList': (idList as String),
+        }),
+      );
 }
 
 class _CopyWithStubImpl$Variables$Mutation$DeleteCard<TRes>
@@ -101,7 +130,11 @@ class _CopyWithStubImpl$Variables$Mutation$DeleteCard<TRes>
   final TRes _res;
 
   @override
-  call({String? idCard}) => _res;
+  call({
+    String? idCard,
+    String? idList,
+  }) =>
+      _res;
 }
 
 class Mutation$DeleteCard {
@@ -205,14 +238,16 @@ class _CopyWithImpl$Mutation$DeleteCard<TRes>
     Object? deleteCard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Mutation$DeleteCard(
-        deleteCard: deleteCard == _undefined
-            ? _instance.deleteCard
-            : (deleteCard as bool?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ),);
+      _then(
+        Mutation$DeleteCard(
+          deleteCard: deleteCard == _undefined
+              ? _instance.deleteCard
+              : (deleteCard as bool?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 }
 
 class _CopyWithStubImpl$Mutation$DeleteCard<TRes>
@@ -229,45 +264,62 @@ class _CopyWithStubImpl$Mutation$DeleteCard<TRes>
       _res;
 }
 
-const documentNodeMutationDeleteCard = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.mutation,
-    name: NameNode(value: 'DeleteCard'),
-    variableDefinitions: [
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idCard')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
+const documentNodeMutationDeleteCard = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.mutation,
+      name: NameNode(value: 'DeleteCard'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idCard')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
         ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-    ],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'deleteCard'),
-        alias: null,
-        arguments: [
-          ArgumentNode(
-            name: NameNode(value: 'idCard'),
-            value: VariableNode(name: NameNode(value: 'idCard')),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idList')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'deleteCard'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'idCard'),
+                value: VariableNode(name: NameNode(value: 'idCard')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'idList'),
+                value: VariableNode(name: NameNode(value: 'idList')),
+              ),
+            ],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
           ),
         ],
-        directives: [],
-        selectionSet: null,
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],),
-  ),
-],);
+    ),
+  ],
+);
 Mutation$DeleteCard _parserFn$Mutation$DeleteCard(Map<String, dynamic> data) =>
     Mutation$DeleteCard.fromJson(data);
 typedef OnMutationCompleted$Mutation$DeleteCard = FutureOr<void> Function(
@@ -355,10 +407,12 @@ class WatchOptions$Mutation$DeleteCard
 
 extension ClientExtension$Mutation$DeleteCard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$DeleteCard>> mutate$DeleteCard(
-          Options$Mutation$DeleteCard options,) async =>
+    Options$Mutation$DeleteCard options,
+  ) async =>
       await mutate(options);
   graphql.ObservableQuery<Mutation$DeleteCard> watchMutation$DeleteCard(
-          WatchOptions$Mutation$DeleteCard options,) =>
+    WatchOptions$Mutation$DeleteCard options,
+  ) =>
       watchMutation(options);
 }
 
@@ -373,8 +427,9 @@ class Mutation$DeleteCard$HookResult {
   final graphql.QueryResult<Mutation$DeleteCard> result;
 }
 
-Mutation$DeleteCard$HookResult useMutation$DeleteCard(
-    [WidgetOptions$Mutation$DeleteCard? options,]) {
+Mutation$DeleteCard$HookResult useMutation$DeleteCard([
+  WidgetOptions$Mutation$DeleteCard? options,
+]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$DeleteCard());
   return Mutation$DeleteCard$HookResult(
@@ -388,7 +443,8 @@ Mutation$DeleteCard$HookResult useMutation$DeleteCard(
 }
 
 graphql.ObservableQuery<Mutation$DeleteCard> useWatchMutation$DeleteCard(
-        WatchOptions$Mutation$DeleteCard options,) =>
+  WatchOptions$Mutation$DeleteCard options,
+) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$DeleteCard

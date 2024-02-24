@@ -54,7 +54,7 @@ class DragAndDropShowBottomSheet extends ConsumerWidget {
                         textAlign: TextAlign.center,
                       ),
                       onTap: () {
-                        bloc.popSC();
+                        bloc.back();
                       },
                     ),
                   ),
@@ -107,15 +107,8 @@ class DragAndDropShowBottomSheet extends ConsumerWidget {
             itemSelect(
               isDelete: true,
               itemName: 'Xóa danh sách',
-              onTap: () => dialogShow(
-                context,
-                'Xóa danh sách',
-                'Bạn có muốn xóa danh sách ${listFragment.label} không',
-                () {
-                  bloc.onTapDeleteList(listFragment.id);
-                },
-                bloc,
-              ),
+              onTap: () => bloc.onTapDeleteList(
+                  context: context, listFragment: listFragment,),
             ),
           ],
         ),
@@ -185,7 +178,7 @@ class DragAndDropShowBottomSheet extends ConsumerWidget {
           actions: [
             TextButton(
               onPressed: () {
-                bloc.popSC();
+                bloc.back();
               },
               child: const Text('hủy'),
             ),

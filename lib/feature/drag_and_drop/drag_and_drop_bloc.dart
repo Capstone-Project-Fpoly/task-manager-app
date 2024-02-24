@@ -13,6 +13,7 @@ import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 
 import 'package:task_manager/feature/drag_and_drop/widget/drag_and_drop_show_bottom_widget.dart';
+import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
 
 class DragAndDropBloc extends BlocBase {
   final Ref ref;
@@ -25,7 +26,11 @@ class DragAndDropBloc extends BlocBase {
 
   final isAddListSubject = BehaviorSubject<bool>.seeded(false);
   final isAddCardSubject = BehaviorSubject<bool>.seeded(false);
+  final isShowDeleteCardSubject = BehaviorSubject<bool>.seeded(false);
+  final isDeleteCardSubject = BehaviorSubject<bool>.seeded(false);
   final indexAddCardSubject = BehaviorSubject<int?>.seeded(null);
+  final idCardSubject = BehaviorSubject<String?>.seeded(null);
+  final idListSubject = BehaviorSubject<String?>.seeded(null);
   final listFragmentsSubject =
       BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
@@ -115,7 +120,11 @@ class DragAndDropBloc extends BlocBase {
     addCardController.dispose();
     isLoadingSubject.close();
     indexAddCardSubject.close();
+    idCardSubject.close();
+    idListSubject.close();
     isZoomSubject.close();
+    isShowDeleteCardSubject.close();
+    isDeleteCardSubject.close();
     isLoadingAddSubject.close();
     scrollListController.dispose();
     selectedSearchSubject.close();
@@ -236,12 +245,31 @@ class DragAndDropBloc extends BlocBase {
     isZoomSubject.value = !check;
   }
 
-  void popSC() {
+  void back() {
     routerService.pop();
   }
 
-  void onTapDeleteList(String idList) {
-    deleteList(idList);
+  void onTapDeleteList(
+      {required BuildContext context,
+      required Fragment$ListFragment listFragment,}) {
+    dialogShow(
+      context: context,
+      title: 'Xóa danh sách',
+      content: 'Bạn có muốn xóa danh sách ${listFragment.label} không',
+      onTap: () => deleteList(listFragment.id),
+    );
+  }
+
+  void dropDeleteCard({required BuildContext context}) {
+    dialogShow(
+      context: context,
+      title: 'Xóa thẻ',
+      content: 'Bạn có muốn xóa thẻ không',
+      onTap: () {
+        deleteCard();
+      },
+    );
+    isDeleteCardSubject.value = false;
   }
 
   void resetListFragment() {
@@ -270,5 +298,38 @@ class DragAndDropBloc extends BlocBase {
         );
       },
     );
+  }
+
+  void setId({required String idCard, required String idList}) {
+    idCardSubject.value = idCard;
+    idListSubject.value = idList;
+  }
+
+  void checkDropDelete() {
+    if (!isDeleteCardSubject.value) {
+      resetId();
+    }
+  }
+
+  void resetId() {
+    idListSubject.value = '';
+    idCardSubject.value = '';
+  }
+
+  Future<void> dialogShow({
+    required BuildContext context,
+    required String title,
+    required String content,
+    required VoidCallback onTap,
+  }) async {
+    final check = showDialog(
+      context: context,
+      builder: (context) {
+        return ShowAlertDialog(onTap: onTap, title: title, content: content);
+      },
+    );
+    await check.then((value) {
+      resetId();
+    });
   }
 }
