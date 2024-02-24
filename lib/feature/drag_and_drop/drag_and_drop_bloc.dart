@@ -12,6 +12,8 @@ import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 
+import 'package:task_manager/feature/drag_and_drop/widget/drag_and_drop_show_bottom_widget.dart';
+
 class DragAndDropBloc extends BlocBase {
   final Ref ref;
   final Fragment$BoardFragment boardFragment;
@@ -36,6 +38,12 @@ class DragAndDropBloc extends BlocBase {
 
   final scrollListController = ScrollController();
 
+  //
+  final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
+  final searchTextSubject = BehaviorSubject<String>.seeded('');
+
+  List<Fragment$ListFragment?> listFragmentsCurrent = [];
+
   Future<void> fetchListFragmentByIdBoard() async {
     final result = await graphqlService.client.mutate$getList(
       Options$Mutation$getList(
@@ -46,6 +54,7 @@ class DragAndDropBloc extends BlocBase {
     );
     if (result.hasException || result.parsedData == null) return;
     listFragmentsSubject.value = result.parsedData?.getLists ?? [];
+    listFragmentsCurrent = result.parsedData?.getLists ?? [];
   }
 
   Future<void> init() async {
@@ -59,6 +68,7 @@ class DragAndDropBloc extends BlocBase {
       Timer? timer;
       if (listFragmentsSubject.value.isEmpty) return;
       scrollListController.position.isScrollingNotifier.addListener(() {
+        if (selectedSearchSubject.value) return;
         if (scrollListController.position.isScrollingNotifier.value) {
           timer?.cancel();
           return;
@@ -108,6 +118,36 @@ class DragAndDropBloc extends BlocBase {
     isZoomSubject.close();
     isLoadingAddSubject.close();
     scrollListController.dispose();
+    selectedSearchSubject.close();
+    searchTextSubject.close();
+  }
+
+  void openSearch(bool open) {
+    listFragmentsSubject.value = listFragmentsCurrent;
+    selectedSearchSubject.value = open;
+  }
+
+  void searchLocalCard(String query) {
+    listFragmentsSubject.value = listFragmentsCurrent;
+    if (query.isEmpty) {
+      listFragmentsSubject.value = listFragmentsCurrent;
+      return;
+    }
+    final List<Fragment$ListFragment?> listSearch = [];
+
+    final listTemp = listFragmentsSubject.value;
+    for (final list in listTemp) {
+      if (list == null) continue;
+      if (list.cards == null || list.cards!.isEmpty) continue;
+      final cards = list.cards!
+          .where((element) => element.title?.contains(query) == true)
+          .toList();
+      if (cards.isEmpty) continue;
+      cards.removeWhere((element) => !element.title!.contains(query));
+      final lsTemp = list.copyWith(cards: cards);
+      listSearch.add(lsTemp);
+    }
+    listFragmentsSubject.value = listSearch;
   }
 
   void onBackToBoardScreen() {
@@ -202,5 +242,33 @@ class DragAndDropBloc extends BlocBase {
 
   void onTapDeleteList(String idList) {
     deleteList(idList);
+  }
+
+  void resetListFragment() {
+    selectedSearchSubject.value = false;
+    listFragmentsSubject.value = listFragmentsCurrent;
+  }
+
+  void showBottomSheet({
+    required BuildContext context,
+    required Fragment$ListFragment? listFragment,
+  }) {
+    resetListFragment();
+    if (listFragment == null) return;
+    showModalBottomSheet<void>(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(7),
+        ),
+      ),
+      enableDrag: true,
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (context) {
+        return DragAndDropShowBottomSheet(
+          listFragment: listFragment,
+        );
+      },
+    );
   }
 }

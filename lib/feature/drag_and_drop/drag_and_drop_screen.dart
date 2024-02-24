@@ -7,9 +7,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
-import 'package:task_manager/feature/drag_and_drop/widget/drag_and_drop_show_bottom_widget.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/color.dart';
 
 class DragDropScreen extends ConsumerWidget {
@@ -48,29 +46,74 @@ class DragDropScreen extends ConsumerWidget {
                     },
                     child: const Icon(Icons.clear),
                   ),
-            title: bloc.isAddListSubject.value == false
-                ? bloc.isAddCardSubject.value == true
-                    ? const Text('Thêm thẻ...')
-                    : Text(bloc.boardFragment.title ?? 'Bảng thử nghiệm')
-                : const Text('Thêm danh sách'),
+            title: ObsBuilder(
+              streams: [bloc.selectedSearchSubject],
+              builder: (context) {
+                final isSearch = bloc.selectedSearchSubject.value;
+                if (isSearch) {
+                  return TextField(
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      hintText: 'Tìm kiếm thẻ...',
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w100,),
+                    ),
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      bloc.searchLocalCard(value);
+                    },
+                  );
+                }
+                return bloc.isAddListSubject.value == false
+                    ? bloc.isAddCardSubject.value == true
+                        ? const Text('Thêm thẻ...')
+                        : Text(bloc.boardFragment.title ?? 'Bảng thử nghiệm')
+                    : const Text('Thêm danh sách');
+              },
+            ),
             backgroundColor: darkerColor,
             leadingWidth: 50,
             actions: [
               bloc.isAddListSubject.value == false &&
                       bloc.isAddCardSubject.value == false
-                  ? const Row(
+                  ? Row(
                       children: [
-                        Icon(
-                          Icons.filter_list,
-                          color: Colors.white,
+                        ObsBuilder(
+                          streams: [bloc.selectedSearchSubject],
+                          builder: (context) {
+                            final isSearch = bloc.selectedSearchSubject.value;
+                            if (isSearch) {
+                              return InkWell(
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                                onTap: () {
+                                  bloc.openSearch(false);
+                                },
+                              );
+                            }
+                            return InkWell(
+                              child: const Icon(
+                                Icons.filter_list,
+                                color: Colors.white,
+                              ),
+                              onTap: () {
+                                bloc.openSearch(true);
+                              },
+                            );
+                          },
                         ),
                         SizedBoxConstants.w15,
-                        Icon(
+                        const Icon(
                           Icons.notifications,
                           color: Colors.white,
                         ),
                         SizedBoxConstants.w15,
-                        Icon(
+                        const Icon(
                           Icons.more_horiz,
                           color: Colors.white,
                         ),
@@ -132,48 +175,59 @@ class DragDropScreen extends ConsumerWidget {
                         (Widget child, Animation<double> animation) {
                       return ScaleTransition(scale: animation, child: child);
                     },
-                    child: !bloc.isAddListSubject.value
-                        ? Container(
-                            // key: const ValueKey('1'),
-                            alignment: Alignment.center,
-                            width: 300,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: CupertinoColors.extraLightBackgroundGray,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Text(
-                              'Thêm danh sách',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )
-                        : Container(
-                            padding: EdgeInsetsConstants.horizontal10,
-                            key: const ValueKey('2'),
-                            width: 300,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: CupertinoColors.extraLightBackgroundGray,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: TextFormField(
-                              autofocus: true,
-                              style: const TextStyle(color: Colors.black),
-                              controller: bloc.addListController,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Tên danh sách',
-                                hintStyle: TextStyle(
-                                  color: Colors.black.withOpacity(0.4),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
+                    child: ObsBuilder(
+                      streams: [bloc.selectedSearchSubject],
+                      builder: (context) {
+                        final isSearch = bloc.selectedSearchSubject.value;
+                        if (isSearch) {
+                          return const SizedBox.shrink();
+                        }
+                        return !bloc.isAddListSubject.value
+                            ? Container(
+                                // key: const ValueKey('1'),
+                                alignment: Alignment.center,
+                                width: 300,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color:
+                                      CupertinoColors.extraLightBackgroundGray,
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                              ),
-                            ),
-                          ),
+                                child: const Text(
+                                  'Thêm danh sách',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                padding: EdgeInsetsConstants.horizontal10,
+                                key: const ValueKey('2'),
+                                width: 300,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color:
+                                      CupertinoColors.extraLightBackgroundGray,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: TextFormField(
+                                  autofocus: true,
+                                  style: const TextStyle(color: Colors.black),
+                                  controller: bloc.addListController,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Tên danh sách',
+                                    hintStyle: TextStyle(
+                                      color: Colors.black.withOpacity(0.4),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              );
+                      },
+                    ),
                   ),
                 ),
                 children: List.generate(
@@ -227,28 +281,6 @@ class DragDropScreen extends ConsumerWidget {
     );
   }
 
-  void showBottomSheet({
-    required BuildContext context,
-    required Fragment$ListFragment? listFragment,
-  }) {
-    if (listFragment == null) return;
-    showModalBottomSheet<void>(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(7),
-        ),
-      ),
-      enableDrag: true,
-      backgroundColor: Colors.white,
-      context: context,
-      builder: (context) {
-        return DragAndDropShowBottomSheet(
-          listFragment: listFragment,
-        );
-      },
-    );
-  }
-
   DragAndDropList dragDropList({
     required int outerIndex,
     required DragAndDropBloc bloc,
@@ -270,7 +302,7 @@ class DragDropScreen extends ConsumerWidget {
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(7.0)),
               ),
-              padding: EdgeInsetsConstants.all10,
+              padding: EdgeInsetsConstants.all12,
               child: Text(
                 innerList?.label ?? '',
                 maxLines: 1,
@@ -282,8 +314,10 @@ class DragDropScreen extends ConsumerWidget {
             ),
           ),
           GestureDetector(
-            onTap: () =>
-                showBottomSheet(context: context, listFragment: innerList),
+            onTap: () => bloc.showBottomSheet(
+              context: context,
+              listFragment: innerList,
+            ),
             child: const Icon(
               Icons.more_vert,
               color: Colors.black,
@@ -310,6 +344,7 @@ class DragDropScreen extends ConsumerWidget {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
+                            bloc.openSearch(false);
                             bloc.onTapAddCard(outerIndex);
                           },
                           child: const Row(
@@ -334,8 +369,8 @@ class DragDropScreen extends ConsumerWidget {
                         ),
                         const Spacer(),
                         const Icon(
-                          Icons.image,
-                          color: Colors.grey,
+                          Icons.image_outlined,
+                          color: Colors.black54,
                         ),
                       ],
                     )
