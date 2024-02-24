@@ -1,11 +1,11 @@
-import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
+import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/create_card.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/delete_card.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/move_card.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 
-extension DragAndDropCardExtention on DragAndDropBloc {
+extension BoardDetailCardExtention on BoardDetailBloc {
   Future<Fragment$CardFragment?> fetchCreateCard({
     required String idList,
     required String title,
@@ -55,25 +55,25 @@ extension DragAndDropCardExtention on DragAndDropBloc {
     }
   }
 
-  Future<void> deleteCard() async {
+  Future<void> deleteCard(
+      {required String? idCard, required String? idList,}) async {
+    if (idCard == null || idList == null) return;
+    if (idCard.isEmpty || idList.isEmpty) return;
     routerService.pop();
-    if (idCardSubject.value == null || idListSubject.value == null) {
-      return;
-    }
     final listTemps = listFragmentsSubject.value;
     for (final list in listTemps) {
       if (list == null) continue;
-      if (list.id == idListSubject.value) {
+      if (list.id == idList) {
         if (list.cards == null) continue;
-        list.cards!.removeWhere((element) => element.id == idCardSubject.value);
+        list.cards!.removeWhere((element) => element.id == idCard);
       }
     }
     listFragmentsSubject.value = listTemps;
     final result = await graphqlService.client.mutate$DeleteCard(
       Options$Mutation$DeleteCard(
         variables: Variables$Mutation$DeleteCard(
-          idCard: idCardSubject.value.toString(),
-          idList: idListSubject.value.toString(),
+          idCard: idCard,
+          idList: idList,
         ),
       ),
     );
@@ -88,6 +88,5 @@ extension DragAndDropCardExtention on DragAndDropBloc {
       fetchListFragmentByIdBoard();
       return;
     }
-    resetId();
   }
 }

@@ -9,8 +9,8 @@ import 'package:task_manager/feature/add_card/add_card_bloc.dart';
 import 'package:task_manager/feature/add_card/add_card_screen.dart';
 import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board/board_screen.dart';
-import 'package:task_manager/feature/drag_and_drop/drag_and_drop_screen.dart';
-import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
+import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
+import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login/login_screen.dart';
@@ -130,15 +130,15 @@ class RouteScreen {
     );
   }
 
-  static PageRoute dragAndDropRoute(RouteSettings settings) {
+  static PageRoute boardDetailRoute(RouteSettings settings) {
     final boardFragment = settings.arguments as Fragment$BoardFragment;
-    BlocProvider.dragAndDrop = createAutoDisposeBloc(
+    BlocProvider.boardDetail = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-      (ref) => DragAndDropBloc(ref, boardFragment: boardFragment),
+      (ref) => BoardDetailBloc(ref, boardFragment: boardFragment),
     );
     return MaterialPageRoute(
       settings: settings,
-      builder: (_) => const DragDropScreen(),
+      builder: (_) => const BoardDetailScreen(),
     );
   }
 

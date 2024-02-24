@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:task_manager/base/bloc/bloc_provider.dart';
+import 'package:task_manager/base/dependency/app_service.dart';
 
 class ShowAlertDialog extends ConsumerWidget {
   const ShowAlertDialog({
@@ -16,7 +16,7 @@ class ShowAlertDialog extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final bloc = ref.watch(BlocProvider.dragAndDrop);
+    final routerService = ref.watch(AppService.router);
     return AlertDialog(
       title: Text(
         title,
@@ -28,7 +28,7 @@ class ShowAlertDialog extends ConsumerWidget {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.pop(context);
+            routerService.pop(result: false);
           },
           child: const Text('hủy'),
         ),

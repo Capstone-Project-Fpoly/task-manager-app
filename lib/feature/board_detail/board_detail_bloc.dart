@@ -1,21 +1,22 @@
 import 'dart:async';
 
+import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
-import 'package:task_manager/feature/drag_and_drop/drag_and_drop_card_extention.dart';
-import 'package:task_manager/feature/drag_and_drop/drag_and_drop_list_extention.dart';
+import 'package:task_manager/feature/board_detail/board_detail_card_extention.dart';
+import 'package:task_manager/feature/board_detail/board_detail_list_extention.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 
-import 'package:task_manager/feature/drag_and_drop/widget/drag_and_drop_show_bottom_widget.dart';
+import 'package:task_manager/feature/board_detail/widget/board_detail_show_list_bottom_widget.dart';
 import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
 
-class DragAndDropBloc extends BlocBase {
+class BoardDetailBloc extends BlocBase {
   final Ref ref;
   final Fragment$BoardFragment boardFragment;
   late final routerService = ref.watch(AppService.router);
@@ -26,13 +27,12 @@ class DragAndDropBloc extends BlocBase {
 
   final isAddListSubject = BehaviorSubject<bool>.seeded(false);
   final isAddCardSubject = BehaviorSubject<bool>.seeded(false);
-  final isShowDeleteCardSubject = BehaviorSubject<bool>.seeded(false);
-  final isDeleteCardSubject = BehaviorSubject<bool>.seeded(false);
+  final isDragIngCardSubject = BehaviorSubject<bool>.seeded(false);
   final indexAddCardSubject = BehaviorSubject<int?>.seeded(null);
-  final idCardSubject = BehaviorSubject<String?>.seeded(null);
-  final idListSubject = BehaviorSubject<String?>.seeded(null);
+
   final listFragmentsSubject =
       BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
+
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   final isLoadingAddSubject = BehaviorSubject<bool>.seeded(false);
 
@@ -46,6 +46,9 @@ class DragAndDropBloc extends BlocBase {
   //
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final searchTextSubject = BehaviorSubject<String>.seeded('');
+
+  final isDragCardMoveContainerDeleteSubject =
+      BehaviorSubject<bool>.seeded(false);
 
   List<Fragment$ListFragment?> listFragmentsCurrent = [];
 
@@ -120,15 +123,13 @@ class DragAndDropBloc extends BlocBase {
     addCardController.dispose();
     isLoadingSubject.close();
     indexAddCardSubject.close();
-    idCardSubject.close();
-    idListSubject.close();
     isZoomSubject.close();
-    isShowDeleteCardSubject.close();
-    isDeleteCardSubject.close();
+    isDragIngCardSubject.close();
     isLoadingAddSubject.close();
     scrollListController.dispose();
     selectedSearchSubject.close();
     searchTextSubject.close();
+    isDragCardMoveContainerDeleteSubject.close();
   }
 
   void openSearch(bool open) {
@@ -236,7 +237,7 @@ class DragAndDropBloc extends BlocBase {
 
   late final appBloc = ref.read(BlocProvider.app);
 
-  DragAndDropBloc(this.ref, {required this.boardFragment}) {
+  BoardDetailBloc(this.ref, {required this.boardFragment}) {
     init();
   }
 
@@ -261,18 +262,6 @@ class DragAndDropBloc extends BlocBase {
     );
   }
 
-  void dropDeleteCard({required BuildContext context}) {
-    dialogShow(
-      context: context,
-      title: 'Xóa thẻ',
-      content: 'Bạn có muốn xóa thẻ không',
-      onTap: () {
-        deleteCard();
-      },
-    );
-    isDeleteCardSubject.value = false;
-  }
-
   void resetListFragment() {
     selectedSearchSubject.value = false;
     listFragmentsSubject.value = listFragmentsCurrent;
@@ -294,27 +283,11 @@ class DragAndDropBloc extends BlocBase {
       backgroundColor: Colors.white,
       context: context,
       builder: (context) {
-        return DragAndDropShowBottomSheet(
+        return BoardDetailShowListDetailBottomSheet(
           listFragment: listFragment,
         );
       },
     );
-  }
-
-  void setId({required String idCard, required String idList}) {
-    idCardSubject.value = idCard;
-    idListSubject.value = idList;
-  }
-
-  void checkDropDelete() {
-    if (!isDeleteCardSubject.value) {
-      resetId();
-    }
-  }
-
-  void resetId() {
-    idListSubject.value = '';
-    idCardSubject.value = '';
   }
 
   Future<void> dialogShow({
@@ -323,14 +296,44 @@ class DragAndDropBloc extends BlocBase {
     required String content,
     required VoidCallback onTap,
   }) async {
-    final check = showDialog(
+    showDialog(
       context: context,
       builder: (context) {
         return ShowAlertDialog(onTap: onTap, title: title, content: content);
       },
     );
-    await check.then((value) {
-      resetId();
-    });
+  }
+
+  void changeDragCardMoveContainerDelete(bool value) {
+    isDragCardMoveContainerDeleteSubject.value = value;
+  }
+
+  void changeDragIngCard({
+    required BuildContext context,
+    required bool value,
+    required DragAndDropItem item,
+  }) {
+    if (value) {
+      isDragCardMoveContainerDeleteSubject.value = false;
+    }
+    isDragIngCardSubject.value = value;
+
+    if (value || !isDragCardMoveContainerDeleteSubject.value) return;
+    try {
+      final data = item.child.key as ObjectKey;
+      final map = data.value as Map<String, dynamic>;
+      final idCard = map['idCard'] as String?;
+      final idList = map['idList'] as String?;
+      dialogShow(
+        context: context,
+        title: 'Xóa thẻ',
+        content: 'Bạn có muốn xóa thẻ không',
+        onTap: () {
+          deleteCard(idCard: idCard, idList: idList);
+        },
+      );
+    } catch (err) {
+      return;
+    }
   }
 }

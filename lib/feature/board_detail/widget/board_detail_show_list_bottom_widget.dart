@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
-import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
+import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 
-class DragAndDropShowBottomSheet extends ConsumerWidget {
-  const DragAndDropShowBottomSheet({
+class BoardDetailShowListDetailBottomSheet extends ConsumerWidget {
+  const BoardDetailShowListDetailBottomSheet({
     Key? key,
     required this.listFragment,
   }) : super(key: key);
@@ -16,7 +16,7 @@ class DragAndDropShowBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(context, ref) {
-    final bloc = ref.watch(BlocProvider.dragAndDrop);
+    final bloc = ref.watch(BlocProvider.boardDetail);
     return SingleChildScrollView(
       child: Container(
         decoration: BoxDecoration(
@@ -164,7 +164,7 @@ class DragAndDropShowBottomSheet extends ConsumerWidget {
     String title,
     String content,
     VoidCallback onTap,
-    DragAndDropBloc bloc,
+    BoardDetailBloc bloc,
   ) {
     showDialog(
       context: context,
