@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
@@ -27,7 +26,10 @@ class BoardDetailBloc extends BlocBase {
 
   final isAddListSubject = BehaviorSubject<bool>.seeded(false);
   final isAddCardSubject = BehaviorSubject<bool>.seeded(false);
-  final isDragIngCardSubject = BehaviorSubject<bool>.seeded(false);
+
+  final isDraggingCardSubject = BehaviorSubject<bool>.seeded(false);
+  final isDraggingListSubject = BehaviorSubject<bool>.seeded(false);
+
   final indexAddCardSubject = BehaviorSubject<int?>.seeded(null);
 
   final listFragmentsSubject =
@@ -43,7 +45,6 @@ class BoardDetailBloc extends BlocBase {
 
   final scrollListController = ScrollController();
 
-  //
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final searchTextSubject = BehaviorSubject<String>.seeded('');
 
@@ -77,6 +78,9 @@ class BoardDetailBloc extends BlocBase {
       if (listFragmentsSubject.value.isEmpty) return;
       scrollListController.position.isScrollingNotifier.addListener(() {
         if (selectedSearchSubject.value) return;
+        final isDragging =
+            isDraggingCardSubject.value || isDraggingListSubject.value;
+        if (isDragging) return;
         if (scrollListController.position.isScrollingNotifier.value) {
           timer?.cancel();
           return;
@@ -124,12 +128,13 @@ class BoardDetailBloc extends BlocBase {
     isLoadingSubject.close();
     indexAddCardSubject.close();
     isZoomSubject.close();
-    isDragIngCardSubject.close();
+    isDraggingCardSubject.close();
     isLoadingAddSubject.close();
     scrollListController.dispose();
     selectedSearchSubject.close();
     searchTextSubject.close();
     isDragCardMoveContainerDeleteSubject.close();
+    isDraggingListSubject.close();
   }
 
   void openSearch(bool open) {
@@ -308,32 +313,25 @@ class BoardDetailBloc extends BlocBase {
     isDragCardMoveContainerDeleteSubject.value = value;
   }
 
-  void changeDragIngCard({
+  void changeDraggingCard({
     required BuildContext context,
     required bool value,
-    required DragAndDropItem item,
+    required String? idCard,
+    required String? idList,
   }) {
     if (value) {
       isDragCardMoveContainerDeleteSubject.value = false;
     }
-    isDragIngCardSubject.value = value;
+    isDraggingCardSubject.value = value;
 
     if (value || !isDragCardMoveContainerDeleteSubject.value) return;
-    try {
-      final data = item.child.key as ObjectKey;
-      final map = data.value as Map<String, dynamic>;
-      final idCard = map['idCard'] as String?;
-      final idList = map['idList'] as String?;
-      dialogShow(
-        context: context,
-        title: 'Xóa thẻ',
-        content: 'Bạn có muốn xóa thẻ không',
-        onTap: () {
-          deleteCard(idCard: idCard, idList: idList);
-        },
-      );
-    } catch (err) {
-      return;
-    }
+    dialogShow(
+      context: context,
+      title: 'Xóa thẻ',
+      content: 'Bạn có muốn xóa thẻ không',
+      onTap: () {
+        deleteCard(idCard: idCard, idList: idList);
+      },
+    );
   }
 }
