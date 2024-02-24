@@ -249,9 +249,10 @@ class DragAndDropBloc extends BlocBase {
     routerService.pop();
   }
 
-  void onTapDeleteList(
-      {required BuildContext context,
-      required Fragment$ListFragment listFragment,}) {
+  void onTapDeleteList({
+    required BuildContext context,
+    required Fragment$ListFragment listFragment,
+  }) {
     dialogShow(
       context: context,
       title: 'Xóa danh sách',
@@ -299,7 +300,6 @@ class DragAndDropBloc extends BlocBase {
       },
     );
   }
-
 
   void setId({required String idCard, required String idList}) {
     idCardSubject.value = idCard;

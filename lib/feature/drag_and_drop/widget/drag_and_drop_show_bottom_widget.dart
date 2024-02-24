@@ -108,7 +108,9 @@ class DragAndDropShowBottomSheet extends ConsumerWidget {
               isDelete: true,
               itemName: 'Xóa danh sách',
               onTap: () => bloc.onTapDeleteList(
-                  context: context, listFragment: listFragment,),
+                context: context,
+                listFragment: listFragment,
+              ),
             ),
           ],
         ),
