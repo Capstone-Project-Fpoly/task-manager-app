@@ -23,7 +23,7 @@ class DragDropScreen extends ConsumerWidget {
     final hslColor = HSLColor.fromColor(color);
 
     final darkerColor =
-        hslColor.withLightness(hslColor.lightness * 0.5).toColor();
+    hslColor.withLightness(hslColor.lightness * 0.5).toColor();
     return ObsBuilder(
       streams: [
         bloc.isAddCardSubject,
@@ -35,121 +35,121 @@ class DragDropScreen extends ConsumerWidget {
           backgroundColor: ColorUtils.getColorFromHex(bloc.boardFragment.color),
           appBar: bloc.isShowDeleteCardSubject.value
               ? AppBar(
-                  backgroundColor: darkerColor,
-                  leading: const Icon(null),
-                  actions: [
-                    ObsBuilder(
-                      streams: [bloc.idCardSubject],
-                      builder: (context) {
-                        return DragTarget(
-                          builder: (context, candidateData, rejectedData) {
-                            return SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.folder_delete_rounded,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBoxConstants.w10,
-                                  Text(
-                                    'Kéo vào đây để xóa ',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          onWillAccept: (data) {
-                            bloc.isDeleteCardSubject.value = true;
-                            return true;
-                          },
-                          onAccept: (data) {
-                            bloc.dropDeleteCard(context: context);
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                )
-              : AppBar(
-                  leading: bloc.isAddListSubject.value == false &&
-                          bloc.isAddCardSubject.value == false
-                      ? InkWell(
-                          onTap: () {
-                            bloc.onBackToBoardScreen();
-                          },
-                          child: const Icon(Icons.arrow_back),
-                        )
-                      : InkWell(
-                          onTap: () {
-                            bloc.closeAdd();
-                          },
-                          child: const Icon(Icons.clear),
-                        ),
-                  title: bloc.isAddListSubject.value == false
-                      ? bloc.isAddCardSubject.value == true
-                          ? const Text('Thêm thẻ...')
-                          : Text(bloc.boardFragment.title ?? 'Bảng thử nghiệm')
-                      : const Text('Thêm danh sách'),
-                  backgroundColor: darkerColor,
-                  leadingWidth: 50,
-                  actions: [
-                    bloc.isAddListSubject.value == false &&
-                            bloc.isAddCardSubject.value == false
-                        ? const Row(
-                            children: [
-                              Icon(
-                                Icons.filter_list,
+            backgroundColor: darkerColor,
+            leading: const Icon(null),
+            actions: [
+              ObsBuilder(
+                streams: [bloc.idCardSubject],
+                builder: (context) {
+                  return DragTarget(
+                    builder: (context, candidateData, rejectedData) {
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.folder_delete_rounded,
+                              color: Colors.white,
+                            ),
+                            SizedBoxConstants.w10,
+                            Text(
+                              'Kéo vào đây để xóa ',
+                              style: TextStyle(
+                                fontSize: 15,
                                 color: Colors.white,
-                              ),
-                              SizedBoxConstants.w15,
-                              Icon(
-                                Icons.notifications,
-                                color: Colors.white,
-                              ),
-                              SizedBoxConstants.w15,
-                              Icon(
-                                Icons.more_horiz,
-                                color: Colors.white,
-                              ),
-                              SizedBoxConstants.w10,
-                            ],
-                          )
-                        : Padding(
-                            padding: EdgeInsetsConstants.right16,
-                            child: InkWell(
-                              onTap: () {
-                                bloc.add();
-                              },
-                              child: ObsBuilder(
-                                streams: [bloc.isLoadingAddSubject],
-                                builder: (context) {
-                                  final isLoading =
-                                      bloc.isLoadingAddSubject.value;
-                                  if (isLoading) {
-                                    return const SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                      ),
-                                    );
-                                  }
-                                  return const Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                  );
-                                },
                               ),
                             ),
+                          ],
+                        ),
+                      );
+                    },
+                    onWillAccept: (data) {
+                      bloc.isDeleteCardSubject.value = true;
+                      return true;
+                    },
+                    onAccept: (data) {
+                      bloc.dropDeleteCard(context: context);
+                    },
+                  );
+                },
+              ),
+            ],
+          )
+              : AppBar(
+            leading: bloc.isAddListSubject.value == false &&
+                bloc.isAddCardSubject.value == false
+                ? InkWell(
+              onTap: () {
+                bloc.onBackToBoardScreen();
+              },
+              child: const Icon(Icons.arrow_back),
+            )
+                : InkWell(
+              onTap: () {
+                bloc.closeAdd();
+              },
+              child: const Icon(Icons.clear),
+            ),
+            title: bloc.isAddListSubject.value == false
+                ? bloc.isAddCardSubject.value == true
+                ? const Text('Thêm thẻ...')
+                : Text(bloc.boardFragment.title ?? 'Bảng thử nghiệm')
+                : const Text('Thêm danh sách'),
+            backgroundColor: darkerColor,
+            leadingWidth: 50,
+            actions: [
+              bloc.isAddListSubject.value == false &&
+                  bloc.isAddCardSubject.value == false
+                  ? const Row(
+                children: [
+                  Icon(
+                    Icons.filter_list,
+                    color: Colors.white,
+                  ),
+                  SizedBoxConstants.w15,
+                  Icon(
+                    Icons.notifications,
+                    color: Colors.white,
+                  ),
+                  SizedBoxConstants.w15,
+                  Icon(
+                    Icons.more_horiz,
+                    color: Colors.white,
+                  ),
+                  SizedBoxConstants.w10,
+                ],
+              )
+                  : Padding(
+                padding: EdgeInsetsConstants.right16,
+                child: InkWell(
+                  onTap: () {
+                    bloc.add();
+                  },
+                  child: ObsBuilder(
+                    streams: [bloc.isLoadingAddSubject],
+                    builder: (context) {
+                      final isLoading =
+                          bloc.isLoadingAddSubject.value;
+                      if (isLoading) {
+                        return const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
                           ),
-                  ],
+                        );
+                      }
+                      return const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      );
+                    },
+                  ),
                 ),
+              ),
+            ],
+          ),
           body: ObsBuilder(
             streams: [
               bloc.listFragmentsSubject,
@@ -186,55 +186,55 @@ class DragDropScreen extends ConsumerWidget {
                         }
                         return !bloc.isAddListSubject.value
                             ? Container(
-                                // key: const ValueKey('1'),
-                                alignment: Alignment.center,
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color:
-                                      CupertinoColors.extraLightBackgroundGray,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: const Text(
-                                  'Thêm danh sách',
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              )
+                          // key: const ValueKey('1'),
+                          alignment: Alignment.center,
+                          width: 300,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color:
+                            CupertinoColors.extraLightBackgroundGray,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Text(
+                            'Thêm danh sách',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
                             : Container(
-                                padding: EdgeInsetsConstants.horizontal10,
-                                key: const ValueKey('2'),
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color:
-                                      CupertinoColors.extraLightBackgroundGray,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: TextFormField(
-                                  autofocus: true,
-                                  style: const TextStyle(color: Colors.black),
-                                  controller: bloc.addListController,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Tên danh sách',
-                                    hintStyle: TextStyle(
-                                      color: Colors.black.withOpacity(0.4),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                              );
+                          padding: EdgeInsetsConstants.horizontal10,
+                          key: const ValueKey('2'),
+                          width: 300,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color:
+                            CupertinoColors.extraLightBackgroundGray,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: TextFormField(
+                            autofocus: true,
+                            style: const TextStyle(color: Colors.black),
+                            controller: bloc.addListController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Tên danh sách',
+                              hintStyle: TextStyle(
+                                color: Colors.black.withOpacity(0.4),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        );
                       },
                     ),
                   ),
                 ),
                 children: List.generate(
                   bloc.listFragmentsSubject.value.length,
-                  (index) {
+                      (index) {
                     return dragDropList(
                       context: context,
                       width: width,
@@ -330,7 +330,7 @@ class DragDropScreen extends ConsumerWidget {
       ),
       footer: Padding(
         padding:
-            EdgeInsetsConstants.horizontal10 + EdgeInsetsConstants.vertical16,
+        EdgeInsetsConstants.horizontal10 + EdgeInsetsConstants.vertical16,
         child: ObsBuilder(
           streams: [bloc.isAddCardSubject, bloc.indexAddCardSubject],
           builder: (context) {
@@ -338,92 +338,92 @@ class DragDropScreen extends ConsumerWidget {
             final isShowAddCard = indexCard == null
                 ? true
                 : bloc.isAddCardSubject.value == true &&
-                    indexCard != outerIndex;
+                indexCard != outerIndex;
             return AnimatedSwitcher(
               key: const ValueKey('add_card'),
               duration: const Duration(milliseconds: 500),
               child: isShowAddCard
                   ? Row(
-                      children: <Widget>[
-                        InkWell(
-                          onTap: () {
-                            bloc.openSearch(false);
-                            bloc.onTapAddCard(outerIndex);
-                          },
-                          child: const Row(
-                            children: [
-                              Icon(
-                                Icons.add,
-                                color: Colors.blue,
-                                size: 20,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Thêm thẻ',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      bloc.openSearch(false);
+                      bloc.onTapAddCard(outerIndex);
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.add,
+                          color: Colors.blue,
+                          size: 20,
                         ),
-                        const Spacer(),
-                        const Icon(
-                          Icons.image_outlined,
-                          color: Colors.black54,
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'Thêm thẻ',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ],
-                    )
+                    ),
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    Icons.image_outlined,
+                    color: Colors.black54,
+                  ),
+                ],
+              )
                   : Card(
-                      elevation: 0,
-                      child: Container(
-                        width: width,
-                        height: 40,
-                        padding: EdgeInsetsConstants.horizontal10,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 1,
-                              blurRadius: 7,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: TextFormField(
-                          autofocus: true,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                          ),
-                          controller: bloc.addCardController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Tên thẻ',
-                            hintStyle: TextStyle(
-                              color: Colors.black.withOpacity(0.4),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
+                elevation: 0,
+                child: Container(
+                  width: width,
+                  height: 40,
+                  padding: EdgeInsetsConstants.horizontal10,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 1,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: TextFormField(
+                    autofocus: true,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                    controller: bloc.addCardController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Tên thẻ',
+                      hintStyle: TextStyle(
+                        color: Colors.black.withOpacity(0.4),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
+                  ),
+                ),
+              ),
             );
           },
         ),
       ),
       children: List.generate(
         innerList?.cards?.length ?? 0,
-        (index) => dragDropItem(
-            item: innerList?.cards?[index],
-            bloc: bloc,
-            listFragment: innerList,),
+            (index) => dragDropItem(
+          item: innerList?.cards?[index],
+          bloc: bloc,
+          listFragment: innerList,),
       ),
       lastTarget: SizedBoxConstants.h8,
     );
@@ -431,8 +431,8 @@ class DragDropScreen extends ConsumerWidget {
 
   DragAndDropItem dragDropItem(
       {Fragment$CardFragment? item,
-      Fragment$ListFragment? listFragment,
-      required DragAndDropBloc bloc,}) {
+        Fragment$ListFragment? listFragment,
+        required DragAndDropBloc bloc,}) {
     return DragAndDropItem(
       child: Listener(
         onPointerDown: (event) =>
