@@ -1,11 +1,11 @@
-import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
+import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/create_list.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/delete_list.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/moveList.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 
-extension DragAndDropListExtention on DragAndDropBloc {
+extension BoardDetailListExtention on BoardDetailBloc {
   Future<Fragment$ListFragment?> fetchCreateList({
     required String label,
   }) async {

@@ -70,7 +70,7 @@ class BoardBloc extends BlocBase {
     selectedSearchSubject.value = false;
     selectedBoardSubject.value = board;
     if (board == null) return;
-    routerService.push(RouteInput.dragAndDrop(boardFragment: board));
+    routerService.push(RouteInput.boardDetail(boardFragment: board));
   }
 
   Future<void> onTapToAddBoard() async {

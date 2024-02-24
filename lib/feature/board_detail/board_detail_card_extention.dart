@@ -1,10 +1,11 @@
-import 'package:task_manager/feature/drag_and_drop/drag_and_drop_bloc.dart';
+import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/create_card.graphql.dart';
+import 'package:task_manager/graphql/Mutations/card/delete_card.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/move_card.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 
-extension DragAndDropCardExtention on DragAndDropBloc {
+extension BoardDetailCardExtention on BoardDetailBloc {
   Future<Fragment$CardFragment?> fetchCreateCard({
     required String idList,
     required String title,
@@ -49,6 +50,41 @@ extension DragAndDropCardExtention on DragAndDropBloc {
       toastService.showText(
         message: 'Di chuyển thẻ thất bại. Hãy thử lại',
       );
+      fetchListFragmentByIdBoard();
+      return;
+    }
+  }
+
+  Future<void> deleteCard(
+      {required String? idCard, required String? idList,}) async {
+    if (idCard == null || idList == null) return;
+    if (idCard.isEmpty || idList.isEmpty) return;
+    routerService.pop();
+    final listTemps = listFragmentsSubject.value;
+    for (final list in listTemps) {
+      if (list == null) continue;
+      if (list.id == idList) {
+        if (list.cards == null) continue;
+        list.cards!.removeWhere((element) => element.id == idCard);
+      }
+    }
+    listFragmentsSubject.value = listTemps;
+    final result = await graphqlService.client.mutate$DeleteCard(
+      Options$Mutation$DeleteCard(
+        variables: Variables$Mutation$DeleteCard(
+          idCard: idCard,
+          idList: idList,
+        ),
+      ),
+    );
+    if (result.hasException) {
+      toastService.showText(message: 'không thành công');
+      fetchListFragmentByIdBoard();
+      return;
+    }
+    if (result.parsedData?.deleteCard == null ||
+        result.parsedData!.deleteCard == false) {
+      toastService.showText(message: 'không thành công');
       fetchListFragmentByIdBoard();
       return;
     }

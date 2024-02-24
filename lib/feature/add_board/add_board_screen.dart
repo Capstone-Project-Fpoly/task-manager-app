@@ -16,7 +16,6 @@ class AddBoardScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.addBoard);
     final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
     return ObsBuilder(
       streams: [
         bloc.isLoadingSubject,

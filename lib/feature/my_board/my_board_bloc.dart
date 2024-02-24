@@ -43,8 +43,7 @@ class MyBoardBloc extends BlocBase {
   void onTapToDragAndDrop({required Fragment$BoardFragment? board}) {
     selectedBoardSubject.value = board;
     if (board == null) return;
-    print('board.id: ${board.id}');
-    routerService.push(RouteInput.dragAndDrop(boardFragment: board));
+    routerService.push(RouteInput.boardDetail(boardFragment: board));
   }
 
   Future<void> onTapToAddBoard() async {
