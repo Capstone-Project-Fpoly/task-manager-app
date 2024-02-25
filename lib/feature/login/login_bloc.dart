@@ -69,8 +69,12 @@ class LoginBloc extends BlocBase {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleSignInAccount =
         await googleSignIn.signIn();
+    if (googleSignInAccount == null) {
+      isLoadingSubject.value = false;
+      return;
+    }
     final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount!.authentication;
+        await googleSignInAccount.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
