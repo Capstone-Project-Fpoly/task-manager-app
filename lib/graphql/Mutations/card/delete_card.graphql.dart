@@ -51,7 +51,7 @@ class Variables$Mutation$DeleteCard {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Mutation$DeleteCard ||
+    if (!(other is Variables$Mutation$DeleteCard) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -107,29 +107,25 @@ class _CopyWithImpl$Variables$Mutation$DeleteCard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? idCard = _undefined,
     Object? idList = _undefined,
   }) =>
-      _then(
-        Variables$Mutation$DeleteCard._({
-          ..._instance._$data,
-          if (idCard != _undefined && idCard != null)
-            'idCard': (idCard as String),
-          if (idList != _undefined && idList != null)
-            'idList': (idList as String),
-        }),
-      );
+      _then(Variables$Mutation$DeleteCard._({
+        ..._instance._$data,
+        if (idCard != _undefined && idCard != null)
+          'idCard': (idCard as String),
+        if (idList != _undefined && idList != null)
+          'idList': (idList as String),
+      }));
 }
 
 class _CopyWithStubImpl$Variables$Mutation$DeleteCard<TRes>
     implements CopyWith$Variables$Mutation$DeleteCard<TRes> {
   _CopyWithStubImpl$Variables$Mutation$DeleteCard(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? idCard,
     String? idList,
@@ -157,12 +153,12 @@ class Mutation$DeleteCard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$deleteCard = deleteCard;
-    resultData['deleteCard'] = l$deleteCard;
+    _resultData['deleteCard'] = l$deleteCard;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -180,7 +176,7 @@ class Mutation$DeleteCard {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$DeleteCard || runtimeType != other.runtimeType) {
+    if (!(other is Mutation$DeleteCard) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$deleteCard = deleteCard;
@@ -233,30 +229,26 @@ class _CopyWithImpl$Mutation$DeleteCard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? deleteCard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Mutation$DeleteCard(
-          deleteCard: deleteCard == _undefined
-              ? _instance.deleteCard
-              : (deleteCard as bool?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Mutation$DeleteCard(
+        deleteCard: deleteCard == _undefined
+            ? _instance.deleteCard
+            : (deleteCard as bool?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
 }
 
 class _CopyWithStubImpl$Mutation$DeleteCard<TRes>
     implements CopyWith$Mutation$DeleteCard<TRes> {
   _CopyWithStubImpl$Mutation$DeleteCard(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     bool? deleteCard,
     String? $__typename,
@@ -264,62 +256,58 @@ class _CopyWithStubImpl$Mutation$DeleteCard<TRes>
       _res;
 }
 
-const documentNodeMutationDeleteCard = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.mutation,
-      name: NameNode(value: 'DeleteCard'),
-      variableDefinitions: [
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'idCard')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+const documentNodeMutationDeleteCard = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'DeleteCard'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'idCard')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'idList')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'idList')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-      ],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'deleteCard'),
-            alias: null,
-            arguments: [
-              ArgumentNode(
-                name: NameNode(value: 'idCard'),
-                value: VariableNode(name: NameNode(value: 'idCard')),
-              ),
-              ArgumentNode(
-                name: NameNode(value: 'idList'),
-                value: VariableNode(name: NameNode(value: 'idList')),
-              ),
-            ],
-            directives: [],
-            selectionSet: null,
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'deleteCard'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'idCard'),
+            value: VariableNode(name: NameNode(value: 'idCard')),
           ),
-          FieldNode(
-            name: NameNode(value: '__typename'),
-            alias: null,
-            arguments: [],
-            directives: [],
-            selectionSet: null,
+          ArgumentNode(
+            name: NameNode(value: 'idList'),
+            value: VariableNode(name: NameNode(value: 'idList')),
           ),
         ],
+        directives: [],
+        selectionSet: null,
       ),
-    ),
-  ],
-);
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ]),
+  ),
+]);
 Mutation$DeleteCard _parserFn$Mutation$DeleteCard(Map<String, dynamic> data) =>
     Mutation$DeleteCard.fromJson(data);
 typedef OnMutationCompleted$Mutation$DeleteCard = FutureOr<void> Function(
@@ -407,13 +395,11 @@ class WatchOptions$Mutation$DeleteCard
 
 extension ClientExtension$Mutation$DeleteCard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$DeleteCard>> mutate$DeleteCard(
-    Options$Mutation$DeleteCard options,
-  ) async =>
-      await mutate(options);
+          Options$Mutation$DeleteCard options) async =>
+      await this.mutate(options);
   graphql.ObservableQuery<Mutation$DeleteCard> watchMutation$DeleteCard(
-    WatchOptions$Mutation$DeleteCard options,
-  ) =>
-      watchMutation(options);
+          WatchOptions$Mutation$DeleteCard options) =>
+      this.watchMutation(options);
 }
 
 class Mutation$DeleteCard$HookResult {
@@ -427,9 +413,8 @@ class Mutation$DeleteCard$HookResult {
   final graphql.QueryResult<Mutation$DeleteCard> result;
 }
 
-Mutation$DeleteCard$HookResult useMutation$DeleteCard([
-  WidgetOptions$Mutation$DeleteCard? options,
-]) {
+Mutation$DeleteCard$HookResult useMutation$DeleteCard(
+    [WidgetOptions$Mutation$DeleteCard? options]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$DeleteCard());
   return Mutation$DeleteCard$HookResult(
@@ -443,8 +428,7 @@ Mutation$DeleteCard$HookResult useMutation$DeleteCard([
 }
 
 graphql.ObservableQuery<Mutation$DeleteCard> useWatchMutation$DeleteCard(
-  WatchOptions$Mutation$DeleteCard options,
-) =>
+        WatchOptions$Mutation$DeleteCard options) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$DeleteCard

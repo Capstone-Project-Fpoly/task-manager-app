@@ -154,9 +154,12 @@ class BoardDetailScreen extends ConsumerWidget {
                                 color: Colors.white,
                               ),
                               SizedBoxConstants.w15,
-                              const Icon(
-                                Icons.more_horiz,
-                                color: Colors.white,
+                              GestureDetector(
+                                onLongPress: () => bloc.onTapOpenInviteMember(),
+                                child: const Icon(
+                                  Icons.more_horiz,
+                                  color: Colors.white,
+                                ),
                               ),
                               SizedBoxConstants.w10,
                             ],

@@ -46,22 +46,22 @@ class Fragment$UserFragment {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$uid = uid;
-    resultData['uid'] = l$uid;
+    _resultData['uid'] = l$uid;
     final l$updatedAt = updatedAt;
-    resultData['updatedAt'] = l$updatedAt;
+    _resultData['updatedAt'] = l$updatedAt;
     final l$email = email;
-    resultData['email'] = l$email;
+    _resultData['email'] = l$email;
     final l$createdAt = createdAt;
-    resultData['createdAt'] = l$createdAt;
+    _resultData['createdAt'] = l$createdAt;
     final l$avatar = avatar;
-    resultData['avatar'] = l$avatar;
+    _resultData['avatar'] = l$avatar;
     final l$fullName = fullName;
-    resultData['fullName'] = l$fullName;
+    _resultData['fullName'] = l$fullName;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -89,7 +89,7 @@ class Fragment$UserFragment {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Fragment$UserFragment || runtimeType != other.runtimeType) {
+    if (!(other is Fragment$UserFragment) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$uid = uid;
@@ -172,7 +172,6 @@ class _CopyWithImpl$Fragment$UserFragment<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? uid = _undefined,
     Object? updatedAt = _undefined,
@@ -182,36 +181,30 @@ class _CopyWithImpl$Fragment$UserFragment<TRes>
     Object? fullName = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Fragment$UserFragment(
-          uid: uid == _undefined || uid == null
-              ? _instance.uid
-              : (uid as String),
-          updatedAt: updatedAt == _undefined
-              ? _instance.updatedAt
-              : (updatedAt as String?),
-          email: email == _undefined ? _instance.email : (email as String?),
-          createdAt: createdAt == _undefined
-              ? _instance.createdAt
-              : (createdAt as String?),
-          avatar: avatar == _undefined ? _instance.avatar : (avatar as String?),
-          fullName: fullName == _undefined
-              ? _instance.fullName
-              : (fullName as String?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Fragment$UserFragment(
+        uid: uid == _undefined || uid == null ? _instance.uid : (uid as String),
+        updatedAt: updatedAt == _undefined
+            ? _instance.updatedAt
+            : (updatedAt as String?),
+        email: email == _undefined ? _instance.email : (email as String?),
+        createdAt: createdAt == _undefined
+            ? _instance.createdAt
+            : (createdAt as String?),
+        avatar: avatar == _undefined ? _instance.avatar : (avatar as String?),
+        fullName:
+            fullName == _undefined ? _instance.fullName : (fullName as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
 }
 
 class _CopyWithStubImpl$Fragment$UserFragment<TRes>
     implements CopyWith$Fragment$UserFragment<TRes> {
   _CopyWithStubImpl$Fragment$UserFragment(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? uid,
     String? updatedAt,
@@ -227,71 +220,66 @@ class _CopyWithStubImpl$Fragment$UserFragment<TRes>
 const fragmentDefinitionUserFragment = FragmentDefinitionNode(
   name: NameNode(value: 'UserFragment'),
   typeCondition: TypeConditionNode(
-    on: NamedTypeNode(
-      name: NameNode(value: 'User'),
-      isNonNull: false,
-    ),
-  ),
+      on: NamedTypeNode(
+    name: NameNode(value: 'User'),
+    isNonNull: false,
+  )),
   directives: [],
-  selectionSet: SelectionSetNode(
-    selections: [
-      FieldNode(
-        name: NameNode(value: 'uid'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'updatedAt'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'email'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'createdAt'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'avatar'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'fullName'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],
-  ),
+  selectionSet: SelectionSetNode(selections: [
+    FieldNode(
+      name: NameNode(value: 'uid'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'updatedAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'email'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'createdAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'avatar'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'fullName'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
 );
-const documentNodeFragmentUserFragment = DocumentNode(
-  definitions: [
-    fragmentDefinitionUserFragment,
-  ],
-);
+const documentNodeFragmentUserFragment = DocumentNode(definitions: [
+  fragmentDefinitionUserFragment,
+]);
 
 extension ClientExtension$Fragment$UserFragment on graphql.GraphQLClient {
   void writeFragment$UserFragment({
@@ -299,7 +287,7 @@ extension ClientExtension$Fragment$UserFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool broadcast = true,
   }) =>
-      writeFragment(
+      this.writeFragment(
         graphql.FragmentRequest(
           idFields: idFields,
           fragment: const graphql.Fragment(
@@ -314,7 +302,7 @@ extension ClientExtension$Fragment$UserFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool optimistic = true,
   }) {
-    final result = readFragment(
+    final result = this.readFragment(
       graphql.FragmentRequest(
         idFields: idFields,
         fragment: const graphql.Fragment(

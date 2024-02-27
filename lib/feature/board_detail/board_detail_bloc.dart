@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/board_detail/board_detail_card_extention.dart';
 import 'package:task_manager/feature/board_detail/board_detail_list_extention.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
@@ -249,6 +250,11 @@ class BoardDetailBloc extends BlocBase {
   void onTapZoom() {
     final check = isZoomSubject.value;
     isZoomSubject.value = !check;
+  }
+
+
+  void onTapOpenInviteMember() {
+    routerService.push(RouteInput.inviteMember());
   }
 
   void back() {

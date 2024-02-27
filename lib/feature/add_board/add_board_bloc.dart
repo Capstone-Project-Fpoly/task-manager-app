@@ -99,6 +99,15 @@ class AddBoardBloc extends BlocBase {
     }
   }
 
+  Future<void> onNextAddMember() async {
+    final resultColor = await routerService.push(RouteInput.backgroundBoard());
+    if (resultColor != null) {
+      colorSubject.value = resultColor.toString();
+      backgroundColorSubject.value =
+          Color(int.tryParse('0XFF${colorSubject.value}') ?? 0XFF2196F3);
+    }
+  }
+
   AddBoardBloc(this.ref) {
     init();
   }

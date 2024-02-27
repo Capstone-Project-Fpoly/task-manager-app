@@ -1,7 +1,7 @@
-import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/check_list_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/comment_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
+import '../../Fragment/card_fragment.graphql.dart';
+import '../../Fragment/check_list_fragment.graphql.dart';
+import '../../Fragment/comment_fragment.graphql.dart';
+import '../../Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -45,7 +45,7 @@ class Variables$Mutation$GetCard {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Mutation$GetCard ||
+    if (!(other is Variables$Mutation$GetCard) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -89,23 +89,20 @@ class _CopyWithImpl$Variables$Mutation$GetCard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
-  TRes call({Object? idCard = _undefined}) => _then(
-        Variables$Mutation$GetCard._({
-          ..._instance._$data,
-          if (idCard != _undefined && idCard != null)
-            'idCard': (idCard as String),
-        }),
-      );
+  TRes call({Object? idCard = _undefined}) =>
+      _then(Variables$Mutation$GetCard._({
+        ..._instance._$data,
+        if (idCard != _undefined && idCard != null)
+          'idCard': (idCard as String),
+      }));
 }
 
 class _CopyWithStubImpl$Variables$Mutation$GetCard<TRes>
     implements CopyWith$Variables$Mutation$GetCard<TRes> {
   _CopyWithStubImpl$Variables$Mutation$GetCard(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({String? idCard}) => _res;
 }
 
@@ -131,12 +128,12 @@ class Mutation$GetCard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$getCard = getCard;
-    resultData['getCard'] = l$getCard?.toJson();
+    _resultData['getCard'] = l$getCard?.toJson();
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -154,7 +151,7 @@ class Mutation$GetCard {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$GetCard || runtimeType != other.runtimeType) {
+    if (!(other is Mutation$GetCard) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$getCard = getCard;
@@ -208,31 +205,25 @@ class _CopyWithImpl$Mutation$GetCard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? getCard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Mutation$GetCard(
-          getCard: getCard == _undefined
-              ? _instance.getCard
-              : (getCard as Fragment$CardFragment?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Mutation$GetCard(
+        getCard: getCard == _undefined
+            ? _instance.getCard
+            : (getCard as Fragment$CardFragment?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
 
-  @override
   CopyWith$Fragment$CardFragment<TRes> get getCard {
     final local$getCard = _instance.getCard;
     return local$getCard == null
         ? CopyWith$Fragment$CardFragment.stub(_then(_instance))
         : CopyWith$Fragment$CardFragment(
-            local$getCard,
-            (e) => call(getCard: e),
-          );
+            local$getCard, (e) => call(getCard: e));
   }
 }
 
@@ -240,64 +231,49 @@ class _CopyWithStubImpl$Mutation$GetCard<TRes>
     implements CopyWith$Mutation$GetCard<TRes> {
   _CopyWithStubImpl$Mutation$GetCard(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     Fragment$CardFragment? getCard,
     String? $__typename,
   }) =>
       _res;
 
-  @override
   CopyWith$Fragment$CardFragment<TRes> get getCard =>
       CopyWith$Fragment$CardFragment.stub(_res);
 }
 
-const documentNodeMutationGetCard = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.mutation,
-      name: NameNode(value: 'GetCard'),
-      variableDefinitions: [
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'idCard')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+const documentNodeMutationGetCard = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'GetCard'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'idCard')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-      ],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'getCard'),
-            alias: null,
-            arguments: [
-              ArgumentNode(
-                name: NameNode(value: 'idCard'),
-                value: VariableNode(name: NameNode(value: 'idCard')),
-              ),
-            ],
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      )
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'getCard'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'idCard'),
+            value: VariableNode(name: NameNode(value: 'idCard')),
+          )
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FragmentSpreadNode(
+            name: NameNode(value: 'CardFragment'),
             directives: [],
-            selectionSet: SelectionSetNode(
-              selections: [
-                FragmentSpreadNode(
-                  name: NameNode(value: 'CardFragment'),
-                  directives: [],
-                ),
-                FieldNode(
-                  name: NameNode(value: '__typename'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ],
-            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -306,15 +282,22 @@ const documentNodeMutationGetCard = DocumentNode(
             directives: [],
             selectionSet: null,
           ),
-        ],
+        ]),
       ),
-    ),
-    fragmentDefinitionCardFragment,
-    fragmentDefinitionUserFragment,
-    fragmentDefinitionCommentFragment,
-    fragmentDefinitionCheckListFragment,
-  ],
-);
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ]),
+  ),
+  fragmentDefinitionCardFragment,
+  fragmentDefinitionUserFragment,
+  fragmentDefinitionCommentFragment,
+  fragmentDefinitionCheckListFragment,
+]);
 Mutation$GetCard _parserFn$Mutation$GetCard(Map<String, dynamic> data) =>
     Mutation$GetCard.fromJson(data);
 typedef OnMutationCompleted$Mutation$GetCard = FutureOr<void> Function(
@@ -402,13 +385,11 @@ class WatchOptions$Mutation$GetCard
 
 extension ClientExtension$Mutation$GetCard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$GetCard>> mutate$GetCard(
-    Options$Mutation$GetCard options,
-  ) async =>
-      await mutate(options);
+          Options$Mutation$GetCard options) async =>
+      await this.mutate(options);
   graphql.ObservableQuery<Mutation$GetCard> watchMutation$GetCard(
-    WatchOptions$Mutation$GetCard options,
-  ) =>
-      watchMutation(options);
+          WatchOptions$Mutation$GetCard options) =>
+      this.watchMutation(options);
 }
 
 class Mutation$GetCard$HookResult {
@@ -422,9 +403,8 @@ class Mutation$GetCard$HookResult {
   final graphql.QueryResult<Mutation$GetCard> result;
 }
 
-Mutation$GetCard$HookResult useMutation$GetCard([
-  WidgetOptions$Mutation$GetCard? options,
-]) {
+Mutation$GetCard$HookResult useMutation$GetCard(
+    [WidgetOptions$Mutation$GetCard? options]) {
   final result =
       graphql_flutter.useMutation(options ?? WidgetOptions$Mutation$GetCard());
   return Mutation$GetCard$HookResult(
@@ -438,8 +418,7 @@ Mutation$GetCard$HookResult useMutation$GetCard([
 }
 
 graphql.ObservableQuery<Mutation$GetCard> useWatchMutation$GetCard(
-  WatchOptions$Mutation$GetCard options,
-) =>
+        WatchOptions$Mutation$GetCard options) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$GetCard

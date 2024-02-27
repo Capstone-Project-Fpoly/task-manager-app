@@ -86,6 +86,7 @@ type List {
 }
 
 type Mutation {
+  acceptInviteToBoard(idBoard: String!): Boolean
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
   createCard(idList: String!, title: String!): Card
   createList(idBoard: String!, label: String!): List
@@ -94,6 +95,7 @@ type Mutation {
   getBoards: [Board]
   getCard(idCard: String!): Card
   getLists(idBoard: String!): [List]
+  inviteUsersToBoard(idBoard: String!, idUsers: [String!]): Boolean
   leaveBoard(idBoard: String!): Boolean
   loginByEmail(input: InputLogin!): String
   loginByGoogle(input: InputLogin!): String
@@ -112,6 +114,7 @@ type Notification {
   content: String!
   createdAt: String!
   creater: User!
+  data: String!
   id: String!
   is_seen: Boolean!
   title: String!
@@ -120,7 +123,9 @@ type Notification {
 
 type Query {
   getToken(email: String!): String
+  getUsersInviteToBoard(idBoard: String!, query: String): [User]
   me: User
+  notificationCollection(idBoard: String): [Notification]
 }
 
 enum Reminder {
@@ -144,6 +149,7 @@ enum TopicNotification {
   Card
   CheckList
   Comment
+  InviteUserToBoard
   List
 }
 
