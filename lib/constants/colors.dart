@@ -34,7 +34,8 @@ class ColorConstants {
   static const inputBorder = Color(0xFFE0E0E0);
   static const radioColor = Color(0xffecf2fe);
   static const radioBorder = Color(0xffe5e5e5);
-
+  static const backgroundSetting = Color(0xffE3E3E3);
+  static const backgroundItems = Color(0xffFAF8F8);
   static const transparent = Colors.transparent;
 
   static const background = Color(0xFFedf1fb);

@@ -22,6 +22,16 @@ class AppTextStyle extends TextStyle {
           fontSize: fontSize,
         );
 
+  const AppTextStyle.black({
+    Color color = ColorConstants.primaryBlack,
+    FontWeight? fontWeight,
+    double? fontSize,
+  }) : this(
+    color: color,
+    fontWeight: fontWeight,
+    fontSize: fontSize,
+  );
+
   const AppTextStyle.error({
     double fontSize = 12,
     FontWeight fontWeight = FontWeight.w400,

@@ -1,9 +1,13 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
+import 'package:task_manager/feature/board/dialog_board_option/dialog_board_option.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
 
@@ -73,6 +77,24 @@ class BoardBloc extends BlocBase {
     routerService.push(RouteInput.boardDetail(boardFragment: board));
   }
 
+  void onTapSettingBoard(){
+    routerService.push(RouteInput.settingBoard());
+  }
+  Future<void> dialogShow({
+    required BuildContext context,
+    required String title,
+    required VoidCallback onTap,
+  }) async {
+    selectedSearchSubject.value = false;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ShowDialogBoardOption(onTap: onTap, title: title,);
+      },
+    );
+  }
+
+
   Future<void> onTapToAddBoard() async {
     selectedSearchSubject.value = false;
     try {
@@ -116,3 +138,4 @@ class BoardBloc extends BlocBase {
     init();
   }
 }
+

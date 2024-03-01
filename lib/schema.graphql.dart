@@ -45,7 +45,7 @@ class Input$CheckListInput {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$CheckListInput || runtimeType != other.runtimeType) {
+    if (!(other is Input$CheckListInput) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$content = content;
@@ -100,29 +100,25 @@ class _CopyWithImpl$Input$CheckListInput<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? content = _undefined,
     Object? isChecked = _undefined,
   }) =>
-      _then(
-        Input$CheckListInput._({
-          ..._instance._$data,
-          if (content != _undefined && content != null)
-            'content': (content as String),
-          if (isChecked != _undefined && isChecked != null)
-            'isChecked': (isChecked as bool),
-        }),
-      );
+      _then(Input$CheckListInput._({
+        ..._instance._$data,
+        if (content != _undefined && content != null)
+          'content': (content as String),
+        if (isChecked != _undefined && isChecked != null)
+          'isChecked': (isChecked as bool),
+      }));
 }
 
 class _CopyWithStubImpl$Input$CheckListInput<TRes>
     implements CopyWith$Input$CheckListInput<TRes> {
   _CopyWithStubImpl$Input$CheckListInput(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? content,
     bool? isChecked,
@@ -177,7 +173,7 @@ class Input$InputEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputEmail || runtimeType != other.runtimeType) {
+    if (!(other is Input$InputEmail) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$email = email;
@@ -232,28 +228,24 @@ class _CopyWithImpl$Input$InputEmail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? email = _undefined,
     Object? passWord = _undefined,
   }) =>
-      _then(
-        Input$InputEmail._({
-          ..._instance._$data,
-          if (email != _undefined && email != null) 'email': (email as String),
-          if (passWord != _undefined && passWord != null)
-            'passWord': (passWord as String),
-        }),
-      );
+      _then(Input$InputEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (passWord != _undefined && passWord != null)
+          'passWord': (passWord as String),
+      }));
 }
 
 class _CopyWithStubImpl$Input$InputEmail<TRes>
     implements CopyWith$Input$InputEmail<TRes> {
   _CopyWithStubImpl$Input$InputEmail(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? email,
     String? passWord,
@@ -308,7 +300,7 @@ class Input$InputLogin {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputLogin || runtimeType != other.runtimeType) {
+    if (!(other is Input$InputLogin) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$deviceId = deviceId;
@@ -363,29 +355,25 @@ class _CopyWithImpl$Input$InputLogin<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? deviceId = _undefined,
     Object? idToken = _undefined,
   }) =>
-      _then(
-        Input$InputLogin._({
-          ..._instance._$data,
-          if (deviceId != _undefined && deviceId != null)
-            'deviceId': (deviceId as String),
-          if (idToken != _undefined && idToken != null)
-            'idToken': (idToken as String),
-        }),
-      );
+      _then(Input$InputLogin._({
+        ..._instance._$data,
+        if (deviceId != _undefined && deviceId != null)
+          'deviceId': (deviceId as String),
+        if (idToken != _undefined && idToken != null)
+          'idToken': (idToken as String),
+      }));
 }
 
 class _CopyWithStubImpl$Input$InputLogin<TRes>
     implements CopyWith$Input$InputLogin<TRes> {
   _CopyWithStubImpl$Input$InputLogin(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? deviceId,
     String? idToken,
@@ -456,7 +444,7 @@ class Input$InputMoveCard {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputMoveCard || runtimeType != other.runtimeType) {
+    if (!(other is Input$InputMoveCard) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$newItemIndex = newItemIndex;
@@ -527,35 +515,31 @@ class _CopyWithImpl$Input$InputMoveCard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? newItemIndex = _undefined,
     Object? newListIndex = _undefined,
     Object? oldItemIndex = _undefined,
     Object? oldListIndex = _undefined,
   }) =>
-      _then(
-        Input$InputMoveCard._({
-          ..._instance._$data,
-          if (newItemIndex != _undefined && newItemIndex != null)
-            'newItemIndex': (newItemIndex as int),
-          if (newListIndex != _undefined && newListIndex != null)
-            'newListIndex': (newListIndex as int),
-          if (oldItemIndex != _undefined && oldItemIndex != null)
-            'oldItemIndex': (oldItemIndex as int),
-          if (oldListIndex != _undefined && oldListIndex != null)
-            'oldListIndex': (oldListIndex as int),
-        }),
-      );
+      _then(Input$InputMoveCard._({
+        ..._instance._$data,
+        if (newItemIndex != _undefined && newItemIndex != null)
+          'newItemIndex': (newItemIndex as int),
+        if (newListIndex != _undefined && newListIndex != null)
+          'newListIndex': (newListIndex as int),
+        if (oldItemIndex != _undefined && oldItemIndex != null)
+          'oldItemIndex': (oldItemIndex as int),
+        if (oldListIndex != _undefined && oldListIndex != null)
+          'oldListIndex': (oldListIndex as int),
+      }));
 }
 
 class _CopyWithStubImpl$Input$InputMoveCard<TRes>
     implements CopyWith$Input$InputMoveCard<TRes> {
   _CopyWithStubImpl$Input$InputMoveCard(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     int? newItemIndex,
     int? newListIndex,
@@ -612,7 +596,7 @@ class Input$InputMoveList {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputMoveList || runtimeType != other.runtimeType) {
+    if (!(other is Input$InputMoveList) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$newListIndex = newListIndex;
@@ -667,29 +651,25 @@ class _CopyWithImpl$Input$InputMoveList<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? newListIndex = _undefined,
     Object? oldListIndex = _undefined,
   }) =>
-      _then(
-        Input$InputMoveList._({
-          ..._instance._$data,
-          if (newListIndex != _undefined && newListIndex != null)
-            'newListIndex': (newListIndex as int),
-          if (oldListIndex != _undefined && oldListIndex != null)
-            'oldListIndex': (oldListIndex as int),
-        }),
-      );
+      _then(Input$InputMoveList._({
+        ..._instance._$data,
+        if (newListIndex != _undefined && newListIndex != null)
+          'newListIndex': (newListIndex as int),
+        if (oldListIndex != _undefined && oldListIndex != null)
+          'oldListIndex': (oldListIndex as int),
+      }));
 }
 
 class _CopyWithStubImpl$Input$InputMoveList<TRes>
     implements CopyWith$Input$InputMoveList<TRes> {
   _CopyWithStubImpl$Input$InputMoveList(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     int? newListIndex,
     int? oldListIndex,
@@ -727,8 +707,7 @@ class Input$InputUpdateCard {
       final l$checkLists = data['checkLists'];
       result$data['checkLists'] = (l$checkLists as List<dynamic>?)
           ?.map(
-            (e) => Input$CheckListInput.fromJson((e as Map<String, dynamic>)),
-          )
+              (e) => Input$CheckListInput.fromJson((e as Map<String, dynamic>)))
           .toList();
     }
     if (data.containsKey('description')) {
@@ -822,7 +801,7 @@ class Input$InputUpdateCard {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputUpdateCard || runtimeType != other.runtimeType) {
+    if (!(other is Input$InputUpdateCard) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$checkLists = checkLists;
@@ -962,10 +941,9 @@ abstract class CopyWith$Input$InputUpdateCard<TRes> {
     List<String>? users,
   });
   TRes checkLists(
-    Iterable<Input$CheckListInput>? Function(
-      Iterable<CopyWith$Input$CheckListInput<Input$CheckListInput>>?,
-    ) fn,
-  );
+      Iterable<Input$CheckListInput>? Function(
+              Iterable<CopyWith$Input$CheckListInput<Input$CheckListInput>>?)
+          _fn);
 }
 
 class _CopyWithImpl$Input$InputUpdateCard<TRes>
@@ -981,7 +959,6 @@ class _CopyWithImpl$Input$InputUpdateCard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? checkLists = _undefined,
     Object? description = _undefined,
@@ -992,50 +969,40 @@ class _CopyWithImpl$Input$InputUpdateCard<TRes>
     Object? title = _undefined,
     Object? users = _undefined,
   }) =>
-      _then(
-        Input$InputUpdateCard._({
-          ..._instance._$data,
-          if (checkLists != _undefined)
-            'checkLists': (checkLists as List<Input$CheckListInput>?),
-          if (description != _undefined)
-            'description': (description as String?),
-          if (endDate != _undefined) 'endDate': (endDate as String?),
-          if (idCard != _undefined && idCard != null)
-            'idCard': (idCard as String),
-          if (reminder != _undefined && reminder != null)
-            'reminder': (reminder as Enum$Reminder),
-          if (startedDate != _undefined)
-            'startedDate': (startedDate as String?),
-          if (title != _undefined) 'title': (title as String?),
-          if (users != _undefined) 'users': (users as List<String>?),
-        }),
-      );
+      _then(Input$InputUpdateCard._({
+        ..._instance._$data,
+        if (checkLists != _undefined)
+          'checkLists': (checkLists as List<Input$CheckListInput>?),
+        if (description != _undefined) 'description': (description as String?),
+        if (endDate != _undefined) 'endDate': (endDate as String?),
+        if (idCard != _undefined && idCard != null)
+          'idCard': (idCard as String),
+        if (reminder != _undefined && reminder != null)
+          'reminder': (reminder as Enum$Reminder),
+        if (startedDate != _undefined) 'startedDate': (startedDate as String?),
+        if (title != _undefined) 'title': (title as String?),
+        if (users != _undefined) 'users': (users as List<String>?),
+      }));
 
-  @override
   TRes checkLists(
-    Iterable<Input$CheckListInput>? Function(
-      Iterable<CopyWith$Input$CheckListInput<Input$CheckListInput>>?,
-    ) fn,
-  ) =>
+          Iterable<Input$CheckListInput>? Function(
+                  Iterable<
+                      CopyWith$Input$CheckListInput<Input$CheckListInput>>?)
+              _fn) =>
       call(
-        checkLists: fn(
-          _instance.checkLists?.map(
-            (e) => CopyWith$Input$CheckListInput(
-              e,
-              (i) => i,
-            ),
-          ),
-        )?.toList(),
-      );
+          checkLists: _fn(
+              _instance.checkLists?.map((e) => CopyWith$Input$CheckListInput(
+                    e,
+                    (i) => i,
+                  )))?.toList());
 }
 
 class _CopyWithStubImpl$Input$InputUpdateCard<TRes>
     implements CopyWith$Input$InputUpdateCard<TRes> {
   _CopyWithStubImpl$Input$InputUpdateCard(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     List<Input$CheckListInput>? checkLists,
     String? description,
@@ -1048,8 +1015,7 @@ class _CopyWithStubImpl$Input$InputUpdateCard<TRes>
   }) =>
       _res;
 
-  @override
-  checkLists(fn) => _res;
+  checkLists(_fn) => _res;
 }
 
 class Input$InputVerifyEmail {
@@ -1099,7 +1065,8 @@ class Input$InputVerifyEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Input$InputVerifyEmail || runtimeType != other.runtimeType) {
+    if (!(other is Input$InputVerifyEmail) ||
+        runtimeType != other.runtimeType) {
       return false;
     }
     final l$email = email;
@@ -1154,27 +1121,23 @@ class _CopyWithImpl$Input$InputVerifyEmail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? email = _undefined,
     Object? otp = _undefined,
   }) =>
-      _then(
-        Input$InputVerifyEmail._({
-          ..._instance._$data,
-          if (email != _undefined && email != null) 'email': (email as String),
-          if (otp != _undefined && otp != null) 'otp': (otp as String),
-        }),
-      );
+      _then(Input$InputVerifyEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+        if (otp != _undefined && otp != null) 'otp': (otp as String),
+      }));
 }
 
 class _CopyWithStubImpl$Input$InputVerifyEmail<TRes>
     implements CopyWith$Input$InputVerifyEmail<TRes> {
   _CopyWithStubImpl$Input$InputVerifyEmail(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? email,
     String? otp,
@@ -1245,7 +1208,15 @@ Enum$Reminder fromJson$Enum$Reminder(String value) {
   }
 }
 
-enum Enum$TopicNotification { Board, Card, CheckList, Comment, $List, $unknown }
+enum Enum$TopicNotification {
+  Board,
+  Card,
+  CheckList,
+  Comment,
+  InviteUserToBoard,
+  $List,
+  $unknown
+}
 
 String toJson$Enum$TopicNotification(Enum$TopicNotification e) {
   switch (e) {
@@ -1257,6 +1228,8 @@ String toJson$Enum$TopicNotification(Enum$TopicNotification e) {
       return r'CheckList';
     case Enum$TopicNotification.Comment:
       return r'Comment';
+    case Enum$TopicNotification.InviteUserToBoard:
+      return r'InviteUserToBoard';
     case Enum$TopicNotification.$List:
       return r'List';
     case Enum$TopicNotification.$unknown:
@@ -1274,6 +1247,8 @@ Enum$TopicNotification fromJson$Enum$TopicNotification(String value) {
       return Enum$TopicNotification.CheckList;
     case r'Comment':
       return Enum$TopicNotification.Comment;
+    case r'InviteUserToBoard':
+      return Enum$TopicNotification.InviteUserToBoard;
     case r'List':
       return Enum$TopicNotification.$List;
     default:

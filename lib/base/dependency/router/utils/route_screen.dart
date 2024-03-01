@@ -9,6 +9,8 @@ import 'package:task_manager/feature/add_card/add_card_bloc.dart';
 import 'package:task_manager/feature/add_card/add_card_screen.dart';
 import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board/board_screen.dart';
+import 'package:task_manager/feature/board/setting_board/setting_board_bloc.dart';
+import 'package:task_manager/feature/board/setting_board/setting_board_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
@@ -86,6 +88,7 @@ class RouteScreen {
     );
   }
 
+
   static PageRoute loginPageRoute(RouteSettings settings) {
     BlocProvider.login = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
@@ -151,6 +154,18 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const AddBoardScreen(),
+    );
+  }
+
+
+  static PageRoute settingBoardPageRoute(RouteSettings settings) {
+    BlocProvider.settingBoardBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+          (ref) => SettingBoardBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const SettingBoardScreen(),
     );
   }
 
