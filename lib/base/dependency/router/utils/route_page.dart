@@ -23,7 +23,7 @@ class RoutePage {
         return RouteScreen.addCard(settings);
       case RouteName.backgroundBoard:
         return RouteScreen.backgroundBoardRoute(settings);
-        case RouteName.inviteMember:
+      case RouteName.inviteMember:
         return RouteScreen.inviteMember(settings);
     }
     return RouteScreen.unknownPageRoute(settings);

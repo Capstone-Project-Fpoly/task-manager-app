@@ -18,7 +18,9 @@ import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart
 
 class BoardDetailBloc extends BlocBase {
   final Ref ref;
+
   final Fragment$BoardFragment boardFragment;
+
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
@@ -251,7 +253,6 @@ class BoardDetailBloc extends BlocBase {
     final check = isZoomSubject.value;
     isZoomSubject.value = !check;
   }
-
 
   void onTapOpenInviteMember() {
     routerService.push(RouteInput.inviteMember());

@@ -1,0 +1,5 @@
+query GetUserOfBoard($query: String,$idBoard: String!){
+    getUsersOfBoard(idBoard: $idBoard,query: $query){
+        ...UserFragment
+    }
+}

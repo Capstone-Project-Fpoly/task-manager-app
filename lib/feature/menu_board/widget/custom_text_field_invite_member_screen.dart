@@ -31,9 +31,10 @@ class CustomTextFieldInviteMember extends ConsumerWidget {
       streams: [bloc.checkMemberSubject],
       builder: (context) {
         return SizedBox(
-          width: bloc.checkMemberSubject.value ? MediaQuery.of(context).size.width * 0.75 :MediaQuery.of(context).size.width * 0.9,
+          width: MediaQuery.of(context).size.width * 0.9,
           height: 40,
           child: TextFormField(
+            onChanged: (value) => bloc.onSearchTextChanged(controller.text),
             controller: controller,
             keyboardType: keyBroadType,
             obscureText: isObsText!,
@@ -41,7 +42,8 @@ class CustomTextFieldInviteMember extends ConsumerWidget {
             onTap: () => bloc.onTapFocus(),
             focusNode: bloc.focusNode,
             decoration: InputDecoration(
-              contentPadding: EdgeInsetsConstants.top12 + EdgeInsetsConstants.left8,
+              contentPadding:
+                  EdgeInsetsConstants.top12 + EdgeInsetsConstants.left8,
               constraints: BoxConstraints(
                 maxHeight: MediaQuery.of(context).size.height * 0.065,
               ),
