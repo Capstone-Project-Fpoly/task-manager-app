@@ -23,6 +23,8 @@ class RoutePage {
         return RouteScreen.addCard(settings);
       case RouteName.backgroundBoard:
         return RouteScreen.backgroundBoardRoute(settings);
+      case RouteName.menuBoard:
+        return RouteScreen.menuBoardRoute(settings);
     }
     return RouteScreen.unknownPageRoute(settings);
   }
