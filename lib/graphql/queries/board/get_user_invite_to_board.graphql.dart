@@ -1,4 +1,4 @@
-import '../../Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -18,7 +18,7 @@ class Variables$Query$getUsersInviteToBoard {
   Variables$Query$getUsersInviteToBoard._(this._$data);
 
   factory Variables$Query$getUsersInviteToBoard.fromJson(
-      Map<String, dynamic> data) {
+      Map<String, dynamic> data,) {
     final result$data = <String, dynamic>{};
     final l$idBoard = data['idBoard'];
     result$data['idBoard'] = (l$idBoard as String);
@@ -58,7 +58,7 @@ class Variables$Query$getUsersInviteToBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Query$getUsersInviteToBoard) ||
+    if (other is! Variables$Query$getUsersInviteToBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -117,6 +117,7 @@ class _CopyWithImpl$Variables$Query$getUsersInviteToBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? idBoard = _undefined,
     Object? query = _undefined,
@@ -126,15 +127,16 @@ class _CopyWithImpl$Variables$Query$getUsersInviteToBoard<TRes>
         if (idBoard != _undefined && idBoard != null)
           'idBoard': (idBoard as String),
         if (query != _undefined) 'query': (query as String?),
-      }));
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Query$getUsersInviteToBoard<TRes>
     implements CopyWith$Variables$Query$getUsersInviteToBoard<TRes> {
   _CopyWithStubImpl$Variables$Query$getUsersInviteToBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? idBoard,
     String? query,
@@ -155,7 +157,7 @@ class Query$getUsersInviteToBoard {
       getUsersInviteToBoard: (l$getUsersInviteToBoard as List<dynamic>?)
           ?.map((e) => e == null
               ? null
-              : Fragment$UserFragment.fromJson((e as Map<String, dynamic>)))
+              : Fragment$UserFragment.fromJson((e as Map<String, dynamic>)),)
           .toList(),
       $__typename: (l$$__typename as String),
     );
@@ -166,13 +168,13 @@ class Query$getUsersInviteToBoard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$getUsersInviteToBoard = getUsersInviteToBoard;
-    _resultData['getUsersInviteToBoard'] =
+    resultData['getUsersInviteToBoard'] =
         l$getUsersInviteToBoard?.map((e) => e?.toJson()).toList();
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -192,7 +194,7 @@ class Query$getUsersInviteToBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$getUsersInviteToBoard) ||
+    if (other is! Query$getUsersInviteToBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -249,8 +251,8 @@ abstract class CopyWith$Query$getUsersInviteToBoard<TRes> {
   });
   TRes getUsersInviteToBoard(
       Iterable<Fragment$UserFragment?>? Function(
-              Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?)
-          _fn);
+              Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,)
+          fn,);
 }
 
 class _CopyWithImpl$Query$getUsersInviteToBoard<TRes>
@@ -266,6 +268,7 @@ class _CopyWithImpl$Query$getUsersInviteToBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? getUsersInviteToBoard = _undefined,
     Object? $__typename = _undefined,
@@ -277,36 +280,39 @@ class _CopyWithImpl$Query$getUsersInviteToBoard<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 
+  @override
   TRes getUsersInviteToBoard(
           Iterable<Fragment$UserFragment?>? Function(
                   Iterable<
-                      CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?)
-              _fn) =>
+                      CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,)
+              fn,) =>
       call(
           getUsersInviteToBoard:
-              _fn(_instance.getUsersInviteToBoard?.map((e) => e == null
+              fn(_instance.getUsersInviteToBoard?.map((e) => e == null
                   ? null
                   : CopyWith$Fragment$UserFragment(
                       e,
                       (i) => i,
-                    )))?.toList());
+                    ),),)?.toList(),);
 }
 
 class _CopyWithStubImpl$Query$getUsersInviteToBoard<TRes>
     implements CopyWith$Query$getUsersInviteToBoard<TRes> {
   _CopyWithStubImpl$Query$getUsersInviteToBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     List<Fragment$UserFragment?>? getUsersInviteToBoard,
     String? $__typename,
   }) =>
       _res;
 
-  getUsersInviteToBoard(_fn) => _res;
+  @override
+  getUsersInviteToBoard(fn) => _res;
 }
 
 const documentNodeQuerygetUsersInviteToBoard = DocumentNode(definitions: [
@@ -361,7 +367,7 @@ const documentNodeQuerygetUsersInviteToBoard = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ]),
+        ],),
       ),
       FieldNode(
         name: NameNode(value: '__typename'),
@@ -370,12 +376,12 @@ const documentNodeQuerygetUsersInviteToBoard = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ]),
+    ],),
   ),
   fragmentDefinitionUserFragment,
-]);
+],);
 Query$getUsersInviteToBoard _parserFn$Query$getUsersInviteToBoard(
-        Map<String, dynamic> data) =>
+        Map<String, dynamic> data,) =>
     Query$getUsersInviteToBoard.fromJson(data);
 typedef OnQueryComplete$Query$getUsersInviteToBoard = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -477,21 +483,21 @@ class FetchMoreOptions$Query$getUsersInviteToBoard
 extension ClientExtension$Query$getUsersInviteToBoard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Query$getUsersInviteToBoard>>
       query$getUsersInviteToBoard(
-              Options$Query$getUsersInviteToBoard options) async =>
-          await this.query(options);
+              Options$Query$getUsersInviteToBoard options,) async =>
+          await query(options);
   graphql.ObservableQuery<Query$getUsersInviteToBoard>
       watchQuery$getUsersInviteToBoard(
-              WatchOptions$Query$getUsersInviteToBoard options) =>
-          this.watchQuery(options);
+              WatchOptions$Query$getUsersInviteToBoard options,) =>
+          watchQuery(options);
   void writeQuery$getUsersInviteToBoard({
     required Query$getUsersInviteToBoard data,
     required Variables$Query$getUsersInviteToBoard variables,
     bool broadcast = true,
   }) =>
-      this.writeQuery(
+      writeQuery(
         graphql.Request(
-          operation: graphql.Operation(
-              document: documentNodeQuerygetUsersInviteToBoard),
+          operation: const graphql.Operation(
+              document: documentNodeQuerygetUsersInviteToBoard,),
           variables: variables.toJson(),
         ),
         data: data.toJson(),
@@ -501,10 +507,10 @@ extension ClientExtension$Query$getUsersInviteToBoard on graphql.GraphQLClient {
     required Variables$Query$getUsersInviteToBoard variables,
     bool optimistic = true,
   }) {
-    final result = this.readQuery(
+    final result = readQuery(
       graphql.Request(
         operation:
-            graphql.Operation(document: documentNodeQuerygetUsersInviteToBoard),
+            const graphql.Operation(document: documentNodeQuerygetUsersInviteToBoard),
         variables: variables.toJson(),
       ),
       optimistic: optimistic,
@@ -515,16 +521,16 @@ extension ClientExtension$Query$getUsersInviteToBoard on graphql.GraphQLClient {
 
 graphql_flutter.QueryHookResult<Query$getUsersInviteToBoard>
     useQuery$getUsersInviteToBoard(
-            Options$Query$getUsersInviteToBoard options) =>
+            Options$Query$getUsersInviteToBoard options,) =>
         graphql_flutter.useQuery(options);
 graphql.ObservableQuery<Query$getUsersInviteToBoard>
     useWatchQuery$getUsersInviteToBoard(
-            WatchOptions$Query$getUsersInviteToBoard options) =>
+            WatchOptions$Query$getUsersInviteToBoard options,) =>
         graphql_flutter.useWatchQuery(options);
 
 class Query$getUsersInviteToBoard$Widget
     extends graphql_flutter.Query<Query$getUsersInviteToBoard> {
-  Query$getUsersInviteToBoard$Widget({
+  const Query$getUsersInviteToBoard$Widget({
     widgets.Key? key,
     required Options$Query$getUsersInviteToBoard options,
     required graphql_flutter.QueryBuilder<Query$getUsersInviteToBoard> builder,

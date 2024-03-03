@@ -6,7 +6,6 @@ import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 
 class MemberListWidget extends ConsumerWidget {
-
   const MemberListWidget({
     super.key,
     required this.context,
@@ -17,7 +16,7 @@ class MemberListWidget extends ConsumerWidget {
   final Fragment$UserFragment? user;
 
   @override
-  Widget build(BuildContext context,ref) {
+  Widget build(BuildContext context, ref) {
     return Container(
       margin: EdgeInsetsConstants.top4,
       padding: EdgeInsetsConstants.all10,

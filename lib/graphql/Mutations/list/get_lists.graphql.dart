@@ -1,8 +1,8 @@
-import '../../Fragment/card_fragment.graphql.dart';
-import '../../Fragment/check_list_fragment.graphql.dart';
-import '../../Fragment/comment_fragment.graphql.dart';
-import '../../Fragment/list_fragment.graphql.dart';
-import '../../Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/check_list_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/comment_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -46,7 +46,7 @@ class Variables$Mutation$getList {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Mutation$getList) ||
+    if (other is! Variables$Mutation$getList ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -90,20 +90,22 @@ class _CopyWithImpl$Variables$Mutation$getList<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({Object? idBoard = _undefined}) =>
       _then(Variables$Mutation$getList._({
         ..._instance._$data,
         if (idBoard != _undefined && idBoard != null)
           'idBoard': (idBoard as String),
-      }));
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Mutation$getList<TRes>
     implements CopyWith$Variables$Mutation$getList<TRes> {
   _CopyWithStubImpl$Variables$Mutation$getList(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({String? idBoard}) => _res;
 }
 
@@ -120,7 +122,7 @@ class Mutation$getList {
       getLists: (l$getLists as List<dynamic>?)
           ?.map((e) => e == null
               ? null
-              : Fragment$ListFragment.fromJson((e as Map<String, dynamic>)))
+              : Fragment$ListFragment.fromJson((e as Map<String, dynamic>)),)
           .toList(),
       $__typename: (l$$__typename as String),
     );
@@ -131,12 +133,12 @@ class Mutation$getList {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$getLists = getLists;
-    _resultData['getLists'] = l$getLists?.map((e) => e?.toJson()).toList();
+    resultData['getLists'] = l$getLists?.map((e) => e?.toJson()).toList();
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -154,7 +156,7 @@ class Mutation$getList {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Mutation$getList) || runtimeType != other.runtimeType) {
+    if (other is! Mutation$getList || runtimeType != other.runtimeType) {
       return false;
     }
     final l$getLists = getLists;
@@ -205,8 +207,8 @@ abstract class CopyWith$Mutation$getList<TRes> {
   });
   TRes getLists(
       Iterable<Fragment$ListFragment?>? Function(
-              Iterable<CopyWith$Fragment$ListFragment<Fragment$ListFragment>?>?)
-          _fn);
+              Iterable<CopyWith$Fragment$ListFragment<Fragment$ListFragment>?>?,)
+          fn,);
 }
 
 class _CopyWithImpl$Mutation$getList<TRes>
@@ -222,6 +224,7 @@ class _CopyWithImpl$Mutation$getList<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? getLists = _undefined,
     Object? $__typename = _undefined,
@@ -233,35 +236,38 @@ class _CopyWithImpl$Mutation$getList<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 
+  @override
   TRes getLists(
           Iterable<Fragment$ListFragment?>? Function(
                   Iterable<
-                      CopyWith$Fragment$ListFragment<Fragment$ListFragment>?>?)
-              _fn) =>
+                      CopyWith$Fragment$ListFragment<Fragment$ListFragment>?>?,)
+              fn,) =>
       call(
-          getLists: _fn(_instance.getLists?.map((e) => e == null
+          getLists: fn(_instance.getLists?.map((e) => e == null
               ? null
               : CopyWith$Fragment$ListFragment(
                   e,
                   (i) => i,
-                )))?.toList());
+                ),),)?.toList(),);
 }
 
 class _CopyWithStubImpl$Mutation$getList<TRes>
     implements CopyWith$Mutation$getList<TRes> {
   _CopyWithStubImpl$Mutation$getList(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     List<Fragment$ListFragment?>? getLists,
     String? $__typename,
   }) =>
       _res;
 
-  getLists(_fn) => _res;
+  @override
+  getLists(fn) => _res;
 }
 
 const documentNodeMutationgetList = DocumentNode(definitions: [
@@ -277,7 +283,7 @@ const documentNodeMutationgetList = DocumentNode(definitions: [
         ),
         defaultValue: DefaultValueNode(value: null),
         directives: [],
-      )
+      ),
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -288,7 +294,7 @@ const documentNodeMutationgetList = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'idBoard'),
             value: VariableNode(name: NameNode(value: 'idBoard')),
-          )
+          ),
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
@@ -303,7 +309,7 @@ const documentNodeMutationgetList = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ]),
+        ],),
       ),
       FieldNode(
         name: NameNode(value: '__typename'),
@@ -312,14 +318,14 @@ const documentNodeMutationgetList = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ]),
+    ],),
   ),
   fragmentDefinitionListFragment,
   fragmentDefinitionCardFragment,
   fragmentDefinitionUserFragment,
   fragmentDefinitionCommentFragment,
   fragmentDefinitionCheckListFragment,
-]);
+],);
 Mutation$getList _parserFn$Mutation$getList(Map<String, dynamic> data) =>
     Mutation$getList.fromJson(data);
 typedef OnMutationCompleted$Mutation$getList = FutureOr<void> Function(
@@ -407,11 +413,11 @@ class WatchOptions$Mutation$getList
 
 extension ClientExtension$Mutation$getList on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$getList>> mutate$getList(
-          Options$Mutation$getList options) async =>
-      await this.mutate(options);
+          Options$Mutation$getList options,) async =>
+      await mutate(options);
   graphql.ObservableQuery<Mutation$getList> watchMutation$getList(
-          WatchOptions$Mutation$getList options) =>
-      this.watchMutation(options);
+          WatchOptions$Mutation$getList options,) =>
+      watchMutation(options);
 }
 
 class Mutation$getList$HookResult {
@@ -426,7 +432,7 @@ class Mutation$getList$HookResult {
 }
 
 Mutation$getList$HookResult useMutation$getList(
-    [WidgetOptions$Mutation$getList? options]) {
+    [WidgetOptions$Mutation$getList? options,]) {
   final result =
       graphql_flutter.useMutation(options ?? WidgetOptions$Mutation$getList());
   return Mutation$getList$HookResult(
@@ -440,7 +446,7 @@ Mutation$getList$HookResult useMutation$getList(
 }
 
 graphql.ObservableQuery<Mutation$getList> useWatchMutation$getList(
-        WatchOptions$Mutation$getList options) =>
+        WatchOptions$Mutation$getList options,) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$getList

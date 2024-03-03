@@ -35,13 +35,19 @@ class InviteMemberScreen extends ConsumerWidget {
               backgroundColor: darkerColor,
               leading: bloc.checkMemberSubject.value
                   ? IconButton(
-                      icon: const Icon(Icons.cancel,
-                          size: 20, color: Colors.white,),
+                      icon: const Icon(
+                        Icons.cancel,
+                        size: 20,
+                        color: Colors.white,
+                      ),
                       onPressed: () => bloc.onTapCancelSearch(),
                     )
                   : IconButton(
-                      icon: const Icon(Icons.arrow_back,
-                          size: 20, color: Colors.white,),
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        size: 20,
+                        color: Colors.white,
+                      ),
                       onPressed: () => bloc.back(),
                     ),
               title: const Text(
@@ -108,7 +114,9 @@ class InviteMemberScreen extends ConsumerWidget {
                                       itemBuilder: (context, index) {
                                         final inviteUser = inviteUsers[index];
                                         return SearchListWidget(
-                                            context: context, user: inviteUser,);
+                                          context: context,
+                                          user: inviteUser,
+                                        );
                                       },
                                     );
                                   },

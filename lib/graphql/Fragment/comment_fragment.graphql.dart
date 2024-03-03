@@ -1,6 +1,6 @@
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
-import 'user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 
 class Fragment$CommentFragment {
   Fragment$CommentFragment({
@@ -37,18 +37,18 @@ class Fragment$CommentFragment {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$id = id;
-    _resultData['id'] = l$id;
+    resultData['id'] = l$id;
     final l$createdAt = createdAt;
-    _resultData['createdAt'] = l$createdAt;
+    resultData['createdAt'] = l$createdAt;
     final l$user = user;
-    _resultData['user'] = l$user.toJson();
+    resultData['user'] = l$user.toJson();
     final l$comment = comment;
-    _resultData['comment'] = l$comment;
+    resultData['comment'] = l$comment;
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -72,7 +72,7 @@ class Fragment$CommentFragment {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Fragment$CommentFragment) ||
+    if (other is! Fragment$CommentFragment ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -146,6 +146,7 @@ class _CopyWithImpl$Fragment$CommentFragment<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? id = _undefined,
     Object? createdAt = _undefined,
@@ -167,8 +168,9 @@ class _CopyWithImpl$Fragment$CommentFragment<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 
+  @override
   CopyWith$Fragment$UserFragment<TRes> get user {
     final local$user = _instance.user;
     return CopyWith$Fragment$UserFragment(local$user, (e) => call(user: e));
@@ -179,8 +181,9 @@ class _CopyWithStubImpl$Fragment$CommentFragment<TRes>
     implements CopyWith$Fragment$CommentFragment<TRes> {
   _CopyWithStubImpl$Fragment$CommentFragment(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? id,
     String? createdAt,
@@ -190,6 +193,7 @@ class _CopyWithStubImpl$Fragment$CommentFragment<TRes>
   }) =>
       _res;
 
+  @override
   CopyWith$Fragment$UserFragment<TRes> get user =>
       CopyWith$Fragment$UserFragment.stub(_res);
 }
@@ -200,7 +204,7 @@ const fragmentDefinitionCommentFragment = FragmentDefinitionNode(
       on: NamedTypeNode(
     name: NameNode(value: 'Comment'),
     isNonNull: false,
-  )),
+  ),),
   directives: [],
   selectionSet: SelectionSetNode(selections: [
     FieldNode(
@@ -234,7 +238,7 @@ const fragmentDefinitionCommentFragment = FragmentDefinitionNode(
           directives: [],
           selectionSet: null,
         ),
-      ]),
+      ],),
     ),
     FieldNode(
       name: NameNode(value: 'comment'),
@@ -250,12 +254,12 @@ const fragmentDefinitionCommentFragment = FragmentDefinitionNode(
       directives: [],
       selectionSet: null,
     ),
-  ]),
+  ],),
 );
 const documentNodeFragmentCommentFragment = DocumentNode(definitions: [
   fragmentDefinitionCommentFragment,
   fragmentDefinitionUserFragment,
-]);
+],);
 
 extension ClientExtension$Fragment$CommentFragment on graphql.GraphQLClient {
   void writeFragment$CommentFragment({
@@ -263,7 +267,7 @@ extension ClientExtension$Fragment$CommentFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool broadcast = true,
   }) =>
-      this.writeFragment(
+      writeFragment(
         graphql.FragmentRequest(
           idFields: idFields,
           fragment: const graphql.Fragment(
@@ -278,7 +282,7 @@ extension ClientExtension$Fragment$CommentFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool optimistic = true,
   }) {
-    final result = this.readFragment(
+    final result = readFragment(
       graphql.FragmentRequest(
         idFields: idFields,
         fragment: const graphql.Fragment(

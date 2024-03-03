@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
@@ -16,7 +17,8 @@ class SearchListWidget extends ConsumerWidget {
   final Fragment$UserFragment? user;
 
   @override
-  Widget build(BuildContext context,ref) {
+  Widget build(BuildContext context, ref) {
+    final bloc = ref.watch(BlocProvider.inviteMember);
     return Container(
       padding: EdgeInsetsConstants.all8,
       alignment: Alignment.centerLeft,
@@ -62,10 +64,14 @@ class SearchListWidget extends ConsumerWidget {
           ),
           SizedBoxConstants.w4,
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.add_circle_outline,
-            ),
+            onPressed: () => bloc.inviteMemberToBoard(user!),
+            icon: bloc.checkMemberBoard(user?.email)
+                ? const Icon(
+                    Icons.check_circle_outline,
+                  )
+                : const Icon(
+                    Icons.add_circle_outline,
+                  ),
             iconSize: MediaQuery.of(context).size.width * 0.05,
           ),
         ],
