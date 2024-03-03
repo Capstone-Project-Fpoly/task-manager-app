@@ -11,7 +11,7 @@ import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/base/dependency/router/utils/route_name.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/logout.graphql.dart';
-import 'package:task_manager/graphql/Querys/me.graphql.dart';
+import 'package:task_manager/graphql/queries/me.graphql.dart';
 import 'package:task_manager/shared/enum/navigation_enum.dart';
 import 'package:task_manager/shared/utilities/fcm.dart';
 
