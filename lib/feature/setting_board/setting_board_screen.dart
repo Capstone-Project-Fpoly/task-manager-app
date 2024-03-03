@@ -22,7 +22,6 @@ class SettingBoardScreen extends ConsumerWidget {
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
                bloc.onBackToBoardScreen();
-               bloc.onBackToBoardScreen();
             },
           ),
           title: const Text('Cài đặt bảng'),

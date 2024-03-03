@@ -76,7 +76,9 @@ class BoardScreen extends ConsumerWidget {
           SizedBoxConstants.w20,
           InkWell(
             child: const Icon(Icons.notifications),
-            onTap: () {},
+            onTap: () {
+              bloc.onTapToNotification();
+            },
           ),
           SizedBoxConstants.w15,
         ],

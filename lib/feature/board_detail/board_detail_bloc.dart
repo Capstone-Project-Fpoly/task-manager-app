@@ -169,6 +169,10 @@ class BoardDetailBloc extends BlocBase {
     routerService.pop();
   }
 
+  void onBackToBoardDetailScreen() {
+    routerService.pop();
+  }
+
   void closeAdd() {
     isAddListSubject.value = false;
     isAddCardSubject.value = false;

@@ -18,12 +18,12 @@ class SettingBoardBloc extends BlocBase {
     backgroundColorSubject.close();
     super.dispose();
   }
-  void init() {
 
-  }
+  void init() {}
   void onBackToBoardScreen() {
     routerService.pop();
   }
+
   Future<void> onNextToBackgroundBoardWidget() async {
     final resultColor = await routerService.push(RouteInput.backgroundBoard());
     if (resultColor != null) {
@@ -32,6 +32,7 @@ class SettingBoardBloc extends BlocBase {
           Color(int.tryParse('0XFF${colorSubject.value}') ?? 0XFF2196F3);
     }
   }
+
   SettingBoardBloc(this.ref) {
     init();
   }
