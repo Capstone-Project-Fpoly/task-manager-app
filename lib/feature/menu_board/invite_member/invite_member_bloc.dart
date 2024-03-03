@@ -129,6 +129,12 @@ class InviteMemberBloc extends BlocBase {
     return result;
   }
 
+  String checkUserPermissions(Fragment$UserFragment user) {
+    final board = boardBloc.boardFragment;
+    if(user == board.ownerUser) return 'Quản trị viên';
+    return 'Thành viên';
+  }
+
   bool checkMemberBoard(String? email) {
     final list = listMemberSubject.value;
     final result = list

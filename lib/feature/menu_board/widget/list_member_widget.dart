@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
@@ -17,6 +18,7 @@ class MemberListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final bloc = ref.watch(BlocProvider.inviteMember);
     return Container(
       margin: EdgeInsetsConstants.top4,
       padding: EdgeInsetsConstants.all10,
@@ -69,7 +71,7 @@ class MemberListWidget extends ConsumerWidget {
             ),
           ),
           SizedBoxConstants.w4,
-          const Text('Quản trị viên'),
+          Text(bloc.checkUserPermissions(user!)),
         ],
       ),
     );
