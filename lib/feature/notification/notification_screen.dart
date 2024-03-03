@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
@@ -16,6 +15,14 @@ class NotificationScreen extends ConsumerWidget {
     final bloc = ref.watch(BlocProvider.notificationBloc);
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
+    const textStyleWhite = TextStyle(
+      color: ColorConstants.white,
+      fontSize: 14,
+    );
+    const textStyleBlack = TextStyle(
+      color: ColorConstants.primaryBlack,
+      fontSize: 14,
+    );
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -55,7 +62,7 @@ class NotificationScreen extends ConsumerWidget {
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       border: Border.all(
-                        width: 0.5,
+                        width: 1,
                         color: ColorConstants.grayText,
                       ),
                     ),
@@ -65,15 +72,9 @@ class NotificationScreen extends ConsumerWidget {
                       builder: (context) {
                         return Row(
                           children: [
-                            Text(bloc.selectedOptionSubject.value == 0
-                                ? 'Tất cả'
-                                : bloc.selectedOptionSubject.value == 1
-                                    ? 'Tôi'
-                                    : bloc.selectedOptionSubject.value == 2
-                                        ? 'Bình luận'
-                                        : bloc.selectedOptionSubject.value == 3
-                                            ? 'Yêu cầu tham gia'
-                                            : 'Tất cả',),
+                            Text(
+                              bloc.selectedOptionSubject.value.title,
+                            ),
                             SizedBoxConstants.h4,
                             const Icon(
                               Icons.arrow_drop_down,
@@ -88,22 +89,35 @@ class NotificationScreen extends ConsumerWidget {
                 SizedBoxConstants.w10,
                 InkWell(
                   onTap: () {
-                    //
+                    bloc.onTapChangeSeen();
                   },
-                  child: Container(
-                    padding: EdgeInsetsConstants.vertical8 +
-                        EdgeInsetsConstants.horizontal12,
-                    alignment: Alignment.centerLeft,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(
-                        width: 0.5,
-                        color: ColorConstants.grayText,
-                      ),
-                    ),
-                    // ignore: prefer_const_constructors
-                    child: Text('Đã đọc'),
+                  child: ObsBuilder(
+                    streams: [bloc.isSeenSubject],
+                    builder: (context) {
+                      final isSeen = bloc.isSeenSubject.value;
+                      return Container(
+                        padding: EdgeInsetsConstants.vertical8 +
+                            EdgeInsetsConstants.horizontal12,
+                        alignment: Alignment.centerLeft,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: isSeen
+                              ? ColorConstants.darkColor
+                              : ColorConstants.transparent,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          border: Border.all(
+                            width: 1,
+                            color: ColorConstants.grayText,
+                          ),
+                        ),
+                        // ignore: prefer_const_constructors
+                        child: Text(
+                          isSeen ? 'Đã xem' : 'Chưa xem',
+                          style: isSeen ? textStyleWhite : textStyleBlack,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -129,7 +143,7 @@ class NotificationScreen extends ConsumerWidget {
                     children: [
                       AppCircleAvatar(
                         url: '',
-                        width: width / 6.5,
+                        width: width / 9.5,
                       ),
                       Container(
                         padding: EdgeInsetsConstants.left8,
@@ -145,7 +159,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Lành ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'đã thêm bạn vào thẻ ',
@@ -154,7 +169,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'sao chép danh sách ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'ở bảng ',
@@ -163,7 +179,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Test',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -190,7 +207,7 @@ class NotificationScreen extends ConsumerWidget {
                     children: [
                       AppCircleAvatar(
                         url: '',
-                        width: width / 6.5,
+                        width: width / 9.5,
                       ),
                       Container(
                         padding: EdgeInsetsConstants.left8,
@@ -206,7 +223,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Lành ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'đã di chuyển thẻ ',
@@ -215,7 +233,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Màn hình Thông báo ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'tới danh sách ',
@@ -224,7 +243,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Doing ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'ở bảng ',
@@ -233,7 +253,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Test',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -261,7 +282,7 @@ class NotificationScreen extends ConsumerWidget {
                     children: [
                       AppCircleAvatar(
                         url: '',
-                        width: width / 6.5,
+                        width: width / 9.5,
                       ),
                       Container(
                         padding: EdgeInsetsConstants.left8,
@@ -277,7 +298,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Lành ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'đã mời bạn tham gia bảng ',
@@ -286,7 +308,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Test ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -359,7 +382,7 @@ class NotificationScreen extends ConsumerWidget {
                     children: [
                       AppCircleAvatar(
                         url: '',
-                        width: width / 6.5,
+                        width: width / 9.5,
                       ),
                       Container(
                         padding: EdgeInsetsConstants.left8,
@@ -375,7 +398,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Lành ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'đã Bình Luận ',
@@ -392,7 +416,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Card ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'ở trong danh sách ',
@@ -401,7 +426,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'List ',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   TextSpan(
                                     text: 'ở trong bảng ',
@@ -410,7 +436,8 @@ class NotificationScreen extends ConsumerWidget {
                                   TextSpan(
                                     text: 'Test',
                                     style: AppTextStyle(
-                                        fontWeight: FontWeight.w600,),
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ],
                               ),
