@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/shared/widgets/icons/base/png_images.dart';
 
 class BoardImages extends StatelessWidget {
   final String? assetName;
@@ -16,11 +17,10 @@ class BoardImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      'assets/images/image_board.png',
+    return PngImages(
+      assetName: 'image_board',
       width: width,
       height: height,
-      color: color,
     );
   }
 }
