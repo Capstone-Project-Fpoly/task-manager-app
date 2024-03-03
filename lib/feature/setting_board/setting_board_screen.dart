@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
+import 'package:task_manager/shared/widgets/icons/board_image.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 
@@ -21,6 +22,7 @@ class SettingBoardScreen extends ConsumerWidget {
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
                bloc.onBackToBoardScreen();
+               bloc.onBackToBoardScreen();
             },
           ),
           title: const Text('Cài đặt bảng'),
@@ -36,9 +38,7 @@ class SettingBoardScreen extends ConsumerWidget {
                 height: height/3.5,
                 width: width,
                 padding: EdgeInsetsConstants.horizontal28,
-                child: Image.asset(
-                  'assets/images/image_board.png',
-                ),
+                child: const BoardImages(),
               ),
               Container(
                 color: ColorConstants.backgroundItems,

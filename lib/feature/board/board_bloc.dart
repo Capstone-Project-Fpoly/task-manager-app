@@ -30,7 +30,7 @@ class BoardBloc extends BlocBase {
   //
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final searchTextSubject = BehaviorSubject<String>.seeded('');
-
+  final dialogTitleSubject = BehaviorSubject<String>.seeded('');
   void init() {
     getBoard();
   }
@@ -47,6 +47,7 @@ class BoardBloc extends BlocBase {
     selectedSearchSubject.close();
     searchTextSubject.close();
     listBoardSearchSubject.close();
+    dialogTitleSubject.close();
   }
 
   void openSearch(bool open) {
@@ -80,16 +81,16 @@ class BoardBloc extends BlocBase {
   void onTapSettingBoard(){
     routerService.push(RouteInput.settingBoard());
   }
-  Future<void> dialogShow({
+  Future<void> dialogShowOptionBoard({
     required BuildContext context,
     required String title,
-    required VoidCallback onTap,
   }) async {
     selectedSearchSubject.value = false;
+    dialogTitleSubject.value = title;
     showDialog(
       context: context,
       builder: (context) {
-        return ShowDialogBoardOption(onTap: onTap, title: title,);
+        return const ShowDialogBoardOption();
       },
     );
   }
