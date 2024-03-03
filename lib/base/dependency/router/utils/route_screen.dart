@@ -11,6 +11,8 @@ import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board/board_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
+import 'package:task_manager/feature/detail_card/detail_card.dart';
+import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login/login_screen.dart';
@@ -175,6 +177,18 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const BackgroundBoardWidget(),
+    );
+  }
+
+  static PageRoute detailCardRoute(RouteSettings settings) {
+    // final id = settings.arguments as String;
+    BlocProvider.detailCardBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => DetailCardBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const DetailCard(),
     );
   }
 }

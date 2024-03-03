@@ -55,8 +55,10 @@ extension BoardDetailCardExtention on BoardDetailBloc {
     }
   }
 
-  Future<void> deleteCard(
-      {required String? idCard, required String? idList,}) async {
+  Future<void> deleteCard({
+    required String? idCard,
+    required String? idList,
+  }) async {
     if (idCard == null || idList == null) return;
     if (idCard.isEmpty || idList.isEmpty) return;
     routerService.pop();

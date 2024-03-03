@@ -16,4 +16,5 @@ class RouteInput {
   RouteInput.addBoard() : routeName = RouteName.addBoard;
   RouteInput.addCard() : routeName = RouteName.addCard;
   RouteInput.backgroundBoard() : routeName = RouteName.backgroundBoard;
+  RouteInput.detailCard() : routeName = RouteName.detailCard;
 }
