@@ -152,6 +152,10 @@ class BoardScreen extends ConsumerWidget {
                                 onTap: () => bloc.onTapToDragAndDrop(
                                   board: board,
                                 ),
+                                onLongPress: () {
+                                  //_openDialog(context , board?.title ?? '');
+                                  bloc.dialogShowOptionBoard(context: context, title: board?.title ?? '');
+                                },
                                 child: Container(
                                   padding: EdgeInsetsConstants.vertical10 +
                                       EdgeInsetsConstants.horizontal12,

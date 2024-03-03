@@ -25,6 +25,8 @@ import 'package:task_manager/feature/reg_with_email/reg_with_email_bloc.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_screen.dart';
 import 'package:task_manager/feature/root/root_screen.dart';
 import 'package:task_manager/feature/setting/setting_screen.dart';
+import 'package:task_manager/feature/setting_board/setting_board_bloc.dart';
+import 'package:task_manager/feature/setting_board/setting_board_screen.dart';
 import 'package:task_manager/feature/unknown/unknown_screen.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 
@@ -85,6 +87,7 @@ class RouteScreen {
       builder: (_) => const HelpScreen(),
     );
   }
+
 
   static PageRoute loginPageRoute(RouteSettings settings) {
     BlocProvider.login = createAutoDisposeBloc(
@@ -151,6 +154,18 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const AddBoardScreen(),
+    );
+  }
+
+
+  static PageRoute settingBoardPageRoute(RouteSettings settings) {
+    BlocProvider.settingBoardBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+          (ref) => SettingBoardBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const SettingBoardScreen(),
     );
   }
 
