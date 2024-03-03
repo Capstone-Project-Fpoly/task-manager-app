@@ -10,6 +10,7 @@ import 'package:task_manager/feature/login_with_email/login_with_other_email/log
 import 'package:task_manager/feature/menu_board/invite_member/invite_member_bloc.dart';
 import 'package:task_manager/feature/my_board/my_board_bloc.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_bloc.dart';
+import 'package:task_manager/feature/setting_board/setting_board_bloc.dart';
 import 'package:task_manager/shared/bloc/app_bloc.dart';
 
 class BlocProvider {
@@ -25,6 +26,7 @@ class BlocProvider {
   static late AutoDisposeProvider<AddCardBloc> addCard;
   static late AutoDisposeProvider<InviteMemberBloc> inviteMember;
   static late AutoDisposeProvider<BackgroundBoardBloc> backgroundBoardBloc;
+  static late AutoDisposeProvider<SettingBoardBloc> settingBoardBloc;
 
   BlocProvider._();
 }

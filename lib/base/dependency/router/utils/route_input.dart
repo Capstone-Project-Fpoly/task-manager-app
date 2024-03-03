@@ -26,4 +26,5 @@ class RouteInput {
   RouteInput.inviteMember() : routeName = RouteName.inviteMember;
 
   RouteInput.backgroundBoard() : routeName = RouteName.backgroundBoard;
+  RouteInput.settingBoard() : routeName = RouteName.settingBoard;
 }
