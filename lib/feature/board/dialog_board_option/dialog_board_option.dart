@@ -24,7 +24,7 @@ class ShowDialogBoardOption extends ConsumerWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      content:Column(
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

@@ -23,6 +23,8 @@ import 'package:task_manager/feature/login_with_email/login_with_other_email/log
 import 'package:task_manager/feature/my_board/my_board_screen.dart';
 import 'package:task_manager/feature/my_board/my_board_bloc.dart';
 import 'package:task_manager/feature/my_card/my_card_screen.dart';
+import 'package:task_manager/feature/notification/notification_bloc.dart';
+import 'package:task_manager/feature/notification/notification_screen.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_bloc.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_screen.dart';
 import 'package:task_manager/feature/root/root_screen.dart';
@@ -87,7 +89,6 @@ class RouteScreen {
       builder: (_) => const HelpScreen(),
     );
   }
-
 
   static PageRoute loginPageRoute(RouteSettings settings) {
     BlocProvider.login = createAutoDisposeBloc(
@@ -157,15 +158,25 @@ class RouteScreen {
     );
   }
 
-
   static PageRoute settingBoardPageRoute(RouteSettings settings) {
     BlocProvider.settingBoardBloc = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-          (ref) => SettingBoardBloc(ref),
+      (ref) => SettingBoardBloc(ref),
     );
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const SettingBoardScreen(),
+    );
+  }
+
+  static PageRoute notificationPageRoute(RouteSettings settings) {
+    BlocProvider.notificationBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => NotificationBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const NotificationScreen(),
     );
   }
 

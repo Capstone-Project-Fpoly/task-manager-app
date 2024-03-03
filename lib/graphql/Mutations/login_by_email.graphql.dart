@@ -1,4 +1,4 @@
-import '../../schema.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -43,7 +43,7 @@ class Variables$Mutation$LoginByEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Mutation$LoginByEmail) ||
+    if (other is! Variables$Mutation$LoginByEmail ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -87,20 +87,22 @@ class _CopyWithImpl$Variables$Mutation$LoginByEmail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({Object? input = _undefined}) =>
       _then(Variables$Mutation$LoginByEmail._({
         ..._instance._$data,
         if (input != _undefined && input != null)
           'input': (input as Input$InputLogin),
-      }));
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Mutation$LoginByEmail<TRes>
     implements CopyWith$Variables$Mutation$LoginByEmail<TRes> {
   _CopyWithStubImpl$Variables$Mutation$LoginByEmail(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({Input$InputLogin? input}) => _res;
 }
 
@@ -124,12 +126,12 @@ class Mutation$LoginByEmail {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$loginByEmail = loginByEmail;
-    _resultData['loginByEmail'] = l$loginByEmail;
+    resultData['loginByEmail'] = l$loginByEmail;
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -147,7 +149,7 @@ class Mutation$LoginByEmail {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Mutation$LoginByEmail) || runtimeType != other.runtimeType) {
+    if (other is! Mutation$LoginByEmail || runtimeType != other.runtimeType) {
       return false;
     }
     final l$loginByEmail = loginByEmail;
@@ -200,6 +202,7 @@ class _CopyWithImpl$Mutation$LoginByEmail<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? loginByEmail = _undefined,
     Object? $__typename = _undefined,
@@ -211,15 +214,16 @@ class _CopyWithImpl$Mutation$LoginByEmail<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 }
 
 class _CopyWithStubImpl$Mutation$LoginByEmail<TRes>
     implements CopyWith$Mutation$LoginByEmail<TRes> {
   _CopyWithStubImpl$Mutation$LoginByEmail(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? loginByEmail,
     String? $__typename,
@@ -240,7 +244,7 @@ const documentNodeMutationLoginByEmail = DocumentNode(definitions: [
         ),
         defaultValue: DefaultValueNode(value: null),
         directives: [],
-      )
+      ),
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -251,7 +255,7 @@ const documentNodeMutationLoginByEmail = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'input'),
             value: VariableNode(name: NameNode(value: 'input')),
-          )
+          ),
         ],
         directives: [],
         selectionSet: null,
@@ -263,11 +267,11 @@ const documentNodeMutationLoginByEmail = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ]),
+    ],),
   ),
-]);
+],);
 Mutation$LoginByEmail _parserFn$Mutation$LoginByEmail(
-        Map<String, dynamic> data) =>
+        Map<String, dynamic> data,) =>
     Mutation$LoginByEmail.fromJson(data);
 typedef OnMutationCompleted$Mutation$LoginByEmail = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -354,11 +358,11 @@ class WatchOptions$Mutation$LoginByEmail
 
 extension ClientExtension$Mutation$LoginByEmail on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$LoginByEmail>> mutate$LoginByEmail(
-          Options$Mutation$LoginByEmail options) async =>
-      await this.mutate(options);
+          Options$Mutation$LoginByEmail options,) async =>
+      await mutate(options);
   graphql.ObservableQuery<Mutation$LoginByEmail> watchMutation$LoginByEmail(
-          WatchOptions$Mutation$LoginByEmail options) =>
-      this.watchMutation(options);
+          WatchOptions$Mutation$LoginByEmail options,) =>
+      watchMutation(options);
 }
 
 class Mutation$LoginByEmail$HookResult {
@@ -373,7 +377,7 @@ class Mutation$LoginByEmail$HookResult {
 }
 
 Mutation$LoginByEmail$HookResult useMutation$LoginByEmail(
-    [WidgetOptions$Mutation$LoginByEmail? options]) {
+    [WidgetOptions$Mutation$LoginByEmail? options,]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$LoginByEmail());
   return Mutation$LoginByEmail$HookResult(
@@ -387,7 +391,7 @@ Mutation$LoginByEmail$HookResult useMutation$LoginByEmail(
 }
 
 graphql.ObservableQuery<Mutation$LoginByEmail> useWatchMutation$LoginByEmail(
-        WatchOptions$Mutation$LoginByEmail options) =>
+        WatchOptions$Mutation$LoginByEmail options,) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$LoginByEmail

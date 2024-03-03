@@ -149,9 +149,14 @@ class BoardDetailScreen extends ConsumerWidget {
                                 },
                               ),
                               SizedBoxConstants.w15,
-                              const Icon(
-                                Icons.notifications,
-                                color: Colors.white,
+                              InkWell(
+                                child: const Icon(
+                                  Icons.notifications,
+                                  color: Colors.white,
+                                ),
+                                onTap: () {
+                                  bloc.onBackToBoardDetailScreen();
+                                },
                               ),
                               SizedBoxConstants.w15,
                               const Icon(
