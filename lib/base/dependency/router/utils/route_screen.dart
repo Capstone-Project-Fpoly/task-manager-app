@@ -9,8 +9,6 @@ import 'package:task_manager/feature/add_card/add_card_bloc.dart';
 import 'package:task_manager/feature/add_card/add_card_screen.dart';
 import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board/board_screen.dart';
-import 'package:task_manager/feature/board/setting_board/setting_board_bloc.dart';
-import 'package:task_manager/feature/board/setting_board/setting_board_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
@@ -29,6 +27,8 @@ import 'package:task_manager/feature/reg_with_email/reg_with_email_bloc.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_screen.dart';
 import 'package:task_manager/feature/root/root_screen.dart';
 import 'package:task_manager/feature/setting/setting_screen.dart';
+import 'package:task_manager/feature/setting_board/setting_board_bloc.dart';
+import 'package:task_manager/feature/setting_board/setting_board_screen.dart';
 import 'package:task_manager/feature/unknown/unknown_screen.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 
