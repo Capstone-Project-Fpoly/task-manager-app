@@ -21,6 +21,10 @@ class RoutePage {
         return RouteScreen.addBoard(settings);
       case RouteName.addCard:
         return RouteScreen.addCard(settings);
+      case RouteName.settingBoard:
+        return RouteScreen.settingBoardPageRoute(settings);
+      case RouteName.notification:
+        return RouteScreen.notificationPageRoute(settings);
       case RouteName.backgroundBoard:
         return RouteScreen.backgroundBoardRoute(settings);
       case RouteName.menuBoard:

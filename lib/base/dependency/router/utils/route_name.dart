@@ -14,5 +14,8 @@ class RouteName {
   static const addCard = 'addCard';
   static const backgroundBoard = 'backgroundBoard';
   static const menuBoard = 'menuBoard';
+  static const settingBoard = 'settingBoard';
+  static const notification = 'notification';
+
   RouteName._();
 }

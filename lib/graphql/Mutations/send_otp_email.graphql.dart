@@ -86,12 +86,11 @@ class _CopyWithImpl$Variables$Mutation$SendOTPEmail<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   @override
-  TRes call({Object? email = _undefined}) => _then(
-        Variables$Mutation$SendOTPEmail._({
-          ..._instance._$data,
-          if (email != _undefined && email != null) 'email': (email as String),
-        }),
-      );
+  TRes call({Object? email = _undefined}) =>
+      _then(Variables$Mutation$SendOTPEmail._({
+        ..._instance._$data,
+        if (email != _undefined && email != null) 'email': (email as String),
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Mutation$SendOTPEmail<TRes>
@@ -205,16 +204,14 @@ class _CopyWithImpl$Mutation$SendOTPEmail<TRes>
     Object? sendOTPEmail = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Mutation$SendOTPEmail(
-          sendOTPEmail: sendOTPEmail == _undefined
-              ? _instance.sendOTPEmail
-              : (sendOTPEmail as bool?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Mutation$SendOTPEmail(
+        sendOTPEmail: sendOTPEmail == _undefined
+            ? _instance.sendOTPEmail
+            : (sendOTPEmail as bool?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ),);
 }
 
 class _CopyWithStubImpl$Mutation$SendOTPEmail<TRes>
@@ -231,52 +228,47 @@ class _CopyWithStubImpl$Mutation$SendOTPEmail<TRes>
       _res;
 }
 
-const documentNodeMutationSendOTPEmail = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.mutation,
-      name: NameNode(value: 'SendOTPEmail'),
-      variableDefinitions: [
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'email')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+const documentNodeMutationSendOTPEmail = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'SendOTPEmail'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'email')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-      ],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'sendOTPEmail'),
-            alias: null,
-            arguments: [
-              ArgumentNode(
-                name: NameNode(value: 'email'),
-                value: VariableNode(name: NameNode(value: 'email')),
-              ),
-            ],
-            directives: [],
-            selectionSet: null,
-          ),
-          FieldNode(
-            name: NameNode(value: '__typename'),
-            alias: null,
-            arguments: [],
-            directives: [],
-            selectionSet: null,
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'sendOTPEmail'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'email'),
+            value: VariableNode(name: NameNode(value: 'email')),
           ),
         ],
+        directives: [],
+        selectionSet: null,
       ),
-    ),
-  ],
-);
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],),
+  ),
+],);
 Mutation$SendOTPEmail _parserFn$Mutation$SendOTPEmail(
-  Map<String, dynamic> data,
-) =>
+        Map<String, dynamic> data,) =>
     Mutation$SendOTPEmail.fromJson(data);
 typedef OnMutationCompleted$Mutation$SendOTPEmail = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -363,12 +355,10 @@ class WatchOptions$Mutation$SendOTPEmail
 
 extension ClientExtension$Mutation$SendOTPEmail on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$SendOTPEmail>> mutate$SendOTPEmail(
-    Options$Mutation$SendOTPEmail options,
-  ) async =>
+          Options$Mutation$SendOTPEmail options,) async =>
       await mutate(options);
   graphql.ObservableQuery<Mutation$SendOTPEmail> watchMutation$SendOTPEmail(
-    WatchOptions$Mutation$SendOTPEmail options,
-  ) =>
+          WatchOptions$Mutation$SendOTPEmail options,) =>
       watchMutation(options);
 }
 
@@ -383,9 +373,8 @@ class Mutation$SendOTPEmail$HookResult {
   final graphql.QueryResult<Mutation$SendOTPEmail> result;
 }
 
-Mutation$SendOTPEmail$HookResult useMutation$SendOTPEmail([
-  WidgetOptions$Mutation$SendOTPEmail? options,
-]) {
+Mutation$SendOTPEmail$HookResult useMutation$SendOTPEmail(
+    [WidgetOptions$Mutation$SendOTPEmail? options,]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$SendOTPEmail());
   return Mutation$SendOTPEmail$HookResult(
@@ -399,8 +388,7 @@ Mutation$SendOTPEmail$HookResult useMutation$SendOTPEmail([
 }
 
 graphql.ObservableQuery<Mutation$SendOTPEmail> useWatchMutation$SendOTPEmail(
-  WatchOptions$Mutation$SendOTPEmail options,
-) =>
+        WatchOptions$Mutation$SendOTPEmail options,) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$SendOTPEmail

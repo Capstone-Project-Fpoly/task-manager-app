@@ -76,7 +76,9 @@ class BoardScreen extends ConsumerWidget {
           SizedBoxConstants.w20,
           InkWell(
             child: const Icon(Icons.notifications),
-            onTap: () {},
+            onTap: () {
+              bloc.onTapToNotification();
+            },
           ),
           SizedBoxConstants.w15,
         ],
@@ -152,6 +154,10 @@ class BoardScreen extends ConsumerWidget {
                                 onTap: () => bloc.onTapToDragAndDrop(
                                   board: board,
                                 ),
+                                onLongPress: () {
+                                  //_openDialog(context , board?.title ?? '');
+                                  bloc.dialogShowOptionBoard(context: context, title: board?.title ?? '');
+                                },
                                 child: Container(
                                   padding: EdgeInsetsConstants.vertical10 +
                                       EdgeInsetsConstants.horizontal12,

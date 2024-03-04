@@ -105,14 +105,12 @@ class _CopyWithImpl$Mutation$Logout<TRes>
     Object? logout = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Mutation$Logout(
-          logout: logout == _undefined ? _instance.logout : (logout as bool?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Mutation$Logout(
+        logout: logout == _undefined ? _instance.logout : (logout as bool?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ),);
 }
 
 class _CopyWithStubImpl$Mutation$Logout<TRes>
@@ -129,34 +127,30 @@ class _CopyWithStubImpl$Mutation$Logout<TRes>
       _res;
 }
 
-const documentNodeMutationLogout = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.mutation,
-      name: NameNode(value: 'Logout'),
-      variableDefinitions: [],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'logout'),
-            alias: null,
-            arguments: [],
-            directives: [],
-            selectionSet: null,
-          ),
-          FieldNode(
-            name: NameNode(value: '__typename'),
-            alias: null,
-            arguments: [],
-            directives: [],
-            selectionSet: null,
-          ),
-        ],
+const documentNodeMutationLogout = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'Logout'),
+    variableDefinitions: [],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'logout'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
       ),
-    ),
-  ],
-);
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],),
+  ),
+],);
 Mutation$Logout _parserFn$Mutation$Logout(Map<String, dynamic> data) =>
     Mutation$Logout.fromJson(data);
 typedef OnMutationCompleted$Mutation$Logout = FutureOr<void> Function(
@@ -238,13 +232,11 @@ class WatchOptions$Mutation$Logout
 }
 
 extension ClientExtension$Mutation$Logout on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Mutation$Logout>> mutate$Logout([
-    Options$Mutation$Logout? options,
-  ]) async =>
+  Future<graphql.QueryResult<Mutation$Logout>> mutate$Logout(
+          [Options$Mutation$Logout? options,]) async =>
       await mutate(options ?? Options$Mutation$Logout());
-  graphql.ObservableQuery<Mutation$Logout> watchMutation$Logout([
-    WatchOptions$Mutation$Logout? options,
-  ]) =>
+  graphql.ObservableQuery<Mutation$Logout> watchMutation$Logout(
+          [WatchOptions$Mutation$Logout? options,]) =>
       watchMutation(options ?? WatchOptions$Mutation$Logout());
 }
 
@@ -259,9 +251,8 @@ class Mutation$Logout$HookResult {
   final graphql.QueryResult<Mutation$Logout> result;
 }
 
-Mutation$Logout$HookResult useMutation$Logout([
-  WidgetOptions$Mutation$Logout? options,
-]) {
+Mutation$Logout$HookResult useMutation$Logout(
+    [WidgetOptions$Mutation$Logout? options,]) {
   final result =
       graphql_flutter.useMutation(options ?? WidgetOptions$Mutation$Logout());
   return Mutation$Logout$HookResult(
@@ -273,9 +264,8 @@ Mutation$Logout$HookResult useMutation$Logout([
   );
 }
 
-graphql.ObservableQuery<Mutation$Logout> useWatchMutation$Logout([
-  WatchOptions$Mutation$Logout? options,
-]) =>
+graphql.ObservableQuery<Mutation$Logout> useWatchMutation$Logout(
+        [WatchOptions$Mutation$Logout? options,]) =>
     graphql_flutter.useWatchMutation(options ?? WatchOptions$Mutation$Logout());
 
 class WidgetOptions$Mutation$Logout

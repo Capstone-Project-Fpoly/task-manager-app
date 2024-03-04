@@ -1,9 +1,13 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
+import 'package:task_manager/feature/board/dialog_board_option/dialog_board_option.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
 
@@ -26,7 +30,7 @@ class BoardBloc extends BlocBase {
   //
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final searchTextSubject = BehaviorSubject<String>.seeded('');
-
+  final dialogTitleSubject = BehaviorSubject<String>.seeded('');
   void init() {
     getBoard();
   }
@@ -43,6 +47,7 @@ class BoardBloc extends BlocBase {
     selectedSearchSubject.close();
     searchTextSubject.close();
     listBoardSearchSubject.close();
+    dialogTitleSubject.close();
   }
 
   void openSearch(bool open) {
@@ -72,6 +77,29 @@ class BoardBloc extends BlocBase {
     if (board == null) return;
     routerService.push(RouteInput.boardDetail(boardFragment: board));
   }
+
+  void onTapToNotification() {
+    selectedSearchSubject.value = false;
+    routerService.push(RouteInput.notification());
+  }
+
+  void onTapSettingBoard() {
+    routerService.push(RouteInput.settingBoard());
+  }
+  Future<void> dialogShowOptionBoard({
+    required BuildContext context,
+    required String title,
+  }) async {
+    selectedSearchSubject.value = false;
+    dialogTitleSubject.value = title;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const ShowDialogBoardOption();
+      },
+    );
+  }
+
 
   Future<void> onTapToAddBoard() async {
     selectedSearchSubject.value = false;
@@ -116,3 +144,4 @@ class BoardBloc extends BlocBase {
     init();
   }
 }
+

@@ -106,12 +106,14 @@ class _CopyWithImpl$Query$me<TRes> implements CopyWith$Query$me<TRes> {
     Object? me = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$me(
-        me: me == _undefined ? _instance.me : (me as Fragment$UserFragment?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ),);
+      _then(
+        Query$me(
+          me: me == _undefined ? _instance.me : (me as Fragment$UserFragment?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 
   @override
   CopyWith$Fragment$UserFragment<TRes> get me {
@@ -139,22 +141,35 @@ class _CopyWithStubImpl$Query$me<TRes> implements CopyWith$Query$me<TRes> {
       CopyWith$Fragment$UserFragment.stub(_res);
 }
 
-const documentNodeQueryme = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.query,
-    name: NameNode(value: 'me'),
-    variableDefinitions: [],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'me'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-            name: NameNode(value: 'UserFragment'),
+const documentNodeQueryme = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.query,
+      name: NameNode(value: 'me'),
+      variableDefinitions: [],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'me'),
+            alias: null,
+            arguments: [],
             directives: [],
+            selectionSet: SelectionSetNode(
+              selections: [
+                FragmentSpreadNode(
+                  name: NameNode(value: 'UserFragment'),
+                  directives: [],
+                ),
+                FieldNode(
+                  name: NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ],
+            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -163,19 +178,12 @@ const documentNodeQueryme = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ],),
+        ],
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],),
-  ),
-  fragmentDefinitionUserFragment,
-],);
+    ),
+    fragmentDefinitionUserFragment,
+  ],
+);
 Query$me _parserFn$Query$me(Map<String, dynamic> data) =>
     Query$me.fromJson(data);
 typedef OnQueryComplete$Query$me = FutureOr<void> Function(
@@ -264,11 +272,13 @@ class FetchMoreOptions$Query$me extends graphql.FetchMoreOptions {
 }
 
 extension ClientExtension$Query$me on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Query$me>> query$me(
-          [Options$Query$me? options,]) async =>
+  Future<graphql.QueryResult<Query$me>> query$me([
+    Options$Query$me? options,
+  ]) async =>
       await query(options ?? Options$Query$me());
-  graphql.ObservableQuery<Query$me> watchQuery$me(
-          [WatchOptions$Query$me? options,]) =>
+  graphql.ObservableQuery<Query$me> watchQuery$me([
+    WatchOptions$Query$me? options,
+  ]) =>
       watchQuery(options ?? WatchOptions$Query$me());
   void writeQuery$me({
     required Query$me data,
@@ -276,25 +286,29 @@ extension ClientExtension$Query$me on graphql.GraphQLClient {
   }) =>
       writeQuery(
         const graphql.Request(
-            operation: graphql.Operation(document: documentNodeQueryme),),
+          operation: graphql.Operation(document: documentNodeQueryme),
+        ),
         data: data.toJson(),
         broadcast: broadcast,
       );
   Query$me? readQuery$me({bool optimistic = true}) {
     final result = readQuery(
       const graphql.Request(
-          operation: graphql.Operation(document: documentNodeQueryme),),
+        operation: graphql.Operation(document: documentNodeQueryme),
+      ),
       optimistic: optimistic,
     );
     return result == null ? null : Query$me.fromJson(result);
   }
 }
 
-graphql_flutter.QueryHookResult<Query$me> useQuery$me(
-        [Options$Query$me? options,]) =>
+graphql_flutter.QueryHookResult<Query$me> useQuery$me([
+  Options$Query$me? options,
+]) =>
     graphql_flutter.useQuery(options ?? Options$Query$me());
-graphql.ObservableQuery<Query$me> useWatchQuery$me(
-        [WatchOptions$Query$me? options,]) =>
+graphql.ObservableQuery<Query$me> useWatchQuery$me([
+  WatchOptions$Query$me? options,
+]) =>
     graphql_flutter.useWatchQuery(options ?? WatchOptions$Query$me());
 
 class Query$me$Widget extends graphql_flutter.Query<Query$me> {

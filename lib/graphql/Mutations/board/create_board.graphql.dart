@@ -138,15 +138,13 @@ class _CopyWithImpl$Variables$Mutation$CreateBoard<TRes>
     Object? color = _undefined,
     Object? isPublic = _undefined,
   }) =>
-      _then(
-        Variables$Mutation$CreateBoard._({
-          ..._instance._$data,
-          if (title != _undefined && title != null) 'title': (title as String),
-          if (color != _undefined) 'color': (color as String?),
-          if (isPublic != _undefined && isPublic != null)
-            'isPublic': (isPublic as bool),
-        }),
-      );
+      _then(Variables$Mutation$CreateBoard._({
+        ..._instance._$data,
+        if (title != _undefined && title != null) 'title': (title as String),
+        if (color != _undefined) 'color': (color as String?),
+        if (isPublic != _undefined && isPublic != null)
+          'isPublic': (isPublic as bool),
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Mutation$CreateBoard<TRes>
@@ -177,8 +175,7 @@ class Mutation$CreateBoard {
       createBoard: l$createBoard == null
           ? null
           : Fragment$BoardFragment.fromJson(
-              (l$createBoard as Map<String, dynamic>),
-            ),
+              (l$createBoard as Map<String, dynamic>),),
       $__typename: (l$$__typename as String),
     );
   }
@@ -270,16 +267,14 @@ class _CopyWithImpl$Mutation$CreateBoard<TRes>
     Object? createBoard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Mutation$CreateBoard(
-          createBoard: createBoard == _undefined
-              ? _instance.createBoard
-              : (createBoard as Fragment$BoardFragment?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Mutation$CreateBoard(
+        createBoard: createBoard == _undefined
+            ? _instance.createBoard
+            : (createBoard as Fragment$BoardFragment?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ),);
 
   @override
   CopyWith$Fragment$BoardFragment<TRes> get createBoard {
@@ -287,9 +282,7 @@ class _CopyWithImpl$Mutation$CreateBoard<TRes>
     return local$createBoard == null
         ? CopyWith$Fragment$BoardFragment.stub(_then(_instance))
         : CopyWith$Fragment$BoardFragment(
-            local$createBoard,
-            (e) => call(createBoard: e),
-          );
+            local$createBoard, (e) => call(createBoard: e),);
   }
 }
 
@@ -311,76 +304,63 @@ class _CopyWithStubImpl$Mutation$CreateBoard<TRes>
       CopyWith$Fragment$BoardFragment.stub(_res);
 }
 
-const documentNodeMutationCreateBoard = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.mutation,
-      name: NameNode(value: 'CreateBoard'),
-      variableDefinitions: [
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'title')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+const documentNodeMutationCreateBoard = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'CreateBoard'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'title')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'color')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: false,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'color')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: false,
         ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'isPublic')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'Boolean'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'isPublic')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Boolean'),
+          isNonNull: true,
         ),
-      ],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'createBoard'),
-            alias: null,
-            arguments: [
-              ArgumentNode(
-                name: NameNode(value: 'title'),
-                value: VariableNode(name: NameNode(value: 'title')),
-              ),
-              ArgumentNode(
-                name: NameNode(value: 'color'),
-                value: VariableNode(name: NameNode(value: 'color')),
-              ),
-              ArgumentNode(
-                name: NameNode(value: 'isPublic'),
-                value: VariableNode(name: NameNode(value: 'isPublic')),
-              ),
-            ],
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'createBoard'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'title'),
+            value: VariableNode(name: NameNode(value: 'title')),
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'color'),
+            value: VariableNode(name: NameNode(value: 'color')),
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'isPublic'),
+            value: VariableNode(name: NameNode(value: 'isPublic')),
+          ),
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FragmentSpreadNode(
+            name: NameNode(value: 'BoardFragment'),
             directives: [],
-            selectionSet: SelectionSetNode(
-              selections: [
-                FragmentSpreadNode(
-                  name: NameNode(value: 'BoardFragment'),
-                  directives: [],
-                ),
-                FieldNode(
-                  name: NameNode(value: '__typename'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ],
-            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -389,16 +369,22 @@ const documentNodeMutationCreateBoard = DocumentNode(
             directives: [],
             selectionSet: null,
           ),
-        ],
+        ],),
       ),
-    ),
-    fragmentDefinitionBoardFragment,
-    fragmentDefinitionUserFragment,
-  ],
-);
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],),
+  ),
+  fragmentDefinitionBoardFragment,
+  fragmentDefinitionUserFragment,
+],);
 Mutation$CreateBoard _parserFn$Mutation$CreateBoard(
-  Map<String, dynamic> data,
-) =>
+        Map<String, dynamic> data,) =>
     Mutation$CreateBoard.fromJson(data);
 typedef OnMutationCompleted$Mutation$CreateBoard = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -485,12 +471,10 @@ class WatchOptions$Mutation$CreateBoard
 
 extension ClientExtension$Mutation$CreateBoard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$CreateBoard>> mutate$CreateBoard(
-    Options$Mutation$CreateBoard options,
-  ) async =>
+          Options$Mutation$CreateBoard options,) async =>
       await mutate(options);
   graphql.ObservableQuery<Mutation$CreateBoard> watchMutation$CreateBoard(
-    WatchOptions$Mutation$CreateBoard options,
-  ) =>
+          WatchOptions$Mutation$CreateBoard options,) =>
       watchMutation(options);
 }
 
@@ -505,9 +489,8 @@ class Mutation$CreateBoard$HookResult {
   final graphql.QueryResult<Mutation$CreateBoard> result;
 }
 
-Mutation$CreateBoard$HookResult useMutation$CreateBoard([
-  WidgetOptions$Mutation$CreateBoard? options,
-]) {
+Mutation$CreateBoard$HookResult useMutation$CreateBoard(
+    [WidgetOptions$Mutation$CreateBoard? options,]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$CreateBoard());
   return Mutation$CreateBoard$HookResult(
@@ -521,8 +504,7 @@ Mutation$CreateBoard$HookResult useMutation$CreateBoard([
 }
 
 graphql.ObservableQuery<Mutation$CreateBoard> useWatchMutation$CreateBoard(
-  WatchOptions$Mutation$CreateBoard options,
-) =>
+        WatchOptions$Mutation$CreateBoard options,) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$CreateBoard
