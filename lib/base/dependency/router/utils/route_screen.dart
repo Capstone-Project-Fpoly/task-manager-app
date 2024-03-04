@@ -9,8 +9,8 @@ import 'package:task_manager/feature/add_card/add_card_bloc.dart';
 import 'package:task_manager/feature/add_card/add_card_screen.dart';
 import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board/board_screen.dart';
-import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
+import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login/login_screen.dart';
@@ -21,8 +21,13 @@ import 'package:task_manager/feature/login_with_email/login_with_other_email/log
 import 'package:task_manager/feature/menu_board/invite_member/invite_member_bloc.dart';
 import 'package:task_manager/feature/menu_board/invite_member/invite_member_screen.dart';
 import 'package:task_manager/feature/my_board/my_board_screen.dart';
+import 'package:task_manager/feature/menu_board/menu_board_bloc.dart';
+import 'package:task_manager/feature/menu_board/menu_board_screen.dart';
 import 'package:task_manager/feature/my_board/my_board_bloc.dart';
+import 'package:task_manager/feature/my_board/my_board_screen.dart';
 import 'package:task_manager/feature/my_card/my_card_screen.dart';
+import 'package:task_manager/feature/notification/notification_bloc.dart';
+import 'package:task_manager/feature/notification/notification_screen.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_bloc.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_screen.dart';
 import 'package:task_manager/feature/root/root_screen.dart';
@@ -171,6 +176,17 @@ class RouteScreen {
     );
   }
 
+  static PageRoute notificationPageRoute(RouteSettings settings) {
+    BlocProvider.notificationBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => NotificationBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const NotificationScreen(),
+    );
+  }
+
   static PageRoute addCard(RouteSettings settings) {
     // final id = settings.arguments as String;
     BlocProvider.addCard = createAutoDisposeBloc(
@@ -204,6 +220,18 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const BackgroundBoardWidget(),
+    );
+  }
+
+  static PageRoute menuBoardRoute(RouteSettings settings) {
+    final boardFragment = settings.arguments as Fragment$BoardFragment;
+    BlocProvider.menuBoardBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => MenuBoardBloc(ref, boardFragment: boardFragment),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const MenuBoardScreen(),
     );
   }
 }

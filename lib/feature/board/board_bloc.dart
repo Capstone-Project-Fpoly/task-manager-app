@@ -78,7 +78,12 @@ class BoardBloc extends BlocBase {
     routerService.push(RouteInput.boardDetail(boardFragment: board));
   }
 
-  void onTapSettingBoard(){
+  void onTapToNotification() {
+    selectedSearchSubject.value = false;
+    routerService.push(RouteInput.notification());
+  }
+
+  void onTapSettingBoard() {
     routerService.push(RouteInput.settingBoard());
   }
   Future<void> dialogShowOptionBoard({

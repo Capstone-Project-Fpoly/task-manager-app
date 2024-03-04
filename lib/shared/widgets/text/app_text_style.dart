@@ -27,10 +27,10 @@ class AppTextStyle extends TextStyle {
     FontWeight? fontWeight,
     double? fontSize,
   }) : this(
-    color: color,
-    fontWeight: fontWeight,
-    fontSize: fontSize,
-  );
+          color: color,
+          fontWeight: fontWeight,
+          fontSize: fontSize,
+        );
 
   const AppTextStyle.error({
     double fontSize = 12,

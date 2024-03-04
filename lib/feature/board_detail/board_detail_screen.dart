@@ -149,13 +149,18 @@ class BoardDetailScreen extends ConsumerWidget {
                                 },
                               ),
                               SizedBoxConstants.w15,
-                              const Icon(
-                                Icons.notifications,
-                                color: Colors.white,
+                              InkWell(
+                                child: const Icon(
+                                  Icons.notifications,
+                                  color: Colors.white,
+                                ),
+                                onTap: () {
+                                  bloc.onTapNotification();
+                                },
                               ),
                               SizedBoxConstants.w15,
                               GestureDetector(
-                                onLongPress: () => bloc.onTapOpenInviteMember(),
+                                onTap: () => bloc.onTapOpenMenuBoardScreen(),
                                 child: const Icon(
                                   Icons.more_horiz,
                                   color: Colors.white,

@@ -26,5 +26,9 @@ class RouteInput {
   RouteInput.inviteMember() : routeName = RouteName.inviteMember;
 
   RouteInput.backgroundBoard() : routeName = RouteName.backgroundBoard;
+  RouteInput.menuBoard({required Fragment$BoardFragment boardFragment})
+      : routeName = RouteName.menuBoard,
+        arguments = boardFragment;
   RouteInput.settingBoard() : routeName = RouteName.settingBoard;
+  RouteInput.notification() : routeName = RouteName.notification;
 }

@@ -23,10 +23,14 @@ class RoutePage {
         return RouteScreen.addCard(settings);
       case RouteName.settingBoard:
         return RouteScreen.settingBoardPageRoute(settings);
+      case RouteName.notification:
+        return RouteScreen.notificationPageRoute(settings);
       case RouteName.backgroundBoard:
         return RouteScreen.backgroundBoardRoute(settings);
       case RouteName.inviteMember:
         return RouteScreen.inviteMember(settings);
+      case RouteName.menuBoard:
+        return RouteScreen.menuBoardRoute(settings);
     }
     return RouteScreen.unknownPageRoute(settings);
   }
