@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
+import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
@@ -138,26 +139,28 @@ class MenuBoardScreen extends ConsumerWidget {
                                   SizedBoxConstants.h16,
                                   SizedBox(
                                     height: 40,
-                                    child: ListView.builder(
-                                      itemCount: 5,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          margin: EdgeInsetsConstants.right4,
-                                          child: AppCircleAvatar(
-                                            url: '',
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.07,
-                                          ),
+                                    child: ObsBuilder(
+                                      builder: (context) {
+                                        return ListView.builder(
+                                          itemCount: 5,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            return Container(
+                                              margin:
+                                                  EdgeInsetsConstants.right4,
+                                              child: const AppCircleAvatar(
+                                                url: '',
+                                                width: 45,
+                                              ),
+                                            );
+                                          },
                                         );
                                       },
                                     ),
                                   ),
                                   SizedBoxConstants.h16,
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: bloc.onTapInviteMember,
                                     child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(

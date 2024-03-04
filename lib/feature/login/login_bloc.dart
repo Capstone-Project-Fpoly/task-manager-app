@@ -82,7 +82,6 @@ class LoginBloc extends BlocBase {
     final UserCredential userCredential =
         await auth.signInWithCredential(credential);
     final token = await userCredential.user?.getIdToken();
-    print(token);
     await loginByGoogle(idToken: token);
     isLoadingSubject.value = false;
   }

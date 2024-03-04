@@ -86,7 +86,7 @@ type List {
 }
 
 type Mutation {
-  acceptInviteToBoard(idBoard: String!): Boolean
+  acceptInviteToBoard(idBoard: String!, idNotification: String!): Boolean
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
   createCard(idList: String!, title: String!): Card
   createList(idBoard: String!, label: String!): List
@@ -124,6 +124,7 @@ type Notification {
 type Query {
   getToken(email: String!): String
   getUsersInviteToBoard(idBoard: String!, query: String): [User]
+  getUsersOfBoard(idBoard: String!, query: String): [User]
   me: User
   notificationCollection(idBoard: String): [Notification]
 }

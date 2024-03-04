@@ -12,6 +12,8 @@ import 'package:task_manager/feature/board/board_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
+import 'package:task_manager/feature/invite_member/invite_member_bloc.dart';
+import 'package:task_manager/feature/invite_member/invite_member_screen.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login/login_screen.dart';
 import 'package:task_manager/feature/login_with_email/login_with_email_bloc.dart';
@@ -191,6 +193,18 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const AddCardScreen(),
+    );
+  }
+
+  static PageRoute inviteMember(RouteSettings settings) {
+    // final id = settings.arguments as String;
+    BlocProvider.inviteMember = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => InviteMemberBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const InviteMemberScreen(),
     );
   }
 

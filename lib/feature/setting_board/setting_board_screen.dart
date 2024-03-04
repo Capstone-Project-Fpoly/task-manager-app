@@ -15,7 +15,6 @@ class SettingBoardScreen extends ConsumerWidget {
     final bloc = ref.watch(BlocProvider.settingBoardBloc);
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -42,11 +41,17 @@ class SettingBoardScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              height: height / 3.5,
-              width: width,
-              padding: EdgeInsetsConstants.horizontal28,
-              child: const BoardImages(),
+            ObsBuilder(
+              streams: [bloc.backgroundColorSubject],
+              builder: (context) {
+                return Container(
+                  height: height / 3.5,
+                  width: width,
+                  color: bloc.backgroundColorSubject.value,
+                  padding: EdgeInsetsConstants.horizontal28,
+                  child: const BoardImages(),
+                );
+              },
             ),
             Expanded(
               child: Container(
@@ -60,9 +65,9 @@ class SettingBoardScreen extends ConsumerWidget {
                         'Tên bảng',
                         style: AppTextStyle.black(fontSize: 14),
                       ),
-                      trailing: const Text(
-                        'bảng 1',
-                        style: AppTextStyle.black(
+                      trailing: Text(
+                        bloc.boardDetailBloc.boardFragment.title ?? '',
+                        style: const AppTextStyle.black(
                           fontSize: 14,
                           color: ColorConstants.grayText,
                         ),
@@ -106,9 +111,11 @@ class SettingBoardScreen extends ConsumerWidget {
                         'Quyền xem',
                         style: AppTextStyle.black(fontSize: 14),
                       ),
-                      trailing: const Text(
-                        'Công Khai',
-                        style: AppTextStyle.black(
+                      trailing: Text(
+                        bloc.boardDetailBloc.boardFragment.isPublic
+                            ? 'Công Khai'
+                            : 'Riêng Tư',
+                        style: const AppTextStyle.black(
                           fontSize: 14,
                           color: ColorConstants.grayText,
                         ),
@@ -151,7 +158,10 @@ class SettingBoardScreen extends ConsumerWidget {
                       onTap: () {},
                       title: const Text(
                         'Đóng bảng',
-                        style: AppTextStyle.black(fontSize: 14),
+                        style: AppTextStyle.black(
+                          fontSize: 14,
+                          color: Colors.red,
+                        ),
                       ),
                     ),
                   ],

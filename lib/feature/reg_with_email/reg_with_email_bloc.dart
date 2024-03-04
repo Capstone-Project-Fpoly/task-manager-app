@@ -16,6 +16,7 @@ class RegEmailBloc extends BlocBase {
   final Ref ref;
 
   final isShowPassSubject = BehaviorSubject<bool>.seeded(false);
+  final isShowRePassSubject = BehaviorSubject<bool>.seeded(false);
   final isOnTapRegSubject = BehaviorSubject<bool>.seeded(false);
   final isTapSendSubject = BehaviorSubject<bool>.seeded(false);
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
@@ -111,6 +112,10 @@ class RegEmailBloc extends BlocBase {
     isShowPassSubject.value = !isShowPassSubject.value;
   }
 
+  void showPassRe() {
+    isShowRePassSubject.value = !isShowRePassSubject.value;
+  }
+
   Future<void> onTapLoginByGoogle() async {
     isLoadingSubject.value = true;
     await blocLogin.onTapLoginByGoogle();
@@ -198,6 +203,7 @@ class RegEmailBloc extends BlocBase {
     isShowPassSubject.close();
     isOnTapRegSubject.close();
     isLoadingSubject.close();
+    isShowRePassSubject.close();
 
     errorCheckOtpSubject.close();
     errorCheckRePassSubject.close();

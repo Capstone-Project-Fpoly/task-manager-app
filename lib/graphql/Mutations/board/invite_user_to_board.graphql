@@ -1,0 +1,3 @@
+mutation InviteUserBoard($idBoard : String!,$idUsers: [String!]){
+    inviteUsersToBoard(idBoard: $idBoard,idUsers: $idUsers)
+}

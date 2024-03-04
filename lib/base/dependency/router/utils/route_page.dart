@@ -27,6 +27,8 @@ class RoutePage {
         return RouteScreen.notificationPageRoute(settings);
       case RouteName.backgroundBoard:
         return RouteScreen.backgroundBoardRoute(settings);
+      case RouteName.inviteMember:
+        return RouteScreen.inviteMember(settings);
       case RouteName.menuBoard:
         return RouteScreen.menuBoardRoute(settings);
     }

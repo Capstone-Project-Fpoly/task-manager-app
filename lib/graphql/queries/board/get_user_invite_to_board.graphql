@@ -1,0 +1,5 @@
+query getUsersInviteToBoard($idBoard: String! ,$query : String){
+    getUsersInviteToBoard(query: $query,idBoard: $idBoard){
+        ...UserFragment
+    }
+}
