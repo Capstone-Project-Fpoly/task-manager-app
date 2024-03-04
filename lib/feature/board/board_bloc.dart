@@ -86,6 +86,7 @@ class BoardBloc extends BlocBase {
   void onTapSettingBoard() {
     routerService.push(RouteInput.settingBoard());
   }
+
   Future<void> dialogShowOptionBoard({
     required BuildContext context,
     required String title,
@@ -99,7 +100,6 @@ class BoardBloc extends BlocBase {
       },
     );
   }
-
 
   Future<void> onTapToAddBoard() async {
     selectedSearchSubject.value = false;
@@ -144,4 +144,3 @@ class BoardBloc extends BlocBase {
     init();
   }
 }
-

@@ -7,11 +7,11 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 class Variables$Mutation$InviteUserBoard {
   factory Variables$Mutation$InviteUserBoard({
     required String idBoard,
-    List<String>? idUser,
+    List<String>? idUsers,
   }) =>
       Variables$Mutation$InviteUserBoard._({
         r'idBoard': idBoard,
-        if (idUser != null) r'idUser': idUser,
+        if (idUsers != null) r'idUsers': idUsers,
       });
 
   Variables$Mutation$InviteUserBoard._(this._$data);
@@ -21,10 +21,10 @@ class Variables$Mutation$InviteUserBoard {
     final result$data = <String, dynamic>{};
     final l$idBoard = data['idBoard'];
     result$data['idBoard'] = (l$idBoard as String);
-    if (data.containsKey('idUser')) {
-      final l$idUser = data['idUser'];
-      result$data['idUser'] =
-          (l$idUser as List<dynamic>?)?.map((e) => (e as String)).toList();
+    if (data.containsKey('idUsers')) {
+      final l$idUsers = data['idUsers'];
+      result$data['idUsers'] =
+          (l$idUsers as List<dynamic>?)?.map((e) => (e as String)).toList();
     }
     return Variables$Mutation$InviteUserBoard._(result$data);
   }
@@ -33,15 +33,15 @@ class Variables$Mutation$InviteUserBoard {
 
   String get idBoard => (_$data['idBoard'] as String);
 
-  List<String>? get idUser => (_$data['idUser'] as List<String>?);
+  List<String>? get idUsers => (_$data['idUsers'] as List<String>?);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
     final l$idBoard = idBoard;
     result$data['idBoard'] = l$idBoard;
-    if (_$data.containsKey('idUser')) {
-      final l$idUser = idUser;
-      result$data['idUser'] = l$idUser?.map((e) => e).toList();
+    if (_$data.containsKey('idUsers')) {
+      final l$idUsers = idUsers;
+      result$data['idUsers'] = l$idUsers?.map((e) => e).toList();
     }
     return result$data;
   }
@@ -67,23 +67,23 @@ class Variables$Mutation$InviteUserBoard {
     if (l$idBoard != lOther$idBoard) {
       return false;
     }
-    final l$idUser = idUser;
-    final lOther$idUser = other.idUser;
-    if (_$data.containsKey('idUser') != other._$data.containsKey('idUser')) {
+    final l$idUsers = idUsers;
+    final lOther$idUsers = other.idUsers;
+    if (_$data.containsKey('idUsers') != other._$data.containsKey('idUsers')) {
       return false;
     }
-    if (l$idUser != null && lOther$idUser != null) {
-      if (l$idUser.length != lOther$idUser.length) {
+    if (l$idUsers != null && lOther$idUsers != null) {
+      if (l$idUsers.length != lOther$idUsers.length) {
         return false;
       }
-      for (int i = 0; i < l$idUser.length; i++) {
-        final l$idUser$entry = l$idUser[i];
-        final lOther$idUser$entry = lOther$idUser[i];
-        if (l$idUser$entry != lOther$idUser$entry) {
+      for (int i = 0; i < l$idUsers.length; i++) {
+        final l$idUsers$entry = l$idUsers[i];
+        final lOther$idUsers$entry = lOther$idUsers[i];
+        if (l$idUsers$entry != lOther$idUsers$entry) {
           return false;
         }
       }
-    } else if (l$idUser != lOther$idUser) {
+    } else if (l$idUsers != lOther$idUsers) {
       return false;
     }
     return true;
@@ -92,13 +92,13 @@ class Variables$Mutation$InviteUserBoard {
   @override
   int get hashCode {
     final l$idBoard = idBoard;
-    final l$idUser = idUser;
+    final l$idUsers = idUsers;
     return Object.hashAll([
       l$idBoard,
-      _$data.containsKey('idUser')
-          ? l$idUser == null
+      _$data.containsKey('idUsers')
+          ? l$idUsers == null
               ? null
-              : Object.hashAll(l$idUser.map((v) => v))
+              : Object.hashAll(l$idUsers.map((v) => v))
           : const {},
     ]);
   }
@@ -115,7 +115,7 @@ abstract class CopyWith$Variables$Mutation$InviteUserBoard<TRes> {
 
   TRes call({
     String? idBoard,
-    List<String>? idUser,
+    List<String>? idUsers,
   });
 }
 
@@ -135,13 +135,13 @@ class _CopyWithImpl$Variables$Mutation$InviteUserBoard<TRes>
   @override
   TRes call({
     Object? idBoard = _undefined,
-    Object? idUser = _undefined,
+    Object? idUsers = _undefined,
   }) =>
       _then(Variables$Mutation$InviteUserBoard._({
         ..._instance._$data,
         if (idBoard != _undefined && idBoard != null)
           'idBoard': (idBoard as String),
-        if (idUser != _undefined) 'idUser': (idUser as List<String>?),
+        if (idUsers != _undefined) 'idUsers': (idUsers as List<String>?),
       }),);
 }
 
@@ -154,7 +154,7 @@ class _CopyWithStubImpl$Variables$Mutation$InviteUserBoard<TRes>
   @override
   call({
     String? idBoard,
-    List<String>? idUser,
+    List<String>? idUsers,
   }) =>
       _res;
 }
@@ -301,7 +301,7 @@ const documentNodeMutationInviteUserBoard = DocumentNode(definitions: [
         directives: [],
       ),
       VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idUser')),
+        variable: VariableNode(name: NameNode(value: 'idUsers')),
         type: ListTypeNode(
           type: NamedTypeNode(
             name: NameNode(value: 'String'),
@@ -325,7 +325,7 @@ const documentNodeMutationInviteUserBoard = DocumentNode(definitions: [
           ),
           ArgumentNode(
             name: NameNode(value: 'idUsers'),
-            value: VariableNode(name: NameNode(value: 'idUser')),
+            value: VariableNode(name: NameNode(value: 'idUsers')),
           ),
         ],
         directives: [],

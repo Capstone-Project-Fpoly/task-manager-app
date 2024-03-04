@@ -12,15 +12,14 @@ import 'package:task_manager/feature/board/board_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
+import 'package:task_manager/feature/invite_member/invite_member_bloc.dart';
+import 'package:task_manager/feature/invite_member/invite_member_screen.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login/login_screen.dart';
 import 'package:task_manager/feature/login_with_email/login_with_email_bloc.dart';
 import 'package:task_manager/feature/login_with_email/login_with_email_screen.dart';
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_bloc.dart';
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_screen.dart';
-import 'package:task_manager/feature/menu_board/invite_member/invite_member_bloc.dart';
-import 'package:task_manager/feature/menu_board/invite_member/invite_member_screen.dart';
-import 'package:task_manager/feature/my_board/my_board_screen.dart';
 import 'package:task_manager/feature/menu_board/menu_board_bloc.dart';
 import 'package:task_manager/feature/menu_board/menu_board_screen.dart';
 import 'package:task_manager/feature/my_board/my_board_bloc.dart';
@@ -95,7 +94,6 @@ class RouteScreen {
     );
   }
 
-
   static PageRoute loginPageRoute(RouteSettings settings) {
     BlocProvider.login = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
@@ -164,11 +162,10 @@ class RouteScreen {
     );
   }
 
-
   static PageRoute settingBoardPageRoute(RouteSettings settings) {
     BlocProvider.settingBoardBloc = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-          (ref) => SettingBoardBloc(ref),
+      (ref) => SettingBoardBloc(ref),
     );
     return MaterialPageRoute(
       settings: settings,

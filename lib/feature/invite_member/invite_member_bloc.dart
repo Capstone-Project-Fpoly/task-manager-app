@@ -20,13 +20,15 @@ class InviteMemberBloc extends BlocBase {
   }
 
   final searchController = TextEditingController();
-  final checkMemberSubject = BehaviorSubject<bool>.seeded(false);
+  final isSearchUsersSubject = BehaviorSubject<bool>.seeded(false);
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   final isSearchSubject = BehaviorSubject<bool>.seeded(false);
   final focusNode = FocusNode();
   final listMemberSubject =
       BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
   final listSearchInviteUsersSubject =
+      BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
+  final listInviteUsersSubject =
       BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
 
   late final routerService = ref.watch(AppService.router);
@@ -39,11 +41,12 @@ class InviteMemberBloc extends BlocBase {
   void dispose() {
     super.dispose();
     searchController.dispose();
-    checkMemberSubject.close();
+    isSearchUsersSubject.close();
     listMemberSubject.close();
     listSearchInviteUsersSubject.close();
     isLoadingSubject.close();
     isSearchSubject.close();
+    listInviteUsersSubject.close();
   }
 
   Future<void> init() async {
@@ -59,12 +62,12 @@ class InviteMemberBloc extends BlocBase {
   }
 
   void onTapFocus() {
-    checkMemberSubject.value = true;
+    isSearchUsersSubject.value = true;
   }
 
   void onTapCancelSearch() {
     focusNode.unfocus();
-    checkMemberSubject.value = false;
+    isSearchUsersSubject.value = false;
     listSearchInviteUsersSubject.value.clear();
     searchController.text = '';
   }
@@ -73,22 +76,42 @@ class InviteMemberBloc extends BlocBase {
     routerService.pop();
   }
 
-  void inviteMemberToBoard(Fragment$UserFragment user) async {
-    if (checkMemberBoard(user.email)) return;
+  void addMemberToList(Fragment$UserFragment user) {
+    final listMember = listInviteUsersSubject.value;
+
+    if (listMember.contains(user)) {
+      listMember.remove(user);
+    } else {
+      listMember.add(user);
+    }
+    listInviteUsersSubject.value = listMember;
+  }
+
+  void inviteMembersToBoard() async {
     final board = boardBloc.boardFragment;
-    final listId = [];
-    listId.add(user.uid);
+    if (listMemberSubject.value.isEmpty) return;
+    final listUserId =
+        listInviteUsersSubject.value.map((e) => e?.uid ?? '').toList();
     isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$InviteUserBoard(
       Options$Mutation$InviteUserBoard(
         variables: Variables$Mutation$InviteUserBoard(
           idBoard: board.id,
-          idUser: listId[0] ?? '',
+          idUsers: listUserId,
         ),
       ),
     );
+    isSearchUsersSubject.value = false;
+    listInviteUsersSubject.value = [];
+    searchController.text = '';
     isLoadingSubject.value = false;
-    if (result.hasException) return;
+    if (result.hasException) {
+      toastService.showText(
+        message: result.exception?.graphqlErrors.first.message ??
+            'Lỗi. Không thể mời thành viên',
+      );
+      return;
+    }
     if (result.parsedData == null) return;
   }
 
@@ -103,6 +126,8 @@ class InviteMemberBloc extends BlocBase {
         ),
       ),
     );
+    if (result.hasException) return;
+    if (result.parsedData == null) return;
     listSearchInviteUsersSubject.value =
         result.parsedData!.getUsersInviteToBoard!;
     isSearchSubject.value = false;
@@ -113,7 +138,7 @@ class InviteMemberBloc extends BlocBase {
     final result = await searchMemberBoard(null);
     isLoadingSubject.value = false;
     if (result.hasException) return;
-    listMemberSubject.value = result.parsedData!.getUsersOfBoard!;
+    listMemberSubject.value = result.parsedData?.getUsersOfBoard ?? [];
   }
 
   Future<QueryResult<Query$GetUserOfBoard>> searchMemberBoard(
@@ -129,9 +154,9 @@ class InviteMemberBloc extends BlocBase {
     return result;
   }
 
-  String checkUserPermissions(Fragment$UserFragment user) {
+  String getUserPermissions(Fragment$UserFragment user) {
     final board = boardBloc.boardFragment;
-    if(user == board.ownerUser) return 'Quản trị viên';
+    if (user == board.ownerUser) return 'Quản trị viên';
     return 'Thành viên';
   }
 

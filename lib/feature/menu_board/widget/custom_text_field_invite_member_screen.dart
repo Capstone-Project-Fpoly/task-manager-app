@@ -28,7 +28,7 @@ class CustomTextFieldInviteMember extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.inviteMember);
     return ObsBuilder(
-      streams: [bloc.checkMemberSubject],
+      streams: [bloc.isSearchUsersSubject],
       builder: (context) {
         return SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,

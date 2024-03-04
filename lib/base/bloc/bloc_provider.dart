@@ -4,10 +4,10 @@ import 'package:task_manager/feature/add_board/widget/background_widget/backgrou
 import 'package:task_manager/feature/add_card/add_card_bloc.dart';
 import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
+import 'package:task_manager/feature/invite_member/invite_member_bloc.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login_with_email/login_with_email_bloc.dart';
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_bloc.dart';
-import 'package:task_manager/feature/menu_board/invite_member/invite_member_bloc.dart';
 import 'package:task_manager/feature/menu_board/menu_board_bloc.dart';
 import 'package:task_manager/feature/my_board/my_board_bloc.dart';
 import 'package:task_manager/feature/notification/notification_bloc.dart';

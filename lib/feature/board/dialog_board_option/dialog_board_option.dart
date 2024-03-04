@@ -9,9 +9,6 @@ class ShowDialogBoardOption extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-
-
-
   @override
   Widget build(context, ref) {
     final bloc = ref.watch(BlocProvider.board);
