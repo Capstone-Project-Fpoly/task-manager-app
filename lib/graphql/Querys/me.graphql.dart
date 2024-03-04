@@ -1,9 +1,10 @@
-import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'dart:async';
+
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 
 class Query$me {
   Query$me({

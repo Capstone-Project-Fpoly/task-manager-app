@@ -155,12 +155,12 @@ class BoardDetailScreen extends ConsumerWidget {
                                   color: Colors.white,
                                 ),
                                 onTap: () {
-                                  bloc.onBackToBoardDetailScreen();
+                                  bloc.onTapNotification();
                                 },
                               ),
                               SizedBoxConstants.w15,
-                               GestureDetector(
-                                 onTap: () => bloc.onTapOpenMenuBoardScreen(),
+                              GestureDetector(
+                                onTap: () => bloc.onTapOpenMenuBoardScreen(),
                                 child: const Icon(
                                   Icons.more_horiz,
                                   color: Colors.white,

@@ -9,11 +9,10 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/board_detail/board_detail_card_extention.dart';
 import 'package:task_manager/feature/board_detail/board_detail_list_extention.dart';
+import 'package:task_manager/feature/board_detail/widget/board_detail_show_list_bottom_widget.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
-
-import 'package:task_manager/feature/board_detail/widget/board_detail_show_list_bottom_widget.dart';
 import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
 
 class BoardDetailBloc extends BlocBase {
@@ -139,6 +138,7 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void openSearch(bool open) {
+    if (isLoadingSubject.value) return;
     listFragmentsSubject.value = listFragmentsCurrent;
     selectedSearchSubject.value = open;
   }
@@ -218,8 +218,11 @@ class BoardDetailBloc extends BlocBase {
     isAddCardSubject.value = false;
     addCardController.clear();
   }
-  void onTapOpenMenuBoardScreen(){
-      routerService.push(RouteInput.menuBoard());
+
+  void onTapOpenMenuBoardScreen() {
+    if (isLoadingSubject.value) return;
+    selectedSearchSubject.value = false;
+    routerService.push(RouteInput.menuBoard(boardFragment: boardFragment));
   }
 
   void onItemReorder(
@@ -341,5 +344,9 @@ class BoardDetailBloc extends BlocBase {
         deleteCard(idCard: idCard, idList: idList);
       },
     );
+  }
+
+  void onTapNotification() {
+    routerService.push(RouteInput.notification());
   }
 }
