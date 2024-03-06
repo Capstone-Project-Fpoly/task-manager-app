@@ -687,6 +687,176 @@ class _CopyWithStubImpl$Input$InputMoveList<TRes>
       _res;
 }
 
+class Input$InputUpdateBoard {
+  factory Input$InputUpdateBoard({
+    String? color,
+    bool? isPublic,
+    String? title,
+  }) =>
+      Input$InputUpdateBoard._({
+        if (color != null) r'color': color,
+        if (isPublic != null) r'isPublic': isPublic,
+        if (title != null) r'title': title,
+      });
+
+  Input$InputUpdateBoard._(this._$data);
+
+  factory Input$InputUpdateBoard.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('color')) {
+      final l$color = data['color'];
+      result$data['color'] = (l$color as String?);
+    }
+    if (data.containsKey('isPublic')) {
+      final l$isPublic = data['isPublic'];
+      result$data['isPublic'] = (l$isPublic as bool?);
+    }
+    if (data.containsKey('title')) {
+      final l$title = data['title'];
+      result$data['title'] = (l$title as String?);
+    }
+    return Input$InputUpdateBoard._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  String? get color => (_$data['color'] as String?);
+
+  bool? get isPublic => (_$data['isPublic'] as bool?);
+
+  String? get title => (_$data['title'] as String?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('color')) {
+      final l$color = color;
+      result$data['color'] = l$color;
+    }
+    if (_$data.containsKey('isPublic')) {
+      final l$isPublic = isPublic;
+      result$data['isPublic'] = l$isPublic;
+    }
+    if (_$data.containsKey('title')) {
+      final l$title = title;
+      result$data['title'] = l$title;
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$InputUpdateBoard<Input$InputUpdateBoard> get copyWith =>
+      CopyWith$Input$InputUpdateBoard(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Input$InputUpdateBoard ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$color = color;
+    final lOther$color = other.color;
+    if (_$data.containsKey('color') != other._$data.containsKey('color')) {
+      return false;
+    }
+    if (l$color != lOther$color) {
+      return false;
+    }
+    final l$isPublic = isPublic;
+    final lOther$isPublic = other.isPublic;
+    if (_$data.containsKey('isPublic') !=
+        other._$data.containsKey('isPublic')) {
+      return false;
+    }
+    if (l$isPublic != lOther$isPublic) {
+      return false;
+    }
+    final l$title = title;
+    final lOther$title = other.title;
+    if (_$data.containsKey('title') != other._$data.containsKey('title')) {
+      return false;
+    }
+    if (l$title != lOther$title) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$color = color;
+    final l$isPublic = isPublic;
+    final l$title = title;
+    return Object.hashAll([
+      _$data.containsKey('color') ? l$color : const {},
+      _$data.containsKey('isPublic') ? l$isPublic : const {},
+      _$data.containsKey('title') ? l$title : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$InputUpdateBoard<TRes> {
+  factory CopyWith$Input$InputUpdateBoard(
+    Input$InputUpdateBoard instance,
+    TRes Function(Input$InputUpdateBoard) then,
+  ) = _CopyWithImpl$Input$InputUpdateBoard;
+
+  factory CopyWith$Input$InputUpdateBoard.stub(TRes res) =
+      _CopyWithStubImpl$Input$InputUpdateBoard;
+
+  TRes call({
+    String? color,
+    bool? isPublic,
+    String? title,
+  });
+}
+
+class _CopyWithImpl$Input$InputUpdateBoard<TRes>
+    implements CopyWith$Input$InputUpdateBoard<TRes> {
+  _CopyWithImpl$Input$InputUpdateBoard(
+    this._instance,
+    this._then,
+  );
+
+  final Input$InputUpdateBoard _instance;
+
+  final TRes Function(Input$InputUpdateBoard) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  @override
+  TRes call({
+    Object? color = _undefined,
+    Object? isPublic = _undefined,
+    Object? title = _undefined,
+  }) =>
+      _then(Input$InputUpdateBoard._({
+        ..._instance._$data,
+        if (color != _undefined) 'color': (color as String?),
+        if (isPublic != _undefined) 'isPublic': (isPublic as bool?),
+        if (title != _undefined) 'title': (title as String?),
+      }),);
+}
+
+class _CopyWithStubImpl$Input$InputUpdateBoard<TRes>
+    implements CopyWith$Input$InputUpdateBoard<TRes> {
+  _CopyWithStubImpl$Input$InputUpdateBoard(this._res);
+
+  final TRes _res;
+
+  @override
+  call({
+    String? color,
+    bool? isPublic,
+    String? title,
+  }) =>
+      _res;
+}
+
 class Input$InputUpdateCard {
   factory Input$InputUpdateCard({
     List<Input$CheckListInput>? checkLists,

@@ -38,7 +38,7 @@ class ColorConstants {
   static const backgroundItems = Color(0xffFAF8F8);
   static const transparent = Colors.transparent;
 
-  static const background = Color(0xFFedf1fb);
+  static const background = Colors.white;
   static const textFieldColor = Color(0xFFF3F4F6);
   static const boxShadow = Color.fromRGBO(51, 73, 255, 0.30);
   static const deepPink = Color(0xFFF44182);

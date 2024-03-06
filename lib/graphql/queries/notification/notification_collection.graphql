@@ -1,0 +1,5 @@
+query NotificationCollection($idBoard: String){
+    notificationCollection(idBoard: $idBoard) {
+      ...NotificationFragment
+    }
+}

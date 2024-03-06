@@ -5,16 +5,14 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
-import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
-import 'package:task_manager/shared/widgets/text/app_text_style.dart';
+import 'package:task_manager/feature/notification/widget/notification_item.dart';
 
 class NotificationScreen extends ConsumerWidget {
   const NotificationScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bloc = ref.watch(BlocProvider.notificationBloc);
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
     const textStyleWhite = TextStyle(
       color: ColorConstants.white,
       fontSize: 14,
@@ -41,426 +39,154 @@ class NotificationScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsetsConstants.all12,
-        width: width,
-        height: height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                InkWell(
-                  onTap: () {
-                    bloc.showOptionBottomSheet(context: context);
-                  },
-                  child: Container(
-                    padding: EdgeInsetsConstants.vertical8 +
-                        EdgeInsetsConstants.horizontal12,
-                    alignment: Alignment.centerLeft,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(
-                        width: 1,
-                        color: ColorConstants.grayText,
-                      ),
-                    ),
-                    // ignore: prefer_const_constructors
-                    child: ObsBuilder(
-                      streams: [bloc.selectedOptionSubject],
-                      builder: (context) {
-                        return Row(
-                          children: [
-                            Text(
-                              bloc.selectedOptionSubject.value.title,
-                            ),
-                            SizedBoxConstants.h4,
-                            const Icon(
-                              Icons.arrow_drop_down,
-                              color: ColorConstants.primaryBlack,
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                SizedBoxConstants.w10,
-                InkWell(
-                  onTap: () {
-                    bloc.onTapChangeSeen();
-                  },
-                  child: ObsBuilder(
-                    streams: [bloc.isSeenSubject],
-                    builder: (context) {
-                      final isSeen = bloc.isSeenSubject.value;
-                      return Container(
-                        padding: EdgeInsetsConstants.vertical8 +
-                            EdgeInsetsConstants.horizontal12,
-                        alignment: Alignment.centerLeft,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: isSeen
-                              ? ColorConstants.darkColor
-                              : ColorConstants.transparent,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(
-                            width: 1,
-                            color: ColorConstants.grayText,
-                          ),
-                        ),
-                        // ignore: prefer_const_constructors
-                        child: Text(
-                          isSeen ? 'Đã xem' : 'Chưa xem',
-                          style: isSeen ? textStyleWhite : textStyleBlack,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBoxConstants.h12,
-            const Divider(
-              height: 0,
-              color: ColorConstants.divider,
-            ),
-            SizedBoxConstants.h12,
-            Container(
-              alignment: Alignment.centerLeft,
-              child: const Text('Tuần này'),
-            ),
-            SizedBoxConstants.h12,
-            ListView(
-              shrinkWrap: true,
-              children: [
-                //Thêm user vào thẻ
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      AppCircleAvatar(
-                        url: '',
-                        width: width / 9.5,
-                      ),
-                      Container(
-                        padding: EdgeInsetsConstants.left8,
-                        width: width / 1.29,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            RichText(
-                              textAlign: TextAlign.left,
-                              softWrap: true,
-                              text: const TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: 'Lành ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'đã thêm bạn vào thẻ ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'sao chép danh sách ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'ở bảng ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'Test',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
+      body: ObsBuilder(
+        streams: [bloc.isLoadingSubject],
+        builder: (context) {
+          if (bloc.isLoadingSubject.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsetsConstants.horizontal16 +
+                    EdgeInsetsConstants.top16,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            bloc.showOptionBottomSheet(context: context);
+                          },
+                          child: Container(
+                            padding: EdgeInsetsConstants.vertical8 +
+                                EdgeInsetsConstants.horizontal12,
+                            alignment: Alignment.centerLeft,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                width: 1,
+                                color: ColorConstants.grayText,
                               ),
                             ),
-                            SizedBoxConstants.h8,
-                            const Text(
-                              '18:00, 22 thg 2',
-                              style: AppTextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  height: 0,
-                  color: ColorConstants.divider,
-                ),
-                //di chuyển thẻ
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      AppCircleAvatar(
-                        url: '',
-                        width: width / 9.5,
-                      ),
-                      Container(
-                        padding: EdgeInsetsConstants.left8,
-                        width: width / 1.29,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            RichText(
-                              textAlign: TextAlign.left,
-                              softWrap: true,
-                              text: const TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: 'Lành ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'đã di chuyển thẻ ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'Màn hình Thông báo ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'tới danh sách ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'Doing ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'ở bảng ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'Test',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBoxConstants.h8,
-                            const Text(
-                              '18:00, 22 thg 2',
-                              style: AppTextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  height: 0,
-                  color: ColorConstants.divider,
-                ),
-
-                //Yêu cầu tham gia bảng
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      AppCircleAvatar(
-                        url: '',
-                        width: width / 9.5,
-                      ),
-                      Container(
-                        padding: EdgeInsetsConstants.left8,
-                        width: width / 1.29,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            RichText(
-                              textAlign: TextAlign.left,
-                              softWrap: true,
-                              text: const TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: 'Lành ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'đã mời bạn tham gia bảng ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'Test ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBoxConstants.h8,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  '18:00, 22 thg 2',
-                                  style: AppTextStyle(fontSize: 12),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                            // ignore: prefer_const_constructors
+                            child: ObsBuilder(
+                              streams: [bloc.selectedOptionSubject],
+                              builder: (context) {
+                                return Row(
                                   children: [
-                                    InkWell(
-                                      child: Container(
-                                        // key: const ValueKey('1'),
-                                        alignment: Alignment.center,
-                                        width: 60,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                          color: ColorConstants.accentColor,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: const Icon(
-                                          Icons.check,
-                                          color: ColorConstants.white,
-                                        ),
-                                      ),
+                                    Text(
+                                      bloc.selectedOptionSubject.value.title,
                                     ),
-                                    SizedBoxConstants.w12,
-                                    InkWell(
-                                      child: Container(
-                                        // key: const ValueKey('1'),
-                                        alignment: Alignment.center,
-                                        width: 60,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                          color: ColorConstants.chipRed,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: const Icon(
-                                          Icons.close,
-                                          color: ColorConstants.white,
-                                        ),
-                                      ),
+                                    SizedBoxConstants.h4,
+                                    const Icon(
+                                      Icons.arrow_drop_down,
+                                      color: ColorConstants.primaryBlack,
                                     ),
                                   ],
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBoxConstants.w10,
+                        InkWell(
+                          onTap: () {
+                            bloc.onTapChangeSeen();
+                          },
+                          child: ObsBuilder(
+                            streams: [bloc.isNoSeenSubject],
+                            builder: (context) {
+                              final isSeen = bloc.isNoSeenSubject.value;
+                              return Container(
+                                padding: EdgeInsetsConstants.vertical8 +
+                                    EdgeInsetsConstants.horizontal12,
+                                alignment: Alignment.centerLeft,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: isSeen
+                                      ? ColorConstants.darkColor
+                                      : ColorConstants.transparent,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10),),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: ColorConstants.grayText,
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ],
+                                // ignore: prefer_const_constructors
+                                child: Text(
+                                  'Chưa xem',
+                                  style:
+                                      isSeen ? textStyleWhite : textStyleBlack,
+                                ),
+                              );
+                            },
+                          ),
                         ),
+                      ],
+                    ),
+                    SizedBoxConstants.h12,
+                    const Divider(
+                      height: 0,
+                      color: ColorConstants.divider,
+                    ),
+                    SizedBoxConstants.h12,
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: const Text('Tuần này'),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ObsBuilder(
+                  streams: [
+                    bloc.notificationListSubject,
+                    bloc.noSeenNotificationListSubject,
+                    bloc.isNoSeenSubject,
+                  ],
+                  builder: (context) {
+                    final isNoSeen = bloc.isNoSeenSubject.value;
+                    final listNotification = isNoSeen
+                        ? bloc.noSeenNotificationListSubject.value
+                        : bloc.notificationListSubject.value;
+                    if (listNotification.isEmpty) {
+                      return const Center(
+                        child: Text('Không có thông báo nào'),
+                      );
+                    }
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        bloc.fetchNotification();
+                      },
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final notification = listNotification[index];
+                          return NotificationItem(notification: notification);
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider(
+                            height: 0,
+                            color: ColorConstants.divider,
+                          );
+                        },
+                        itemCount: listNotification.length,
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-                const Divider(
-                  height: 0,
-                  color: ColorConstants.divider,
-                ),
-
-                //Bình luận
-                InkWell(
-                  onTap: () {},
-                  child: Row(
-                    children: [
-                      AppCircleAvatar(
-                        url: '',
-                        width: width / 9.5,
-                      ),
-                      Container(
-                        padding: EdgeInsetsConstants.left8,
-                        width: width / 1.29,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            RichText(
-                              textAlign: TextAlign.left,
-                              softWrap: true,
-                              text: const TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: 'Lành ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'đã Bình Luận ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: '"abczzzzzzzzzzzzzz" ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'trong thẻ ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'Card ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'ở trong danh sách ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'List ',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'ở trong bảng ',
-                                    style: AppTextStyle(),
-                                  ),
-                                  TextSpan(
-                                    text: 'Test',
-                                    style: AppTextStyle(
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBoxConstants.h8,
-                            const Text(
-                              '18:00, 22 thg 2',
-                              style: AppTextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(
-                  height: 0,
-                  color: ColorConstants.divider,
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

@@ -61,6 +61,12 @@ input InputMoveList {
   oldListIndex: Int!
 }
 
+input InputUpdateBoard {
+  color: String
+  isPublic: Boolean
+  title: String
+}
+
 input InputUpdateCard {
   checkLists: [CheckListInput!]
   description: String
@@ -103,8 +109,10 @@ type Mutation {
   moveCard(idBoard: String!, input: InputMoveCard!): Boolean
   moveList(idBoard: String!, input: InputMoveList!): Boolean
   registerByEmail(input: InputEmail!): String
+  seenNotification(idNotification: String!): Boolean
   sendOTPEmail(email: String!): Boolean
   testCallSubscription: String
+  updateBoard(idBoard: String!, input: InputUpdateBoard!): Board
   updateCard(input: InputUpdateCard!): Card
   updateList(idList: String!, label: String!): List
   verifyEmail(input: InputVerifyEmail!): Boolean
