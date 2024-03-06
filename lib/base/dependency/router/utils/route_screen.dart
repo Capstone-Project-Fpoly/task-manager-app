@@ -174,9 +174,10 @@ class RouteScreen {
   }
 
   static PageRoute notificationPageRoute(RouteSettings settings) {
+    final idBoard = settings.arguments as String?;
     BlocProvider.notificationBloc = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-      (ref) => NotificationBloc(ref),
+      (ref) => NotificationBloc(ref: ref, idBoard: idBoard),
     );
     return MaterialPageRoute(
       settings: settings,

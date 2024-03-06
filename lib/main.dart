@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/local_storage/local_storage_service.dart';
@@ -17,6 +18,7 @@ import 'package:task_manager/shared/utilities/fcm.dart';
 Future<void> initDependencies() async {
   await dotenv.load(fileName: '.env');
   await initHiveForFlutter();
+  await initializeDateFormatting();
   final localStorage = LocalStorageService();
   await localStorage.initialize();
   AppService.localStorage = Provider((ref) => localStorage);

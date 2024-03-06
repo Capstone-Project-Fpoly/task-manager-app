@@ -353,6 +353,6 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void onTapNotification() {
-    routerService.push(RouteInput.notification());
+    routerService.push(RouteInput.notification(idBoard: boardFragment.id));
   }
 }

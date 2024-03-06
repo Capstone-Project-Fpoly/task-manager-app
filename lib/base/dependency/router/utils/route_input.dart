@@ -30,5 +30,7 @@ class RouteInput {
       : routeName = RouteName.menuBoard,
         arguments = boardFragment;
   RouteInput.settingBoard() : routeName = RouteName.settingBoard;
-  RouteInput.notification() : routeName = RouteName.notification;
+  RouteInput.notification({String? idBoard})
+      : routeName = RouteName.notification,
+        arguments = idBoard;
 }
