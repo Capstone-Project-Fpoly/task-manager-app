@@ -106,10 +106,10 @@ class RegEmailScreen extends ConsumerWidget {
                     CusstomTextField(
                       controller: bloc.rePassController,
                       hintText: 'Xác nhận mật khẩu',
-                      isObsText: !bloc.isShowPassSubject.value,
+                      isObsText: !bloc.isShowRePassSubject.value,
                       suffixIcon: GestureDetector(
                         onTap: () {
-                          bloc.showPass();
+                          bloc.showPassRe();
                         },
                         child: bloc.isShowPassSubject.value
                             ? const Icon(

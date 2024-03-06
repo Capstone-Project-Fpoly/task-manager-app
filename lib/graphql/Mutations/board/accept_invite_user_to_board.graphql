@@ -1,0 +1,3 @@
+mutation AcceptInviteUserBoard($idNotification: String!, $idBoard: String!){
+    acceptInviteToBoard(idNotification: $idNotification, idBoard: $idBoard)
+}

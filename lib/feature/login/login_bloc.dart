@@ -11,7 +11,7 @@ import 'package:task_manager/base/dependency/local_storage/local_storage_key.dar
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/loginByGoogle.graphql.dart';
-import 'package:task_manager/graphql/Querys/me.graphql.dart';
+import 'package:task_manager/graphql/queries/me.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/utilities/fcm.dart';
 
@@ -82,7 +82,6 @@ class LoginBloc extends BlocBase {
     final UserCredential userCredential =
         await auth.signInWithCredential(credential);
     final token = await userCredential.user?.getIdToken();
-    print(token);
     await loginByGoogle(idToken: token);
     isLoadingSubject.value = false;
   }

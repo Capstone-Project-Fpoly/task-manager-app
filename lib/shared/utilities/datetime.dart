@@ -17,3 +17,12 @@ DateTime parseDateString(
   final formatter = DateFormat(format, locale);
   return formatter.parse(dateString);
 }
+
+String formatDateTimeNotification(String isoDateString) {
+  try {
+    final date = DateTime.parse(isoDateString);
+    return DateFormat('HH:mm, dd MMM', 'vi_VN').format(date);
+  } catch (e) {
+    return '';
+  }
+}

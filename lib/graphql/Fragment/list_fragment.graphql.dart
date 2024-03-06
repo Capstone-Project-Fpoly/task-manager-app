@@ -25,9 +25,8 @@ class Fragment$ListFragment {
     return Fragment$ListFragment(
       id: (l$id as String),
       cards: (l$cards as List<dynamic>?)
-          ?.map(
-            (e) => Fragment$CardFragment.fromJson((e as Map<String, dynamic>)),
-          )
+          ?.map((e) =>
+              Fragment$CardFragment.fromJson((e as Map<String, dynamic>)),)
           .toList(),
       label: (l$label as String),
       createdAt: (l$createdAt as String),
@@ -163,10 +162,9 @@ abstract class CopyWith$Fragment$ListFragment<TRes> {
     String? $__typename,
   });
   TRes cards(
-    Iterable<Fragment$CardFragment>? Function(
-      Iterable<CopyWith$Fragment$CardFragment<Fragment$CardFragment>>?,
-    ) fn,
-  );
+      Iterable<Fragment$CardFragment>? Function(
+              Iterable<CopyWith$Fragment$CardFragment<Fragment$CardFragment>>?,)
+          fn,);
   CopyWith$Fragment$UserFragment<TRes> get createdBy;
 }
 
@@ -192,51 +190,42 @@ class _CopyWithImpl$Fragment$ListFragment<TRes>
     Object? createdBy = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Fragment$ListFragment(
-          id: id == _undefined || id == null ? _instance.id : (id as String),
-          cards: cards == _undefined
-              ? _instance.cards
-              : (cards as List<Fragment$CardFragment>?),
-          label: label == _undefined || label == null
-              ? _instance.label
-              : (label as String),
-          createdAt: createdAt == _undefined || createdAt == null
-              ? _instance.createdAt
-              : (createdAt as String),
-          createdBy: createdBy == _undefined || createdBy == null
-              ? _instance.createdBy
-              : (createdBy as Fragment$UserFragment),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Fragment$ListFragment(
+        id: id == _undefined || id == null ? _instance.id : (id as String),
+        cards: cards == _undefined
+            ? _instance.cards
+            : (cards as List<Fragment$CardFragment>?),
+        label: label == _undefined || label == null
+            ? _instance.label
+            : (label as String),
+        createdAt: createdAt == _undefined || createdAt == null
+            ? _instance.createdAt
+            : (createdAt as String),
+        createdBy: createdBy == _undefined || createdBy == null
+            ? _instance.createdBy
+            : (createdBy as Fragment$UserFragment),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ),);
 
   @override
   TRes cards(
-    Iterable<Fragment$CardFragment>? Function(
-      Iterable<CopyWith$Fragment$CardFragment<Fragment$CardFragment>>?,
-    ) fn,
-  ) =>
+          Iterable<Fragment$CardFragment>? Function(
+                  Iterable<
+                      CopyWith$Fragment$CardFragment<Fragment$CardFragment>>?,)
+              fn,) =>
       call(
-        cards: fn(
-          _instance.cards?.map(
-            (e) => CopyWith$Fragment$CardFragment(
-              e,
-              (i) => i,
-            ),
-          ),
-        )?.toList(),
-      );
+          cards: fn(_instance.cards?.map((e) => CopyWith$Fragment$CardFragment(
+                e,
+                (i) => i,
+              ),),)?.toList(),);
 
   @override
   CopyWith$Fragment$UserFragment<TRes> get createdBy {
     final local$createdBy = _instance.createdBy;
     return CopyWith$Fragment$UserFragment(
-      local$createdBy,
-      (e) => call(createdBy: e),
-    );
+        local$createdBy, (e) => call(createdBy: e),);
   }
 }
 
@@ -268,96 +257,87 @@ class _CopyWithStubImpl$Fragment$ListFragment<TRes>
 const fragmentDefinitionListFragment = FragmentDefinitionNode(
   name: NameNode(value: 'ListFragment'),
   typeCondition: TypeConditionNode(
-    on: NamedTypeNode(
-      name: NameNode(value: 'List'),
-      isNonNull: false,
-    ),
-  ),
+      on: NamedTypeNode(
+    name: NameNode(value: 'List'),
+    isNonNull: false,
+  ),),
   directives: [],
-  selectionSet: SelectionSetNode(
-    selections: [
-      FieldNode(
-        name: NameNode(value: 'id'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'cards'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: SelectionSetNode(
-          selections: [
-            FragmentSpreadNode(
-              name: NameNode(value: 'CardFragment'),
-              directives: [],
-            ),
-            FieldNode(
-              name: NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ],
+  selectionSet: SelectionSetNode(selections: [
+    FieldNode(
+      name: NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'cards'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: SelectionSetNode(selections: [
+        FragmentSpreadNode(
+          name: NameNode(value: 'CardFragment'),
+          directives: [],
         ),
-      ),
-      FieldNode(
-        name: NameNode(value: 'label'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'createdAt'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'createdBy'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: SelectionSetNode(
-          selections: [
-            FragmentSpreadNode(
-              name: NameNode(value: 'UserFragment'),
-              directives: [],
-            ),
-            FieldNode(
-              name: NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ],
+        FieldNode(
+          name: NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
         ),
-      ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],
-  ),
+      ],),
+    ),
+    FieldNode(
+      name: NameNode(value: 'label'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'createdAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'createdBy'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: SelectionSetNode(selections: [
+        FragmentSpreadNode(
+          name: NameNode(value: 'UserFragment'),
+          directives: [],
+        ),
+        FieldNode(
+          name: NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ],),
+    ),
+    FieldNode(
+      name: NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ],),
 );
-const documentNodeFragmentListFragment = DocumentNode(
-  definitions: [
-    fragmentDefinitionListFragment,
-    fragmentDefinitionCardFragment,
-    fragmentDefinitionUserFragment,
-    fragmentDefinitionCommentFragment,
-    fragmentDefinitionCheckListFragment,
-  ],
-);
+const documentNodeFragmentListFragment = DocumentNode(definitions: [
+  fragmentDefinitionListFragment,
+  fragmentDefinitionCardFragment,
+  fragmentDefinitionUserFragment,
+  fragmentDefinitionCommentFragment,
+  fragmentDefinitionCheckListFragment,
+],);
 
 extension ClientExtension$Fragment$ListFragment on graphql.GraphQLClient {
   void writeFragment$ListFragment({

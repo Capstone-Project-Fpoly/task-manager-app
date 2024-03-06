@@ -55,7 +55,8 @@ dependencies:
   drag_and_drop_lists: ^0.3.3
   flutter_speed_dial: ^7.0.0
   firebase_analytics: ^10.8.0
-  modal_bottom_sheet: any
+  modal_bottom_sheet: ^2.1.2
+  fluttericon: ^2.0.0
   flutter_datetime_picker_plus: ^2.1.0
 dev_dependencies:
   flutter_test:

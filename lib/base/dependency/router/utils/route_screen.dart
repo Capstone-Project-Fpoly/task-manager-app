@@ -9,24 +9,32 @@ import 'package:task_manager/feature/add_card/add_card_bloc.dart';
 import 'package:task_manager/feature/add_card/add_card_screen.dart';
 import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board/board_screen.dart';
-import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
+import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
 import 'package:task_manager/feature/detail_card/detail_card.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
+import 'package:task_manager/feature/invite_member/invite_member_bloc.dart';
+import 'package:task_manager/feature/invite_member/invite_member_screen.dart';
 import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/feature/login/login_screen.dart';
 import 'package:task_manager/feature/login_with_email/login_with_email_bloc.dart';
 import 'package:task_manager/feature/login_with_email/login_with_email_screen.dart';
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_bloc.dart';
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_screen.dart';
-import 'package:task_manager/feature/my_board/my_board_screen.dart';
+import 'package:task_manager/feature/menu_board/menu_board_bloc.dart';
+import 'package:task_manager/feature/menu_board/menu_board_screen.dart';
 import 'package:task_manager/feature/my_board/my_board_bloc.dart';
+import 'package:task_manager/feature/my_board/my_board_screen.dart';
 import 'package:task_manager/feature/my_card/my_card_screen.dart';
+import 'package:task_manager/feature/notification/notification_bloc.dart';
+import 'package:task_manager/feature/notification/notification_screen.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_bloc.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_screen.dart';
 import 'package:task_manager/feature/root/root_screen.dart';
 import 'package:task_manager/feature/setting/setting_screen.dart';
+import 'package:task_manager/feature/setting_board/setting_board_bloc.dart';
+import 'package:task_manager/feature/setting_board/setting_board_screen.dart';
 import 'package:task_manager/feature/unknown/unknown_screen.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 
@@ -156,6 +164,29 @@ class RouteScreen {
     );
   }
 
+  static PageRoute settingBoardPageRoute(RouteSettings settings) {
+    BlocProvider.settingBoardBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => SettingBoardBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const SettingBoardScreen(),
+    );
+  }
+
+  static PageRoute notificationPageRoute(RouteSettings settings) {
+    final idBoard = settings.arguments as String?;
+    BlocProvider.notificationBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => NotificationBloc(ref: ref, idBoard: idBoard),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const NotificationScreen(),
+    );
+  }
+
   static PageRoute addCard(RouteSettings settings) {
     // final id = settings.arguments as String;
     BlocProvider.addCard = createAutoDisposeBloc(
@@ -168,6 +199,18 @@ class RouteScreen {
     );
   }
 
+  static PageRoute inviteMember(RouteSettings settings) {
+    // final id = settings.arguments as String;
+    BlocProvider.inviteMember = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => InviteMemberBloc(ref),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const InviteMemberScreen(),
+    );
+  }
+
   static PageRoute backgroundBoardRoute(RouteSettings settings) {
     // final id = settings.arguments as String;
     BlocProvider.backgroundBoardBloc = createAutoDisposeBloc(
@@ -177,6 +220,18 @@ class RouteScreen {
     return MaterialPageRoute(
       settings: settings,
       builder: (_) => const BackgroundBoardWidget(),
+    );
+  }
+
+  static PageRoute menuBoardRoute(RouteSettings settings) {
+    final boardFragment = settings.arguments as Fragment$BoardFragment;
+    BlocProvider.menuBoardBloc = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => MenuBoardBloc(ref, boardFragment: boardFragment),
+    );
+    return MaterialPageRoute(
+      settings: settings,
+      builder: (_) => const MenuBoardScreen(),
     );
   }
 

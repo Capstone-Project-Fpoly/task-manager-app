@@ -182,27 +182,22 @@ class _CopyWithImpl$Fragment$UserFragment<TRes>
     Object? fullName = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Fragment$UserFragment(
-          uid: uid == _undefined || uid == null
-              ? _instance.uid
-              : (uid as String),
-          updatedAt: updatedAt == _undefined
-              ? _instance.updatedAt
-              : (updatedAt as String?),
-          email: email == _undefined ? _instance.email : (email as String?),
-          createdAt: createdAt == _undefined
-              ? _instance.createdAt
-              : (createdAt as String?),
-          avatar: avatar == _undefined ? _instance.avatar : (avatar as String?),
-          fullName: fullName == _undefined
-              ? _instance.fullName
-              : (fullName as String?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Fragment$UserFragment(
+        uid: uid == _undefined || uid == null ? _instance.uid : (uid as String),
+        updatedAt: updatedAt == _undefined
+            ? _instance.updatedAt
+            : (updatedAt as String?),
+        email: email == _undefined ? _instance.email : (email as String?),
+        createdAt: createdAt == _undefined
+            ? _instance.createdAt
+            : (createdAt as String?),
+        avatar: avatar == _undefined ? _instance.avatar : (avatar as String?),
+        fullName:
+            fullName == _undefined ? _instance.fullName : (fullName as String?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ),);
 }
 
 class _CopyWithStubImpl$Fragment$UserFragment<TRes>
@@ -227,71 +222,66 @@ class _CopyWithStubImpl$Fragment$UserFragment<TRes>
 const fragmentDefinitionUserFragment = FragmentDefinitionNode(
   name: NameNode(value: 'UserFragment'),
   typeCondition: TypeConditionNode(
-    on: NamedTypeNode(
-      name: NameNode(value: 'User'),
-      isNonNull: false,
-    ),
-  ),
+      on: NamedTypeNode(
+    name: NameNode(value: 'User'),
+    isNonNull: false,
+  ),),
   directives: [],
-  selectionSet: SelectionSetNode(
-    selections: [
-      FieldNode(
-        name: NameNode(value: 'uid'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'updatedAt'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'email'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'createdAt'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'avatar'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'fullName'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],
-  ),
+  selectionSet: SelectionSetNode(selections: [
+    FieldNode(
+      name: NameNode(value: 'uid'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'updatedAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'email'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'createdAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'avatar'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'fullName'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ],),
 );
-const documentNodeFragmentUserFragment = DocumentNode(
-  definitions: [
-    fragmentDefinitionUserFragment,
-  ],
-);
+const documentNodeFragmentUserFragment = DocumentNode(definitions: [
+  fragmentDefinitionUserFragment,
+],);
 
 extension ClientExtension$Fragment$UserFragment on graphql.GraphQLClient {
   void writeFragment$UserFragment({

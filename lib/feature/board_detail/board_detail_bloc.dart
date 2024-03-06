@@ -9,16 +9,17 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/board_detail/board_detail_card_extention.dart';
 import 'package:task_manager/feature/board_detail/board_detail_list_extention.dart';
+import 'package:task_manager/feature/board_detail/widget/board_detail_show_list_bottom_widget.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
-
-import 'package:task_manager/feature/board_detail/widget/board_detail_show_list_bottom_widget.dart';
 import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
 
 class BoardDetailBloc extends BlocBase {
   final Ref ref;
+
   final Fragment$BoardFragment boardFragment;
+
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
@@ -139,6 +140,7 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void openSearch(bool open) {
+    if (isLoadingSubject.value) return;
     listFragmentsSubject.value = listFragmentsCurrent;
     selectedSearchSubject.value = open;
   }
@@ -167,6 +169,10 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void onBackToBoardScreen() {
+    routerService.pop();
+  }
+
+  void onBackToBoardDetailScreen() {
     routerService.pop();
   }
 
@@ -215,6 +221,12 @@ class BoardDetailBloc extends BlocBase {
     addCardController.clear();
   }
 
+  void onTapOpenMenuBoardScreen() {
+    if (isLoadingSubject.value) return;
+    selectedSearchSubject.value = false;
+    routerService.push(RouteInput.menuBoard(boardFragment: boardFragment));
+  }
+
   void onItemReorder(
     int oldItemIndex,
     int oldListIndex,
@@ -250,6 +262,10 @@ class BoardDetailBloc extends BlocBase {
   void onTapZoom() {
     final check = isZoomSubject.value;
     isZoomSubject.value = !check;
+  }
+
+  void onTapOpenInviteMember() {
+    routerService.push(RouteInput.inviteMember());
   }
 
   void back() {
@@ -334,6 +350,10 @@ class BoardDetailBloc extends BlocBase {
         deleteCard(idCard: idCard, idList: idList);
       },
     );
+  }
+
+  void onTapNotification() {
+    routerService.push(RouteInput.notification(idBoard: boardFragment.id));
   }
 
   Future<void> onNextToDetailCard() async {

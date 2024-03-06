@@ -11,9 +11,8 @@ import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/base/dependency/router/utils/route_name.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/logout.graphql.dart';
-import 'package:task_manager/graphql/Querys/me.graphql.dart';
+import 'package:task_manager/graphql/queries/me.graphql.dart';
 import 'package:task_manager/shared/enum/navigation_enum.dart';
-import 'package:task_manager/shared/utilities/fcm.dart';
 
 class AppBloc extends BlocBase {
   final Ref ref;
@@ -84,7 +83,6 @@ class AppBloc extends BlocBase {
   }
 
   Future<Fragment$UserFragment?> getCurrentUser() async {
-    final deviceId = await FirebaseMessagingUtils.getDeviceToken();
     final result = await graphQLService.client.query$me(Options$Query$me());
     if (result.hasException) return null;
     if (result.parsedData == null) return null;
