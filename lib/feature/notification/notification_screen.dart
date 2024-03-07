@@ -114,7 +114,8 @@ class NotificationScreen extends ConsumerWidget {
                                       ? ColorConstants.darkColor
                                       : ColorConstants.transparent,
                                   borderRadius: const BorderRadius.all(
-                                      Radius.circular(10),),
+                                    Radius.circular(10),
+                                  ),
                                   border: Border.all(
                                     width: 1,
                                     color: ColorConstants.grayText,

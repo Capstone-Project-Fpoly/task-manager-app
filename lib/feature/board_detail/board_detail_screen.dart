@@ -28,7 +28,6 @@ class BoardDetailScreen extends ConsumerWidget {
       builder: (context) {
         final isDragCardMove = bloc.isDragCardMoveContainerDeleteSubject.value;
         return Scaffold(
-          backgroundColor: ColorUtils.getColorFromHex(bloc.boardFragment.color),
           appBar: bloc.isDraggingCardSubject.value
               ? AppBar(
                   backgroundColor: isDragCardMove ? Colors.red : darkerColor,
@@ -203,7 +202,12 @@ class BoardDetailScreen extends ConsumerWidget {
             streams: [bloc.isLoadingSubject],
             builder: (context) {
               if (bloc.isLoadingSubject.value) {
-                return const Center(child: CircularProgressIndicator());
+                return Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  color: ColorUtils.getColorFromHex(bloc.boardFragment.color),
+                  child: const Center(child: CircularProgressIndicator()),
+                );
               }
               return DragAndDropListsCustom();
             },
