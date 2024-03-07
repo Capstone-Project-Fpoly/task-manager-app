@@ -12,7 +12,7 @@ class Fragment$NotificationFragment {
     required this.title,
     required this.topic,
     required this.createdAt,
-    required this.creater,
+    required this.creator,
     this.$__typename = 'Notification',
   });
 
@@ -24,7 +24,7 @@ class Fragment$NotificationFragment {
     final l$title = json['title'];
     final l$topic = json['topic'];
     final l$createdAt = json['createdAt'];
-    final l$creater = json['creater'];
+    final l$creator = json['creator'];
     final l$$__typename = json['__typename'];
     return Fragment$NotificationFragment(
       id: (l$id as String),
@@ -34,8 +34,8 @@ class Fragment$NotificationFragment {
       title: (l$title as String),
       topic: fromJson$Enum$TopicNotification((l$topic as String)),
       createdAt: (l$createdAt as String),
-      creater:
-          Fragment$UserFragment.fromJson((l$creater as Map<String, dynamic>)),
+      creator:
+          Fragment$UserFragment.fromJson((l$creator as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
@@ -54,7 +54,7 @@ class Fragment$NotificationFragment {
 
   final String createdAt;
 
-  final Fragment$UserFragment creater;
+  final Fragment$UserFragment creator;
 
   final String $__typename;
 
@@ -74,8 +74,8 @@ class Fragment$NotificationFragment {
     resultData['topic'] = toJson$Enum$TopicNotification(l$topic);
     final l$createdAt = createdAt;
     resultData['createdAt'] = l$createdAt;
-    final l$creater = creater;
-    resultData['creater'] = l$creater.toJson();
+    final l$creator = creator;
+    resultData['creator'] = l$creator.toJson();
     final l$$__typename = $__typename;
     resultData['__typename'] = l$$__typename;
     return resultData;
@@ -90,7 +90,7 @@ class Fragment$NotificationFragment {
     final l$title = title;
     final l$topic = topic;
     final l$createdAt = createdAt;
-    final l$creater = creater;
+    final l$creator = creator;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$id,
@@ -100,7 +100,7 @@ class Fragment$NotificationFragment {
       l$title,
       l$topic,
       l$createdAt,
-      l$creater,
+      l$creator,
       l$$__typename,
     ]);
   }
@@ -149,9 +149,9 @@ class Fragment$NotificationFragment {
     if (l$createdAt != lOther$createdAt) {
       return false;
     }
-    final l$creater = creater;
-    final lOther$creater = other.creater;
-    if (l$creater != lOther$creater) {
+    final l$creator = creator;
+    final lOther$creator = other.creator;
+    if (l$creator != lOther$creator) {
       return false;
     }
     final l$$__typename = $__typename;
@@ -189,10 +189,10 @@ abstract class CopyWith$Fragment$NotificationFragment<TRes> {
     String? title,
     Enum$TopicNotification? topic,
     String? createdAt,
-    Fragment$UserFragment? creater,
+    Fragment$UserFragment? creator,
     String? $__typename,
   });
-  CopyWith$Fragment$UserFragment<TRes> get creater;
+  CopyWith$Fragment$UserFragment<TRes> get creator;
 }
 
 class _CopyWithImpl$Fragment$NotificationFragment<TRes>
@@ -217,7 +217,7 @@ class _CopyWithImpl$Fragment$NotificationFragment<TRes>
     Object? title = _undefined,
     Object? topic = _undefined,
     Object? createdAt = _undefined,
-    Object? creater = _undefined,
+    Object? creator = _undefined,
     Object? $__typename = _undefined,
   }) =>
       _then(Fragment$NotificationFragment(
@@ -240,19 +240,19 @@ class _CopyWithImpl$Fragment$NotificationFragment<TRes>
         createdAt: createdAt == _undefined || createdAt == null
             ? _instance.createdAt
             : (createdAt as String),
-        creater: creater == _undefined || creater == null
-            ? _instance.creater
-            : (creater as Fragment$UserFragment),
+        creator: creator == _undefined || creator == null
+            ? _instance.creator
+            : (creator as Fragment$UserFragment),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ),);
 
   @override
-  CopyWith$Fragment$UserFragment<TRes> get creater {
-    final local$creater = _instance.creater;
+  CopyWith$Fragment$UserFragment<TRes> get creator {
+    final local$creator = _instance.creator;
     return CopyWith$Fragment$UserFragment(
-        local$creater, (e) => call(creater: e),);
+        local$creator, (e) => call(creator: e),);
   }
 }
 
@@ -271,13 +271,13 @@ class _CopyWithStubImpl$Fragment$NotificationFragment<TRes>
     String? title,
     Enum$TopicNotification? topic,
     String? createdAt,
-    Fragment$UserFragment? creater,
+    Fragment$UserFragment? creator,
     String? $__typename,
   }) =>
       _res;
 
   @override
-  CopyWith$Fragment$UserFragment<TRes> get creater =>
+  CopyWith$Fragment$UserFragment<TRes> get creator =>
       CopyWith$Fragment$UserFragment.stub(_res);
 }
 
@@ -340,7 +340,7 @@ const fragmentDefinitionNotificationFragment = FragmentDefinitionNode(
       selectionSet: null,
     ),
     FieldNode(
-      name: NameNode(value: 'creater'),
+      name: NameNode(value: 'creator'),
       alias: null,
       arguments: [],
       directives: [],

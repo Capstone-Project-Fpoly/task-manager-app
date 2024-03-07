@@ -63,7 +63,6 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                       keyBroadType: TextInputType.emailAddress,
                     ),
                     Container(
-                      padding: EdgeInsetsConstants.left8,
                       width: width - 100,
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -74,6 +73,7 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                     SizedBoxConstants.h12,
                     if (bloc.isPassSubject.value)
                       CusstomTextField(
+                        autoFocus: true,
                         controller: bloc.passController,
                         hintText: 'Nhập mật khẩu',
                         isObsText: !bloc.isShowPassSubject.value,
