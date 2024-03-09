@@ -20,7 +20,7 @@ class InviteMemberItemList extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.inviteMember);
     return GestureDetector(
-      onTap: () => bloc.onTapEditMemberOfBoard(context: context,user: user),
+      onTap: () => bloc.onTapEditMemberOfBoard(context: context, user: user),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,

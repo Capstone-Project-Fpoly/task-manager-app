@@ -111,20 +111,38 @@ class InviteMemberScreen extends ConsumerWidget {
                       Container(
                         width: MediaQuery.of(context).size.width,
                         height: 60,
-                        padding: EdgeInsetsConstants.left20 + EdgeInsetsConstants.right20,
+                        padding: EdgeInsetsConstants.left20 +
+                            EdgeInsetsConstants.right20,
                         decoration: BoxDecoration(
                           color: darkerColor.withOpacity(0.25),
-                          borderRadius:const BorderRadius.all(Radius.circular(10)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(bloc.nameBoardSubject.value,style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                            Text(
+                              bloc.nameBoardSubject.value,
+                              style: const TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold,),
+                            ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                IconButton(onPressed: () {}, icon:const Icon(Icons.copy,weight: 10,color: Colors.black,)),
-                                IconButton(onPressed: () {}, icon:const Icon(Icons.share,weight: 10,color: Colors.black,)),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.copy,
+                                      weight: 10,
+                                      color: Colors.black,
+                                    ),),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.share,
+                                      weight: 10,
+                                      color: Colors.black,
+                                    ),),
                               ],
                             ),
                           ],

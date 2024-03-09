@@ -50,7 +50,9 @@ class MenuBoardBloc extends BlocBase {
     final result = await graphqlService.client.query$GetUserOfBoard(
       Options$Query$GetUserOfBoard(
         variables: Variables$Query$GetUserOfBoard(
-            idBoard: boardFragment.id, query: null,),
+          idBoard: boardFragment.id,
+          query: null,
+        ),
       ),
     );
     isLoadingSubject.value = false;

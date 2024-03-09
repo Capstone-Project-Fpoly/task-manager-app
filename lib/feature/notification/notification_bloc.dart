@@ -12,7 +12,6 @@ import 'package:task_manager/graphql/Mutations/notification/seen_notification.gr
 import 'package:task_manager/graphql/queries/notification/notification_collection.graphql.dart';
 
 class NotificationBloc extends BlocBase {
-
   final Ref ref;
   final String? idBoard;
   late final routerService = ref.watch(AppService.router);
@@ -31,7 +30,6 @@ class NotificationBloc extends BlocBase {
       BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
   final noSeenNotificationListSubject =
       BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
-
 
   @override
   void dispose() {

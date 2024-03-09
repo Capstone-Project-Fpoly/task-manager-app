@@ -27,7 +27,7 @@ class InviteMemberBloc extends BlocBase {
   final isLoadingRemoveSubject = BehaviorSubject<bool>.seeded(false);
   final isSetAdminForMemberSubject = BehaviorSubject<bool>.seeded(false);
   final isSearchSubject = BehaviorSubject<bool>.seeded(false);
-  
+
   final focusNode = FocusNode();
   final listMemberSubject =
       BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
@@ -183,11 +183,13 @@ class InviteMemberBloc extends BlocBase {
     return false;
   }
 
-  Future<void> onTapEditMemberOfBoard(
-      {required final context, required Fragment$UserFragment user,}) async {
+  Future<void> onTapEditMemberOfBoard({
+    required final context,
+    required Fragment$UserFragment user,
+  }) async {
     isSetAdminForMemberSubject.value = checkAdminOfBoard(user);
     final check = checkAdminOfBoard(currentUser);
-    if(check){
+    if (check) {
       showDialog(
         context: context,
         builder: (context) {
@@ -199,8 +201,11 @@ class InviteMemberBloc extends BlocBase {
     }
   }
 
-  Future<void> onTapSetPermissionMemberOfBoard({required Fragment$UserFragment user,required bool selectAdmin}) async {
-    if(!checkAdminOfBoard(user)) isSetAdminForMemberSubject.value = selectAdmin;
+  Future<void> onTapSetPermissionMemberOfBoard(
+      {required Fragment$UserFragment user, required bool selectAdmin,}) async {
+    if (!checkAdminOfBoard(user)) {
+      isSetAdminForMemberSubject.value = selectAdmin;
+    }
   }
 
   Future<void> removeUserFromBoard(Fragment$UserFragment user) async {
@@ -213,7 +218,7 @@ class InviteMemberBloc extends BlocBase {
         ),
       ),
     );
-    if(result.hasException){
+    if (result.hasException) {
       toastService.showText(message: 'Không thể loại bỏ thành viên');
       return;
     }
@@ -221,7 +226,7 @@ class InviteMemberBloc extends BlocBase {
     await memberBoard();
   }
 
-  void onTapUpdatePermissionForMemberOfBoard(Fragment$UserFragment user){
+  void onTapUpdatePermissionForMemberOfBoard(Fragment$UserFragment user) {
     routerService.pop();
   }
 }

@@ -134,7 +134,8 @@ class MenuBoardScreen extends ConsumerWidget {
                                   SizedBoxConstants.w16,
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const Text(
                                           'Thành viên',
@@ -150,17 +151,23 @@ class MenuBoardScreen extends ConsumerWidget {
                                             child: ObsBuilder(
                                               streams: [bloc.listMemberSubject],
                                               builder: (context) {
-                                                final memberBoards = bloc.listMemberSubject.value;
+                                                final memberBoards = bloc
+                                                    .listMemberSubject.value;
                                                 return ListView.builder(
-                                                  itemCount: memberBoards.length,
-                                                  scrollDirection: Axis.horizontal,
-                                                  itemBuilder: (context, index) {
-                                                    final memberBoard = memberBoards[index];
+                                                  itemCount:
+                                                      memberBoards.length,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    final memberBoard =
+                                                        memberBoards[index];
                                                     if (memberBoard == null) {
                                                       return const SizedBox();
                                                     }
                                                     return AppCircleAvatar(
-                                                      url: memberBoard.avatar ?? '',
+                                                      url: memberBoard.avatar ??
+                                                          '',
                                                       width: 45,
                                                     );
                                                   },
@@ -176,9 +183,11 @@ class MenuBoardScreen extends ConsumerWidget {
                                             width: double.infinity,
                                             decoration: BoxDecoration(
                                               color: Colors.blue[900],
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                             ),
-                                            padding: EdgeInsetsConstants.vertical12,
+                                            padding:
+                                                EdgeInsetsConstants.vertical12,
                                             // Adjust padding as needed
                                             alignment: Alignment.center,
                                             child: const Text(

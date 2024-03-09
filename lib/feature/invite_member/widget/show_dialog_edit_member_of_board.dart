@@ -79,7 +79,8 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                             children: [
                               GestureDetector(
                                 onTap: () =>
-                                    bloc.onTapSetPermissionMemberOfBoard(user: user,selectAdmin: true),
+                                    bloc.onTapSetPermissionMemberOfBoard(
+                                        user: user, selectAdmin: true,),
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
                                   padding: EdgeInsetsConstants.all8,
@@ -132,7 +133,8 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                               SizedBoxConstants.h4,
                               GestureDetector(
                                 onTap: () =>
-                                    bloc.onTapSetPermissionMemberOfBoard(user: user,selectAdmin: false),
+                                    bloc.onTapSetPermissionMemberOfBoard(
+                                        user: user, selectAdmin: false,),
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
                                   padding: EdgeInsetsConstants.all8,
@@ -215,7 +217,9 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () => bloc.onTapUpdatePermissionForMemberOfBoard(user),
+                                  onTap: () => bloc
+                                      .onTapUpdatePermissionForMemberOfBoard(
+                                          user,),
                                   child: const Text(
                                     'LƯU',
                                     style: TextStyle(color: Colors.blue),
