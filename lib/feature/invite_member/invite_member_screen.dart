@@ -4,9 +4,9 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
-import 'package:task_manager/feature/menu_board/widget/custom_text_field_invite_member_screen.dart';
-import 'package:task_manager/feature/menu_board/widget/list_member_widget.dart';
-import 'package:task_manager/feature/menu_board/widget/list_search_widget.dart';
+import 'package:task_manager/feature/invite_member/widget/custom_text_field_invite_member_screen.dart';
+import 'package:task_manager/feature/invite_member/widget/list_member_widget.dart';
+import 'package:task_manager/feature/invite_member/widget/list_search_widget.dart';
 import 'package:task_manager/shared/loading/loading_overlay.dart';
 import 'package:task_manager/shared/utilities/color.dart';
 
@@ -26,6 +26,7 @@ class InviteMemberScreen extends ConsumerWidget {
         bloc.isSearchUsersSubject,
         bloc.isLoadingSubject,
         bloc.isSearchSubject,
+        bloc.nameBoardSubject,
       ],
       builder: (context) {
         return LoadingOverlay(
@@ -104,6 +105,29 @@ class InviteMemberScreen extends ConsumerWidget {
                                   ),
                                 )
                               : const Icon(Icons.search_outlined),
+                        ),
+                      ),
+                      SizedBoxConstants.h24,
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 60,
+                        padding: EdgeInsetsConstants.left20 + EdgeInsetsConstants.right20,
+                        decoration: BoxDecoration(
+                          color: darkerColor.withOpacity(0.25),
+                          borderRadius:const BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(bloc.nameBoardSubject.value,style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                IconButton(onPressed: () {}, icon:const Icon(Icons.copy,weight: 10,color: Colors.black,)),
+                                IconButton(onPressed: () {}, icon:const Icon(Icons.share,weight: 10,color: Colors.black,)),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                       SizedBoxConstants.h24,
