@@ -189,7 +189,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                           child: Padding(
                             padding: EdgeInsetsConstants.right16,
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () => bloc.back(),
                               child: const Text(
                                 'ĐÓNG',
                                 style: TextStyle(
@@ -215,7 +215,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () {},
+                                  onTap: () => bloc.onTapUpdatePermissionForMemberOfBoard(user),
                                   child: const Text(
                                     'LƯU',
                                     style: TextStyle(color: Colors.blue),

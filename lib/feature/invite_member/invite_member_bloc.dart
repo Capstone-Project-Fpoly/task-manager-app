@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql/client.dart';
@@ -28,6 +27,7 @@ class InviteMemberBloc extends BlocBase {
   final isLoadingRemoveSubject = BehaviorSubject<bool>.seeded(false);
   final isSetAdminForMemberSubject = BehaviorSubject<bool>.seeded(false);
   final isSearchSubject = BehaviorSubject<bool>.seeded(false);
+  
   final focusNode = FocusNode();
   final listMemberSubject =
       BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
@@ -43,7 +43,7 @@ class InviteMemberBloc extends BlocBase {
   late final menuBoardBloc = ref.read(BlocProvider.menuBoardBloc);
   late final appBloc = ref.read(BlocProvider.app);
   late Timer debounceTimer;
-
+  late Fragment$UserFragment currentUser;
 
   @override
   void dispose() {
@@ -61,6 +61,7 @@ class InviteMemberBloc extends BlocBase {
   }
 
   Future<void> init() async {
+    currentUser = (await appBloc.getCurrentUser())!;
     await memberBoard();
     debounceTimer = Timer(const Duration(milliseconds: 500), () {});
   }
@@ -114,6 +115,7 @@ class InviteMemberBloc extends BlocBase {
         ),
       ),
     );
+
     isSearchUsersSubject.value = false;
     listInviteUsersSubject.value.clear();
     listSearchInviteUsersSubject.value.clear();
@@ -181,12 +183,10 @@ class InviteMemberBloc extends BlocBase {
     return false;
   }
 
-
-
   Future<void> onTapEditMemberOfBoard(
       {required final context, required Fragment$UserFragment user,}) async {
     isSetAdminForMemberSubject.value = checkAdminOfBoard(user);
-    final check = await checkMemberEditPermissions();
+    final check = checkAdminOfBoard(currentUser);
     if(check){
       showDialog(
         context: context,
@@ -197,11 +197,6 @@ class InviteMemberBloc extends BlocBase {
         },
       );
     }
-  }
-
-  Future<bool> checkMemberEditPermissions() async{
-    final currentUser = await appBloc.getCurrentUser();
-    return checkAdminOfBoard(currentUser as Fragment$UserFragment);
   }
 
   Future<void> onTapSetPermissionMemberOfBoard({required Fragment$UserFragment user,required bool selectAdmin}) async {
@@ -224,5 +219,9 @@ class InviteMemberBloc extends BlocBase {
     }
     routerService.pop();
     await memberBoard();
+  }
+
+  void onTapUpdatePermissionForMemberOfBoard(Fragment$UserFragment user){
+    routerService.pop();
   }
 }
