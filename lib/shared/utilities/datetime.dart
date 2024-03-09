@@ -26,3 +26,16 @@ String formatDateTimeNotification(String isoDateString) {
     return '';
   }
 }
+
+String formatDateTimeDetailCard(String stringDate) {
+  try {
+    if (stringDate == '') return stringDate;
+    final DateTime dateTime =
+        DateFormat('yyyy-MM-dd HH:mm:ss').parse(stringDate);
+    final String time = DateFormat('dd/MM/yyyy').format(dateTime);
+    stringDate = time;
+    return stringDate;
+  } catch (e) {
+    return '';
+  }
+}

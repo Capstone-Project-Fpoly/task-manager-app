@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
@@ -15,6 +17,7 @@ class LabelWidget extends ConsumerWidget {
     final bloc = ref.watch(BlocProvider.detailCardBloc);
     final double width = MediaQuery.of(context).size.width;
     return ObsBuilder(
+      streams: [bloc.listColorSubject],
       builder: (context) {
         return Container(
           width: width,
@@ -34,21 +37,47 @@ class LabelWidget extends ConsumerWidget {
                   SizedBoxConstants.w6,
                   Column(
                     children: [
-                      for (var i = 0; i < 5; i++)
+                      for (var i = 0;
+                          i < bloc.listColorSubject.value.length;
+                          i++)
                         Column(
                           children: [
                             Row(
                               children: [
-                                Container(
-                                  width: width - 95,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Color((math.Random().nextDouble() *
-                                                0xFFFFFF)
-                                            .toInt(),)
-                                        .withOpacity(1.0),
-                                  ),
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Material(
+                                      child: InkWell(
+                                        borderRadius: BorderRadius.circular(5),
+                                        onTap: () {
+                                          bloc.onTapToSelect(
+                                            bloc.listColorSubject.value[i],
+                                          );
+                                        },
+                                        child: Ink(
+                                          width: width - 95,
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: Color(
+                                              int.parse(
+                                                '0XFF${bloc.listColorSubject.value[i].color}',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 10,
+                                      child: bloc.listColorSubject.value[i]
+                                              .isSelected
+                                          ? const Icon(Icons.check)
+                                          : Container(),
+                                    ),
+                                  ],
                                 ),
                                 Container(
                                   alignment: Alignment.centerRight,

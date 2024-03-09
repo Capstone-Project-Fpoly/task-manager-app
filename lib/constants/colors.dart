@@ -12,6 +12,7 @@ class ColorConstants {
   static const grayText = Color(0xFF8C8C8C);
   static const divider = Color(0xFFBDBDBD);
   static const white = Color(0xFFFFFFFF);
+  static const black = Color(0xFF000000);
 
   static const darkColor = Color(0xFF18264D);
   static final darkColorOpacity50 = darkColor.withOpacity(0.5);
