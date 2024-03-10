@@ -39,31 +39,34 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                 children: <Widget>[
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Row(
-                      children: [
-                        AppCircleAvatar(
-                          url: user.avatar ?? '',
-                          width: MediaQuery.of(context).size.width * 0.15,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              user.fullName ?? '',
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                    child: Padding(
+                      padding: EdgeInsetsConstants.left12,
+                      child: Row(
+                        children: [
+                          AppCircleAvatar(
+                            url: user.avatar ?? '',
+                            width: 50,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                user.fullName ?? '',
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Text(
-                              user.email ?? '',
-                              style: const TextStyle(
-                                fontSize: 15,
+                              Text(
+                                user.email ?? '',
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBoxConstants.h12,
@@ -80,7 +83,9 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                               GestureDetector(
                                 onTap: () =>
                                     bloc.onTapSetPermissionMemberOfBoard(
-                                        user: user, selectAdmin: true,),
+                                  user: user,
+                                  selectAdmin: true,
+                                ),
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
                                   padding: EdgeInsetsConstants.all8,
@@ -134,7 +139,9 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                               GestureDetector(
                                 onTap: () =>
                                     bloc.onTapSetPermissionMemberOfBoard(
-                                        user: user, selectAdmin: false,),
+                                  user: user,
+                                  selectAdmin: false,
+                                ),
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
                                   padding: EdgeInsetsConstants.all8,
@@ -189,7 +196,9 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                       ? Align(
                           alignment: Alignment.bottomRight,
                           child: Padding(
-                            padding: EdgeInsetsConstants.right16,
+                            padding: EdgeInsetsConstants.right16 +
+                                EdgeInsetsConstants.top12 +
+                                EdgeInsetsConstants.bottom8,
                             child: GestureDetector(
                               onTap: () => bloc.back(),
                               child: const Text(
@@ -205,7 +214,9 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                           alignment: Alignment.bottomCenter,
                           child: Container(
                             padding: EdgeInsetsConstants.left16 +
-                                EdgeInsetsConstants.right16,
+                                EdgeInsetsConstants.right16 +
+                                EdgeInsetsConstants.top12 +
+                                EdgeInsetsConstants.bottom8,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -219,7 +230,8 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                 GestureDetector(
                                   onTap: () => bloc
                                       .onTapUpdatePermissionForMemberOfBoard(
-                                          user,),
+                                    user,
+                                  ),
                                   child: const Text(
                                     'LƯU',
                                     style: TextStyle(color: Colors.blue),

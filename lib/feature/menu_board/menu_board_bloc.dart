@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
+import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
@@ -14,6 +15,8 @@ class MenuBoardBloc extends BlocBase {
   late final toastService = ref.watch(AppService.toast);
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
+  late final boardBloc = ref.read(BlocProvider.boardDetail);
+
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   final listMemberSubject =
       BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
@@ -44,6 +47,12 @@ class MenuBoardBloc extends BlocBase {
 
   void onTapInviteMember() {
     routerService.push(RouteInput.inviteMember());
+  }
+
+  bool checkAdminOfBoard(Fragment$UserFragment user) {
+    final board = boardBloc.boardFragment;
+    if (user == board.ownerUser) return true;
+    return false;
   }
 
   Future<void> memberBoard() async {

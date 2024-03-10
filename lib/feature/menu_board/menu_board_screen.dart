@@ -5,6 +5,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/shared/loading/loading_overlay.dart';
+import 'package:task_manager/shared/utilities/color.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 
 class MenuBoardScreen extends ConsumerWidget {
@@ -13,6 +14,11 @@ class MenuBoardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.menuBoardBloc);
+    final color =
+        ColorUtils.getColorFromHex(bloc.boardBloc.boardFragment.color);
+    final hslColor = HSLColor.fromColor(color);
+    final darkerColor =
+        hslColor.withLightness(hslColor.lightness * 0.5).toColor();
     return ObsBuilder(
       streams: [bloc.isLoadingSubject],
       builder: (context) {
@@ -21,7 +27,7 @@ class MenuBoardScreen extends ConsumerWidget {
           child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              backgroundColor: Colors.blue[900],
+              backgroundColor: darkerColor.withOpacity(0.8),
               elevation: 0.0,
               title: const Text(
                 'Menu Bảng',
@@ -165,10 +171,15 @@ class MenuBoardScreen extends ConsumerWidget {
                                                     if (memberBoard == null) {
                                                       return const SizedBox();
                                                     }
-                                                    return AppCircleAvatar(
-                                                      url: memberBoard.avatar ??
-                                                          '',
-                                                      width: 45,
+                                                    return Stack(
+                                                      children: [
+                                                        AppCircleAvatar(
+                                                          url: memberBoard
+                                                                  .avatar ??
+                                                              '',
+                                                          width: 45,
+                                                        ),
+                                                      ],
                                                     );
                                                   },
                                                 );

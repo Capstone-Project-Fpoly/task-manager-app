@@ -124,25 +124,29 @@ class InviteMemberScreen extends ConsumerWidget {
                             Text(
                               bloc.nameBoardSubject.value,
                               style: const TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold,),
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.copy,
-                                      weight: 10,
-                                      color: Colors.black,
-                                    ),),
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.copy,
+                                    weight: 10,
+                                    color: Colors.black,
+                                  ),
+                                ),
                                 IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.share,
-                                      weight: 10,
-                                      color: Colors.black,
-                                    ),),
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.share,
+                                    weight: 10,
+                                    color: Colors.black,
+                                  ),
+                                ),
                               ],
                             ),
                           ],

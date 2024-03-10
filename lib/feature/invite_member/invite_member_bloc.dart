@@ -43,7 +43,6 @@ class InviteMemberBloc extends BlocBase {
   late final menuBoardBloc = ref.read(BlocProvider.menuBoardBloc);
   late final appBloc = ref.read(BlocProvider.app);
   late Timer debounceTimer;
-  late Fragment$UserFragment currentUser;
 
   @override
   void dispose() {
@@ -61,7 +60,6 @@ class InviteMemberBloc extends BlocBase {
   }
 
   Future<void> init() async {
-    currentUser = (await appBloc.getCurrentUser())!;
     await memberBoard();
     debounceTimer = Timer(const Duration(milliseconds: 500), () {});
   }
@@ -188,7 +186,8 @@ class InviteMemberBloc extends BlocBase {
     required Fragment$UserFragment user,
   }) async {
     isSetAdminForMemberSubject.value = checkAdminOfBoard(user);
-    final check = checkAdminOfBoard(currentUser);
+    final currentUser = appBloc.userSubject.value;
+    final check = checkAdminOfBoard(currentUser!);
     if (check) {
       showDialog(
         context: context,
@@ -201,8 +200,10 @@ class InviteMemberBloc extends BlocBase {
     }
   }
 
-  Future<void> onTapSetPermissionMemberOfBoard(
-      {required Fragment$UserFragment user, required bool selectAdmin,}) async {
+  Future<void> onTapSetPermissionMemberOfBoard({
+    required Fragment$UserFragment user,
+    required bool selectAdmin,
+  }) async {
     if (!checkAdminOfBoard(user)) {
       isSetAdminForMemberSubject.value = selectAdmin;
     }
