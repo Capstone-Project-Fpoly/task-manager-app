@@ -52,7 +52,7 @@ class SettingBoardBloc extends BlocBase {
 
   void onBackToBoardScreen() {
     onTapUpdateBoard();
-    routerService.push(RouteInput.root());
+    routerService.pop();
   }
 
   void onTapTitleTextField(bool open) {
@@ -76,7 +76,7 @@ class SettingBoardBloc extends BlocBase {
             // đóng bảng
           },
           title: 'Đóng Bảng',
-          content: 'Bạn có muốn đóng bảng không',
+          content: 'Bạn có chắc chắn đóng bảng không',
         );
       },
     );
@@ -101,10 +101,6 @@ class SettingBoardBloc extends BlocBase {
     );
 
     if (result.hasException) {
-      toastService.showText(
-        message: result.exception?.graphqlErrors[0].message,
-      );
-      routerService.pop(result: false);
       return;
     }
   }

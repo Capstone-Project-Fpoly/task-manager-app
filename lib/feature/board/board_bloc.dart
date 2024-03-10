@@ -9,7 +9,6 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/board/dialog_board_option/dialog_board_option.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/leave_board.graphql.dart';
 import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
@@ -33,10 +32,9 @@ class BoardBloc extends BlocBase {
   //
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final searchTextSubject = BehaviorSubject<String>.seeded('');
-  final dialogTitleSubject = BehaviorSubject<String>.seeded('');
 
-  final userSubject = BehaviorSubject<Fragment$UserFragment?>.seeded(null);
-  final isOwnerBroad = BehaviorSubject<bool>.seeded(false);
+  final idUserSubject = BehaviorSubject<String>.seeded('');
+  final isOwnerBroadSubject = BehaviorSubject<bool>.seeded(false);
   void init() {
     getBoard();
   }
@@ -53,9 +51,8 @@ class BoardBloc extends BlocBase {
     selectedSearchSubject.close();
     searchTextSubject.close();
     listBoardSearchSubject.close();
-    dialogTitleSubject.close();
-    userSubject.close();
-    isOwnerBroad.close();
+    idUserSubject.close();
+    isOwnerBroadSubject.close();
   }
 
   void openSearch(bool open) {
@@ -97,17 +94,15 @@ class BoardBloc extends BlocBase {
 
   Future<void> dialogShowOptionBoard({
     required BuildContext context,
-    required String title,
     required Fragment$BoardFragment? board,
   }) async {
     selectedSearchSubject.value = false;
     selectedBoardSubject.value = board;
-    dialogTitleSubject.value = title;
-    userSubject.value = appBloc.userSubject.value;
-    if (userSubject.value == board?.ownerUser) {
-      isOwnerBroad.value = true;
+    idUserSubject.value = appBloc.userSubject.value!.uid;
+    if (idUserSubject.value == board?.ownerUser.uid) {
+      isOwnerBroadSubject.value = true;
     } else {
-      isOwnerBroad.value = false;
+      isOwnerBroadSubject.value = false;
     }
     showDialog(
       context: context,
@@ -158,7 +153,7 @@ class BoardBloc extends BlocBase {
             routerService.pop();
           },
           title: 'Rời Bảng',
-          content: 'Bạn có muốn rời bảng không',
+          content: 'Bạn có chắc chắn rời bảng không',
         );
       },
     );
