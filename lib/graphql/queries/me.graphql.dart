@@ -1,4 +1,4 @@
-import '../Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -27,12 +27,12 @@ class Query$me {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$me = me;
-    _resultData['me'] = l$me?.toJson();
+    resultData['me'] = l$me?.toJson();
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -50,7 +50,7 @@ class Query$me {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$me) || runtimeType != other.runtimeType) {
+    if (other is! Query$me || runtimeType != other.runtimeType) {
       return false;
     }
     final l$me = me;
@@ -101,6 +101,7 @@ class _CopyWithImpl$Query$me<TRes> implements CopyWith$Query$me<TRes> {
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? me = _undefined,
     Object? $__typename = _undefined,
@@ -110,8 +111,9 @@ class _CopyWithImpl$Query$me<TRes> implements CopyWith$Query$me<TRes> {
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 
+  @override
   CopyWith$Fragment$UserFragment<TRes> get me {
     final local$me = _instance.me;
     return local$me == null
@@ -123,14 +125,16 @@ class _CopyWithImpl$Query$me<TRes> implements CopyWith$Query$me<TRes> {
 class _CopyWithStubImpl$Query$me<TRes> implements CopyWith$Query$me<TRes> {
   _CopyWithStubImpl$Query$me(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     Fragment$UserFragment? me,
     String? $__typename,
   }) =>
       _res;
 
+  @override
   CopyWith$Fragment$UserFragment<TRes> get me =>
       CopyWith$Fragment$UserFragment.stub(_res);
 }
@@ -159,7 +163,7 @@ const documentNodeQueryme = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ]),
+        ],),
       ),
       FieldNode(
         name: NameNode(value: '__typename'),
@@ -168,10 +172,10 @@ const documentNodeQueryme = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ]),
+    ],),
   ),
   fragmentDefinitionUserFragment,
-]);
+],);
 Query$me _parserFn$Query$me(Map<String, dynamic> data) =>
     Query$me.fromJson(data);
 typedef OnQueryComplete$Query$me = FutureOr<void> Function(
@@ -261,25 +265,25 @@ class FetchMoreOptions$Query$me extends graphql.FetchMoreOptions {
 
 extension ClientExtension$Query$me on graphql.GraphQLClient {
   Future<graphql.QueryResult<Query$me>> query$me(
-          [Options$Query$me? options]) async =>
-      await this.query(options ?? Options$Query$me());
+          [Options$Query$me? options,]) async =>
+      await query(options ?? Options$Query$me());
   graphql.ObservableQuery<Query$me> watchQuery$me(
-          [WatchOptions$Query$me? options]) =>
-      this.watchQuery(options ?? WatchOptions$Query$me());
+          [WatchOptions$Query$me? options,]) =>
+      watchQuery(options ?? WatchOptions$Query$me());
   void writeQuery$me({
     required Query$me data,
     bool broadcast = true,
   }) =>
-      this.writeQuery(
-        graphql.Request(
-            operation: graphql.Operation(document: documentNodeQueryme)),
+      writeQuery(
+        const graphql.Request(
+            operation: graphql.Operation(document: documentNodeQueryme),),
         data: data.toJson(),
         broadcast: broadcast,
       );
   Query$me? readQuery$me({bool optimistic = true}) {
-    final result = this.readQuery(
-      graphql.Request(
-          operation: graphql.Operation(document: documentNodeQueryme)),
+    final result = readQuery(
+      const graphql.Request(
+          operation: graphql.Operation(document: documentNodeQueryme),),
       optimistic: optimistic,
     );
     return result == null ? null : Query$me.fromJson(result);
@@ -287,10 +291,10 @@ extension ClientExtension$Query$me on graphql.GraphQLClient {
 }
 
 graphql_flutter.QueryHookResult<Query$me> useQuery$me(
-        [Options$Query$me? options]) =>
+        [Options$Query$me? options,]) =>
     graphql_flutter.useQuery(options ?? Options$Query$me());
 graphql.ObservableQuery<Query$me> useWatchQuery$me(
-        [WatchOptions$Query$me? options]) =>
+        [WatchOptions$Query$me? options,]) =>
     graphql_flutter.useWatchQuery(options ?? WatchOptions$Query$me());
 
 class Query$me$Widget extends graphql_flutter.Query<Query$me> {

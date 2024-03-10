@@ -17,7 +17,7 @@ class Variables$Mutation$InviteUserBoard {
   Variables$Mutation$InviteUserBoard._(this._$data);
 
   factory Variables$Mutation$InviteUserBoard.fromJson(
-      Map<String, dynamic> data) {
+      Map<String, dynamic> data,) {
     final result$data = <String, dynamic>{};
     final l$idBoard = data['idBoard'];
     result$data['idBoard'] = (l$idBoard as String);
@@ -58,7 +58,7 @@ class Variables$Mutation$InviteUserBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Mutation$InviteUserBoard) ||
+    if (other is! Variables$Mutation$InviteUserBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -132,6 +132,7 @@ class _CopyWithImpl$Variables$Mutation$InviteUserBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? idBoard = _undefined,
     Object? idUsers = _undefined,
@@ -141,15 +142,16 @@ class _CopyWithImpl$Variables$Mutation$InviteUserBoard<TRes>
         if (idBoard != _undefined && idBoard != null)
           'idBoard': (idBoard as String),
         if (idUsers != _undefined) 'idUsers': (idUsers as List<String>?),
-      }));
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Mutation$InviteUserBoard<TRes>
     implements CopyWith$Variables$Mutation$InviteUserBoard<TRes> {
   _CopyWithStubImpl$Variables$Mutation$InviteUserBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? idBoard,
     List<String>? idUsers,
@@ -177,12 +179,12 @@ class Mutation$InviteUserBoard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$inviteUsersToBoard = inviteUsersToBoard;
-    _resultData['inviteUsersToBoard'] = l$inviteUsersToBoard;
+    resultData['inviteUsersToBoard'] = l$inviteUsersToBoard;
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -200,7 +202,7 @@ class Mutation$InviteUserBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Mutation$InviteUserBoard) ||
+    if (other is! Mutation$InviteUserBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -255,6 +257,7 @@ class _CopyWithImpl$Mutation$InviteUserBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? inviteUsersToBoard = _undefined,
     Object? $__typename = _undefined,
@@ -266,15 +269,16 @@ class _CopyWithImpl$Mutation$InviteUserBoard<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 }
 
 class _CopyWithStubImpl$Mutation$InviteUserBoard<TRes>
     implements CopyWith$Mutation$InviteUserBoard<TRes> {
   _CopyWithStubImpl$Mutation$InviteUserBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     bool? inviteUsersToBoard,
     String? $__typename,
@@ -334,11 +338,11 @@ const documentNodeMutationInviteUserBoard = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ]),
+    ],),
   ),
-]);
+],);
 Mutation$InviteUserBoard _parserFn$Mutation$InviteUserBoard(
-        Map<String, dynamic> data) =>
+        Map<String, dynamic> data,) =>
     Mutation$InviteUserBoard.fromJson(data);
 typedef OnMutationCompleted$Mutation$InviteUserBoard = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -427,12 +431,12 @@ class WatchOptions$Mutation$InviteUserBoard
 
 extension ClientExtension$Mutation$InviteUserBoard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$InviteUserBoard>> mutate$InviteUserBoard(
-          Options$Mutation$InviteUserBoard options) async =>
-      await this.mutate(options);
+          Options$Mutation$InviteUserBoard options,) async =>
+      await mutate(options);
   graphql.ObservableQuery<Mutation$InviteUserBoard>
       watchMutation$InviteUserBoard(
-              WatchOptions$Mutation$InviteUserBoard options) =>
-          this.watchMutation(options);
+              WatchOptions$Mutation$InviteUserBoard options,) =>
+          watchMutation(options);
 }
 
 class Mutation$InviteUserBoard$HookResult {
@@ -447,7 +451,7 @@ class Mutation$InviteUserBoard$HookResult {
 }
 
 Mutation$InviteUserBoard$HookResult useMutation$InviteUserBoard(
-    [WidgetOptions$Mutation$InviteUserBoard? options]) {
+    [WidgetOptions$Mutation$InviteUserBoard? options,]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$InviteUserBoard());
   return Mutation$InviteUserBoard$HookResult(
@@ -462,7 +466,7 @@ Mutation$InviteUserBoard$HookResult useMutation$InviteUserBoard(
 
 graphql.ObservableQuery<Mutation$InviteUserBoard>
     useWatchMutation$InviteUserBoard(
-            WatchOptions$Mutation$InviteUserBoard options) =>
+            WatchOptions$Mutation$InviteUserBoard options,) =>
         graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$InviteUserBoard

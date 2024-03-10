@@ -17,7 +17,7 @@ class Variables$Mutation$AcceptInviteUserBoard {
   Variables$Mutation$AcceptInviteUserBoard._(this._$data);
 
   factory Variables$Mutation$AcceptInviteUserBoard.fromJson(
-      Map<String, dynamic> data) {
+      Map<String, dynamic> data,) {
     final result$data = <String, dynamic>{};
     final l$idNotification = data['idNotification'];
     result$data['idNotification'] = (l$idNotification as String);
@@ -53,7 +53,7 @@ class Variables$Mutation$AcceptInviteUserBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Mutation$AcceptInviteUserBoard) ||
+    if (other is! Variables$Mutation$AcceptInviteUserBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -109,6 +109,7 @@ class _CopyWithImpl$Variables$Mutation$AcceptInviteUserBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? idNotification = _undefined,
     Object? idBoard = _undefined,
@@ -119,15 +120,16 @@ class _CopyWithImpl$Variables$Mutation$AcceptInviteUserBoard<TRes>
           'idNotification': (idNotification as String),
         if (idBoard != _undefined && idBoard != null)
           'idBoard': (idBoard as String),
-      }));
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Mutation$AcceptInviteUserBoard<TRes>
     implements CopyWith$Variables$Mutation$AcceptInviteUserBoard<TRes> {
   _CopyWithStubImpl$Variables$Mutation$AcceptInviteUserBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? idNotification,
     String? idBoard,
@@ -155,12 +157,12 @@ class Mutation$AcceptInviteUserBoard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$acceptInviteToBoard = acceptInviteToBoard;
-    _resultData['acceptInviteToBoard'] = l$acceptInviteToBoard;
+    resultData['acceptInviteToBoard'] = l$acceptInviteToBoard;
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -178,7 +180,7 @@ class Mutation$AcceptInviteUserBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Mutation$AcceptInviteUserBoard) ||
+    if (other is! Mutation$AcceptInviteUserBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -233,6 +235,7 @@ class _CopyWithImpl$Mutation$AcceptInviteUserBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? acceptInviteToBoard = _undefined,
     Object? $__typename = _undefined,
@@ -244,15 +247,16 @@ class _CopyWithImpl$Mutation$AcceptInviteUserBoard<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 }
 
 class _CopyWithStubImpl$Mutation$AcceptInviteUserBoard<TRes>
     implements CopyWith$Mutation$AcceptInviteUserBoard<TRes> {
   _CopyWithStubImpl$Mutation$AcceptInviteUserBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     bool? acceptInviteToBoard,
     String? $__typename,
@@ -309,11 +313,11 @@ const documentNodeMutationAcceptInviteUserBoard = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ]),
+    ],),
   ),
-]);
+],);
 Mutation$AcceptInviteUserBoard _parserFn$Mutation$AcceptInviteUserBoard(
-        Map<String, dynamic> data) =>
+        Map<String, dynamic> data,) =>
     Mutation$AcceptInviteUserBoard.fromJson(data);
 typedef OnMutationCompleted$Mutation$AcceptInviteUserBoard = FutureOr<void>
     Function(
@@ -406,12 +410,12 @@ extension ClientExtension$Mutation$AcceptInviteUserBoard
     on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$AcceptInviteUserBoard>>
       mutate$AcceptInviteUserBoard(
-              Options$Mutation$AcceptInviteUserBoard options) async =>
-          await this.mutate(options);
+              Options$Mutation$AcceptInviteUserBoard options,) async =>
+          await mutate(options);
   graphql.ObservableQuery<Mutation$AcceptInviteUserBoard>
       watchMutation$AcceptInviteUserBoard(
-              WatchOptions$Mutation$AcceptInviteUserBoard options) =>
-          this.watchMutation(options);
+              WatchOptions$Mutation$AcceptInviteUserBoard options,) =>
+          watchMutation(options);
 }
 
 class Mutation$AcceptInviteUserBoard$HookResult {
@@ -426,7 +430,7 @@ class Mutation$AcceptInviteUserBoard$HookResult {
 }
 
 Mutation$AcceptInviteUserBoard$HookResult useMutation$AcceptInviteUserBoard(
-    [WidgetOptions$Mutation$AcceptInviteUserBoard? options]) {
+    [WidgetOptions$Mutation$AcceptInviteUserBoard? options,]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$AcceptInviteUserBoard());
   return Mutation$AcceptInviteUserBoard$HookResult(
@@ -441,7 +445,7 @@ Mutation$AcceptInviteUserBoard$HookResult useMutation$AcceptInviteUserBoard(
 
 graphql.ObservableQuery<Mutation$AcceptInviteUserBoard>
     useWatchMutation$AcceptInviteUserBoard(
-            WatchOptions$Mutation$AcceptInviteUserBoard options) =>
+            WatchOptions$Mutation$AcceptInviteUserBoard options,) =>
         graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$AcceptInviteUserBoard

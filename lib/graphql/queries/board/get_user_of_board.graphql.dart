@@ -1,4 +1,4 @@
-import '../../Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -56,7 +56,7 @@ class Variables$Query$GetUserOfBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Query$GetUserOfBoard) ||
+    if (other is! Variables$Query$GetUserOfBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -115,6 +115,7 @@ class _CopyWithImpl$Variables$Query$GetUserOfBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? query = _undefined,
     Object? idBoard = _undefined,
@@ -124,15 +125,16 @@ class _CopyWithImpl$Variables$Query$GetUserOfBoard<TRes>
         if (query != _undefined) 'query': (query as String?),
         if (idBoard != _undefined && idBoard != null)
           'idBoard': (idBoard as String),
-      }));
+      }),);
 }
 
 class _CopyWithStubImpl$Variables$Query$GetUserOfBoard<TRes>
     implements CopyWith$Variables$Query$GetUserOfBoard<TRes> {
   _CopyWithStubImpl$Variables$Query$GetUserOfBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? query,
     String? idBoard,
@@ -153,7 +155,7 @@ class Query$GetUserOfBoard {
       getUsersOfBoard: (l$getUsersOfBoard as List<dynamic>?)
           ?.map((e) => e == null
               ? null
-              : Fragment$UserFragment.fromJson((e as Map<String, dynamic>)))
+              : Fragment$UserFragment.fromJson((e as Map<String, dynamic>)),)
           .toList(),
       $__typename: (l$$__typename as String),
     );
@@ -164,13 +166,13 @@ class Query$GetUserOfBoard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$getUsersOfBoard = getUsersOfBoard;
-    _resultData['getUsersOfBoard'] =
+    resultData['getUsersOfBoard'] =
         l$getUsersOfBoard?.map((e) => e?.toJson()).toList();
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -190,7 +192,7 @@ class Query$GetUserOfBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$GetUserOfBoard) || runtimeType != other.runtimeType) {
+    if (other is! Query$GetUserOfBoard || runtimeType != other.runtimeType) {
       return false;
     }
     final l$getUsersOfBoard = getUsersOfBoard;
@@ -241,8 +243,8 @@ abstract class CopyWith$Query$GetUserOfBoard<TRes> {
   });
   TRes getUsersOfBoard(
       Iterable<Fragment$UserFragment?>? Function(
-              Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?)
-          _fn);
+              Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,)
+          fn,);
 }
 
 class _CopyWithImpl$Query$GetUserOfBoard<TRes>
@@ -258,6 +260,7 @@ class _CopyWithImpl$Query$GetUserOfBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? getUsersOfBoard = _undefined,
     Object? $__typename = _undefined,
@@ -269,35 +272,38 @@ class _CopyWithImpl$Query$GetUserOfBoard<TRes>
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
-      ));
+      ),);
 
+  @override
   TRes getUsersOfBoard(
           Iterable<Fragment$UserFragment?>? Function(
                   Iterable<
-                      CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?)
-              _fn) =>
+                      CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,)
+              fn,) =>
       call(
-          getUsersOfBoard: _fn(_instance.getUsersOfBoard?.map((e) => e == null
+          getUsersOfBoard: fn(_instance.getUsersOfBoard?.map((e) => e == null
               ? null
               : CopyWith$Fragment$UserFragment(
                   e,
                   (i) => i,
-                )))?.toList());
+                ),),)?.toList(),);
 }
 
 class _CopyWithStubImpl$Query$GetUserOfBoard<TRes>
     implements CopyWith$Query$GetUserOfBoard<TRes> {
   _CopyWithStubImpl$Query$GetUserOfBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     List<Fragment$UserFragment?>? getUsersOfBoard,
     String? $__typename,
   }) =>
       _res;
 
-  getUsersOfBoard(_fn) => _res;
+  @override
+  getUsersOfBoard(fn) => _res;
 }
 
 const documentNodeQueryGetUserOfBoard = DocumentNode(definitions: [
@@ -352,7 +358,7 @@ const documentNodeQueryGetUserOfBoard = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ]),
+        ],),
       ),
       FieldNode(
         name: NameNode(value: '__typename'),
@@ -361,12 +367,12 @@ const documentNodeQueryGetUserOfBoard = DocumentNode(definitions: [
         directives: [],
         selectionSet: null,
       ),
-    ]),
+    ],),
   ),
   fragmentDefinitionUserFragment,
-]);
+],);
 Query$GetUserOfBoard _parserFn$Query$GetUserOfBoard(
-        Map<String, dynamic> data) =>
+        Map<String, dynamic> data,) =>
     Query$GetUserOfBoard.fromJson(data);
 typedef OnQueryComplete$Query$GetUserOfBoard = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -464,20 +470,20 @@ class FetchMoreOptions$Query$GetUserOfBoard extends graphql.FetchMoreOptions {
 
 extension ClientExtension$Query$GetUserOfBoard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Query$GetUserOfBoard>> query$GetUserOfBoard(
-          Options$Query$GetUserOfBoard options) async =>
-      await this.query(options);
+          Options$Query$GetUserOfBoard options,) async =>
+      await query(options);
   graphql.ObservableQuery<Query$GetUserOfBoard> watchQuery$GetUserOfBoard(
-          WatchOptions$Query$GetUserOfBoard options) =>
-      this.watchQuery(options);
+          WatchOptions$Query$GetUserOfBoard options,) =>
+      watchQuery(options);
   void writeQuery$GetUserOfBoard({
     required Query$GetUserOfBoard data,
     required Variables$Query$GetUserOfBoard variables,
     bool broadcast = true,
   }) =>
-      this.writeQuery(
+      writeQuery(
         graphql.Request(
           operation:
-              graphql.Operation(document: documentNodeQueryGetUserOfBoard),
+              const graphql.Operation(document: documentNodeQueryGetUserOfBoard),
           variables: variables.toJson(),
         ),
         data: data.toJson(),
@@ -487,9 +493,9 @@ extension ClientExtension$Query$GetUserOfBoard on graphql.GraphQLClient {
     required Variables$Query$GetUserOfBoard variables,
     bool optimistic = true,
   }) {
-    final result = this.readQuery(
+    final result = readQuery(
       graphql.Request(
-        operation: graphql.Operation(document: documentNodeQueryGetUserOfBoard),
+        operation: const graphql.Operation(document: documentNodeQueryGetUserOfBoard),
         variables: variables.toJson(),
       ),
       optimistic: optimistic,
@@ -499,15 +505,15 @@ extension ClientExtension$Query$GetUserOfBoard on graphql.GraphQLClient {
 }
 
 graphql_flutter.QueryHookResult<Query$GetUserOfBoard> useQuery$GetUserOfBoard(
-        Options$Query$GetUserOfBoard options) =>
+        Options$Query$GetUserOfBoard options,) =>
     graphql_flutter.useQuery(options);
 graphql.ObservableQuery<Query$GetUserOfBoard> useWatchQuery$GetUserOfBoard(
-        WatchOptions$Query$GetUserOfBoard options) =>
+        WatchOptions$Query$GetUserOfBoard options,) =>
     graphql_flutter.useWatchQuery(options);
 
 class Query$GetUserOfBoard$Widget
     extends graphql_flutter.Query<Query$GetUserOfBoard> {
-  Query$GetUserOfBoard$Widget({
+  const Query$GetUserOfBoard$Widget({
     widgets.Key? key,
     required Options$Query$GetUserOfBoard options,
     required graphql_flutter.QueryBuilder<Query$GetUserOfBoard> builder,
