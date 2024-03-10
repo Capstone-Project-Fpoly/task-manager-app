@@ -59,7 +59,7 @@ class RegEmailScreen extends ConsumerWidget {
                     const Text('Chào mừng bạn đăng ký tài khoán'),
                     const Text('Task manager hãy dùng theo cách của bạn'),
                     SizedBoxConstants.h32,
-                    CusstomTextField(
+                    CustomTextField(
                       controller: bloc.emailController,
                       hintText: 'Nhập Email',
                       keyBroadType: TextInputType.emailAddress,
@@ -74,7 +74,7 @@ class RegEmailScreen extends ConsumerWidget {
                       ),
                     ),
                     SizedBoxConstants.h8,
-                    CusstomTextField(
+                    CustomTextField(
                       controller: bloc.passController,
                       hintText: 'Nhập mật khẩu',
                       isObsText: !bloc.isShowPassSubject.value,
@@ -103,7 +103,7 @@ class RegEmailScreen extends ConsumerWidget {
                       ),
                     ),
                     SizedBoxConstants.h12,
-                    CusstomTextField(
+                    CustomTextField(
                       controller: bloc.rePassController,
                       hintText: 'Xác nhận mật khẩu',
                       isObsText: !bloc.isShowRePassSubject.value,
@@ -135,7 +135,7 @@ class RegEmailScreen extends ConsumerWidget {
                     ObsBuilder(
                       streams: [bloc.countSubject, bloc.isTapSendSubject],
                       builder: (context) {
-                        return CusstomTextField(
+                        return CustomTextField(
                           controller: bloc.oTPController,
                           hintText: 'Nhập mã xác minh',
                           suffixIcon: Container(

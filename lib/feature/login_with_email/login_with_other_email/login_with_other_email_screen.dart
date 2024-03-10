@@ -57,7 +57,7 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                     SizedBoxConstants.h32,
                     const Text('Đăng nhập để tiếp tục'),
                     SizedBoxConstants.h40,
-                    CusstomTextField(
+                    CustomTextField(
                       controller: bloc.emailController,
                       hintText: 'Nhập Email',
                       keyBroadType: TextInputType.emailAddress,
@@ -72,7 +72,7 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                     ),
                     SizedBoxConstants.h12,
                     if (bloc.isPassSubject.value)
-                      CusstomTextField(
+                      CustomTextField(
                         autoFocus: true,
                         controller: bloc.passController,
                         hintText: 'Nhập mật khẩu',

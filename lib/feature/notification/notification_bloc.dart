@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
+import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/feature/notification/enum/notification_options.dart';
 import 'package:task_manager/feature/notification/widget/notification_option_bottom_sheet.dart';
@@ -16,6 +17,9 @@ class NotificationBloc extends BlocBase {
   late final routerService = ref.watch(AppService.router);
   late final graphQLService = ref.watch(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
+  late final boardBloc = ref.read(BlocProvider.board);
+  late final boardDetailBloc = ref.read(BlocProvider.boardDetail);
+
   final selectedOptionSubject = BehaviorSubject<NotificationOptionsEnum>.seeded(
     NotificationOptionsEnum.all,
   );
@@ -45,8 +49,9 @@ class NotificationBloc extends BlocBase {
     fetchNotification();
   }
 
-  void onBackToBoardScreen() {
+  Future<void> onBackToBoardScreen() async {
     routerService.pop();
+    boardBloc.getBoard();
   }
 
   void onTapOption({required NotificationOptionsEnum option}) {

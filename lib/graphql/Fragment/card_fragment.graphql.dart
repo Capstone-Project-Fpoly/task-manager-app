@@ -55,7 +55,8 @@ class Fragment$CardFragment {
       checkLists: (l$checkLists as List<dynamic>?)
           ?.map(
             (e) => Fragment$CheckListFragment.fromJson(
-                (e as Map<String, dynamic>),),
+              (e as Map<String, dynamic>),
+            ),
           )
           .toList(),
       createdAt: (l$createdAt as String),

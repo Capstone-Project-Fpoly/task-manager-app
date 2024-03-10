@@ -14,12 +14,16 @@ class ShowDialogBoardOption extends ConsumerWidget {
     final bloc = ref.watch(BlocProvider.board);
     // final routerService = ref.watch(AppService.router);
     return ObsBuilder(
-      streams: [bloc.dialogTitleSubject],
+      streams: [
+        bloc.selectedBoardSubject,
+        bloc.isOwnerBroadSubject,
+      ],
       builder: (context) {
-        final titleDialog = bloc.dialogTitleSubject.value;
+        final isOwnerBroad = bloc.isOwnerBroadSubject.value;
+        final titleDialog = bloc.selectedBoardSubject.value!.title;
         return AlertDialog(
           title: Text(
-            titleDialog,
+            titleDialog!,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -33,19 +37,27 @@ class ShowDialogBoardOption extends ConsumerWidget {
                 onPressed: () {},
                 child: const Text('Chia sẻ liên kết bảng'),
               ),
-              TextButton(
-                onPressed: () {
-                  bloc.onTapSettingBoard();
-                },
-                child: const Text('Cài Đặt bảng'),
-              ),
+              if (isOwnerBroad)
+                TextButton(
+                  onPressed: () {
+                    bloc.onTapSettingBoard();
+                  },
+                  child: const Text('Cài Đặt bảng'),
+                ),
               TextButton(
                 onPressed: () {},
                 child: const Text('Đánh dấu sao cho bảng'),
               ),
               TextButton(
-                onPressed: () {},
-                child: const Text('Đóng Bảng'),
+                onPressed: () {
+                  if (isOwnerBroad) {
+                    //Đóng Bảng
+                  } else {
+                    //Rời bảng
+                    bloc.showDialogLeaveBoard(context: context);
+                  }
+                },
+                child: Text(isOwnerBroad ? 'Đóng Bảng' : 'Rời Bảng'),
               ),
             ],
           ),

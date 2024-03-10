@@ -1,0 +1,3 @@
+mutation RemoveUserFromBoard($idBoard: String!,$uid: String!){
+    removeUserFromBoard(idBoard: $idBoard,uid: $uid)
+}
