@@ -39,3 +39,15 @@ String formatDateTimeDetailCard(String stringDate) {
     return '';
   }
 }
+
+String formatDateTimeCommentCard(String stringDate) {
+  try {
+    if (stringDate == '') return stringDate;
+    final DateTime dateTime = DateFormat('yyyy-MM-dd').parse(stringDate);
+    final String time = DateFormat('dd/MM/yyyy').format(dateTime);
+    stringDate = time;
+    return stringDate;
+  } catch (e) {
+    return '';
+  }
+}

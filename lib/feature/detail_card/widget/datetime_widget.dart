@@ -39,6 +39,7 @@ class DateTimeWidget extends ConsumerWidget {
                   InkWell(
                     onTap: () async {
                       showDialog(
+                        useRootNavigator: false,
                         context: context,
                         builder: (_) => Container(
                           alignment: Alignment.center,
@@ -77,7 +78,6 @@ class DateTimeWidget extends ConsumerWidget {
                                               initialDate: DateTime.now(),
                                               firstDate: DateTime(2000),
                                               lastDate: DateTime(2100),
-                                              locale: const Locale('vi', 'VN'),
                                             ).then((value) {
                                               bloc.startDateController.text =
                                                   formatDateTimeDetailCard(
@@ -229,6 +229,7 @@ class DateTimeWidget extends ConsumerWidget {
                   InkWell(
                     onTap: () async {
                       showDialog(
+                        useRootNavigator: false,
                         context: context,
                         builder: (_) => Container(
                           alignment: Alignment.center,
@@ -267,7 +268,6 @@ class DateTimeWidget extends ConsumerWidget {
                                               initialDate: DateTime.now(),
                                               firstDate: DateTime(2000),
                                               lastDate: DateTime(2100),
-                                              locale: const Locale('vi', 'VN'),
                                             ).then((value) {
                                               bloc.endDateController.text =
                                                   formatDateTimeDetailCard(

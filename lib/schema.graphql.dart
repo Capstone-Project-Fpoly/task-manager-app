@@ -1423,6 +1423,7 @@ enum Enum$TopicNotification {
   Comment,
   InviteUserToBoard,
   $List,
+  RemoveUserFromBoard,
   $unknown
 }
 
@@ -1440,6 +1441,8 @@ String toJson$Enum$TopicNotification(Enum$TopicNotification e) {
       return r'InviteUserToBoard';
     case Enum$TopicNotification.$List:
       return r'List';
+    case Enum$TopicNotification.RemoveUserFromBoard:
+      return r'RemoveUserFromBoard';
     case Enum$TopicNotification.$unknown:
       return r'$unknown';
   }
@@ -1459,6 +1462,8 @@ Enum$TopicNotification fromJson$Enum$TopicNotification(String value) {
       return Enum$TopicNotification.InviteUserToBoard;
     case r'List':
       return Enum$TopicNotification.$List;
+    case r'RemoveUserFromBoard':
+      return Enum$TopicNotification.RemoveUserFromBoard;
     default:
       return Enum$TopicNotification.$unknown;
   }

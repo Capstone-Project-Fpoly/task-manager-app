@@ -17,8 +17,10 @@ class DetailCardBloc extends BlocBase {
 
   final isShowQuickActionsSubject = BehaviorSubject<bool>.seeded(false);
   final isShowLabelSubject = BehaviorSubject<bool>.seeded(false);
-  final isShowAllSubject = BehaviorSubject<bool>.seeded(false);
+  final isShowOptionAllSubject = BehaviorSubject<bool>.seeded(false);
   final isShowFloatingSubject = BehaviorSubject<bool>.seeded(true);
+  final isSendCommentSubject = BehaviorSubject<bool>.seeded(false);
+  final isShowNotificationSubject = BehaviorSubject<bool>.seeded(false);
 
   final listColorSubject = BehaviorSubject<List<ColorLabel>>.seeded([]);
   final listNotificationFragmentsSubject =
@@ -45,7 +47,7 @@ class DetailCardBloc extends BlocBase {
     startDateController.dispose();
     endDateController.dispose();
     isShowLabelSubject.close();
-    isShowAllSubject.close();
+    isShowOptionAllSubject.close();
     listColorSubject.close();
     isShowFloatingSubject.close();
     listNotificationFragmentsSubject.close();
@@ -54,15 +56,17 @@ class DetailCardBloc extends BlocBase {
     endDateTimeController.dispose();
     startTimeController.dispose();
     endTimeController.dispose();
+    isSendCommentSubject.close();
+    isShowNotificationSubject.close();
   }
 
   void init() {
     listColorSubject.add([
-      ColorLabel(color: '2196F3'),
-      ColorLabel(color: 'FBFADA'),
-      ColorLabel(color: '436850'),
-      ColorLabel(color: '6962AD'),
-      ColorLabel(color: '1B1A55'),
+      ColorLabel(color: '2196F3', id: 1),
+      ColorLabel(color: 'FBFADA', id: 2),
+      ColorLabel(color: '436850', id: 3),
+      ColorLabel(color: '6962AD', id: 4),
+      ColorLabel(color: '1B1A55', id: 5),
     ]);
 
     listNotificationFragmentsSubject.add([
@@ -73,8 +77,8 @@ class DetailCardBloc extends BlocBase {
         is_seen: false,
         title: 'Thông báo 1',
         topic: Enum$TopicNotification.Card,
-        createdAt: '',
-        creater: Fragment$UserFragment(uid: '0'),
+        createdAt: '2024-03-09',
+        creator: Fragment$UserFragment(uid: '0'),
       ),
       Fragment$NotificationFragment(
         id: '2',
@@ -83,8 +87,8 @@ class DetailCardBloc extends BlocBase {
         is_seen: false,
         title: 'Thông báo 2',
         topic: Enum$TopicNotification.Card,
-        createdAt: '',
-        creater: Fragment$UserFragment(uid: '0'),
+        createdAt: '2024-03-09',
+        creator: Fragment$UserFragment(uid: '0'),
       ),
       Fragment$NotificationFragment(
         id: '3',
@@ -93,8 +97,8 @@ class DetailCardBloc extends BlocBase {
         is_seen: false,
         title: 'Thông báo 3',
         topic: Enum$TopicNotification.Card,
-        createdAt: '',
-        creater: Fragment$UserFragment(uid: '0'),
+        createdAt: '2024-03-09',
+        creator: Fragment$UserFragment(uid: '0'),
       ),
       Fragment$NotificationFragment(
         id: '4',
@@ -103,8 +107,8 @@ class DetailCardBloc extends BlocBase {
         is_seen: false,
         title: 'Thông báo 4',
         topic: Enum$TopicNotification.Card,
-        createdAt: '',
-        creater: Fragment$UserFragment(uid: '0'),
+        createdAt: '2024-03-09',
+        creator: Fragment$UserFragment(uid: '0'),
       ),
       Fragment$NotificationFragment(
         id: '5',
@@ -113,8 +117,8 @@ class DetailCardBloc extends BlocBase {
         is_seen: false,
         title: 'Thông báo 5',
         topic: Enum$TopicNotification.Card,
-        createdAt: '',
-        creater: Fragment$UserFragment(uid: '0'),
+        createdAt: '2024-03-09',
+        creator: Fragment$UserFragment(uid: '0'),
       ),
       Fragment$NotificationFragment(
         id: '6',
@@ -123,19 +127,24 @@ class DetailCardBloc extends BlocBase {
         is_seen: false,
         title: 'Thông báo 6',
         topic: Enum$TopicNotification.Card,
-        createdAt: '',
-        creater: Fragment$UserFragment(uid: '0'),
+        createdAt: '2024-03-09',
+        creator: Fragment$UserFragment(uid: '0'),
       ),
     ]);
 
     listCommemtFragmentsSubject.add([
       Fragment$CommentFragment(
         id: '1',
-        createdAt: '',
-        user: Fragment$UserFragment(uid: '1'),
+        createdAt: '2024-03-09',
+        user: Fragment$UserFragment(uid: '1', fullName: 'Đinh Viết Khang'),
         comment: 'Bình luận 1',
       ),
-      // Fragment$CommentFragment(id:'2', createdAt: '', user: Fragment$UserFragment(uid: '1'), comment: 'Bình luận 2'),
+      Fragment$CommentFragment(
+        id: '2',
+        createdAt: '2024-03-09',
+        user: Fragment$UserFragment(uid: '1', fullName: 'Đinh Viết Khang'),
+        comment: 'Bình luận 2',
+      ),
       // Fragment$CommentFragment(id:'3', createdAt: '', user: Fragment$UserFragment(uid: '1'), comment: 'Bình luận 3'),
       // Fragment$CommentFragment(id:'4', createdAt: '', user: Fragment$UserFragment(uid: '1'), comment: 'Bình luận 4'),
       // Fragment$CommentFragment(id:'5', createdAt: '', user: Fragment$UserFragment(uid: '1'), comment: 'Bình luận 5'),
@@ -171,16 +180,12 @@ class DetailCardBloc extends BlocBase {
     isShowQuickActionsSubject.value = !isShowQuickActionsSubject.value;
   }
 
-  void changeCheckBoxAll() {
-    isShowAllSubject.value = !isShowAllSubject.value;
-  }
-
   void showLabel() {
     isShowLabelSubject.value = !isShowLabelSubject.value;
   }
 
   void chooseOption() {
-    isShowAllSubject.value = !isShowAllSubject.value;
+    isShowOptionAllSubject.value = !isShowOptionAllSubject.value;
   }
 
   void onBack() {
@@ -193,7 +198,14 @@ class DetailCardBloc extends BlocBase {
 
   //TODO: Label Widget Bloc
   void onTapToSelect(ColorLabel colorLabel) {
-    colorLabel.isSelected = !colorLabel.isSelected;
+    final listTemp = listColorSubject.value;
+    for (final e in listTemp) {
+      if (e.id == colorLabel.id) {
+        e.isSelected = !e.isSelected;
+      }
+    }
+    listColorSubject.value = listTemp;
+    // colorLabel.isSelected = !colorLabel.isSelected;
   }
 
   //TODO: DateTime Widget Bloc
@@ -233,6 +245,37 @@ class DetailCardBloc extends BlocBase {
     endDateController.clear();
   }
 
+  //TODO: Comment Widget Bloc
+  void onChangeCommentField(String value) {
+    if (value.isEmpty) {
+      isSendCommentSubject.value = false;
+    } else {
+      isSendCommentSubject.value = true;
+    }
+  }
+
+  void sendComment() {
+    if (!isSendCommentSubject.value) {
+      return;
+    }
+    if (isSendCommentSubject.value) {
+      final comment = Fragment$CommentFragment(
+        id: '1',
+        createdAt: '',
+        user: Fragment$UserFragment(uid: '1', fullName: 'Đinh Viết Khang'),
+        comment: commentController.text,
+      );
+      listCommemtFragmentsSubject.value = [
+        ...[comment],
+        ...listCommemtFragmentsSubject.value,
+      ];
+    }
+  }
+
+  void showNotification(bool value) {
+    isShowNotificationSubject.value = !isShowNotificationSubject.value;
+  }
+
   late final appBloc = ref.read(BlocProvider.app);
   DetailCardBloc(this.ref) {
     init();
@@ -240,8 +283,9 @@ class DetailCardBloc extends BlocBase {
 }
 
 class ColorLabel {
+  int? id;
   String? color;
   bool isSelected;
 
-  ColorLabel({this.color, this.isSelected = false});
+  ColorLabel({this.id, this.color, this.isSelected = false});
 }

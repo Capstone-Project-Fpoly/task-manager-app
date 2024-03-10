@@ -10,6 +10,7 @@ class CusstomTextField extends ConsumerWidget {
   final String hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final bool? autoFocus;
 
   const CusstomTextField({
     super.key,
@@ -20,6 +21,7 @@ class CusstomTextField extends ConsumerWidget {
     required this.hintText,
     this.prefixIcon,
     this.suffixIcon,
+    this.autoFocus,
   });
 
   @override
@@ -27,6 +29,7 @@ class CusstomTextField extends ConsumerWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.75,
       child: TextFormField(
+        autofocus: autoFocus ?? false,
         controller: controller,
         keyboardType: keyBroadType,
         obscureText: isObsText!,

@@ -15,6 +15,8 @@ class SizedBoxConstants {
   static const h32 = SizedBox(height: 32);
   static const h36 = SizedBox(height: 36);
   static const h40 = SizedBox(height: 40);
+  static const h60 = SizedBox(height: 60);
+  static const h80 = SizedBox(height: 80);
 
   static const w4 = SizedBox(width: 4);
   static const w6 = SizedBox(width: 6);

@@ -67,8 +67,8 @@ class InviteMemberBloc extends BlocBase {
 
   void onTapCancelSearch() {
     focusNode.unfocus();
+    listSearchInviteUsersSubject.value = [];
     isSearchUsersSubject.value = false;
-    listSearchInviteUsersSubject.value.clear();
     searchController.text = '';
   }
 

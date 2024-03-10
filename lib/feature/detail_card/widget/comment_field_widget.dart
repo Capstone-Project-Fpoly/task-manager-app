@@ -13,6 +13,7 @@ class CommentFieldWidget extends ConsumerWidget {
     final bloc = ref.watch(BlocProvider.detailCardBloc);
     final double width = MediaQuery.of(context).size.width;
     return ObsBuilder(
+      streams: [bloc.listCommemtFragmentsSubject, bloc.isSendCommentSubject],
       builder: (context) {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
@@ -65,20 +66,30 @@ class CommentFieldWidget extends ConsumerWidget {
                         ),
                         maxLines: 5,
                         minLines: 1,
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          bloc.onChangeCommentField(value);
+                        },
                       ),
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      bloc.sendComment();
+                    },
                     child: Ink(
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,
                       ),
-                      child: const SendIcon(
-                        width: 20,
-                        height: 20,
-                      ),
+                      child: !bloc.isSendCommentSubject.value
+                          ? const SendIcon(
+                              width: 20,
+                              height: 20,
+                            )
+                          : const SendIcon(
+                              width: 20,
+                              height: 20,
+                              color: ColorConstants.primary,
+                            ),
                     ),
                   ),
                   const SizedBox(
