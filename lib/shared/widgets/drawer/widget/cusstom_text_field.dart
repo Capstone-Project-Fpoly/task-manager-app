@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 
-class CusstomTextField extends ConsumerWidget {
+class CustomTextField extends ConsumerWidget {
   final TextEditingController controller;
   final TextInputType? keyBroadType;
   final bool? isObsText;
@@ -12,7 +12,7 @@ class CusstomTextField extends ConsumerWidget {
   final Widget? suffixIcon;
   final bool? autoFocus;
 
-  const CusstomTextField({
+  const CustomTextField({
     super.key,
     required this.controller,
     this.keyBroadType = TextInputType.text,
