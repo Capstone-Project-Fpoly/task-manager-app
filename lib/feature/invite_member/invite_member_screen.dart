@@ -92,11 +92,20 @@ class InviteMemberScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBoxConstants.h20,
+                      const Text(
+                        'Mời thành viên:',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBoxConstants.h20,
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: CustomTextFieldInviteMember(
                           controller: bloc.searchController,
-                          hintText: 'Email, tên người dùng',
+                          hintText: 'Email, tên người dùng muốn mời',
                           prefixIcon: bloc.isSearchSubject.value
                               ? Transform.scale(
                                   scale: 0.35,

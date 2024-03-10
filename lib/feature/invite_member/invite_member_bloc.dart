@@ -1,15 +1,14 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql/client.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
-import 'package:task_manager/feature/invite_member/widget/show_dialog_edit_member_of_board.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/invite_user_to_board.graphql.dart';
-import 'package:task_manager/graphql/Mutations/board/remove_user_from_board.graphql.dart';
 import 'package:task_manager/graphql/queries/board/get_user_invite_to_board.graphql.dart';
 import 'package:task_manager/graphql/queries/board/get_user_of_board.graphql.dart';
 
@@ -113,7 +112,6 @@ class InviteMemberBloc extends BlocBase {
         ),
       ),
     );
-
     isSearchUsersSubject.value = false;
     listInviteUsersSubject.value.clear();
     listSearchInviteUsersSubject.value.clear();
