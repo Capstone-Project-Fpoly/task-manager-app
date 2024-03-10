@@ -158,7 +158,7 @@ class BoardScreen extends ConsumerWidget {
                                   //_openDialog(context , board?.title ?? '');
                                   bloc.dialogShowOptionBoard(
                                     context: context,
-                                    title: board?.title ?? '',
+                                    board: board,
                                   );
                                 },
                                 child: Container(

@@ -1,0 +1,5 @@
+mutation UpdateBoard($idBoard: String!,$input: InputUpdateBoard!){
+    updateBoard(idBoard:$idBoard, input: $input){
+        ...BoardFragment
+    }
+}

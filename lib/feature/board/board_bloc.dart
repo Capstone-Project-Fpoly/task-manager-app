@@ -10,6 +10,8 @@ import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/board/dialog_board_option/dialog_board_option.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
+import 'package:task_manager/graphql/Mutations/board/leave_board.graphql.dart';
+import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
 
 class BoardBloc extends BlocBase {
   final Ref ref;
@@ -30,7 +32,9 @@ class BoardBloc extends BlocBase {
   //
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final searchTextSubject = BehaviorSubject<String>.seeded('');
-  final dialogTitleSubject = BehaviorSubject<String>.seeded('');
+
+  final idUserSubject = BehaviorSubject<String>.seeded('');
+  final isOwnerBroadSubject = BehaviorSubject<bool>.seeded(false);
   void init() {
     getBoard();
   }
@@ -47,7 +51,8 @@ class BoardBloc extends BlocBase {
     selectedSearchSubject.close();
     searchTextSubject.close();
     listBoardSearchSubject.close();
-    dialogTitleSubject.close();
+    idUserSubject.close();
+    isOwnerBroadSubject.close();
   }
 
   void openSearch(bool open) {
@@ -84,15 +89,22 @@ class BoardBloc extends BlocBase {
   }
 
   void onTapSettingBoard() {
+    routerService.pop();
     routerService.push(RouteInput.settingBoard());
   }
 
   Future<void> dialogShowOptionBoard({
     required BuildContext context,
-    required String title,
+    required Fragment$BoardFragment? board,
   }) async {
     selectedSearchSubject.value = false;
-    dialogTitleSubject.value = title;
+    selectedBoardSubject.value = board;
+    idUserSubject.value = appBloc.userSubject.value!.uid;
+    if (idUserSubject.value == board?.ownerUser.uid) {
+      isOwnerBroadSubject.value = true;
+    } else {
+      isOwnerBroadSubject.value = false;
+    }
     showDialog(
       context: context,
       builder: (context) {
@@ -114,6 +126,39 @@ class BoardBloc extends BlocBase {
   void onTapToAddCard() {
     selectedSearchSubject.value = false;
     routerService.push(RouteInput.addCard());
+  }
+
+  Future<void> showDialogLeaveBoard({
+    required BuildContext context,
+  }) async {
+    routerService.pop();
+    showDialog(
+      context: context,
+      builder: (context) {
+        return ShowAlertDialog(
+          onTap: () async {
+            // rời bảng
+            final result = await graphqlService.client.mutate$LeaveBoard(
+              Options$Mutation$LeaveBoard(
+                variables: Variables$Mutation$LeaveBoard(
+                  idBoard: selectedBoardSubject.value!.id.trim(),
+                ),
+              ),
+            );
+            if (result.hasException) {
+              toastService.showText(
+                message: result.exception?.graphqlErrors[0].message,
+              );
+              routerService.pop(result: false);
+              return;
+            }
+            routerService.pop();
+          },
+          title: 'Rời Bảng',
+          content: 'Bạn có chắc chắn rời bảng không',
+        );
+      },
+    );
   }
 
   void getBoard() async {
