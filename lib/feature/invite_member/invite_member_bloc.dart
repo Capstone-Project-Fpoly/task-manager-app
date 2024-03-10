@@ -200,6 +200,7 @@ class InviteMemberBloc extends BlocBase {
     }
   }
 
+
   Future<void> onTapSetPermissionMemberOfBoard({
     required Fragment$UserFragment user,
     required bool selectAdmin,

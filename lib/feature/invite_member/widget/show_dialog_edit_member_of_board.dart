@@ -12,7 +12,6 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
   const DialogEditMemberOfBoard({super.key, required this.user});
 
   final Fragment$UserFragment user;
-
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.inviteMember);

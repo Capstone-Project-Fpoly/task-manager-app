@@ -18,7 +18,8 @@ class Variables$Query$getUsersInviteToBoard {
   Variables$Query$getUsersInviteToBoard._(this._$data);
 
   factory Variables$Query$getUsersInviteToBoard.fromJson(
-      Map<String, dynamic> data,) {
+    Map<String, dynamic> data,
+  ) {
     final result$data = <String, dynamic>{};
     final l$idBoard = data['idBoard'];
     result$data['idBoard'] = (l$idBoard as String);
@@ -122,12 +123,14 @@ class _CopyWithImpl$Variables$Query$getUsersInviteToBoard<TRes>
     Object? idBoard = _undefined,
     Object? query = _undefined,
   }) =>
-      _then(Variables$Query$getUsersInviteToBoard._({
-        ..._instance._$data,
-        if (idBoard != _undefined && idBoard != null)
-          'idBoard': (idBoard as String),
-        if (query != _undefined) 'query': (query as String?),
-      }),);
+      _then(
+        Variables$Query$getUsersInviteToBoard._({
+          ..._instance._$data,
+          if (idBoard != _undefined && idBoard != null)
+            'idBoard': (idBoard as String),
+          if (query != _undefined) 'query': (query as String?),
+        }),
+      );
 }
 
 class _CopyWithStubImpl$Variables$Query$getUsersInviteToBoard<TRes>
@@ -155,9 +158,11 @@ class Query$getUsersInviteToBoard {
     final l$$__typename = json['__typename'];
     return Query$getUsersInviteToBoard(
       getUsersInviteToBoard: (l$getUsersInviteToBoard as List<dynamic>?)
-          ?.map((e) => e == null
-              ? null
-              : Fragment$UserFragment.fromJson((e as Map<String, dynamic>)),)
+          ?.map(
+            (e) => e == null
+                ? null
+                : Fragment$UserFragment.fromJson((e as Map<String, dynamic>)),
+          )
           .toList(),
       $__typename: (l$$__typename as String),
     );
@@ -250,9 +255,10 @@ abstract class CopyWith$Query$getUsersInviteToBoard<TRes> {
     String? $__typename,
   });
   TRes getUsersInviteToBoard(
-      Iterable<Fragment$UserFragment?>? Function(
-              Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,)
-          fn,);
+    Iterable<Fragment$UserFragment?>? Function(
+      Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,
+    ) fn,
+  );
 }
 
 class _CopyWithImpl$Query$getUsersInviteToBoard<TRes>
@@ -273,29 +279,35 @@ class _CopyWithImpl$Query$getUsersInviteToBoard<TRes>
     Object? getUsersInviteToBoard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$getUsersInviteToBoard(
-        getUsersInviteToBoard: getUsersInviteToBoard == _undefined
-            ? _instance.getUsersInviteToBoard
-            : (getUsersInviteToBoard as List<Fragment$UserFragment?>?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ),);
+      _then(
+        Query$getUsersInviteToBoard(
+          getUsersInviteToBoard: getUsersInviteToBoard == _undefined
+              ? _instance.getUsersInviteToBoard
+              : (getUsersInviteToBoard as List<Fragment$UserFragment?>?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 
   @override
   TRes getUsersInviteToBoard(
-          Iterable<Fragment$UserFragment?>? Function(
-                  Iterable<
-                      CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,)
-              fn,) =>
+    Iterable<Fragment$UserFragment?>? Function(
+      Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,
+    ) fn,
+  ) =>
       call(
-          getUsersInviteToBoard:
-              fn(_instance.getUsersInviteToBoard?.map((e) => e == null
-                  ? null
-                  : CopyWith$Fragment$UserFragment(
-                      e,
-                      (i) => i,
-                    ),),)?.toList(),);
+        getUsersInviteToBoard: fn(
+          _instance.getUsersInviteToBoard?.map(
+            (e) => e == null
+                ? null
+                : CopyWith$Fragment$UserFragment(
+                    e,
+                    (i) => i,
+                  ),
+          ),
+        )?.toList(),
+      );
 }
 
 class _CopyWithStubImpl$Query$getUsersInviteToBoard<TRes>
@@ -315,50 +327,63 @@ class _CopyWithStubImpl$Query$getUsersInviteToBoard<TRes>
   getUsersInviteToBoard(fn) => _res;
 }
 
-const documentNodeQuerygetUsersInviteToBoard = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.query,
-    name: NameNode(value: 'getUsersInviteToBoard'),
-    variableDefinitions: [
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idBoard')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'query')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: false,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-    ],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'getUsersInviteToBoard'),
-        alias: null,
-        arguments: [
-          ArgumentNode(
-            name: NameNode(value: 'query'),
-            value: VariableNode(name: NameNode(value: 'query')),
+const documentNodeQuerygetUsersInviteToBoard = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.query,
+      name: NameNode(value: 'getUsersInviteToBoard'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idBoard')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
           ),
-          ArgumentNode(
-            name: NameNode(value: 'idBoard'),
-            value: VariableNode(name: NameNode(value: 'idBoard')),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'query')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
           ),
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-            name: NameNode(value: 'UserFragment'),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'getUsersInviteToBoard'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'query'),
+                value: VariableNode(name: NameNode(value: 'query')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'idBoard'),
+                value: VariableNode(name: NameNode(value: 'idBoard')),
+              ),
+            ],
             directives: [],
+            selectionSet: SelectionSetNode(
+              selections: [
+                FragmentSpreadNode(
+                  name: NameNode(value: 'UserFragment'),
+                  directives: [],
+                ),
+                FieldNode(
+                  name: NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ],
+            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -367,21 +392,15 @@ const documentNodeQuerygetUsersInviteToBoard = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ],),
+        ],
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],),
-  ),
-  fragmentDefinitionUserFragment,
-],);
+    ),
+    fragmentDefinitionUserFragment,
+  ],
+);
 Query$getUsersInviteToBoard _parserFn$Query$getUsersInviteToBoard(
-        Map<String, dynamic> data,) =>
+  Map<String, dynamic> data,
+) =>
     Query$getUsersInviteToBoard.fromJson(data);
 typedef OnQueryComplete$Query$getUsersInviteToBoard = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -483,11 +502,13 @@ class FetchMoreOptions$Query$getUsersInviteToBoard
 extension ClientExtension$Query$getUsersInviteToBoard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Query$getUsersInviteToBoard>>
       query$getUsersInviteToBoard(
-              Options$Query$getUsersInviteToBoard options,) async =>
+    Options$Query$getUsersInviteToBoard options,
+  ) async =>
           await query(options);
   graphql.ObservableQuery<Query$getUsersInviteToBoard>
       watchQuery$getUsersInviteToBoard(
-              WatchOptions$Query$getUsersInviteToBoard options,) =>
+    WatchOptions$Query$getUsersInviteToBoard options,
+  ) =>
           watchQuery(options);
   void writeQuery$getUsersInviteToBoard({
     required Query$getUsersInviteToBoard data,
@@ -497,7 +518,8 @@ extension ClientExtension$Query$getUsersInviteToBoard on graphql.GraphQLClient {
       writeQuery(
         graphql.Request(
           operation: const graphql.Operation(
-              document: documentNodeQuerygetUsersInviteToBoard,),
+            document: documentNodeQuerygetUsersInviteToBoard,
+          ),
           variables: variables.toJson(),
         ),
         data: data.toJson(),
@@ -509,8 +531,8 @@ extension ClientExtension$Query$getUsersInviteToBoard on graphql.GraphQLClient {
   }) {
     final result = readQuery(
       graphql.Request(
-        operation:
-            const graphql.Operation(document: documentNodeQuerygetUsersInviteToBoard),
+        operation: const graphql.Operation(
+            document: documentNodeQuerygetUsersInviteToBoard,),
         variables: variables.toJson(),
       ),
       optimistic: optimistic,
@@ -521,11 +543,13 @@ extension ClientExtension$Query$getUsersInviteToBoard on graphql.GraphQLClient {
 
 graphql_flutter.QueryHookResult<Query$getUsersInviteToBoard>
     useQuery$getUsersInviteToBoard(
-            Options$Query$getUsersInviteToBoard options,) =>
+  Options$Query$getUsersInviteToBoard options,
+) =>
         graphql_flutter.useQuery(options);
 graphql.ObservableQuery<Query$getUsersInviteToBoard>
     useWatchQuery$getUsersInviteToBoard(
-            WatchOptions$Query$getUsersInviteToBoard options,) =>
+  WatchOptions$Query$getUsersInviteToBoard options,
+) =>
         graphql_flutter.useWatchQuery(options);
 
 class Query$getUsersInviteToBoard$Widget
