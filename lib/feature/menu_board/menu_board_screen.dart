@@ -11,7 +11,6 @@ import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 class MenuBoardScreen extends ConsumerWidget {
   const MenuBoardScreen({super.key});
 
-
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.menuBoardBloc);

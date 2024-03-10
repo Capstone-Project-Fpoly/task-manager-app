@@ -13,7 +13,6 @@ import 'package:task_manager/shared/utilities/color.dart';
 class InviteMemberScreen extends ConsumerWidget {
   const InviteMemberScreen({super.key});
 
-
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.inviteMember);

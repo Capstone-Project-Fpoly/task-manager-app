@@ -45,7 +45,6 @@ class MenuBoardBloc extends BlocBase {
     routerService.pop();
   }
 
-
   void onTapInviteMember() {
     routerService.push(RouteInput.inviteMember());
   }
