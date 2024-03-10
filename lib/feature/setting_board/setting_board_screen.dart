@@ -10,6 +10,7 @@ import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class SettingBoardScreen extends ConsumerWidget {
   const SettingBoardScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bloc = ref.watch(BlocProvider.settingBoardBloc);
@@ -54,8 +55,7 @@ class SettingBoardScreen extends ConsumerWidget {
                 return IconButton(
                   icon: const Icon(Icons.check),
                   onPressed: () {
-                    bloc.onTapTitleTextField(false);
-                    bloc.onTapUpdateBoard();
+                    bloc.onTapSubmitTitleTextField();
                   },
                 );
               }
@@ -101,6 +101,7 @@ class SettingBoardScreen extends ConsumerWidget {
                           trailing: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.2,
                             child: TextFormField(
+                              controller: bloc.textEditingController,
                               onTap: () {
                                 bloc.onTapTitleTextField(true);
                               },
@@ -108,16 +109,15 @@ class SettingBoardScreen extends ConsumerWidget {
                                 bloc.nameBoardSubject.value = value;
                               },
                               focusNode: bloc.focusNode,
-                              controller: TextEditingController(
-                                text: bloc.nameBoardSubject.value,
-                              ),
                               style: const AppTextStyle.black(
                                 fontSize: 14,
                                 color: ColorConstants.grayText,
                               ),
                               textAlign: TextAlign.end,
-                              decoration: const InputDecoration(
-                                  border: InputBorder.none,),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: bloc.nameBoardSubject.value,
+                              ),
                             ),
                           ),
                         ),

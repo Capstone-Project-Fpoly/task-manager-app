@@ -11,4 +11,8 @@ class ColorUtils {
     final colorValue = int.tryParse(hexColor, radix: 16);
     return colorValue != null ? Color(colorValue) : Colors.white;
   }
+
+  static String getHexFromColor(Color color) {
+    return color.value.toRadixString(16).substring(2);
+  }
 }

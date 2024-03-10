@@ -117,13 +117,15 @@ class _CopyWithImpl$Variables$Mutation$UpdateBoard<TRes>
     Object? idBoard = _undefined,
     Object? input = _undefined,
   }) =>
-      _then(Variables$Mutation$UpdateBoard._({
-        ..._instance._$data,
-        if (idBoard != _undefined && idBoard != null)
-          'idBoard': (idBoard as String),
-        if (input != _undefined && input != null)
-          'input': (input as Input$InputUpdateBoard),
-      }),);
+      _then(
+        Variables$Mutation$UpdateBoard._({
+          ..._instance._$data,
+          if (idBoard != _undefined && idBoard != null)
+            'idBoard': (idBoard as String),
+          if (input != _undefined && input != null)
+            'input': (input as Input$InputUpdateBoard),
+        }),
+      );
 }
 
 class _CopyWithStubImpl$Variables$Mutation$UpdateBoard<TRes>
@@ -153,7 +155,8 @@ class Mutation$UpdateBoard {
       updateBoard: l$updateBoard == null
           ? null
           : Fragment$BoardFragment.fromJson(
-              (l$updateBoard as Map<String, dynamic>),),
+              (l$updateBoard as Map<String, dynamic>),
+            ),
       $__typename: (l$$__typename as String),
     );
   }
@@ -245,14 +248,16 @@ class _CopyWithImpl$Mutation$UpdateBoard<TRes>
     Object? updateBoard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Mutation$UpdateBoard(
-        updateBoard: updateBoard == _undefined
-            ? _instance.updateBoard
-            : (updateBoard as Fragment$BoardFragment?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ),);
+      _then(
+        Mutation$UpdateBoard(
+          updateBoard: updateBoard == _undefined
+              ? _instance.updateBoard
+              : (updateBoard as Fragment$BoardFragment?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 
   @override
   CopyWith$Fragment$BoardFragment<TRes> get updateBoard {
@@ -260,7 +265,9 @@ class _CopyWithImpl$Mutation$UpdateBoard<TRes>
     return local$updateBoard == null
         ? CopyWith$Fragment$BoardFragment.stub(_then(_instance))
         : CopyWith$Fragment$BoardFragment(
-            local$updateBoard, (e) => call(updateBoard: e),);
+            local$updateBoard,
+            (e) => call(updateBoard: e),
+          );
   }
 }
 
@@ -282,50 +289,63 @@ class _CopyWithStubImpl$Mutation$UpdateBoard<TRes>
       CopyWith$Fragment$BoardFragment.stub(_res);
 }
 
-const documentNodeMutationUpdateBoard = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.mutation,
-    name: NameNode(value: 'UpdateBoard'),
-    variableDefinitions: [
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idBoard')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'input')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'InputUpdateBoard'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-    ],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'updateBoard'),
-        alias: null,
-        arguments: [
-          ArgumentNode(
-            name: NameNode(value: 'idBoard'),
-            value: VariableNode(name: NameNode(value: 'idBoard')),
+const documentNodeMutationUpdateBoard = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.mutation,
+      name: NameNode(value: 'UpdateBoard'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idBoard')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
           ),
-          ArgumentNode(
-            name: NameNode(value: 'input'),
-            value: VariableNode(name: NameNode(value: 'input')),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'input')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'InputUpdateBoard'),
+            isNonNull: true,
           ),
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-            name: NameNode(value: 'BoardFragment'),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'updateBoard'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'idBoard'),
+                value: VariableNode(name: NameNode(value: 'idBoard')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'input'),
+                value: VariableNode(name: NameNode(value: 'input')),
+              ),
+            ],
             directives: [],
+            selectionSet: SelectionSetNode(
+              selections: [
+                FragmentSpreadNode(
+                  name: NameNode(value: 'BoardFragment'),
+                  directives: [],
+                ),
+                FieldNode(
+                  name: NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ],
+            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -334,22 +354,16 @@ const documentNodeMutationUpdateBoard = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ],),
+        ],
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],),
-  ),
-  fragmentDefinitionBoardFragment,
-  fragmentDefinitionUserFragment,
-],);
+    ),
+    fragmentDefinitionBoardFragment,
+    fragmentDefinitionUserFragment,
+  ],
+);
 Mutation$UpdateBoard _parserFn$Mutation$UpdateBoard(
-        Map<String, dynamic> data,) =>
+  Map<String, dynamic> data,
+) =>
     Mutation$UpdateBoard.fromJson(data);
 typedef OnMutationCompleted$Mutation$UpdateBoard = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -436,10 +450,12 @@ class WatchOptions$Mutation$UpdateBoard
 
 extension ClientExtension$Mutation$UpdateBoard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$UpdateBoard>> mutate$UpdateBoard(
-          Options$Mutation$UpdateBoard options,) async =>
+    Options$Mutation$UpdateBoard options,
+  ) async =>
       await mutate(options);
   graphql.ObservableQuery<Mutation$UpdateBoard> watchMutation$UpdateBoard(
-          WatchOptions$Mutation$UpdateBoard options,) =>
+    WatchOptions$Mutation$UpdateBoard options,
+  ) =>
       watchMutation(options);
 }
 
@@ -454,8 +470,9 @@ class Mutation$UpdateBoard$HookResult {
   final graphql.QueryResult<Mutation$UpdateBoard> result;
 }
 
-Mutation$UpdateBoard$HookResult useMutation$UpdateBoard(
-    [WidgetOptions$Mutation$UpdateBoard? options,]) {
+Mutation$UpdateBoard$HookResult useMutation$UpdateBoard([
+  WidgetOptions$Mutation$UpdateBoard? options,
+]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$UpdateBoard());
   return Mutation$UpdateBoard$HookResult(
@@ -469,7 +486,8 @@ Mutation$UpdateBoard$HookResult useMutation$UpdateBoard(
 }
 
 graphql.ObservableQuery<Mutation$UpdateBoard> useWatchMutation$UpdateBoard(
-        WatchOptions$Mutation$UpdateBoard options,) =>
+  WatchOptions$Mutation$UpdateBoard options,
+) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$UpdateBoard

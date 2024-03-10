@@ -89,6 +89,7 @@ class BoardBloc extends BlocBase {
   }
 
   void onTapSettingBoard() {
+    routerService.pop();
     routerService.push(RouteInput.settingBoard());
   }
 
@@ -140,7 +141,8 @@ class BoardBloc extends BlocBase {
             final result = await graphqlService.client.mutate$LeaveBoard(
               Options$Mutation$LeaveBoard(
                 variables: Variables$Mutation$LeaveBoard(
-                    idBoard: selectedBoardSubject.value!.id.trim(),),
+                  idBoard: selectedBoardSubject.value!.id.trim(),
+                ),
               ),
             );
             if (result.hasException) {

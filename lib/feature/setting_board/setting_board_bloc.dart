@@ -8,6 +8,7 @@ import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/graphql/Mutations/board/update_board.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/enum/board_status_enum.dart';
+import 'package:task_manager/shared/utilities/color.dart';
 import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
 
 class SettingBoardBloc extends BlocBase {
@@ -20,13 +21,15 @@ class SettingBoardBloc extends BlocBase {
     const Color(0XFF2196F3),
   );
   final selectedTitleTextFieldSubject = BehaviorSubject<bool>.seeded(false);
-  late final boardDetailBloc = ref.read(BlocProvider.board);
+  late final boardBloc = ref.read(BlocProvider.board);
   final nameBoardSubject = BehaviorSubject<String>.seeded('');
   final isPublicSubject = BehaviorSubject<bool>.seeded(false);
+  final textEditingController = TextEditingController();
   final selectedStatusSubject = BehaviorSubject<BoardStatusEnum>.seeded(
     BoardStatusEnum.public,
   );
   final focusNode = FocusNode();
+
   @override
   void dispose() {
     colorSubject.close();
@@ -35,34 +38,56 @@ class SettingBoardBloc extends BlocBase {
     nameBoardSubject.close();
     isPublicSubject.close();
     selectedStatusSubject.close();
+    focusNode.dispose();
     super.dispose();
   }
 
   void init() {
     backgroundColorSubject.value = Color(
-      int.tryParse(
-              '0XFF${boardDetailBloc.selectedBoardSubject.value?.color}',) ??
-          0XFF2196F3,
+      int.parse(
+        '0XFF${boardBloc.selectedBoardSubject.value?.color ?? '2196F3'}',
+      ),
     );
-    nameBoardSubject.value =
-        boardDetailBloc.selectedBoardSubject.value!.title ?? '';
-    isPublicSubject.value =
-        boardDetailBloc.selectedBoardSubject.value!.isPublic;
+    nameBoardSubject.value = boardBloc.selectedBoardSubject.value!.title ?? '';
+    textEditingController.text = nameBoardSubject.value;
+    isPublicSubject.value = boardBloc.selectedBoardSubject.value!.isPublic;
   }
 
   void onBackToBoardScreen() {
-    onTapUpdateBoard();
+    final currentBoard = boardBloc.selectedBoardSubject.value;
+    final currentColor =
+        ColorUtils.getHexFromColor(backgroundColorSubject.value);
+    final currentTitle = nameBoardSubject.value;
+    final currentIsPublic = isPublicSubject.value;
+    if (currentBoard?.color?.toLowerCase() != currentColor.toLowerCase() ||
+        currentBoard?.title != currentTitle ||
+        currentBoard?.isPublic != currentIsPublic) {
+      boardBloc.getBoard();
+    }
     routerService.pop();
   }
 
   void onTapTitleTextField(bool open) {
     selectedTitleTextFieldSubject.value = open;
+    if (open) {
+      focusNode.requestFocus();
+      return;
+    }
+    textEditingController.text =
+        boardBloc.selectedBoardSubject.value?.title ?? '';
+    focusNode.unfocus();
+  }
+
+  void onTapSubmitTitleTextField() {
+    selectedTitleTextFieldSubject.value = false;
+    nameBoardSubject.value = textEditingController.text;
+    onTapUpdateBoard(title: textEditingController.text);
   }
 
   void chooseStatusBoard(BoardStatusEnum value) {
     selectedStatusSubject.value = value;
-    isPublicSubject.value =
-        selectedStatusSubject.value == BoardStatusEnum.public;
+    isPublicSubject.value = value.isPublic;
+    onTapUpdateBoard(isPublic: isPublicSubject.value);
   }
 
   Future<void> showDialogCloseBoard({
@@ -82,36 +107,45 @@ class SettingBoardBloc extends BlocBase {
     );
   }
 
-  Future<void> onTapUpdateBoard() async {
+  Future<void> onTapUpdateBoard({
+    String? title,
+    String? color,
+    bool? isPublic,
+  }) async {
     focusNode.unfocus();
     if (nameBoardSubject.value.trim().isEmpty) {
       return;
     }
+    print(isPublic);
     final result = await graphqlService.client.mutate$UpdateBoard(
       Options$Mutation$UpdateBoard(
         variables: Variables$Mutation$UpdateBoard(
-          idBoard: boardDetailBloc.selectedBoardSubject.value!.id,
+          idBoard: boardBloc.selectedBoardSubject.value!.id,
           input: Input$InputUpdateBoard(
-            title: nameBoardSubject.value.trim(),
-            isPublic: isPublicSubject.value,
-            color: colorSubject.value,
+            title: title,
+            color: color,
+            isPublic: isPublic,
           ),
         ),
       ),
     );
-
+    print(result);
     if (result.hasException) {
+      toastService.showText(
+        message: result.exception?.graphqlErrors.first.message ??
+            'Lỗi không thể cập nhật bảng',
+      );
       return;
     }
   }
 
   Future<void> onNextToBackgroundBoardWidget() async {
     final resultColor = await routerService.push(RouteInput.backgroundBoard());
-    if (resultColor != null) {
-      colorSubject.value = resultColor.toString();
-      backgroundColorSubject.value =
-          Color(int.tryParse('0XFF${colorSubject.value}') ?? 0XFF2196F3);
-    }
+    if (resultColor == null) return;
+    colorSubject.value = resultColor.toString();
+    backgroundColorSubject.value =
+        Color(int.tryParse('0XFF${colorSubject.value}') ?? 0XFF2196F3);
+    onTapUpdateBoard(color: colorSubject.value);
   }
 
   SettingBoardBloc(this.ref) {
