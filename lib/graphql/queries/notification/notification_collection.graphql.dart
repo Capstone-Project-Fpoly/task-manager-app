@@ -15,7 +15,8 @@ class Variables$Query$NotificationCollection {
   Variables$Query$NotificationCollection._(this._$data);
 
   factory Variables$Query$NotificationCollection.fromJson(
-      Map<String, dynamic> data,) {
+    Map<String, dynamic> data,
+  ) {
     final result$data = <String, dynamic>{};
     if (data.containsKey('idBoard')) {
       final l$idBoard = data['idBoard'];
@@ -68,7 +69,8 @@ class Variables$Query$NotificationCollection {
   int get hashCode {
     final l$idBoard = idBoard;
     return Object.hashAll(
-        [_$data.containsKey('idBoard') ? l$idBoard : const {}],);
+      [_$data.containsKey('idBoard') ? l$idBoard : const {}],
+    );
   }
 }
 
@@ -98,11 +100,12 @@ class _CopyWithImpl$Variables$Query$NotificationCollection<TRes>
   static const _undefined = <dynamic, dynamic>{};
 
   @override
-  TRes call({Object? idBoard = _undefined}) =>
-      _then(Variables$Query$NotificationCollection._({
-        ..._instance._$data,
-        if (idBoard != _undefined) 'idBoard': (idBoard as String?),
-      }),);
+  TRes call({Object? idBoard = _undefined}) => _then(
+        Variables$Query$NotificationCollection._({
+          ..._instance._$data,
+          if (idBoard != _undefined) 'idBoard': (idBoard as String?),
+        }),
+      );
 }
 
 class _CopyWithStubImpl$Variables$Query$NotificationCollection<TRes>
@@ -126,10 +129,13 @@ class Query$NotificationCollection {
     final l$$__typename = json['__typename'];
     return Query$NotificationCollection(
       notificationCollection: (l$notificationCollection as List<dynamic>?)
-          ?.map((e) => e == null
-              ? null
-              : Fragment$NotificationFragment.fromJson(
-                  (e as Map<String, dynamic>),),)
+          ?.map(
+            (e) => e == null
+                ? null
+                : Fragment$NotificationFragment.fromJson(
+                    (e as Map<String, dynamic>),
+                  ),
+          )
           .toList(),
       $__typename: (l$$__typename as String),
     );
@@ -222,11 +228,12 @@ abstract class CopyWith$Query$NotificationCollection<TRes> {
     String? $__typename,
   });
   TRes notificationCollection(
-      Iterable<Fragment$NotificationFragment?>? Function(
-              Iterable<
-                  CopyWith$Fragment$NotificationFragment<
-                      Fragment$NotificationFragment>?>?,)
-          fn,);
+    Iterable<Fragment$NotificationFragment?>? Function(
+      Iterable<
+          CopyWith$Fragment$NotificationFragment<
+              Fragment$NotificationFragment>?>?,
+    ) fn,
+  );
 }
 
 class _CopyWithImpl$Query$NotificationCollection<TRes>
@@ -247,30 +254,38 @@ class _CopyWithImpl$Query$NotificationCollection<TRes>
     Object? notificationCollection = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$NotificationCollection(
-        notificationCollection: notificationCollection == _undefined
-            ? _instance.notificationCollection
-            : (notificationCollection as List<Fragment$NotificationFragment?>?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ),);
+      _then(
+        Query$NotificationCollection(
+          notificationCollection: notificationCollection == _undefined
+              ? _instance.notificationCollection
+              : (notificationCollection
+                  as List<Fragment$NotificationFragment?>?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 
   @override
   TRes notificationCollection(
-          Iterable<Fragment$NotificationFragment?>? Function(
-                  Iterable<
-                      CopyWith$Fragment$NotificationFragment<
-                          Fragment$NotificationFragment>?>?,)
-              fn,) =>
+    Iterable<Fragment$NotificationFragment?>? Function(
+      Iterable<
+          CopyWith$Fragment$NotificationFragment<
+              Fragment$NotificationFragment>?>?,
+    ) fn,
+  ) =>
       call(
-          notificationCollection:
-              fn(_instance.notificationCollection?.map((e) => e == null
-                  ? null
-                  : CopyWith$Fragment$NotificationFragment(
-                      e,
-                      (i) => i,
-                    ),),)?.toList(),);
+        notificationCollection: fn(
+          _instance.notificationCollection?.map(
+            (e) => e == null
+                ? null
+                : CopyWith$Fragment$NotificationFragment(
+                    e,
+                    (i) => i,
+                  ),
+          ),
+        )?.toList(),
+      );
 }
 
 class _CopyWithStubImpl$Query$NotificationCollection<TRes>
@@ -290,37 +305,50 @@ class _CopyWithStubImpl$Query$NotificationCollection<TRes>
   notificationCollection(fn) => _res;
 }
 
-const documentNodeQueryNotificationCollection = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.query,
-    name: NameNode(value: 'NotificationCollection'),
-    variableDefinitions: [
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idBoard')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: false,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-    ],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'notificationCollection'),
-        alias: null,
-        arguments: [
-          ArgumentNode(
-            name: NameNode(value: 'idBoard'),
-            value: VariableNode(name: NameNode(value: 'idBoard')),
+const documentNodeQueryNotificationCollection = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.query,
+      name: NameNode(value: 'NotificationCollection'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idBoard')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
           ),
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-            name: NameNode(value: 'NotificationFragment'),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'notificationCollection'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'idBoard'),
+                value: VariableNode(name: NameNode(value: 'idBoard')),
+              ),
+            ],
             directives: [],
+            selectionSet: SelectionSetNode(
+              selections: [
+                FragmentSpreadNode(
+                  name: NameNode(value: 'NotificationFragment'),
+                  directives: [],
+                ),
+                FieldNode(
+                  name: NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ],
+            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -329,22 +357,16 @@ const documentNodeQueryNotificationCollection = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ],),
+        ],
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],),
-  ),
-  fragmentDefinitionNotificationFragment,
-  fragmentDefinitionUserFragment,
-],);
+    ),
+    fragmentDefinitionNotificationFragment,
+    fragmentDefinitionUserFragment,
+  ],
+);
 Query$NotificationCollection _parserFn$Query$NotificationCollection(
-        Map<String, dynamic> data,) =>
+  Map<String, dynamic> data,
+) =>
     Query$NotificationCollection.fromJson(data);
 typedef OnQueryComplete$Query$NotificationCollection = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -446,13 +468,15 @@ class FetchMoreOptions$Query$NotificationCollection
 extension ClientExtension$Query$NotificationCollection
     on graphql.GraphQLClient {
   Future<graphql.QueryResult<Query$NotificationCollection>>
-      query$NotificationCollection(
-              [Options$Query$NotificationCollection? options,]) async =>
+      query$NotificationCollection([
+    Options$Query$NotificationCollection? options,
+  ]) async =>
           await query(options ?? Options$Query$NotificationCollection());
-  graphql.ObservableQuery<
-      Query$NotificationCollection> watchQuery$NotificationCollection(
-          [WatchOptions$Query$NotificationCollection? options,]) =>
-      watchQuery(options ?? WatchOptions$Query$NotificationCollection());
+  graphql.ObservableQuery<Query$NotificationCollection>
+      watchQuery$NotificationCollection([
+    WatchOptions$Query$NotificationCollection? options,
+  ]) =>
+          watchQuery(options ?? WatchOptions$Query$NotificationCollection());
   void writeQuery$NotificationCollection({
     required Query$NotificationCollection data,
     Variables$Query$NotificationCollection? variables,
@@ -461,7 +485,8 @@ extension ClientExtension$Query$NotificationCollection
       writeQuery(
         graphql.Request(
           operation: const graphql.Operation(
-              document: documentNodeQueryNotificationCollection,),
+            document: documentNodeQueryNotificationCollection,
+          ),
           variables: variables?.toJson() ?? const {},
         ),
         data: data.toJson(),
@@ -474,7 +499,8 @@ extension ClientExtension$Query$NotificationCollection
     final result = readQuery(
       graphql.Request(
         operation: const graphql.Operation(
-            document: documentNodeQueryNotificationCollection,),
+          document: documentNodeQueryNotificationCollection,
+        ),
         variables: variables?.toJson() ?? const {},
       ),
       optimistic: optimistic,
@@ -486,15 +512,18 @@ extension ClientExtension$Query$NotificationCollection
 }
 
 graphql_flutter.QueryHookResult<Query$NotificationCollection>
-    useQuery$NotificationCollection(
-            [Options$Query$NotificationCollection? options,]) =>
+    useQuery$NotificationCollection([
+  Options$Query$NotificationCollection? options,
+]) =>
         graphql_flutter
             .useQuery(options ?? Options$Query$NotificationCollection());
 graphql.ObservableQuery<Query$NotificationCollection>
-    useWatchQuery$NotificationCollection(
-            [WatchOptions$Query$NotificationCollection? options,]) =>
+    useWatchQuery$NotificationCollection([
+  WatchOptions$Query$NotificationCollection? options,
+]) =>
         graphql_flutter.useWatchQuery(
-            options ?? WatchOptions$Query$NotificationCollection(),);
+          options ?? WatchOptions$Query$NotificationCollection(),
+        );
 
 class Query$NotificationCollection$Widget
     extends graphql_flutter.Query<Query$NotificationCollection> {

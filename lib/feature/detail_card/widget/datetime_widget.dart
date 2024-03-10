@@ -124,7 +124,7 @@ class DateTimeWidget extends ConsumerWidget {
                                             ).then((value) {
                                               if (value != null) {
                                                 bloc.startTimeController.text =
-                                                    '${value.hour} : ${value.minute}';
+                                                    '${value.hour}:${value.minute}';
                                               }
                                             });
                                           },

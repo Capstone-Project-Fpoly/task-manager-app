@@ -120,12 +120,14 @@ class _CopyWithImpl$Variables$Query$GetUserOfBoard<TRes>
     Object? query = _undefined,
     Object? idBoard = _undefined,
   }) =>
-      _then(Variables$Query$GetUserOfBoard._({
-        ..._instance._$data,
-        if (query != _undefined) 'query': (query as String?),
-        if (idBoard != _undefined && idBoard != null)
-          'idBoard': (idBoard as String),
-      }),);
+      _then(
+        Variables$Query$GetUserOfBoard._({
+          ..._instance._$data,
+          if (query != _undefined) 'query': (query as String?),
+          if (idBoard != _undefined && idBoard != null)
+            'idBoard': (idBoard as String),
+        }),
+      );
 }
 
 class _CopyWithStubImpl$Variables$Query$GetUserOfBoard<TRes>
@@ -153,9 +155,11 @@ class Query$GetUserOfBoard {
     final l$$__typename = json['__typename'];
     return Query$GetUserOfBoard(
       getUsersOfBoard: (l$getUsersOfBoard as List<dynamic>?)
-          ?.map((e) => e == null
-              ? null
-              : Fragment$UserFragment.fromJson((e as Map<String, dynamic>)),)
+          ?.map(
+            (e) => e == null
+                ? null
+                : Fragment$UserFragment.fromJson((e as Map<String, dynamic>)),
+          )
           .toList(),
       $__typename: (l$$__typename as String),
     );
@@ -242,9 +246,10 @@ abstract class CopyWith$Query$GetUserOfBoard<TRes> {
     String? $__typename,
   });
   TRes getUsersOfBoard(
-      Iterable<Fragment$UserFragment?>? Function(
-              Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,)
-          fn,);
+    Iterable<Fragment$UserFragment?>? Function(
+      Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,
+    ) fn,
+  );
 }
 
 class _CopyWithImpl$Query$GetUserOfBoard<TRes>
@@ -265,28 +270,35 @@ class _CopyWithImpl$Query$GetUserOfBoard<TRes>
     Object? getUsersOfBoard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$GetUserOfBoard(
-        getUsersOfBoard: getUsersOfBoard == _undefined
-            ? _instance.getUsersOfBoard
-            : (getUsersOfBoard as List<Fragment$UserFragment?>?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ),);
+      _then(
+        Query$GetUserOfBoard(
+          getUsersOfBoard: getUsersOfBoard == _undefined
+              ? _instance.getUsersOfBoard
+              : (getUsersOfBoard as List<Fragment$UserFragment?>?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 
   @override
   TRes getUsersOfBoard(
-          Iterable<Fragment$UserFragment?>? Function(
-                  Iterable<
-                      CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,)
-              fn,) =>
+    Iterable<Fragment$UserFragment?>? Function(
+      Iterable<CopyWith$Fragment$UserFragment<Fragment$UserFragment>?>?,
+    ) fn,
+  ) =>
       call(
-          getUsersOfBoard: fn(_instance.getUsersOfBoard?.map((e) => e == null
-              ? null
-              : CopyWith$Fragment$UserFragment(
-                  e,
-                  (i) => i,
-                ),),)?.toList(),);
+        getUsersOfBoard: fn(
+          _instance.getUsersOfBoard?.map(
+            (e) => e == null
+                ? null
+                : CopyWith$Fragment$UserFragment(
+                    e,
+                    (i) => i,
+                  ),
+          ),
+        )?.toList(),
+      );
 }
 
 class _CopyWithStubImpl$Query$GetUserOfBoard<TRes>
@@ -306,50 +318,63 @@ class _CopyWithStubImpl$Query$GetUserOfBoard<TRes>
   getUsersOfBoard(fn) => _res;
 }
 
-const documentNodeQueryGetUserOfBoard = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.query,
-    name: NameNode(value: 'GetUserOfBoard'),
-    variableDefinitions: [
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'query')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: false,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idBoard')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-    ],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'getUsersOfBoard'),
-        alias: null,
-        arguments: [
-          ArgumentNode(
-            name: NameNode(value: 'idBoard'),
-            value: VariableNode(name: NameNode(value: 'idBoard')),
+const documentNodeQueryGetUserOfBoard = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.query,
+      name: NameNode(value: 'GetUserOfBoard'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'query')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: false,
           ),
-          ArgumentNode(
-            name: NameNode(value: 'query'),
-            value: VariableNode(name: NameNode(value: 'query')),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idBoard')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
           ),
-        ],
-        directives: [],
-        selectionSet: SelectionSetNode(selections: [
-          FragmentSpreadNode(
-            name: NameNode(value: 'UserFragment'),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'getUsersOfBoard'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'idBoard'),
+                value: VariableNode(name: NameNode(value: 'idBoard')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'query'),
+                value: VariableNode(name: NameNode(value: 'query')),
+              ),
+            ],
             directives: [],
+            selectionSet: SelectionSetNode(
+              selections: [
+                FragmentSpreadNode(
+                  name: NameNode(value: 'UserFragment'),
+                  directives: [],
+                ),
+                FieldNode(
+                  name: NameNode(value: '__typename'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null,
+                ),
+              ],
+            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -358,21 +383,15 @@ const documentNodeQueryGetUserOfBoard = DocumentNode(definitions: [
             directives: [],
             selectionSet: null,
           ),
-        ],),
+        ],
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],),
-  ),
-  fragmentDefinitionUserFragment,
-],);
+    ),
+    fragmentDefinitionUserFragment,
+  ],
+);
 Query$GetUserOfBoard _parserFn$Query$GetUserOfBoard(
-        Map<String, dynamic> data,) =>
+  Map<String, dynamic> data,
+) =>
     Query$GetUserOfBoard.fromJson(data);
 typedef OnQueryComplete$Query$GetUserOfBoard = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -470,10 +489,12 @@ class FetchMoreOptions$Query$GetUserOfBoard extends graphql.FetchMoreOptions {
 
 extension ClientExtension$Query$GetUserOfBoard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Query$GetUserOfBoard>> query$GetUserOfBoard(
-          Options$Query$GetUserOfBoard options,) async =>
+    Options$Query$GetUserOfBoard options,
+  ) async =>
       await query(options);
   graphql.ObservableQuery<Query$GetUserOfBoard> watchQuery$GetUserOfBoard(
-          WatchOptions$Query$GetUserOfBoard options,) =>
+    WatchOptions$Query$GetUserOfBoard options,
+  ) =>
       watchQuery(options);
   void writeQuery$GetUserOfBoard({
     required Query$GetUserOfBoard data,
@@ -482,8 +503,8 @@ extension ClientExtension$Query$GetUserOfBoard on graphql.GraphQLClient {
   }) =>
       writeQuery(
         graphql.Request(
-          operation:
-              const graphql.Operation(document: documentNodeQueryGetUserOfBoard),
+          operation: const graphql.Operation(
+              document: documentNodeQueryGetUserOfBoard,),
           variables: variables.toJson(),
         ),
         data: data.toJson(),
@@ -495,7 +516,8 @@ extension ClientExtension$Query$GetUserOfBoard on graphql.GraphQLClient {
   }) {
     final result = readQuery(
       graphql.Request(
-        operation: const graphql.Operation(document: documentNodeQueryGetUserOfBoard),
+        operation:
+            const graphql.Operation(document: documentNodeQueryGetUserOfBoard),
         variables: variables.toJson(),
       ),
       optimistic: optimistic,
@@ -505,10 +527,12 @@ extension ClientExtension$Query$GetUserOfBoard on graphql.GraphQLClient {
 }
 
 graphql_flutter.QueryHookResult<Query$GetUserOfBoard> useQuery$GetUserOfBoard(
-        Options$Query$GetUserOfBoard options,) =>
+  Options$Query$GetUserOfBoard options,
+) =>
     graphql_flutter.useQuery(options);
 graphql.ObservableQuery<Query$GetUserOfBoard> useWatchQuery$GetUserOfBoard(
-        WatchOptions$Query$GetUserOfBoard options,) =>
+  WatchOptions$Query$GetUserOfBoard options,
+) =>
     graphql_flutter.useWatchQuery(options);
 
 class Query$GetUserOfBoard$Widget
