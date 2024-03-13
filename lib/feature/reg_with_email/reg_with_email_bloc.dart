@@ -123,22 +123,23 @@ class RegEmailBloc extends BlocBase {
   }
 
   Future<void> sendOTPEmail() async {
-    if (emailController.text != '') {
-      setTimeSendOtpAgain();
-      isLoadingSubject.value = true;
-      final emailOtp = await graphqlService.client.mutate$SendOTPEmail(
-        Options$Mutation$SendOTPEmail(
-          variables: Variables$Mutation$SendOTPEmail(
-            email: emailController.text,
-          ),
+    if (emailController.text.isEmpty) {
+      toastService.showText(message: 'Vui lòng nhập email!');
+      return;
+    }
+    isLoadingSubject.value = true;
+    final emailOtp = await graphqlService.client.mutate$SendOTPEmail(
+      Options$Mutation$SendOTPEmail(
+        variables: Variables$Mutation$SendOTPEmail(
+          email: emailController.text,
         ),
-      );
-      isLoadingSubject.value = false;
-      if (emailOtp.hasException || emailOtp.parsedData == null) {
-        toastService.showText(message: 'lỗi');
-      }
-    } else {
-      toastService.showText(message: 'chưa có Email');
+      ),
+    );
+    isLoadingSubject.value = false;
+    setTimeSendOtpAgain();
+
+    if (emailOtp.hasException || emailOtp.parsedData == null) {
+      toastService.showText(message: 'Gửi mã OTP không thành công');
     }
   }
 
@@ -185,7 +186,9 @@ class RegEmailBloc extends BlocBase {
     );
     isLoadingSubject.value = false;
     if (result.hasException) {
-      toastService.showText(message: 'Đăng ký không thành công');
+      toastService.showText(
+        message: result.exception?.graphqlErrors.first.message,
+      );
       return;
     }
     if (result.parsedData == null) return;

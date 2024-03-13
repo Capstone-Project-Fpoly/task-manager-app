@@ -4,7 +4,7 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
-import 'package:task_manager/feature/background_widget/background_board_bloc.dart';
+import 'package:task_manager/feature/background_board/background_board_bloc.dart';
 
 class BackgroundBoardWidget extends ConsumerWidget {
   const BackgroundBoardWidget({super.key});
