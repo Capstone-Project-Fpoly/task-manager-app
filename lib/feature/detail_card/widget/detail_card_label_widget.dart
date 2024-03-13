@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
@@ -7,13 +6,13 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 
-class LabelWidget extends ConsumerWidget {
-  const LabelWidget({super.key});
+class DetailCardLabelWidget extends ConsumerWidget {
+  const DetailCardLabelWidget({super.key});
 
   @override
   Widget build(context, ref) {
     final bloc = ref.watch(BlocProvider.detailCardBloc);
-    final double width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width;
     return ObsBuilder(
       streams: [bloc.listColorSubject],
       builder: (context) {
@@ -33,12 +32,12 @@ class LabelWidget extends ConsumerWidget {
                     child: const Icon(Icons.local_offer_outlined),
                   ),
                   SizedBoxConstants.w6,
-                  Column(
-                    children: [
-                      for (var i = 0;
-                          i < bloc.listColorSubject.value.length;
-                          i++)
-                        Column(
+                  Flexible(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: bloc.listColorSubject.value.length,
+                      itemBuilder: (context, i) {
+                        return Column(
                           children: [
                             Row(
                               children: [
@@ -73,7 +72,7 @@ class LabelWidget extends ConsumerWidget {
                                       child: bloc.listColorSubject.value[i]
                                               .isSelected
                                           ? const Icon(Icons.check)
-                                          : Container(),
+                                          : const SizedBox.shrink(),
                                     ),
                                   ],
                                 ),
@@ -86,8 +85,9 @@ class LabelWidget extends ConsumerWidget {
                             ),
                             SizedBoxConstants.h10,
                           ],
-                        ),
-                    ],
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
