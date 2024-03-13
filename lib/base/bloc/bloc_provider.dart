@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/feature/add_board/add_board_bloc.dart';
 import 'package:task_manager/feature/add_card/add_card_bloc.dart';
-import 'package:task_manager/feature/background_widget/background_board_bloc.dart';
+import 'package:task_manager/feature/background_board/background_board_bloc.dart';
 import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/feature/invite_member/invite_member_bloc.dart';

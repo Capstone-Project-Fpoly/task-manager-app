@@ -57,7 +57,22 @@ class AppBloc extends BlocBase {
       _setupFirebaseMessaging();
       FirebaseMessaging.onMessage.listen(_onInAppFirebaseMessage);
     });
-    await getCurrentUser();
+    // await getCurrentUser();
+    // try {
+    //   graphQLService.client
+    //       .subscribe$Test(
+    //     Options$Subscription$Test(
+    //       variables: Variables$Subscription$Test(
+    //         id: '123',
+    //       ),
+    //     ),
+    //   )
+    //       .listen((event) {
+    //     print(event);
+    //   });
+    // } catch (e) {
+    //   print(e);
+    // }
   }
 
   Future _setupFirebaseMessaging() async {

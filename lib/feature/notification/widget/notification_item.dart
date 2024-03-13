@@ -7,6 +7,7 @@ import 'package:task_manager/graphql/Fragment/notification_fragment.graphql.dart
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
+import 'package:task_manager/shared/widgets/drawer/widget/mark_down_bold.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class NotificationItem extends ConsumerWidget {
@@ -51,14 +52,7 @@ class NotificationItem extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Text(
-                              notification?.content ?? '',
-                              style: const AppTextStyle(
-                                fontSize: 14,
-                              ),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                            MarkDownBold(text: notification?.content ?? ''),
                             SizedBoxConstants.h8,
                             Text(
                               formatDateTimeNotification(
