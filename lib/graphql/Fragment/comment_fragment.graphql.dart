@@ -1,6 +1,6 @@
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
-import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
+import 'user_fragment.graphql.dart';
 
 class Fragment$CommentFragment {
   Fragment$CommentFragment({
@@ -37,18 +37,18 @@ class Fragment$CommentFragment {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$id = id;
-    resultData['id'] = l$id;
+    _resultData['id'] = l$id;
     final l$createdAt = createdAt;
-    resultData['createdAt'] = l$createdAt;
+    _resultData['createdAt'] = l$createdAt;
     final l$user = user;
-    resultData['user'] = l$user.toJson();
+    _resultData['user'] = l$user.toJson();
     final l$comment = comment;
-    resultData['comment'] = l$comment;
+    _resultData['comment'] = l$comment;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -72,7 +72,7 @@ class Fragment$CommentFragment {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Fragment$CommentFragment ||
+    if (!(other is Fragment$CommentFragment) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -146,7 +146,6 @@ class _CopyWithImpl$Fragment$CommentFragment<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? id = _undefined,
     Object? createdAt = _undefined,
@@ -154,25 +153,22 @@ class _CopyWithImpl$Fragment$CommentFragment<TRes>
     Object? comment = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Fragment$CommentFragment(
-          id: id == _undefined || id == null ? _instance.id : (id as String),
-          createdAt: createdAt == _undefined || createdAt == null
-              ? _instance.createdAt
-              : (createdAt as String),
-          user: user == _undefined || user == null
-              ? _instance.user
-              : (user as Fragment$UserFragment),
-          comment: comment == _undefined || comment == null
-              ? _instance.comment
-              : (comment as String),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Fragment$CommentFragment(
+        id: id == _undefined || id == null ? _instance.id : (id as String),
+        createdAt: createdAt == _undefined || createdAt == null
+            ? _instance.createdAt
+            : (createdAt as String),
+        user: user == _undefined || user == null
+            ? _instance.user
+            : (user as Fragment$UserFragment),
+        comment: comment == _undefined || comment == null
+            ? _instance.comment
+            : (comment as String),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
 
-  @override
   CopyWith$Fragment$UserFragment<TRes> get user {
     final local$user = _instance.user;
     return CopyWith$Fragment$UserFragment(local$user, (e) => call(user: e));
@@ -183,9 +179,8 @@ class _CopyWithStubImpl$Fragment$CommentFragment<TRes>
     implements CopyWith$Fragment$CommentFragment<TRes> {
   _CopyWithStubImpl$Fragment$CommentFragment(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? id,
     String? createdAt,
@@ -195,7 +190,6 @@ class _CopyWithStubImpl$Fragment$CommentFragment<TRes>
   }) =>
       _res;
 
-  @override
   CopyWith$Fragment$UserFragment<TRes> get user =>
       CopyWith$Fragment$UserFragment.stub(_res);
 }
@@ -203,72 +197,65 @@ class _CopyWithStubImpl$Fragment$CommentFragment<TRes>
 const fragmentDefinitionCommentFragment = FragmentDefinitionNode(
   name: NameNode(value: 'CommentFragment'),
   typeCondition: TypeConditionNode(
-    on: NamedTypeNode(
-      name: NameNode(value: 'Comment'),
-      isNonNull: false,
-    ),
-  ),
+      on: NamedTypeNode(
+    name: NameNode(value: 'Comment'),
+    isNonNull: false,
+  )),
   directives: [],
-  selectionSet: SelectionSetNode(
-    selections: [
-      FieldNode(
-        name: NameNode(value: 'id'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'createdAt'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: 'user'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: SelectionSetNode(
-          selections: [
-            FragmentSpreadNode(
-              name: NameNode(value: 'UserFragment'),
-              directives: [],
-            ),
-            FieldNode(
-              name: NameNode(value: '__typename'),
-              alias: null,
-              arguments: [],
-              directives: [],
-              selectionSet: null,
-            ),
-          ],
+  selectionSet: SelectionSetNode(selections: [
+    FieldNode(
+      name: NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'createdAt'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'user'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: SelectionSetNode(selections: [
+        FragmentSpreadNode(
+          name: NameNode(value: 'UserFragment'),
+          directives: [],
         ),
-      ),
-      FieldNode(
-        name: NameNode(value: 'comment'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ],
-  ),
+        FieldNode(
+          name: NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    FieldNode(
+      name: NameNode(value: 'comment'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: '__typename'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+  ]),
 );
-const documentNodeFragmentCommentFragment = DocumentNode(
-  definitions: [
-    fragmentDefinitionCommentFragment,
-    fragmentDefinitionUserFragment,
-  ],
-);
+const documentNodeFragmentCommentFragment = DocumentNode(definitions: [
+  fragmentDefinitionCommentFragment,
+  fragmentDefinitionUserFragment,
+]);
 
 extension ClientExtension$Fragment$CommentFragment on graphql.GraphQLClient {
   void writeFragment$CommentFragment({
@@ -276,7 +263,7 @@ extension ClientExtension$Fragment$CommentFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool broadcast = true,
   }) =>
-      writeFragment(
+      this.writeFragment(
         graphql.FragmentRequest(
           idFields: idFields,
           fragment: const graphql.Fragment(
@@ -291,7 +278,7 @@ extension ClientExtension$Fragment$CommentFragment on graphql.GraphQLClient {
     required Map<String, dynamic> idFields,
     bool optimistic = true,
   }) {
-    final result = readFragment(
+    final result = this.readFragment(
       graphql.FragmentRequest(
         idFields: idFields,
         fragment: const graphql.Fragment(

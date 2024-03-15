@@ -4,19 +4,19 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
-class Variables$Subscription$Test {
-  factory Variables$Subscription$Test({required String id}) =>
-      Variables$Subscription$Test._({
+class Variables$Subscription$TestSub {
+  factory Variables$Subscription$TestSub({required String id}) =>
+      Variables$Subscription$TestSub._({
         r'id': id,
       });
 
-  Variables$Subscription$Test._(this._$data);
+  Variables$Subscription$TestSub._(this._$data);
 
-  factory Variables$Subscription$Test.fromJson(Map<String, dynamic> data) {
+  factory Variables$Subscription$TestSub.fromJson(Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
     final l$id = data['id'];
     result$data['id'] = (l$id as String);
-    return Variables$Subscription$Test._(result$data);
+    return Variables$Subscription$TestSub._(result$data);
   }
 
   Map<String, dynamic> _$data;
@@ -30,8 +30,8 @@ class Variables$Subscription$Test {
     return result$data;
   }
 
-  CopyWith$Variables$Subscription$Test<Variables$Subscription$Test>
-      get copyWith => CopyWith$Variables$Subscription$Test(
+  CopyWith$Variables$Subscription$TestSub<Variables$Subscription$TestSub>
+      get copyWith => CopyWith$Variables$Subscription$TestSub(
             this,
             (i) => i,
           );
@@ -41,7 +41,7 @@ class Variables$Subscription$Test {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Subscription$Test ||
+    if (!(other is Variables$Subscription$TestSub) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -60,86 +60,68 @@ class Variables$Subscription$Test {
   }
 }
 
-abstract class CopyWith$Variables$Subscription$Test<TRes> {
-  factory CopyWith$Variables$Subscription$Test(
-    Variables$Subscription$Test instance,
-    TRes Function(Variables$Subscription$Test) then,
-  ) = _CopyWithImpl$Variables$Subscription$Test;
+abstract class CopyWith$Variables$Subscription$TestSub<TRes> {
+  factory CopyWith$Variables$Subscription$TestSub(
+    Variables$Subscription$TestSub instance,
+    TRes Function(Variables$Subscription$TestSub) then,
+  ) = _CopyWithImpl$Variables$Subscription$TestSub;
 
-  factory CopyWith$Variables$Subscription$Test.stub(TRes res) =
-      _CopyWithStubImpl$Variables$Subscription$Test;
+  factory CopyWith$Variables$Subscription$TestSub.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Subscription$TestSub;
 
   TRes call({String? id});
 }
 
-class _CopyWithImpl$Variables$Subscription$Test<TRes>
-    implements CopyWith$Variables$Subscription$Test<TRes> {
-  _CopyWithImpl$Variables$Subscription$Test(
+class _CopyWithImpl$Variables$Subscription$TestSub<TRes>
+    implements CopyWith$Variables$Subscription$TestSub<TRes> {
+  _CopyWithImpl$Variables$Subscription$TestSub(
     this._instance,
     this._then,
   );
 
-  final Variables$Subscription$Test _instance;
+  final Variables$Subscription$TestSub _instance;
 
-  final TRes Function(Variables$Subscription$Test) _then;
+  final TRes Function(Variables$Subscription$TestSub) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
-  TRes call({Object? id = _undefined}) => _then(
-        Variables$Subscription$Test._({
-          ..._instance._$data,
-          if (id != _undefined && id != null) 'id': (id as String),
-        }),
-      );
+  TRes call({Object? id = _undefined}) =>
+      _then(Variables$Subscription$TestSub._({
+        ..._instance._$data,
+        if (id != _undefined && id != null) 'id': (id as String),
+      }));
 }
 
-class _CopyWithStubImpl$Variables$Subscription$Test<TRes>
-    implements CopyWith$Variables$Subscription$Test<TRes> {
-  _CopyWithStubImpl$Variables$Subscription$Test(this._res);
+class _CopyWithStubImpl$Variables$Subscription$TestSub<TRes>
+    implements CopyWith$Variables$Subscription$TestSub<TRes> {
+  _CopyWithStubImpl$Variables$Subscription$TestSub(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({String? id}) => _res;
 }
 
-class Subscription$Test {
-  Subscription$Test({
-    this.test,
-    this.$__typename = 'Subscription',
-  });
+class Subscription$TestSub {
+  Subscription$TestSub({this.test});
 
-  factory Subscription$Test.fromJson(Map<String, dynamic> json) {
+  factory Subscription$TestSub.fromJson(Map<String, dynamic> json) {
     final l$test = json['test'];
-    final l$$__typename = json['__typename'];
-    return Subscription$Test(
-      test: (l$test as String?),
-      $__typename: (l$$__typename as String),
-    );
+    return Subscription$TestSub(test: (l$test as String?));
   }
 
   final String? test;
 
-  final String $__typename;
-
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$test = test;
-    resultData['test'] = l$test;
-    final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['test'] = l$test;
+    return _resultData;
   }
 
   @override
   int get hashCode {
     final l$test = test;
-    final l$$__typename = $__typename;
-    return Object.hashAll([
-      l$test,
-      l$$__typename,
-    ]);
+    return Object.hashAll([l$test]);
   }
 
   @override
@@ -147,7 +129,7 @@ class Subscription$Test {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Subscription$Test || runtimeType != other.runtimeType) {
+    if (!(other is Subscription$TestSub) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$test = test;
@@ -155,136 +137,102 @@ class Subscription$Test {
     if (l$test != lOther$test) {
       return false;
     }
-    final l$$__typename = $__typename;
-    final lOther$$__typename = other.$__typename;
-    if (l$$__typename != lOther$$__typename) {
-      return false;
-    }
     return true;
   }
 }
 
-extension UtilityExtension$Subscription$Test on Subscription$Test {
-  CopyWith$Subscription$Test<Subscription$Test> get copyWith =>
-      CopyWith$Subscription$Test(
+extension UtilityExtension$Subscription$TestSub on Subscription$TestSub {
+  CopyWith$Subscription$TestSub<Subscription$TestSub> get copyWith =>
+      CopyWith$Subscription$TestSub(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Subscription$Test<TRes> {
-  factory CopyWith$Subscription$Test(
-    Subscription$Test instance,
-    TRes Function(Subscription$Test) then,
-  ) = _CopyWithImpl$Subscription$Test;
+abstract class CopyWith$Subscription$TestSub<TRes> {
+  factory CopyWith$Subscription$TestSub(
+    Subscription$TestSub instance,
+    TRes Function(Subscription$TestSub) then,
+  ) = _CopyWithImpl$Subscription$TestSub;
 
-  factory CopyWith$Subscription$Test.stub(TRes res) =
-      _CopyWithStubImpl$Subscription$Test;
+  factory CopyWith$Subscription$TestSub.stub(TRes res) =
+      _CopyWithStubImpl$Subscription$TestSub;
 
-  TRes call({
-    String? test,
-    String? $__typename,
-  });
+  TRes call({String? test});
 }
 
-class _CopyWithImpl$Subscription$Test<TRes>
-    implements CopyWith$Subscription$Test<TRes> {
-  _CopyWithImpl$Subscription$Test(
+class _CopyWithImpl$Subscription$TestSub<TRes>
+    implements CopyWith$Subscription$TestSub<TRes> {
+  _CopyWithImpl$Subscription$TestSub(
     this._instance,
     this._then,
   );
 
-  final Subscription$Test _instance;
+  final Subscription$TestSub _instance;
 
-  final TRes Function(Subscription$Test) _then;
+  final TRes Function(Subscription$TestSub) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
-  TRes call({
-    Object? test = _undefined,
-    Object? $__typename = _undefined,
-  }) =>
-      _then(
-        Subscription$Test(
-          test: test == _undefined ? _instance.test : (test as String?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+  TRes call({Object? test = _undefined}) => _then(Subscription$TestSub(
+      test: test == _undefined ? _instance.test : (test as String?)));
 }
 
-class _CopyWithStubImpl$Subscription$Test<TRes>
-    implements CopyWith$Subscription$Test<TRes> {
-  _CopyWithStubImpl$Subscription$Test(this._res);
+class _CopyWithStubImpl$Subscription$TestSub<TRes>
+    implements CopyWith$Subscription$TestSub<TRes> {
+  _CopyWithStubImpl$Subscription$TestSub(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
-  call({
-    String? test,
-    String? $__typename,
-  }) =>
-      _res;
+  call({String? test}) => _res;
 }
 
-const documentNodeSubscriptionTest = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.subscription,
-      name: NameNode(value: 'Test'),
-      variableDefinitions: [
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'id')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+const documentNodeSubscriptionTestSub = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.subscription,
+    name: NameNode(value: 'TestSub'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'id')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-      ],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'test'),
-            alias: null,
-            arguments: [
-              ArgumentNode(
-                name: NameNode(value: 'id'),
-                value: VariableNode(name: NameNode(value: 'id')),
-              ),
-            ],
-            directives: [],
-            selectionSet: null,
-          ),
-          FieldNode(
-            name: NameNode(value: '__typename'),
-            alias: null,
-            arguments: [],
-            directives: [],
-            selectionSet: null,
-          ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      )
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'test'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'id'),
+            value: VariableNode(name: NameNode(value: 'id')),
+          )
         ],
-      ),
-    ),
-  ],
-);
-Subscription$Test _parserFn$Subscription$Test(Map<String, dynamic> data) =>
-    Subscription$Test.fromJson(data);
+        directives: [],
+        selectionSet: null,
+      )
+    ]),
+  ),
+]);
+Subscription$TestSub _parserFn$Subscription$TestSub(
+        Map<String, dynamic> data) =>
+    Subscription$TestSub.fromJson(data);
 
-class Options$Subscription$Test
-    extends graphql.SubscriptionOptions<Subscription$Test> {
-  Options$Subscription$Test({
+class Options$Subscription$TestSub
+    extends graphql.SubscriptionOptions<Subscription$TestSub> {
+  Options$Subscription$TestSub({
     String? operationName,
-    required Variables$Subscription$Test variables,
+    required Variables$Subscription$TestSub variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Subscription$Test? typedOptimisticResult,
+    Subscription$TestSub? typedOptimisticResult,
     graphql.Context? context,
   }) : super(
           variables: variables.toJson(),
@@ -294,21 +242,21 @@ class Options$Subscription$Test
           cacheRereadPolicy: cacheRereadPolicy,
           optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
           context: context,
-          document: documentNodeSubscriptionTest,
-          parserFn: _parserFn$Subscription$Test,
+          document: documentNodeSubscriptionTestSub,
+          parserFn: _parserFn$Subscription$TestSub,
         );
 }
 
-class WatchOptions$Subscription$Test
-    extends graphql.WatchQueryOptions<Subscription$Test> {
-  WatchOptions$Subscription$Test({
+class WatchOptions$Subscription$TestSub
+    extends graphql.WatchQueryOptions<Subscription$TestSub> {
+  WatchOptions$Subscription$TestSub({
     String? operationName,
-    required Variables$Subscription$Test variables,
+    required Variables$Subscription$TestSub variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Subscription$Test? typedOptimisticResult,
+    Subscription$TestSub? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -322,49 +270,46 @@ class WatchOptions$Subscription$Test
           cacheRereadPolicy: cacheRereadPolicy,
           optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
           context: context,
-          document: documentNodeSubscriptionTest,
+          document: documentNodeSubscriptionTestSub,
           pollInterval: pollInterval,
           eagerlyFetchResults: eagerlyFetchResults,
           carryForwardDataOnException: carryForwardDataOnException,
           fetchResults: fetchResults,
-          parserFn: _parserFn$Subscription$Test,
+          parserFn: _parserFn$Subscription$TestSub,
         );
 }
 
-class FetchMoreOptions$Subscription$Test extends graphql.FetchMoreOptions {
-  FetchMoreOptions$Subscription$Test({
+class FetchMoreOptions$Subscription$TestSub extends graphql.FetchMoreOptions {
+  FetchMoreOptions$Subscription$TestSub({
     required graphql.UpdateQuery updateQuery,
-    required Variables$Subscription$Test variables,
+    required Variables$Subscription$TestSub variables,
   }) : super(
           updateQuery: updateQuery,
           variables: variables.toJson(),
-          document: documentNodeSubscriptionTest,
+          document: documentNodeSubscriptionTestSub,
         );
 }
 
-extension ClientExtension$Subscription$Test on graphql.GraphQLClient {
-  Stream<graphql.QueryResult<Subscription$Test>> subscribe$Test(
-    Options$Subscription$Test options,
-  ) =>
-      subscribe(options);
-  graphql.ObservableQuery<Subscription$Test> watchSubscription$Test(
-    WatchOptions$Subscription$Test options,
-  ) =>
-      watchQuery(options);
+extension ClientExtension$Subscription$TestSub on graphql.GraphQLClient {
+  Stream<graphql.QueryResult<Subscription$TestSub>> subscribe$TestSub(
+          Options$Subscription$TestSub options) =>
+      this.subscribe(options);
+  graphql.ObservableQuery<Subscription$TestSub> watchSubscription$TestSub(
+          WatchOptions$Subscription$TestSub options) =>
+      this.watchQuery(options);
 }
 
-graphql.QueryResult<Subscription$Test> useSubscription$Test(
-  Options$Subscription$Test options,
-) =>
+graphql.QueryResult<Subscription$TestSub> useSubscription$TestSub(
+        Options$Subscription$TestSub options) =>
     graphql_flutter.useSubscription(options);
 
-class Subscription$Test$Widget
-    extends graphql_flutter.Subscription<Subscription$Test> {
-  const Subscription$Test$Widget({
+class Subscription$TestSub$Widget
+    extends graphql_flutter.Subscription<Subscription$TestSub> {
+  Subscription$TestSub$Widget({
     widgets.Key? key,
-    required Options$Subscription$Test options,
-    required graphql_flutter.SubscriptionBuilder<Subscription$Test> builder,
-    graphql_flutter.OnSubscriptionResult<Subscription$Test>?
+    required Options$Subscription$TestSub options,
+    required graphql_flutter.SubscriptionBuilder<Subscription$TestSub> builder,
+    graphql_flutter.OnSubscriptionResult<Subscription$TestSub>?
         onSubscriptionResult,
   }) : super(
           key: key,
