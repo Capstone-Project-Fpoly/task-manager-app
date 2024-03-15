@@ -41,7 +41,7 @@ class Variables$Mutation$LeaveBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Mutation$LeaveBoard ||
+    if (!(other is Variables$Mutation$LeaveBoard) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -85,23 +85,20 @@ class _CopyWithImpl$Variables$Mutation$LeaveBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
-  TRes call({Object? idBoard = _undefined}) => _then(
-        Variables$Mutation$LeaveBoard._({
-          ..._instance._$data,
-          if (idBoard != _undefined && idBoard != null)
-            'idBoard': (idBoard as String),
-        }),
-      );
+  TRes call({Object? idBoard = _undefined}) =>
+      _then(Variables$Mutation$LeaveBoard._({
+        ..._instance._$data,
+        if (idBoard != _undefined && idBoard != null)
+          'idBoard': (idBoard as String),
+      }));
 }
 
 class _CopyWithStubImpl$Variables$Mutation$LeaveBoard<TRes>
     implements CopyWith$Variables$Mutation$LeaveBoard<TRes> {
   _CopyWithStubImpl$Variables$Mutation$LeaveBoard(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({String? idBoard}) => _res;
 }
 
@@ -125,12 +122,12 @@ class Mutation$LeaveBoard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$leaveBoard = leaveBoard;
-    resultData['leaveBoard'] = l$leaveBoard;
+    _resultData['leaveBoard'] = l$leaveBoard;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -148,7 +145,7 @@ class Mutation$LeaveBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$LeaveBoard || runtimeType != other.runtimeType) {
+    if (!(other is Mutation$LeaveBoard) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$leaveBoard = leaveBoard;
@@ -201,30 +198,26 @@ class _CopyWithImpl$Mutation$LeaveBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? leaveBoard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Mutation$LeaveBoard(
-          leaveBoard: leaveBoard == _undefined
-              ? _instance.leaveBoard
-              : (leaveBoard as bool?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Mutation$LeaveBoard(
+        leaveBoard: leaveBoard == _undefined
+            ? _instance.leaveBoard
+            : (leaveBoard as bool?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
 }
 
 class _CopyWithStubImpl$Mutation$LeaveBoard<TRes>
     implements CopyWith$Mutation$LeaveBoard<TRes> {
   _CopyWithStubImpl$Mutation$LeaveBoard(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     bool? leaveBoard,
     String? $__typename,
@@ -232,49 +225,45 @@ class _CopyWithStubImpl$Mutation$LeaveBoard<TRes>
       _res;
 }
 
-const documentNodeMutationLeaveBoard = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.mutation,
-      name: NameNode(value: 'LeaveBoard'),
-      variableDefinitions: [
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'idBoard')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+const documentNodeMutationLeaveBoard = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'LeaveBoard'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'idBoard')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-      ],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'leaveBoard'),
-            alias: null,
-            arguments: [
-              ArgumentNode(
-                name: NameNode(value: 'idBoard'),
-                value: VariableNode(name: NameNode(value: 'idBoard')),
-              ),
-            ],
-            directives: [],
-            selectionSet: null,
-          ),
-          FieldNode(
-            name: NameNode(value: '__typename'),
-            alias: null,
-            arguments: [],
-            directives: [],
-            selectionSet: null,
-          ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      )
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'leaveBoard'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'idBoard'),
+            value: VariableNode(name: NameNode(value: 'idBoard')),
+          )
         ],
+        directives: [],
+        selectionSet: null,
       ),
-    ),
-  ],
-);
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ]),
+  ),
+]);
 Mutation$LeaveBoard _parserFn$Mutation$LeaveBoard(Map<String, dynamic> data) =>
     Mutation$LeaveBoard.fromJson(data);
 typedef OnMutationCompleted$Mutation$LeaveBoard = FutureOr<void> Function(
@@ -362,13 +351,11 @@ class WatchOptions$Mutation$LeaveBoard
 
 extension ClientExtension$Mutation$LeaveBoard on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$LeaveBoard>> mutate$LeaveBoard(
-    Options$Mutation$LeaveBoard options,
-  ) async =>
-      await mutate(options);
+          Options$Mutation$LeaveBoard options) async =>
+      await this.mutate(options);
   graphql.ObservableQuery<Mutation$LeaveBoard> watchMutation$LeaveBoard(
-    WatchOptions$Mutation$LeaveBoard options,
-  ) =>
-      watchMutation(options);
+          WatchOptions$Mutation$LeaveBoard options) =>
+      this.watchMutation(options);
 }
 
 class Mutation$LeaveBoard$HookResult {
@@ -382,9 +369,8 @@ class Mutation$LeaveBoard$HookResult {
   final graphql.QueryResult<Mutation$LeaveBoard> result;
 }
 
-Mutation$LeaveBoard$HookResult useMutation$LeaveBoard([
-  WidgetOptions$Mutation$LeaveBoard? options,
-]) {
+Mutation$LeaveBoard$HookResult useMutation$LeaveBoard(
+    [WidgetOptions$Mutation$LeaveBoard? options]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$LeaveBoard());
   return Mutation$LeaveBoard$HookResult(
@@ -398,8 +384,7 @@ Mutation$LeaveBoard$HookResult useMutation$LeaveBoard([
 }
 
 graphql.ObservableQuery<Mutation$LeaveBoard> useWatchMutation$LeaveBoard(
-  WatchOptions$Mutation$LeaveBoard options,
-) =>
+        WatchOptions$Mutation$LeaveBoard options) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$LeaveBoard

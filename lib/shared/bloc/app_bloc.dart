@@ -11,6 +11,7 @@ import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/base/dependency/router/utils/route_name.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/logout.graphql.dart';
+import 'package:task_manager/graphql/Subscriptions/test.graphql.dart';
 import 'package:task_manager/graphql/queries/me.graphql.dart';
 import 'package:task_manager/shared/enum/navigation_enum.dart';
 
@@ -57,22 +58,22 @@ class AppBloc extends BlocBase {
       _setupFirebaseMessaging();
       FirebaseMessaging.onMessage.listen(_onInAppFirebaseMessage);
     });
-    // await getCurrentUser();
-    // try {
-    //   graphQLService.client
-    //       .subscribe$Test(
-    //     Options$Subscription$Test(
-    //       variables: Variables$Subscription$Test(
-    //         id: '123',
-    //       ),
-    //     ),
-    //   )
-    //       .listen((event) {
-    //     print(event);
-    //   });
-    // } catch (e) {
-    //   print(e);
-    // }
+    await getCurrentUser();
+    try {
+      graphQLService.client
+          .subscribe$TestSub(
+        Options$Subscription$TestSub(
+          variables: Variables$Subscription$TestSub(
+            id: 'abc',
+          ),
+        ),
+      )
+          .listen((event) {
+        print(event);
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future _setupFirebaseMessaging() async {
