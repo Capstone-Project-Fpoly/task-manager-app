@@ -23,6 +23,7 @@ class LoginBloc extends BlocBase {
   late final routerService = ref.watch(AppService.router);
   late final analyticService = ref.watch(AppService.analytic);
   late final appBloc = ref.watch(BlocProvider.app);
+  late final toastService = ref.watch(AppService.toast);
   late BuildContext context;
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
 
@@ -50,8 +51,12 @@ class LoginBloc extends BlocBase {
     final client = graphqlService.buildGraphQLClientWithToken(token);
     graphqlService.clientSubject.value = client;
     isLoadingSubject.value = true;
-    await appBloc.getCurrentUser();
+    final user = await appBloc.getCurrentUser();
     isLoadingSubject.value = false;
+    if (user == null) {
+      toastService.showText(message: 'Đăng nhập thất bại');
+      return;
+    }
     routerService.pushReplacement(RouteInput.root());
   }
 

@@ -10,7 +10,7 @@ class ObsBuilder extends StatefulWidget {
 
   const ObsBuilder({
     super.key,
-    this.streams = const [],
+    required this.streams,
     required this.builder,
   });
 
