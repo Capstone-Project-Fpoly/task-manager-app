@@ -5,7 +5,6 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
-import 'package:task_manager/feature/background_board/background_board_bloc.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
 
 class DetailCardAddLabelWidget extends ConsumerWidget {

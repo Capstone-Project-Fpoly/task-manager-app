@@ -4,7 +4,6 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
-import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_quick_actions_widget.dart';
 
 class DetailCardHeaderWidget extends ConsumerWidget {

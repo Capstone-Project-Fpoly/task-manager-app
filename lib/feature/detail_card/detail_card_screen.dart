@@ -13,7 +13,6 @@ import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_membe
 import 'package:task_manager/feature/detail_card/widget/detail_card_header_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_label_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_list_comment_widget.dart';
-import 'package:task_manager/feature/detail_card/widget/detail_card_quick_actions_widget.dart';
 import 'package:task_manager/shared/enum/option_detail_card_enum.dart';
 
 class DetailCardScreen extends ConsumerWidget {
@@ -22,7 +21,6 @@ class DetailCardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     final bloc = ref.watch(BlocProvider.detailCardBloc);
     return SafeArea(
       child: CupertinoPageScaffold(

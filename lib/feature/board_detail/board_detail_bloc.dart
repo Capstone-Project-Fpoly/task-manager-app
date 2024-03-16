@@ -357,6 +357,6 @@ class BoardDetailBloc extends BlocBase {
   }
 
   Future<void> onNextToDetailCard() async {
-    final result = await routerService.push(RouteInput.detailCard());
+    await routerService.push(RouteInput.detailCard());
   }
 }

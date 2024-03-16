@@ -5,7 +5,6 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
-import 'package:task_manager/shared/utilities/datetime.dart';
 
 class DetailCardDateTimeWidget extends ConsumerWidget {
   const DetailCardDateTimeWidget({super.key});
