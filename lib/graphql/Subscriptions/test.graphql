@@ -1,0 +1,3 @@
+subscription TestSub($id: String!) {
+  test(id: $id)
+}
