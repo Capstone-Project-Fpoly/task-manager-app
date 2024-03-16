@@ -1,7 +1,7 @@
-import '../../schema.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
-import 'user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 
 class Fragment$NotificationFragment {
   Fragment$NotificationFragment({
@@ -20,7 +20,7 @@ class Fragment$NotificationFragment {
     final l$id = json['id'];
     final l$content = json['content'];
     final l$data = json['data'];
-    final l$is_seen = json['is_seen'];
+    final l$isSeen = json['is_seen'];
     final l$title = json['title'];
     final l$topic = json['topic'];
     final l$createdAt = json['createdAt'];
@@ -30,7 +30,7 @@ class Fragment$NotificationFragment {
       id: (l$id as String),
       content: (l$content as String),
       data: (l$data as String),
-      is_seen: (l$is_seen as bool),
+      is_seen: (l$isSeen as bool),
       title: (l$title as String),
       topic: fromJson$Enum$TopicNotification((l$topic as String)),
       createdAt: (l$createdAt as String),
@@ -59,26 +59,26 @@ class Fragment$NotificationFragment {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$id = id;
-    _resultData['id'] = l$id;
+    resultData['id'] = l$id;
     final l$content = content;
-    _resultData['content'] = l$content;
+    resultData['content'] = l$content;
     final l$data = data;
-    _resultData['data'] = l$data;
-    final l$is_seen = is_seen;
-    _resultData['is_seen'] = l$is_seen;
+    resultData['data'] = l$data;
+    final l$isSeen = is_seen;
+    resultData['is_seen'] = l$isSeen;
     final l$title = title;
-    _resultData['title'] = l$title;
+    resultData['title'] = l$title;
     final l$topic = topic;
-    _resultData['topic'] = toJson$Enum$TopicNotification(l$topic);
+    resultData['topic'] = toJson$Enum$TopicNotification(l$topic);
     final l$createdAt = createdAt;
-    _resultData['createdAt'] = l$createdAt;
+    resultData['createdAt'] = l$createdAt;
     final l$creator = creator;
-    _resultData['creator'] = l$creator.toJson();
+    resultData['creator'] = l$creator.toJson();
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -86,7 +86,7 @@ class Fragment$NotificationFragment {
     final l$id = id;
     final l$content = content;
     final l$data = data;
-    final l$is_seen = is_seen;
+    final l$isSeen = is_seen;
     final l$title = title;
     final l$topic = topic;
     final l$createdAt = createdAt;
@@ -96,7 +96,7 @@ class Fragment$NotificationFragment {
       l$id,
       l$content,
       l$data,
-      l$is_seen,
+      l$isSeen,
       l$title,
       l$topic,
       l$createdAt,
@@ -110,7 +110,7 @@ class Fragment$NotificationFragment {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Fragment$NotificationFragment) ||
+    if (other is! Fragment$NotificationFragment ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -129,9 +129,9 @@ class Fragment$NotificationFragment {
     if (l$data != lOther$data) {
       return false;
     }
-    final l$is_seen = is_seen;
-    final lOther$is_seen = other.is_seen;
-    if (l$is_seen != lOther$is_seen) {
+    final l$isSeen = is_seen;
+    final lother$isSeen = other.is_seen;
+    if (l$isSeen != lother$isSeen) {
       return false;
     }
     final l$title = title;
@@ -208,6 +208,7 @@ class _CopyWithImpl$Fragment$NotificationFragment<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? id = _undefined,
     Object? content = _undefined,
@@ -219,38 +220,43 @@ class _CopyWithImpl$Fragment$NotificationFragment<TRes>
     Object? creator = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Fragment$NotificationFragment(
-        id: id == _undefined || id == null ? _instance.id : (id as String),
-        content: content == _undefined || content == null
-            ? _instance.content
-            : (content as String),
-        data: data == _undefined || data == null
-            ? _instance.data
-            : (data as String),
-        is_seen: is_seen == _undefined || is_seen == null
-            ? _instance.is_seen
-            : (is_seen as bool),
-        title: title == _undefined || title == null
-            ? _instance.title
-            : (title as String),
-        topic: topic == _undefined || topic == null
-            ? _instance.topic
-            : (topic as Enum$TopicNotification),
-        createdAt: createdAt == _undefined || createdAt == null
-            ? _instance.createdAt
-            : (createdAt as String),
-        creator: creator == _undefined || creator == null
-            ? _instance.creator
-            : (creator as Fragment$UserFragment),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ));
+      _then(
+        Fragment$NotificationFragment(
+          id: id == _undefined || id == null ? _instance.id : (id as String),
+          content: content == _undefined || content == null
+              ? _instance.content
+              : (content as String),
+          data: data == _undefined || data == null
+              ? _instance.data
+              : (data as String),
+          is_seen: is_seen == _undefined || is_seen == null
+              ? _instance.is_seen
+              : (is_seen as bool),
+          title: title == _undefined || title == null
+              ? _instance.title
+              : (title as String),
+          topic: topic == _undefined || topic == null
+              ? _instance.topic
+              : (topic as Enum$TopicNotification),
+          createdAt: createdAt == _undefined || createdAt == null
+              ? _instance.createdAt
+              : (createdAt as String),
+          creator: creator == _undefined || creator == null
+              ? _instance.creator
+              : (creator as Fragment$UserFragment),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 
+  @override
   CopyWith$Fragment$UserFragment<TRes> get creator {
     final local$creator = _instance.creator;
     return CopyWith$Fragment$UserFragment(
-        local$creator, (e) => call(creator: e));
+      local$creator,
+      (e) => call(creator: e),
+    );
   }
 }
 
@@ -258,8 +264,9 @@ class _CopyWithStubImpl$Fragment$NotificationFragment<TRes>
     implements CopyWith$Fragment$NotificationFragment<TRes> {
   _CopyWithStubImpl$Fragment$NotificationFragment(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? id,
     String? content,
@@ -273,6 +280,7 @@ class _CopyWithStubImpl$Fragment$NotificationFragment<TRes>
   }) =>
       _res;
 
+  @override
   CopyWith$Fragment$UserFragment<TRes> get creator =>
       CopyWith$Fragment$UserFragment.stub(_res);
 }
@@ -280,93 +288,100 @@ class _CopyWithStubImpl$Fragment$NotificationFragment<TRes>
 const fragmentDefinitionNotificationFragment = FragmentDefinitionNode(
   name: NameNode(value: 'NotificationFragment'),
   typeCondition: TypeConditionNode(
-      on: NamedTypeNode(
-    name: NameNode(value: 'Notification'),
-    isNonNull: false,
-  )),
+    on: NamedTypeNode(
+      name: NameNode(value: 'Notification'),
+      isNonNull: false,
+    ),
+  ),
   directives: [],
-  selectionSet: SelectionSetNode(selections: [
-    FieldNode(
-      name: NameNode(value: 'id'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'content'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'data'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'is_seen'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'title'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'topic'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'createdAt'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-    FieldNode(
-      name: NameNode(value: 'creator'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: SelectionSetNode(selections: [
-        FragmentSpreadNode(
-          name: NameNode(value: 'UserFragment'),
-          directives: [],
+  selectionSet: SelectionSetNode(
+    selections: [
+      FieldNode(
+        name: NameNode(value: 'id'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'content'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'data'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'is_seen'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'title'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'topic'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'createdAt'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+      FieldNode(
+        name: NameNode(value: 'creator'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: SelectionSetNode(
+          selections: [
+            FragmentSpreadNode(
+              name: NameNode(value: 'UserFragment'),
+              directives: [],
+            ),
+            FieldNode(
+              name: NameNode(value: '__typename'),
+              alias: null,
+              arguments: [],
+              directives: [],
+              selectionSet: null,
+            ),
+          ],
         ),
-        FieldNode(
-          name: NameNode(value: '__typename'),
-          alias: null,
-          arguments: [],
-          directives: [],
-          selectionSet: null,
-        ),
-      ]),
-    ),
-    FieldNode(
-      name: NameNode(value: '__typename'),
-      alias: null,
-      arguments: [],
-      directives: [],
-      selectionSet: null,
-    ),
-  ]),
+      ),
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ],
+  ),
 );
-const documentNodeFragmentNotificationFragment = DocumentNode(definitions: [
-  fragmentDefinitionNotificationFragment,
-  fragmentDefinitionUserFragment,
-]);
+const documentNodeFragmentNotificationFragment = DocumentNode(
+  definitions: [
+    fragmentDefinitionNotificationFragment,
+    fragmentDefinitionUserFragment,
+  ],
+);
 
 extension ClientExtension$Fragment$NotificationFragment
     on graphql.GraphQLClient {
@@ -375,7 +390,7 @@ extension ClientExtension$Fragment$NotificationFragment
     required Map<String, dynamic> idFields,
     bool broadcast = true,
   }) =>
-      this.writeFragment(
+      writeFragment(
         graphql.FragmentRequest(
           idFields: idFields,
           fragment: const graphql.Fragment(
@@ -390,7 +405,7 @@ extension ClientExtension$Fragment$NotificationFragment
     required Map<String, dynamic> idFields,
     bool optimistic = true,
   }) {
-    final result = this.readFragment(
+    final result = readFragment(
       graphql.FragmentRequest(
         idFields: idFields,
         fragment: const graphql.Fragment(

@@ -5,8 +5,9 @@ import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
 class Variables$Mutation$SeenNotification {
-  factory Variables$Mutation$SeenNotification(
-          {required String idNotification}) =>
+  factory Variables$Mutation$SeenNotification({
+    required String idNotification,
+  }) =>
       Variables$Mutation$SeenNotification._({
         r'idNotification': idNotification,
       });
@@ -14,7 +15,8 @@ class Variables$Mutation$SeenNotification {
   Variables$Mutation$SeenNotification._(this._$data);
 
   factory Variables$Mutation$SeenNotification.fromJson(
-      Map<String, dynamic> data) {
+    Map<String, dynamic> data,
+  ) {
     final result$data = <String, dynamic>{};
     final l$idNotification = data['idNotification'];
     result$data['idNotification'] = (l$idNotification as String);
@@ -44,7 +46,7 @@ class Variables$Mutation$SeenNotification {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Mutation$SeenNotification) ||
+    if (other is! Variables$Mutation$SeenNotification ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -88,20 +90,23 @@ class _CopyWithImpl$Variables$Mutation$SeenNotification<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  TRes call({Object? idNotification = _undefined}) =>
-      _then(Variables$Mutation$SeenNotification._({
-        ..._instance._$data,
-        if (idNotification != _undefined && idNotification != null)
-          'idNotification': (idNotification as String),
-      }));
+  @override
+  TRes call({Object? idNotification = _undefined}) => _then(
+        Variables$Mutation$SeenNotification._({
+          ..._instance._$data,
+          if (idNotification != _undefined && idNotification != null)
+            'idNotification': (idNotification as String),
+        }),
+      );
 }
 
 class _CopyWithStubImpl$Variables$Mutation$SeenNotification<TRes>
     implements CopyWith$Variables$Mutation$SeenNotification<TRes> {
   _CopyWithStubImpl$Variables$Mutation$SeenNotification(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({String? idNotification}) => _res;
 }
 
@@ -125,12 +130,12 @@ class Mutation$SeenNotification {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$seenNotification = seenNotification;
-    _resultData['seenNotification'] = l$seenNotification;
+    resultData['seenNotification'] = l$seenNotification;
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -148,7 +153,7 @@ class Mutation$SeenNotification {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Mutation$SeenNotification) ||
+    if (other is! Mutation$SeenNotification ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -203,26 +208,30 @@ class _CopyWithImpl$Mutation$SeenNotification<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? seenNotification = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Mutation$SeenNotification(
-        seenNotification: seenNotification == _undefined
-            ? _instance.seenNotification
-            : (seenNotification as bool?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ));
+      _then(
+        Mutation$SeenNotification(
+          seenNotification: seenNotification == _undefined
+              ? _instance.seenNotification
+              : (seenNotification as bool?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 }
 
 class _CopyWithStubImpl$Mutation$SeenNotification<TRes>
     implements CopyWith$Mutation$SeenNotification<TRes> {
   _CopyWithStubImpl$Mutation$SeenNotification(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     bool? seenNotification,
     String? $__typename,
@@ -230,47 +239,52 @@ class _CopyWithStubImpl$Mutation$SeenNotification<TRes>
       _res;
 }
 
-const documentNodeMutationSeenNotification = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.mutation,
-    name: NameNode(value: 'SeenNotification'),
-    variableDefinitions: [
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idNotification')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
+const documentNodeMutationSeenNotification = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.mutation,
+      name: NameNode(value: 'SeenNotification'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idNotification')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
         ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      )
-    ],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'seenNotification'),
-        alias: null,
-        arguments: [
-          ArgumentNode(
-            name: NameNode(value: 'idNotification'),
-            value: VariableNode(name: NameNode(value: 'idNotification')),
-          )
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'seenNotification'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'idNotification'),
+                value: VariableNode(name: NameNode(value: 'idNotification')),
+              ),
+            ],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
         ],
-        directives: [],
-        selectionSet: null,
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ]),
-  ),
-]);
+    ),
+  ],
+);
 Mutation$SeenNotification _parserFn$Mutation$SeenNotification(
-        Map<String, dynamic> data) =>
+  Map<String, dynamic> data,
+) =>
     Mutation$SeenNotification.fromJson(data);
 typedef OnMutationCompleted$Mutation$SeenNotification = FutureOr<void> Function(
   Map<String, dynamic>?,
@@ -360,12 +374,14 @@ class WatchOptions$Mutation$SeenNotification
 extension ClientExtension$Mutation$SeenNotification on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$SeenNotification>>
       mutate$SeenNotification(
-              Options$Mutation$SeenNotification options) async =>
-          await this.mutate(options);
+    Options$Mutation$SeenNotification options,
+  ) async =>
+          await mutate(options);
   graphql.ObservableQuery<Mutation$SeenNotification>
       watchMutation$SeenNotification(
-              WatchOptions$Mutation$SeenNotification options) =>
-          this.watchMutation(options);
+    WatchOptions$Mutation$SeenNotification options,
+  ) =>
+          watchMutation(options);
 }
 
 class Mutation$SeenNotification$HookResult {
@@ -379,8 +395,9 @@ class Mutation$SeenNotification$HookResult {
   final graphql.QueryResult<Mutation$SeenNotification> result;
 }
 
-Mutation$SeenNotification$HookResult useMutation$SeenNotification(
-    [WidgetOptions$Mutation$SeenNotification? options]) {
+Mutation$SeenNotification$HookResult useMutation$SeenNotification([
+  WidgetOptions$Mutation$SeenNotification? options,
+]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$SeenNotification());
   return Mutation$SeenNotification$HookResult(
@@ -395,7 +412,8 @@ Mutation$SeenNotification$HookResult useMutation$SeenNotification(
 
 graphql.ObservableQuery<Mutation$SeenNotification>
     useWatchMutation$SeenNotification(
-            WatchOptions$Mutation$SeenNotification options) =>
+  WatchOptions$Mutation$SeenNotification options,
+) =>
         graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$SeenNotification

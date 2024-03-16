@@ -12,9 +12,58 @@ import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 class MyCardBloc extends BlocBase {
   final Ref ref;
 
+  Future<void> getListBoard(String query) async {
+    final user = appBloc.userSubject.value;
+    isLoadingSubject.value = true;
+    final resultBoard = await graphqlService.client.mutate$getBoards(
+      Options$Mutation$getBoards(),
+    );
+    if (resultBoard.hasException) {
+      toastService.showText(
+        message: resultBoard.exception?.graphqlErrors[0].message ?? 'Lỗi',
+      );
+      return;
+    }
+    if (resultBoard.parsedData == null) {
+      toastService.showText(
+        message: resultBoard.exception?.graphqlErrors[0].message ??
+            'Không lấy được dữ liệu!',
+      );
+      return;
+    }
+    final listBoard = resultBoard.parsedData?.getBoards ?? [];
+    final listBoardTemp = [];
+    for (final item in listBoard) {
+      if (item == null) continue;
+      final resultList = await graphqlService.client.mutate$getList(
+        Options$Mutation$getList(
+          variables: Variables$Mutation$getList(
+            idBoard: item.id,
+          ),
+        ),
+      );
+      if (resultList.hasException || resultList.parsedData == null) continue;
+      final listOfBoard =
+          resultList.parsedData?.getLists ?? [] as List<Fragment$ListFragment>;
+      if (listOfBoard.contains(user!.uid)) {
+        listBoardTemp.remove(item);
+      } else {
+        listBoardTemp.add(item);
+      }
+    }
+    listSearchBoardMyCardSubject.value =
+        listBoardTemp as List<Fragment$BoardFragment>;
+  }
+
   MyCardBloc(this.ref) {
     init();
   }
+
+  // void searchLocalBoard(String query) {
+  //   final result = list
+  //       .where((element) => element?.title?.contains(query) ?? false)
+  //       .toList();
+  // }
 
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final isFindCardByBoardSubject = BehaviorSubject<bool>.seeded(true);
@@ -22,29 +71,23 @@ class MyCardBloc extends BlocBase {
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   late final boardBloc = ref.read(BlocProvider.board);
   late final appBloc = ref.read(BlocProvider.app);
-
   final listFragmentSubject =
       BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
-
-  final listBoardSubject =
-  BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
-
-  final listBoardOfMyCardSubject =
+  final listBoardMyCardSubject =
       BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
 
-  final listSearchBoardOfMyCardSubject =
+  final listSearchBoardMyCardSubject =
       BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
-
 
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
 
+  List<Fragment$BoardFragment?> boardFragmentsCurrent = [];
+
   final searchController = TextEditingController();
   final focusNode = FocusNode();
-  List<Fragment$ListFragment?> listFragmentsCurrent = [];
   List<String> listIdBoard = [];
-
 
   @override
   void dispose() {
@@ -56,18 +99,16 @@ class MyCardBloc extends BlocBase {
     isFocusSubject.close();
     isLoadingSubject.close();
     listFragmentSubject.close();
-    listBoardOfMyCardSubject.close();
-    listSearchBoardOfMyCardSubject.close();
-    listBoardSubject.close();
+    listBoardMyCardSubject.close();
+    listSearchBoardMyCardSubject.close();
   }
 
   Future<void> init() async {
     focusNode.addListener(() {
       if (focusNode.hasFocus) isFocusSubject.value = true;
     });
-    print('${listSearchBoardOfMyCardSubject.value} lanh');
+    getListBoard('');
   }
-
 
   void openSearch(bool value) {
     selectedSearchSubject.value = value;
@@ -77,7 +118,9 @@ class MyCardBloc extends BlocBase {
     isFindCardByBoardSubject.value = value;
   }
 
-  void searchCard(String query) {}
+  void searchCard(String query) {
+    getListBoard(query);
+  }
 
   void clearText() {
     searchController.clear();
@@ -88,45 +131,4 @@ class MyCardBloc extends BlocBase {
     isFocusSubject.value = false;
     searchController.clear();
   }
-
-
-  void searchLocalBoard(String query) {
-    final listBoard = appBloc.listBoardSubject.value;
-    final list = listBoardSubject.value;
-    final idUser = appBloc.userSubject.value!.uid;
-    if (query.isEmpty) {
-      listSearchBoardOfMyCardSubject.value = listBoardOfMyCardSubject.value;
-      // return;
-    }
-    final result = list
-        .where((element) => element?.id?.contains(query) ?? false)
-        .toList();
-    listSearchBoardOfMyCardSubject.value = result;
-  }
-
-  void searchLocalCard(String query) {
-    listFragmentSubject.value = listFragmentsCurrent;
-    if (query.isEmpty) {
-      listFragmentSubject.value = listFragmentsCurrent;
-      return;
-    }
-    final List<Fragment$ListFragment?> listSearch = [];
-    final List<Fragment$BoardFragment?> boardSearch = [];
-
-    final listTemp = listFragmentSubject.value;
-    final boardTemp = listBoardOfMyCardSubject.value;
-    for (final list in listTemp) {
-      if (list == null) continue;
-      if (list.cards == null || list.cards!.isEmpty) continue;
-      final cards = list.cards!
-          .where((element) => element.id?.contains(query)  == true)
-          .toList();
-      if (cards.isEmpty) continue;
-      cards.removeWhere((element) => !element.title!.contains(query));
-      final listTemp = list.copyWith(cards: cards);
-      listSearch.add(listTemp);
-    }
-    listFragmentSubject.value = listSearch;
-  }
-
 }

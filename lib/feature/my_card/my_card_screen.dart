@@ -19,7 +19,7 @@ class MyCardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bloc = ref.watch(BlocProvider.myCard);
     return ObsBuilder(
-      streams: [bloc.isFindCardByBoardSubject, bloc.listBoardOfMyCardSubject],
+      streams: [bloc.isFindCardByBoardSubject],
       builder: (context) {
         return Scaffold(
           appBar: AppBar(
@@ -224,20 +224,20 @@ class MyCardScreen extends ConsumerWidget {
                       ),
                       bloc.isFocusSubject.value
                           ? GestureDetector(
-                            onTap: () => bloc.unFocusNode(),
-                            child: const Row(
-                              children: [
-                                SizedBoxConstants.w8,
-                                Text(
-                                  'Hủy',
-                                  style: AppTextStyle.black(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
+                              onTap: () => bloc.unFocusNode(),
+                              child: const Row(
+                                children: [
+                                  SizedBoxConstants.w8,
+                                  Text(
+                                    'Hủy',
+                                    style: AppTextStyle.black(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
+                                ],
+                              ),
+                            )
                           : const SizedBox(),
                     ],
                   );

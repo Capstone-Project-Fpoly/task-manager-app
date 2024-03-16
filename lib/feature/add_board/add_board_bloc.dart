@@ -18,7 +18,6 @@ class AddBoardBloc extends BlocBase {
   late final boardBloc = ref.read(BlocProvider.board);
   late final myCardBloc = ref.read(BlocProvider.myCard);
 
-
   final colorButtonSubject =
       BehaviorSubject<Color>.seeded(ColorConstants.grayText);
   final colorSubject = BehaviorSubject.seeded('2196F3');
@@ -90,8 +89,7 @@ class AddBoardBloc extends BlocBase {
       routerService.pop(result: false);
       return;
     }
-    appBloc.getBoard();
-    boardBloc.listBoardSubject.value = appBloc.listBoardSubject.value;
+    boardBloc.getBoard();
     routerService.pop(result: true);
   }
 

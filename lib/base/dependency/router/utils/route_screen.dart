@@ -77,7 +77,7 @@ class RouteScreen {
   static PageRoute myCardPageRoute(RouteSettings settings) {
     BlocProvider.myCard = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-          (ref) => MyCardBloc(ref),
+      (ref) => MyCardBloc(ref),
     );
     return MaterialPageRoute(
       settings: settings,

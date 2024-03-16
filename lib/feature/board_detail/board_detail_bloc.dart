@@ -168,8 +168,6 @@ class BoardDetailBloc extends BlocBase {
     listFragmentsSubject.value = listSearch;
   }
 
-
-
   void onBackToBoardScreen() {
     routerService.pop();
   }

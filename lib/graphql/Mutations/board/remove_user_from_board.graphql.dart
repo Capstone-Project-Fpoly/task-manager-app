@@ -17,7 +17,8 @@ class Variables$Mutation$RemoveUserFromBoard {
   Variables$Mutation$RemoveUserFromBoard._(this._$data);
 
   factory Variables$Mutation$RemoveUserFromBoard.fromJson(
-      Map<String, dynamic> data) {
+    Map<String, dynamic> data,
+  ) {
     final result$data = <String, dynamic>{};
     final l$idBoard = data['idBoard'];
     result$data['idBoard'] = (l$idBoard as String);
@@ -53,7 +54,7 @@ class Variables$Mutation$RemoveUserFromBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Mutation$RemoveUserFromBoard) ||
+    if (other is! Variables$Mutation$RemoveUserFromBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -109,24 +110,28 @@ class _CopyWithImpl$Variables$Mutation$RemoveUserFromBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? idBoard = _undefined,
     Object? uid = _undefined,
   }) =>
-      _then(Variables$Mutation$RemoveUserFromBoard._({
-        ..._instance._$data,
-        if (idBoard != _undefined && idBoard != null)
-          'idBoard': (idBoard as String),
-        if (uid != _undefined && uid != null) 'uid': (uid as String),
-      }));
+      _then(
+        Variables$Mutation$RemoveUserFromBoard._({
+          ..._instance._$data,
+          if (idBoard != _undefined && idBoard != null)
+            'idBoard': (idBoard as String),
+          if (uid != _undefined && uid != null) 'uid': (uid as String),
+        }),
+      );
 }
 
 class _CopyWithStubImpl$Variables$Mutation$RemoveUserFromBoard<TRes>
     implements CopyWith$Variables$Mutation$RemoveUserFromBoard<TRes> {
   _CopyWithStubImpl$Variables$Mutation$RemoveUserFromBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     String? idBoard,
     String? uid,
@@ -154,12 +159,12 @@ class Mutation$RemoveUserFromBoard {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final _resultData = <String, dynamic>{};
+    final resultData = <String, dynamic>{};
     final l$removeUserFromBoard = removeUserFromBoard;
-    _resultData['removeUserFromBoard'] = l$removeUserFromBoard;
+    resultData['removeUserFromBoard'] = l$removeUserFromBoard;
     final l$$__typename = $__typename;
-    _resultData['__typename'] = l$$__typename;
-    return _resultData;
+    resultData['__typename'] = l$$__typename;
+    return resultData;
   }
 
   @override
@@ -177,7 +182,7 @@ class Mutation$RemoveUserFromBoard {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Mutation$RemoveUserFromBoard) ||
+    if (other is! Mutation$RemoveUserFromBoard ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -232,26 +237,30 @@ class _CopyWithImpl$Mutation$RemoveUserFromBoard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
+  @override
   TRes call({
     Object? removeUserFromBoard = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Mutation$RemoveUserFromBoard(
-        removeUserFromBoard: removeUserFromBoard == _undefined
-            ? _instance.removeUserFromBoard
-            : (removeUserFromBoard as bool?),
-        $__typename: $__typename == _undefined || $__typename == null
-            ? _instance.$__typename
-            : ($__typename as String),
-      ));
+      _then(
+        Mutation$RemoveUserFromBoard(
+          removeUserFromBoard: removeUserFromBoard == _undefined
+              ? _instance.removeUserFromBoard
+              : (removeUserFromBoard as bool?),
+          $__typename: $__typename == _undefined || $__typename == null
+              ? _instance.$__typename
+              : ($__typename as String),
+        ),
+      );
 }
 
 class _CopyWithStubImpl$Mutation$RemoveUserFromBoard<TRes>
     implements CopyWith$Mutation$RemoveUserFromBoard<TRes> {
   _CopyWithStubImpl$Mutation$RemoveUserFromBoard(this._res);
 
-  TRes _res;
+  final TRes _res;
 
+  @override
   call({
     bool? removeUserFromBoard,
     String? $__typename,
@@ -259,60 +268,65 @@ class _CopyWithStubImpl$Mutation$RemoveUserFromBoard<TRes>
       _res;
 }
 
-const documentNodeMutationRemoveUserFromBoard = DocumentNode(definitions: [
-  OperationDefinitionNode(
-    type: OperationType.mutation,
-    name: NameNode(value: 'RemoveUserFromBoard'),
-    variableDefinitions: [
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idBoard')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'uid')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-    ],
-    directives: [],
-    selectionSet: SelectionSetNode(selections: [
-      FieldNode(
-        name: NameNode(value: 'removeUserFromBoard'),
-        alias: null,
-        arguments: [
-          ArgumentNode(
-            name: NameNode(value: 'idBoard'),
-            value: VariableNode(name: NameNode(value: 'idBoard')),
+const documentNodeMutationRemoveUserFromBoard = DocumentNode(
+  definitions: [
+    OperationDefinitionNode(
+      type: OperationType.mutation,
+      name: NameNode(value: 'RemoveUserFromBoard'),
+      variableDefinitions: [
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'idBoard')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
           ),
-          ArgumentNode(
-            name: NameNode(value: 'uid'),
-            value: VariableNode(name: NameNode(value: 'uid')),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+        VariableDefinitionNode(
+          variable: VariableNode(name: NameNode(value: 'uid')),
+          type: NamedTypeNode(
+            name: NameNode(value: 'String'),
+            isNonNull: true,
+          ),
+          defaultValue: DefaultValueNode(value: null),
+          directives: [],
+        ),
+      ],
+      directives: [],
+      selectionSet: SelectionSetNode(
+        selections: [
+          FieldNode(
+            name: NameNode(value: 'removeUserFromBoard'),
+            alias: null,
+            arguments: [
+              ArgumentNode(
+                name: NameNode(value: 'idBoard'),
+                value: VariableNode(name: NameNode(value: 'idBoard')),
+              ),
+              ArgumentNode(
+                name: NameNode(value: 'uid'),
+                value: VariableNode(name: NameNode(value: 'uid')),
+              ),
+            ],
+            directives: [],
+            selectionSet: null,
+          ),
+          FieldNode(
+            name: NameNode(value: '__typename'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
           ),
         ],
-        directives: [],
-        selectionSet: null,
       ),
-      FieldNode(
-        name: NameNode(value: '__typename'),
-        alias: null,
-        arguments: [],
-        directives: [],
-        selectionSet: null,
-      ),
-    ]),
-  ),
-]);
+    ),
+  ],
+);
 Mutation$RemoveUserFromBoard _parserFn$Mutation$RemoveUserFromBoard(
-        Map<String, dynamic> data) =>
+  Map<String, dynamic> data,
+) =>
     Mutation$RemoveUserFromBoard.fromJson(data);
 typedef OnMutationCompleted$Mutation$RemoveUserFromBoard = FutureOr<void>
     Function(
@@ -404,12 +418,14 @@ extension ClientExtension$Mutation$RemoveUserFromBoard
     on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$RemoveUserFromBoard>>
       mutate$RemoveUserFromBoard(
-              Options$Mutation$RemoveUserFromBoard options) async =>
-          await this.mutate(options);
+    Options$Mutation$RemoveUserFromBoard options,
+  ) async =>
+          await mutate(options);
   graphql.ObservableQuery<Mutation$RemoveUserFromBoard>
       watchMutation$RemoveUserFromBoard(
-              WatchOptions$Mutation$RemoveUserFromBoard options) =>
-          this.watchMutation(options);
+    WatchOptions$Mutation$RemoveUserFromBoard options,
+  ) =>
+          watchMutation(options);
 }
 
 class Mutation$RemoveUserFromBoard$HookResult {
@@ -423,8 +439,9 @@ class Mutation$RemoveUserFromBoard$HookResult {
   final graphql.QueryResult<Mutation$RemoveUserFromBoard> result;
 }
 
-Mutation$RemoveUserFromBoard$HookResult useMutation$RemoveUserFromBoard(
-    [WidgetOptions$Mutation$RemoveUserFromBoard? options]) {
+Mutation$RemoveUserFromBoard$HookResult useMutation$RemoveUserFromBoard([
+  WidgetOptions$Mutation$RemoveUserFromBoard? options,
+]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$RemoveUserFromBoard());
   return Mutation$RemoveUserFromBoard$HookResult(
@@ -439,7 +456,8 @@ Mutation$RemoveUserFromBoard$HookResult useMutation$RemoveUserFromBoard(
 
 graphql.ObservableQuery<Mutation$RemoveUserFromBoard>
     useWatchMutation$RemoveUserFromBoard(
-            WatchOptions$Mutation$RemoveUserFromBoard options) =>
+  WatchOptions$Mutation$RemoveUserFromBoard options,
+) =>
         graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$RemoveUserFromBoard

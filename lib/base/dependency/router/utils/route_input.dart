@@ -27,7 +27,6 @@ class RouteInput {
 
   RouteInput.backgroundBoard() : routeName = RouteName.backgroundBoard;
 
-
   RouteInput.menuBoard({required Fragment$BoardFragment boardFragment})
       : routeName = RouteName.menuBoard,
         arguments = boardFragment;

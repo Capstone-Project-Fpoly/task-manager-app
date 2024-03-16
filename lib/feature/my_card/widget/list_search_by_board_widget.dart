@@ -8,18 +8,17 @@ import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class ListSearchByBoard extends ConsumerWidget {
   const ListSearchByBoard({super.key});
-
-
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.myCard);
     return ObsBuilder(
-      streams: [bloc.listSearchBoardOfMyCardSubject],
+      streams: [bloc.listSearchBoardMyCardSubject],
       builder: (context) {
+        final listBoards = bloc.listSearchBoardMyCardSubject.value;
         return ListView.builder(
-          itemCount: bloc.listSearchBoardOfMyCardSubject.value.length,
+          itemCount: listBoards.length,
           itemBuilder: (BuildContext context, int index) {
-            final board = bloc.listSearchBoardOfMyCardSubject.value[index];
+            final board = listBoards[index];
             final color = ColorUtils.getColorFromHex(board?.color);
             final hslColor = HSLColor.fromColor(color);
             final darkerColor =
