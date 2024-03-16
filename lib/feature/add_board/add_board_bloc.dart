@@ -15,6 +15,9 @@ class AddBoardBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
   late final appBloc = ref.read(BlocProvider.app);
+  late final boardBloc = ref.read(BlocProvider.board);
+  late final myCardBloc = ref.read(BlocProvider.myCard);
+
 
   final colorButtonSubject =
       BehaviorSubject<Color>.seeded(ColorConstants.grayText);
@@ -87,6 +90,8 @@ class AddBoardBloc extends BlocBase {
       routerService.pop(result: false);
       return;
     }
+    appBloc.getBoard();
+    boardBloc.listBoardSubject.value = appBloc.listBoardSubject.value;
     routerService.pop(result: true);
   }
 

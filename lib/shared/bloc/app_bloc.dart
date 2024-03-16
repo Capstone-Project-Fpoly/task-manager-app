@@ -9,7 +9,9 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/local_storage/local_storage_key.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/base/dependency/router/utils/route_name.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
 import 'package:task_manager/graphql/Mutations/logout.graphql.dart';
 import 'package:task_manager/graphql/queries/me.graphql.dart';
 import 'package:task_manager/shared/enum/navigation_enum.dart';
@@ -21,6 +23,7 @@ class AppBloc extends BlocBase {
   late final localStorageService = ref.watch(AppService.localStorage);
   late final toastService = ref.watch(AppService.toast);
   final userSubject = BehaviorSubject<Fragment$UserFragment?>.seeded(null);
+  final listBoardSubject = BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
 
   final navigatorKeysMap = NavigationEnum.values
@@ -44,6 +47,7 @@ class AppBloc extends BlocBase {
     selectedNavigationEnumSubject.close();
     userSubject.close();
     isLoadingSubject.close();
+    listBoardSubject.close();
     super.dispose();
   }
 
@@ -58,6 +62,7 @@ class AppBloc extends BlocBase {
       FirebaseMessaging.onMessage.listen(_onInAppFirebaseMessage);
     });
     await getCurrentUser();
+    getBoard();
   }
 
   Future _setupFirebaseMessaging() async {
@@ -88,6 +93,26 @@ class AppBloc extends BlocBase {
     if (result.parsedData == null) return null;
     userSubject.value = result.parsedData?.me;
     return result.parsedData?.me;
+  }
+
+  void getBoard() async {
+    final result = await graphQLService.client.mutate$getBoards(
+      Options$Mutation$getBoards(),
+    );
+    if (result.hasException) {
+      toastService.showText(
+        message: result.exception?.graphqlErrors[0].message ?? 'Lỗi',
+      );
+      return;
+    }
+    if (result.parsedData == null) {
+      toastService.showText(
+        message: result.exception?.graphqlErrors[0].message ??
+            'Không lấy được dữ liệu!',
+      );
+      return;
+    }
+    listBoardSubject.value = result.parsedData?.getBoards ?? [];
   }
 
   Future<void> _onInAppFirebaseMessage(RemoteMessage message) async {}
