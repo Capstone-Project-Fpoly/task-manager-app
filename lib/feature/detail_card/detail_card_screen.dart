@@ -6,9 +6,11 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/feature/detail_card/widget/detail_card_checklist_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_comment_field_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_datetime_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_member.dart';
+import 'package:task_manager/feature/detail_card/widget/detail_card_header_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_label_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_list_comment_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_quick_actions_widget.dart';
@@ -28,9 +30,15 @@ class DetailCardScreen extends ConsumerWidget {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: ObsBuilder(
-              streams: [bloc.isShowFloatingSubject, bloc.isShowLabelSubject],
+              streams: [
+                bloc.isShowFloatingSubject,
+                bloc.isShowLabelSubject,
+                bloc.isShowTitleCommentSubject,
+                bloc.isShowTitleChecklistSubject,
+                bloc.isShowTitleDescriptionSubject,
+              ],
               builder: (context) {
-                if (!bloc.isShowFloatingSubject.value) {
+                if (bloc.isShowTitleDescriptionSubject.value) {
                   return const Text(
                     'Chỉnh sửa mô tả thẻ',
                     style: TextStyle(
@@ -41,6 +49,22 @@ class DetailCardScreen extends ConsumerWidget {
                 if (bloc.isShowLabelSubject.value) {
                   return const Text(
                     'Chỉnh sửa nhãn',
+                    style: TextStyle(
+                      color: ColorConstants.black,
+                    ),
+                  );
+                }
+                if (bloc.isShowTitleCommentSubject.value) {
+                  return const Text(
+                    'Bình luận mới',
+                    style: TextStyle(
+                      color: ColorConstants.black,
+                    ),
+                  );
+                }
+                if (bloc.isShowTitleChecklistSubject.value) {
+                  return const Text(
+                    'Mục mới',
                     style: TextStyle(
                       color: ColorConstants.black,
                     ),
@@ -60,109 +84,50 @@ class DetailCardScreen extends ConsumerWidget {
               ),
             ),
             actions: [
-              PopupMenuButton(
-                itemBuilder: (context) => OptionDetailCardEnum.values
-                    .map(
-                      (e) => PopupMenuItem(
-                        value: e,
-                        child: Text(e.title),
+              (bloc.isShowTitleChecklistSubject.value ||
+                      bloc.isShowTitleDescriptionSubject.value)
+                  ? InkWell(
+                      onTap: () {},
+                      child: const Icon(
+                        Icons.check,
+                        color: ColorConstants.primary,
                       ),
                     )
-                    .toList(),
-                onSelected: (value) => bloc.chooseOption(),
-                constraints: BoxConstraints(
-                  minWidth: width - 200,
-                ),
-                child: const Icon(
-                  Icons.more_vert,
-                  color: ColorConstants.primary,
-                ),
-              ),
+                  : PopupMenuButton(
+                      itemBuilder: (context) => OptionDetailCardEnum.values
+                          .map(
+                            (e) => PopupMenuItem(
+                              value: e,
+                              child: Text(e.title),
+                            ),
+                          )
+                          .toList(),
+                      onSelected: (value) => bloc.chooseOption(),
+                      constraints: BoxConstraints(
+                        minWidth: width - 200,
+                      ),
+                      child: const Icon(
+                        Icons.more_vert,
+                        color: ColorConstants.primary,
+                      ),
+                    ),
               SizedBoxConstants.w12,
             ],
           ),
-          backgroundColor: ColorConstants.background,
+          backgroundColor: ColorConstants.backgroundDetailCard,
           body: ObsBuilder(
             streams: [
               bloc.isShowQuickActionsSubject,
               bloc.isShowLabelSubject,
               bloc.isShowOptionAllSubject,
+              bloc.isShowChecklistSubject,
             ],
             builder: (context) {
               return SingleChildScrollView(
                 child: Column(
                   children: [
                     SizedBoxConstants.h40,
-                    Container(
-                      padding: EdgeInsetsConstants.top20,
-                      width: width,
-                      color: ColorConstants.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsConstants.horizontal12 +
-                                EdgeInsetsConstants.bottom16,
-                            child: const Text(
-                              'Name Card',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsConstants.horizontal12 +
-                                EdgeInsetsConstants.bottom16,
-                            child: const Text(
-                              'Name Board',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const Divider(
-                            height: 0,
-                            color: ColorConstants.divider,
-                          ),
-                          Material(
-                            color: ColorConstants.white,
-                            child: InkWell(
-                              onTap: () {
-                                bloc.showQuickAction();
-                              },
-                              child: Padding(
-                                padding: EdgeInsetsConstants.all12,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Các thao tác nhanh',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    bloc.isShowQuickActionsSubject.value
-                                        ? const Icon(
-                                            Icons.keyboard_arrow_up,
-                                            color: ColorConstants.primary,
-                                          )
-                                        : const Icon(
-                                            Icons.keyboard_arrow_down,
-                                            color: ColorConstants.primary,
-                                          ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          bloc.isShowQuickActionsSubject.value
-                              ? const DetailCardQuickActionsWidget()
-                              : const SizedBox.shrink(),
-                        ],
-                      ),
-                    ),
+                    const DetailCardHeaderWidget(),
                     SizedBoxConstants.h10,
                     Container(
                       color: ColorConstants.white,
@@ -278,6 +243,10 @@ class DetailCardScreen extends ConsumerWidget {
                     ),
                     SizedBoxConstants.h10,
                     const DetailCardDateTimeWidget(),
+                    SizedBoxConstants.h10,
+                    bloc.isShowChecklistSubject.value
+                        ? const DetailCardChecklistWidget()
+                        : const SizedBox.shrink(),
                     SizedBoxConstants.h10,
                     const Divider(
                       height: 0,

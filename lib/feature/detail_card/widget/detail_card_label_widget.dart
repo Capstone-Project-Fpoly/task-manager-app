@@ -5,6 +5,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/feature/detail_card/widget/detail_card_add_label_widget.dart';
 
 class DetailCardLabelWidget extends ConsumerWidget {
   const DetailCardLabelWidget({super.key});
@@ -89,6 +90,38 @@ class DetailCardLabelWidget extends ConsumerWidget {
                       },
                     ),
                   ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Material(
+                    color: Colors.white,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () {
+                        bloc.isShowFloatingSubject.value = false;
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return const DetailCardAddLabelWidget();
+                          },
+                        );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 100,
+                        height: 40,
+                        child: const Text(
+                          'Tạo nhãn mới',
+                          style: TextStyle(
+                            color: ColorConstants.primary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBoxConstants.w10,
                 ],
               ),
             ],

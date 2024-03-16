@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
+import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_member.dart';
 
 class DetailCardQuickActionsWidget extends ConsumerWidget {
   const DetailCardQuickActionsWidget({super.key});
@@ -29,7 +30,9 @@ class DetailCardQuickActionsWidget extends ConsumerWidget {
                 color: ColorConstants.primaryColorLight.withOpacity(0.3),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(30),
-                  onTap: () {},
+                  onTap: () {
+                    bloc.onTapShowChecklist();
+                  },
                   child: Ink(
                     width: (width - 30) / 2,
                     child: const ListTile(
@@ -50,7 +53,14 @@ class DetailCardQuickActionsWidget extends ConsumerWidget {
                 color: ColorConstants.primaryColorLight.withOpacity(0.3),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(30),
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const DetailCardDialogMemberWidget();
+                      },
+                    );
+                  },
                   child: Ink(
                     width: (width - 30) / 2,
                     child: const ListTile(

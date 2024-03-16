@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -29,8 +31,13 @@ class DetailCardBloc extends BlocBase {
   final isShowNotificationSubject = BehaviorSubject<bool>.seeded(false);
   final isShowErrorStartDateSubject = BehaviorSubject<bool>.seeded(false);
   final isShowErrorEndDateSubject = BehaviorSubject<bool>.seeded(false);
+  final isShowTitleCommentSubject = BehaviorSubject<bool>.seeded(false);
+  final isShowChecklistSubject = BehaviorSubject<bool>.seeded(false);
+  final isShowTitleChecklistSubject = BehaviorSubject<bool>.seeded(false);
+  final isShowTitleDescriptionSubject = BehaviorSubject<bool>.seeded(false);
 
   final listColorSubject = BehaviorSubject<List<ColorLabel>>.seeded([]);
+  final listColorDefaultSubject = BehaviorSubject<List<ColorLabel>>.seeded([]);
   final listNotificationFragmentsSubject =
       BehaviorSubject<List<Fragment$NotificationFragment>>.seeded([]);
   final listCommemtFragmentsSubject =
@@ -44,8 +51,11 @@ class DetailCardBloc extends BlocBase {
   final startTimeController = TextEditingController();
   final endDateController = TextEditingController();
   final endTimeController = TextEditingController();
+  final checklistController = TextEditingController();
 
   final focusNode = FocusNode();
+  final focusNodeComment = FocusNode();
+  final focusNodeChecklist = FocusNode();
   @override
   void dispose() {
     super.dispose();
@@ -68,6 +78,12 @@ class DetailCardBloc extends BlocBase {
     isShowNotificationSubject.close();
     isShowErrorEndDateSubject.close();
     isShowErrorStartDateSubject.close();
+    isShowTitleCommentSubject.close();
+    isShowChecklistSubject.close();
+    isShowTitleChecklistSubject.close();
+    isShowTitleDescriptionSubject.close();
+    listColorDefaultSubject.close();
+    checklistController.dispose();
   }
 
   void init() {
@@ -77,6 +93,24 @@ class DetailCardBloc extends BlocBase {
       ColorLabel(color: '436850', id: 3),
       ColorLabel(color: '6962AD', id: 4),
       ColorLabel(color: '1B1A55', id: 5),
+    ]);
+
+    listColorDefaultSubject.add([
+      ColorLabel(color: '2196F3', id: 1, isSelected: false),
+      ColorLabel(color: 'FBFADA', id: 2, isSelected: false),
+      ColorLabel(color: '436850', id: 3, isSelected: false),
+      ColorLabel(color: '6962AD', id: 4, isSelected: false),
+      ColorLabel(color: '1B1A55', id: 5, isSelected: false),
+      ColorLabel(color: 'baf3db', id: 6, isSelected: false),
+      ColorLabel(color: 'f8e6a0', id: 7, isSelected: false),
+      ColorLabel(color: 'fedec8', id: 8, isSelected: false),
+      ColorLabel(color: 'c9372c', id: 9, isSelected: false),
+      ColorLabel(color: '227d9b', id: 10, isSelected: false),
+      ColorLabel(color: '626f86', id: 11, isSelected: false),
+      ColorLabel(color: '946f00', id: 12, isSelected: false),
+      ColorLabel(color: 'c6edfb', id: 13, isSelected: false),
+      ColorLabel(color: 'f5cd47', id: 14, isSelected: false),
+      ColorLabel(color: 'fdd0ec', id: 15, isSelected: false),
     ]);
 
     listNotificationFragmentsSubject.add([
@@ -164,11 +198,21 @@ class DetailCardBloc extends BlocBase {
   void onBackToBoardScreen() {
     if (!isShowFloatingSubject.value) {
       focusNode.unfocus();
+      focusNodeChecklist.unfocus();
+
       isShowFloatingSubject.value = true;
+      isShowTitleCommentSubject.value = false;
+      isShowTitleDescriptionSubject.value = false;
+      isShowTitleChecklistSubject.value = false;
+
       return;
     }
     if (focusNode.hasFocus) {
       focusNode.unfocus();
+      return;
+    }
+    if (focusNodeComment.hasFocus) {
+      focusNodeComment.unfocus();
       return;
     }
     if (isShowLabelSubject.value == true) {
@@ -204,6 +248,20 @@ class DetailCardBloc extends BlocBase {
 
   void onTapDescription() {
     isShowFloatingSubject.value = false;
+    isShowTitleDescriptionSubject.value = !isShowTitleDescriptionSubject.value;
+  }
+
+  //Quick Action Bloc
+
+  void onTapShowChecklist() {
+    isShowChecklistSubject.value = !isShowChecklistSubject.value;
+    isShowTitleChecklistSubject.value = !isShowTitleChecklistSubject.value;
+    isShowFloatingSubject.value = !isShowFloatingSubject.value;
+    if (focusNodeChecklist.hasFocus) {
+      focusNodeChecklist.unfocus();
+    } else {
+      focusNodeChecklist.requestFocus();
+    }
   }
 
   //Label Widget Bloc
@@ -617,6 +675,10 @@ class DetailCardBloc extends BlocBase {
     }
   }
 
+  void onTapCommentField() {
+    isShowTitleCommentSubject.value = true;
+  }
+
   void sendComment() {
     if (!isSendCommentSubject.value) {
       return;
@@ -635,6 +697,35 @@ class DetailCardBloc extends BlocBase {
 
   void showNotification(bool value) {
     isShowNotificationSubject.value = !isShowNotificationSubject.value;
+  }
+
+  //Checklist Bloc
+  void onTapChecklistField() {
+    isShowTitleDescriptionSubject.value = false;
+    isShowTitleChecklistSubject.value = true;
+    isShowFloatingSubject.value = false;
+  }
+
+  //Add Label Bloc
+  void onTapSelectColorAddLabel(ColorLabel color) {
+    final listTemp = listColorDefaultSubject.value;
+    for (final e in listTemp) {
+      if (e.id == color.id) {
+        e.isSelected = !e.isSelected;
+      } else {
+        e.isSelected = false;
+      }
+    }
+    listColorDefaultSubject.value = listTemp;
+  }
+
+  void onTapAddColorLabel() {
+    for (final e in listColorDefaultSubject.value) {
+      if (e.isSelected) {
+        listColorSubject.value = [...listColorSubject.value, e];
+      }
+    }
+    routerService.pop();
   }
 
   late final appBloc = ref.read(BlocProvider.app);

@@ -47,6 +47,7 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: TextFormField(
+                    focusNode: bloc.focusNodeComment,
                     controller: bloc.commentController,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
@@ -71,6 +72,9 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
                     minLines: 1,
                     onChanged: (value) {
                       bloc.onChangeCommentField(value);
+                    },
+                    onTap: () {
+                      bloc.onTapCommentField();
                     },
                   ),
                 ),
