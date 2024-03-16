@@ -40,7 +40,7 @@ class DetailCardBloc extends BlocBase {
   final listColorDefaultSubject = BehaviorSubject<List<ColorLabel>>.seeded([]);
   final listNotificationFragmentsSubject =
       BehaviorSubject<List<Fragment$NotificationFragment>>.seeded([]);
-  final listCommemtFragmentsSubject =
+  final listCommentFragmentsSubject =
       BehaviorSubject<List<Fragment$CommentFragment>>.seeded([]);
 
   final descriptionController = TextEditingController();
@@ -69,7 +69,7 @@ class DetailCardBloc extends BlocBase {
     listColorSubject.close();
     isShowFloatingSubject.close();
     listNotificationFragmentsSubject.close();
-    listCommemtFragmentsSubject.close();
+    listCommentFragmentsSubject.close();
     startDateTimeController.dispose();
     endDateTimeController.dispose();
     startTimeController.dispose();
@@ -176,7 +176,7 @@ class DetailCardBloc extends BlocBase {
       ),
     ]);
 
-    listCommemtFragmentsSubject.add([
+    listCommentFragmentsSubject.add([
       Fragment$CommentFragment(
         id: '1',
         createdAt: '2024-03-09',
@@ -689,9 +689,9 @@ class DetailCardBloc extends BlocBase {
       user: Fragment$UserFragment(uid: '1', fullName: 'Đinh Viết Khang'),
       comment: commentController.text,
     );
-    listCommemtFragmentsSubject.value = [
+    listCommentFragmentsSubject.value = [
       ...[comment],
-      ...listCommemtFragmentsSubject.value,
+      ...listCommentFragmentsSubject.value,
     ];
   }
 

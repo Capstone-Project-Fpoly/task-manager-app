@@ -16,7 +16,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
     final width = MediaQuery.of(context).size.width;
     return ObsBuilder(
       streams: [
-        bloc.listCommemtFragmentsSubject,
+        bloc.listCommentFragmentsSubject,
         bloc.listNotificationFragmentsSubject,
         bloc.isShowNotificationSubject,
       ],
@@ -66,7 +66,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                 ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: bloc.listCommemtFragmentsSubject.value.length,
+                  itemCount: bloc.listCommentFragmentsSubject.value.length,
                   itemBuilder: (context, i) {
                     return Container(
                       padding: EdgeInsetsConstants.horizontal12 +
@@ -117,7 +117,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      bloc.listCommemtFragmentsSubject.value[i]
+                                      bloc.listCommentFragmentsSubject.value[i]
                                               .user.fullName ??
                                           '',
                                       style: const TextStyle(
@@ -129,7 +129,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                       height: 5,
                                     ),
                                     Text(
-                                      bloc.listCommemtFragmentsSubject.value[i]
+                                      bloc.listCommentFragmentsSubject.value[i]
                                           .comment,
                                     ),
                                   ],
@@ -142,7 +142,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Text(
                                   formatDateTimeCommentCard(
-                                    bloc.listCommemtFragmentsSubject.value[i]
+                                    bloc.listCommentFragmentsSubject.value[i]
                                         .createdAt,
                                   ),
                                   style: const TextStyle(
