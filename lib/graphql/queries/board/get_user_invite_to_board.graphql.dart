@@ -503,8 +503,8 @@ extension ClientExtension$Query$getUsersInviteToBoard on graphql.GraphQLClient {
   }) {
     final result = this.readQuery(
       graphql.Request(
-        operation:
-            graphql.Operation(document: documentNodeQuerygetUsersInviteToBoard),
+        operation: const graphql.Operation(
+            document: documentNodeQuerygetUsersInviteToBoard),
         variables: variables.toJson(),
       ),
       optimistic: optimistic,

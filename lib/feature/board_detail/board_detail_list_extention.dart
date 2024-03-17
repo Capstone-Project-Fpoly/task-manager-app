@@ -3,6 +3,7 @@ import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/create_list.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/delete_list.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/moveList.graphql.dart';
+import 'package:task_manager/graphql/Mutations/list/update_list.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 
 extension BoardDetailListExtention on BoardDetailBloc {
@@ -72,5 +73,35 @@ extension BoardDetailListExtention on BoardDetailBloc {
     final listTemp = listFragmentsSubject.value;
     listTemp.removeWhere((element) => element?.id == idList);
     listFragmentsSubject.value = listTemp;
+  }
+
+  Future<void> onUpdateList() async {
+    final listTemp = listFragmentsSubject.value;
+    final id = idListEditSubject.value;
+    final index = listTemp.indexWhere((element) => element?.id == id);
+    final newLabel = titleListEditSubject.value;
+    final label = listTemp[index]?.label;
+    if (newLabel.isEmpty || newLabel == label) {
+      return;
+    }
+    if (id == null || id.isEmpty) return;
+    isLoadingAddSubject.value = true;
+    final result = await graphqlService.client.mutate$UpdateList(
+      Options$Mutation$UpdateList(
+        variables: Variables$Mutation$UpdateList(
+          idList: id,
+          label: newLabel,
+        ),
+      ),
+    );
+    appBarEnumSubject.value = null;
+    isLoadingAddSubject.value = false;
+    if (result.hasException) {
+      toastService.showText(
+        message: result.exception?.graphqlErrors.first.message ??
+            'Lỗi không thể cập nhật bảng',
+      );
+      return;
+    }
   }
 }

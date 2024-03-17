@@ -476,8 +476,8 @@ extension ClientExtension$Query$GetUserOfBoard on graphql.GraphQLClient {
   }) =>
       this.writeQuery(
         graphql.Request(
-          operation:
-              graphql.Operation(document: documentNodeQueryGetUserOfBoard),
+          operation: const graphql.Operation(
+              document: documentNodeQueryGetUserOfBoard),
           variables: variables.toJson(),
         ),
         data: data.toJson(),
