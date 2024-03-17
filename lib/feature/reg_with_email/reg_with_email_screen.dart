@@ -27,6 +27,7 @@ class RegEmailScreen extends ConsumerWidget {
               child: ObsBuilder(
                 streams: [
                   bloc.isShowPassSubject,
+                  bloc.isShowRePassSubject,
                   bloc.errorCheckTextSubject,
                   bloc.errorCheckRePassSubject,
                   bloc.errorCheckPassSubject,
@@ -111,7 +112,7 @@ class RegEmailScreen extends ConsumerWidget {
                         onTap: () {
                           bloc.showPassRe();
                         },
-                        child: bloc.isShowPassSubject.value
+                        child: bloc.isShowRePassSubject.value
                             ? const Icon(
                                 Icons.visibility_outlined,
                                 color: Colors.grey,

@@ -41,7 +41,7 @@ class Variables$Mutation$DeleteList {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Mutation$DeleteList ||
+    if (!(other is Variables$Mutation$DeleteList) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -85,23 +85,20 @@ class _CopyWithImpl$Variables$Mutation$DeleteList<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
-  TRes call({Object? idList = _undefined}) => _then(
-        Variables$Mutation$DeleteList._({
-          ..._instance._$data,
-          if (idList != _undefined && idList != null)
-            'idList': (idList as String),
-        }),
-      );
+  TRes call({Object? idList = _undefined}) =>
+      _then(Variables$Mutation$DeleteList._({
+        ..._instance._$data,
+        if (idList != _undefined && idList != null)
+          'idList': (idList as String),
+      }));
 }
 
 class _CopyWithStubImpl$Variables$Mutation$DeleteList<TRes>
     implements CopyWith$Variables$Mutation$DeleteList<TRes> {
   _CopyWithStubImpl$Variables$Mutation$DeleteList(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({String? idList}) => _res;
 }
 
@@ -125,12 +122,12 @@ class Mutation$DeleteList {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$deleteList = deleteList;
-    resultData['deleteList'] = l$deleteList;
+    _resultData['deleteList'] = l$deleteList;
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -148,7 +145,7 @@ class Mutation$DeleteList {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$DeleteList || runtimeType != other.runtimeType) {
+    if (!(other is Mutation$DeleteList) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$deleteList = deleteList;
@@ -201,30 +198,26 @@ class _CopyWithImpl$Mutation$DeleteList<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? deleteList = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Mutation$DeleteList(
-          deleteList: deleteList == _undefined
-              ? _instance.deleteList
-              : (deleteList as bool?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Mutation$DeleteList(
+        deleteList: deleteList == _undefined
+            ? _instance.deleteList
+            : (deleteList as bool?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
 }
 
 class _CopyWithStubImpl$Mutation$DeleteList<TRes>
     implements CopyWith$Mutation$DeleteList<TRes> {
   _CopyWithStubImpl$Mutation$DeleteList(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     bool? deleteList,
     String? $__typename,
@@ -232,49 +225,45 @@ class _CopyWithStubImpl$Mutation$DeleteList<TRes>
       _res;
 }
 
-const documentNodeMutationDeleteList = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.mutation,
-      name: NameNode(value: 'DeleteList'),
-      variableDefinitions: [
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'idList')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+const documentNodeMutationDeleteList = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'DeleteList'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'idList')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-      ],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'deleteList'),
-            alias: null,
-            arguments: [
-              ArgumentNode(
-                name: NameNode(value: 'idList'),
-                value: VariableNode(name: NameNode(value: 'idList')),
-              ),
-            ],
-            directives: [],
-            selectionSet: null,
-          ),
-          FieldNode(
-            name: NameNode(value: '__typename'),
-            alias: null,
-            arguments: [],
-            directives: [],
-            selectionSet: null,
-          ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      )
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'deleteList'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'idList'),
+            value: VariableNode(name: NameNode(value: 'idList')),
+          )
         ],
+        directives: [],
+        selectionSet: null,
       ),
-    ),
-  ],
-);
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ]),
+  ),
+]);
 Mutation$DeleteList _parserFn$Mutation$DeleteList(Map<String, dynamic> data) =>
     Mutation$DeleteList.fromJson(data);
 typedef OnMutationCompleted$Mutation$DeleteList = FutureOr<void> Function(
@@ -362,13 +351,11 @@ class WatchOptions$Mutation$DeleteList
 
 extension ClientExtension$Mutation$DeleteList on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$DeleteList>> mutate$DeleteList(
-    Options$Mutation$DeleteList options,
-  ) async =>
-      await mutate(options);
+          Options$Mutation$DeleteList options) async =>
+      await this.mutate(options);
   graphql.ObservableQuery<Mutation$DeleteList> watchMutation$DeleteList(
-    WatchOptions$Mutation$DeleteList options,
-  ) =>
-      watchMutation(options);
+          WatchOptions$Mutation$DeleteList options) =>
+      this.watchMutation(options);
 }
 
 class Mutation$DeleteList$HookResult {
@@ -382,9 +369,8 @@ class Mutation$DeleteList$HookResult {
   final graphql.QueryResult<Mutation$DeleteList> result;
 }
 
-Mutation$DeleteList$HookResult useMutation$DeleteList([
-  WidgetOptions$Mutation$DeleteList? options,
-]) {
+Mutation$DeleteList$HookResult useMutation$DeleteList(
+    [WidgetOptions$Mutation$DeleteList? options]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$DeleteList());
   return Mutation$DeleteList$HookResult(
@@ -398,8 +384,7 @@ Mutation$DeleteList$HookResult useMutation$DeleteList([
 }
 
 graphql.ObservableQuery<Mutation$DeleteList> useWatchMutation$DeleteList(
-  WatchOptions$Mutation$DeleteList options,
-) =>
+        WatchOptions$Mutation$DeleteList options) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$DeleteList

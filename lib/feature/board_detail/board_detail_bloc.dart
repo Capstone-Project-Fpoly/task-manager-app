@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
@@ -9,6 +8,7 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/board_detail/board_detail_card_extention.dart';
 import 'package:task_manager/feature/board_detail/board_detail_list_extention.dart';
+import 'package:task_manager/feature/board_detail/enum/board_detail_app_bar_enum.dart';
 import 'package:task_manager/feature/board_detail/widget/board_detail_show_list_bottom_widget.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
@@ -20,16 +20,13 @@ import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart
 class BoardDetailBloc extends BlocBase {
   final Ref ref;
 
-  final Fragment$BoardFragment boardFragment;
+  Fragment$BoardFragment boardFragment;
 
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
   late final boardBloc = ref.read(BlocProvider.board);
   late final localStorage = ref.read(AppService.localStorage);
-
-  final isAddListSubject = BehaviorSubject<bool>.seeded(false);
-  final isAddCardSubject = BehaviorSubject<bool>.seeded(false);
 
   final isDraggingCardSubject = BehaviorSubject<bool>.seeded(false);
   final isDraggingListSubject = BehaviorSubject<bool>.seeded(false);
@@ -41,7 +38,6 @@ class BoardDetailBloc extends BlocBase {
 
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   final isLoadingAddSubject = BehaviorSubject<bool>.seeded(false);
-  final isLoadingUpdateSubject = BehaviorSubject<bool>.seeded(false);
 
   final isZoomSubject = BehaviorSubject<bool>.seeded(false);
 
@@ -50,24 +46,18 @@ class BoardDetailBloc extends BlocBase {
 
   final scrollListController = ScrollController();
 
-  final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final searchTextSubject = BehaviorSubject<String>.seeded('');
 
-  final titleBoardEditingController = TextEditingController();
   final titleBoardSubject = BehaviorSubject<String>.seeded('');
-  final selectedTitleBoardSubject = BehaviorSubject<bool>.seeded(false);
-  final focusNode = FocusNode();
+  final titleListEditSubject = BehaviorSubject<String>.seeded('');
 
-  final labelListEditingController = TextEditingController();
-  final labelListSubject = BehaviorSubject<String>.seeded('');
-  final selectedLabelListSubject = BehaviorSubject<bool>.seeded(false);
-  final focusNodeLabelList = FocusNode();
-  final selectedListSubject =
-      BehaviorSubject<Fragment$ListFragment?>.seeded(null);
   final idListEditSubject = BehaviorSubject<String?>.seeded(null);
 
   final isDragCardMoveContainerDeleteSubject =
       BehaviorSubject<bool>.seeded(false);
+
+  final appBarEnumSubject =
+      BehaviorSubject<BoardDetailAppBarEnum?>.seeded(null);
 
   List<Fragment$ListFragment?> listFragmentsCurrent = [];
 
@@ -86,7 +76,6 @@ class BoardDetailBloc extends BlocBase {
 
   Future<void> init() async {
     titleBoardSubject.value = boardFragment.title!;
-    titleBoardEditingController.text = boardFragment.title!;
     isLoadingSubject.value = true;
     await fetchListFragmentByIdBoard();
     isLoadingSubject.value = false;
@@ -97,7 +86,7 @@ class BoardDetailBloc extends BlocBase {
       Timer? timer;
       if (listFragmentsSubject.value.isEmpty) return;
       scrollListController.position.isScrollingNotifier.addListener(() {
-        if (selectedSearchSubject.value) return;
+        if (appBarEnumSubject.value == BoardDetailAppBarEnum.search) return;
         final isDragging =
             isDraggingCardSubject.value || isDraggingListSubject.value;
         if (isDragging) return;
@@ -123,25 +112,22 @@ class BoardDetailBloc extends BlocBase {
     });
   }
 
-  void onTapAddList() {
+  void onTapOpenAddList() {
+    appBarEnumSubject.value = BoardDetailAppBarEnum.addList;
     addListController.text = '';
-    isAddListSubject.value = true;
-    isAddCardSubject.value = false;
     indexAddCardSubject.value = null;
   }
 
-  void onTapAddCard(int index) {
+  void onTapOpenAddCard(int index) {
+    appBarEnumSubject.value = BoardDetailAppBarEnum.addCard;
     addCardController.text = '';
     indexAddCardSubject.value = index;
-    isAddCardSubject.value = true;
-    isAddListSubject.value = false;
   }
 
   @override
   void dispose() {
     super.dispose();
-    isAddListSubject.close();
-    isAddCardSubject.close();
+    appBarEnumSubject.close();
     listFragmentsSubject.close();
     addListController.dispose();
     addCardController.dispose();
@@ -151,47 +137,24 @@ class BoardDetailBloc extends BlocBase {
     isDraggingCardSubject.close();
     isLoadingAddSubject.close();
     scrollListController.dispose();
-    selectedSearchSubject.close();
     searchTextSubject.close();
     isDragCardMoveContainerDeleteSubject.close();
     isDraggingListSubject.close();
     titleBoardSubject.close();
-    selectedTitleBoardSubject.close();
-    focusNode.dispose();
-    isLoadingUpdateSubject.close();
-    labelListSubject.close();
-    selectedLabelListSubject.close();
-    focusNodeLabelList.dispose();
-    selectedListSubject.close();
     idListEditSubject.close();
+    titleListEditSubject.close();
   }
 
-  void onTapTitleTextField(bool open) {
-    selectedTitleBoardSubject.value = open;
-    if (open) {
-      focusNode.requestFocus();
-      return;
-    }
-    titleBoardEditingController.text = boardFragment.title!;
-    focusNode.unfocus();
-  }
-
-  void onTapLabelListTextField({required bool open, required String? idList}) {
+  void onTapLabelListTextField({required String? idList}) {
     if (idList == null || idList.isEmpty) return;
-    selectedLabelListSubject.value = open;
-    if (open) {
-      idListEditSubject.value = idList;
-      focusNodeLabelList.requestFocus();
-      return;
-    }
-    labelListEditingController.text = selectedListSubject.value?.label ?? '';
-    focusNodeLabelList.unfocus();
+    idListEditSubject.value = idList;
+    appBarEnumSubject.value = BoardDetailAppBarEnum.editListLabel;
   }
 
-  void openSearch(bool open) {
+  void onTapOpenSearch() {
     if (isLoadingSubject.value) return;
     listFragmentsSubject.value = listFragmentsCurrent;
-    selectedSearchSubject.value = open;
+    appBarEnumSubject.value = BoardDetailAppBarEnum.search;
   }
 
   void searchLocalCard(String query) {
@@ -217,63 +180,26 @@ class BoardDetailBloc extends BlocBase {
     listFragmentsSubject.value = listSearch;
   }
 
-  void onBackToBoardScreen() {
-    routerService.pop();
-  }
-
-  void onBackToBoardDetailScreen() {
-    routerService.pop();
-  }
-
-  void closeAdd() {
-    selectedTitleBoardSubject.value = false;
-    selectedLabelListSubject.value = false;
-    isAddListSubject.value = false;
-    isAddCardSubject.value = false;
+  void onTapClose() {
+    appBarEnumSubject.value = null;
     indexAddCardSubject.value = null;
     idListEditSubject.value = null;
   }
 
-  void add() {
-    selectedTitleBoardSubject.value = false;
-    if (addListController.text == '' && addCardController.text == '') return;
-    if (isAddListSubject.value) {
-      addList();
-      return;
-    }
-    addCard();
-  }
-
-  void update() {
-    focusNode.unfocus();
-    focusNodeLabelList.unfocus();
-    if (selectedTitleBoardSubject.value) {
-      onTapUpdateBoard(title: titleBoardSubject.value);
-      return;
-    }
-    onUpdateList(id: selectedListSubject.value!.id, label: labelListSubject.value);
-  }
-
-  Future<void> onTapUpdateBoard({
-    String? title,
-    String? color,
-    bool? isPublic,
-  }) async {
-    isLoadingUpdateSubject.value = true;
+  Future<void> onTapUpdateBoard() async {
+    isLoadingAddSubject.value = true;
     final result = await graphqlService.client.mutate$UpdateBoard(
       Options$Mutation$UpdateBoard(
         variables: Variables$Mutation$UpdateBoard(
           idBoard: boardBloc.selectedBoardSubject.value!.id,
           input: Input$InputUpdateBoard(
-            title: title,
-            color: color,
-            isPublic: isPublic,
+            title: titleBoardSubject.value,
           ),
         ),
       ),
     );
-    isLoadingUpdateSubject.value = false;
-    selectedTitleBoardSubject.value = false;
+    appBarEnumSubject.value = null;
+    isLoadingAddSubject.value = false;
     if (result.hasException) {
       toastService.showText(
         message: result.exception?.graphqlErrors.first.message ??
@@ -281,22 +207,28 @@ class BoardDetailBloc extends BlocBase {
       );
       return;
     }
+    // cập nhật lại bảng
+    final board = boardFragment;
+    final newBoard = board.copyWith(
+      title: titleBoardSubject.value,
+    );
+    boardFragment = newBoard;
   }
 
-  Future<void> addList() async {
-    selectedTitleBoardSubject.value = false;
+  Future<void> onTapAddList() async {
+    if (addListController.text.isEmpty) return;
     final result = await fetchCreateList(label: addListController.text);
     if (result == null) {
       toastService.showText(message: 'Lỗi không thể tạo danh sách');
       return;
     }
+    appBarEnumSubject.value = null;
     listFragmentsSubject.value.add(result);
-    isAddListSubject.value = false;
     addListController.clear();
   }
 
-  Future<void> addCard() async {
-    selectedTitleBoardSubject.value = false;
+  Future<void> onTapAddCard() async {
+    if (addCardController.text.isEmpty) return;
     final indexAddCard = indexAddCardSubject.value;
     if (indexAddCard == null) return;
     final idList = listFragmentsSubject.value[indexAddCard]?.id;
@@ -305,19 +237,18 @@ class BoardDetailBloc extends BlocBase {
       idList: idList,
       title: addCardController.text,
     );
+    appBarEnumSubject.value = null;
     if (result == null) {
       toastService.showText(message: 'Lỗi không thể tạo card');
       return;
     }
     listFragmentsSubject.value[indexAddCard]?.cards?.add(result);
     indexAddCardSubject.value = null;
-    isAddCardSubject.value = false;
     addCardController.clear();
   }
 
   void onTapOpenMenuBoardScreen() {
     if (isLoadingSubject.value) return;
-    selectedSearchSubject.value = false;
     routerService.push(RouteInput.menuBoard(boardFragment: boardFragment));
   }
 
@@ -354,17 +285,19 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void onTapZoom() {
-    selectedTitleBoardSubject.value = false;
     final check = isZoomSubject.value;
     isZoomSubject.value = !check;
   }
 
   void onTapOpenInviteMember() {
+    if (isLoadingSubject.value) return;
+    appBarEnumSubject.value = null;
     routerService.push(RouteInput.inviteMember());
   }
 
-  void back() {
-    selectedTitleBoardSubject.value = false;
+  void onTapBack() {
+    if (isLoadingSubject.value) return;
+    appBarEnumSubject.value = null;
     routerService.pop();
   }
 
@@ -372,8 +305,7 @@ class BoardDetailBloc extends BlocBase {
     required BuildContext context,
     required Fragment$ListFragment listFragment,
   }) {
-    selectedTitleBoardSubject.value = false;
-    dialogShow(
+    dialogShowConfirm(
       context: context,
       title: 'Xóa danh sách',
       content: 'Bạn có muốn xóa danh sách ${listFragment.label} không',
@@ -382,15 +314,13 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void resetListFragment() {
-    selectedSearchSubject.value = false;
     listFragmentsSubject.value = listFragmentsCurrent;
   }
 
-  void showBottomSheet({
+  void showBottomSheetListDetail({
     required BuildContext context,
     required Fragment$ListFragment? listFragment,
   }) {
-    selectedTitleBoardSubject.value = false;
     resetListFragment();
     if (listFragment == null) return;
     showModalBottomSheet<void>(
@@ -410,7 +340,7 @@ class BoardDetailBloc extends BlocBase {
     );
   }
 
-  Future<void> dialogShow({
+  Future<void> dialogShowConfirm({
     required BuildContext context,
     required String title,
     required String content,
@@ -440,7 +370,7 @@ class BoardDetailBloc extends BlocBase {
     isDraggingCardSubject.value = value;
 
     if (value || !isDragCardMoveContainerDeleteSubject.value) return;
-    dialogShow(
+    dialogShowConfirm(
       context: context,
       title: 'Xóa thẻ',
       content: 'Bạn có muốn xóa thẻ không',
@@ -451,6 +381,16 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void onTapNotification() {
+    if (isLoadingSubject.value) return;
+    appBarEnumSubject.value = null;
     routerService.push(RouteInput.notification(idBoard: boardFragment.id));
+  }
+
+  void onTapEditBoardTitle() {
+    appBarEnumSubject.value = BoardDetailAppBarEnum.editBoardTitle;
+  }
+
+  void onTapSubmitEditListLabel() {
+    onUpdateList();
   }
 }

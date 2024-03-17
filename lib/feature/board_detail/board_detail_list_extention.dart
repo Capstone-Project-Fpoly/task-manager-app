@@ -75,22 +75,27 @@ extension BoardDetailListExtention on BoardDetailBloc {
     listFragmentsSubject.value = listTemp;
   }
 
-  Future<void> onUpdateList({
-    required String id,
-    required String label,
-  }) async {
-    focusNode.unfocus();
-    if (labelListSubject.value.trim().isEmpty) {
+  Future<void> onUpdateList() async {
+    final listTemp = listFragmentsSubject.value;
+    final id = idListEditSubject.value;
+    final index = listTemp.indexWhere((element) => element?.id == id);
+    final newLabel = titleListEditSubject.value;
+    final label = listTemp[index]?.label;
+    if (newLabel.isEmpty || newLabel == label) {
       return;
     }
+    if (id == null || id.isEmpty) return;
+    isLoadingAddSubject.value = true;
     final result = await graphqlService.client.mutate$UpdateList(
       Options$Mutation$UpdateList(
         variables: Variables$Mutation$UpdateList(
           idList: id,
-          label: label,
+          label: newLabel,
         ),
       ),
     );
+    appBarEnumSubject.value = null;
+    isLoadingAddSubject.value = false;
     if (result.hasException) {
       toastService.showText(
         message: result.exception?.graphqlErrors.first.message ??

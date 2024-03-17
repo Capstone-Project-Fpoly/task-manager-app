@@ -7,6 +7,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
+import 'package:task_manager/feature/board_detail/enum/board_detail_app_bar_enum.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/color.dart';
@@ -34,7 +35,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
               style: TextStyle(color: Colors.white),
             ),
             listTarget: InkWell(
-              onTap: bloc.onTapAddList,
+              onTap: bloc.onTapOpenAddList,
               child: AnimatedSwitcher(
                 key: const ValueKey('key_animated'),
                 duration: const Duration(milliseconds: 100),
@@ -42,13 +43,16 @@ class DragAndDropListsCustom extends ConsumerWidget {
                   return ScaleTransition(scale: animation, child: child);
                 },
                 child: ObsBuilder(
-                  streams: [bloc.selectedSearchSubject],
+                  streams: const [],
                   builder: (context) {
-                    final isSearch = bloc.selectedSearchSubject.value;
+                    final isSearch = bloc.appBarEnumSubject.value ==
+                        BoardDetailAppBarEnum.search;
+                    final isAddList = bloc.appBarEnumSubject.value ==
+                        BoardDetailAppBarEnum.addList;
                     if (isSearch) {
                       return const SizedBox.shrink();
                     }
-                    return !bloc.isAddListSubject.value
+                    return !isAddList
                         ? Container(
                             // key: const ValueKey('1'),
                             alignment: Alignment.center,
@@ -156,20 +160,17 @@ class DragAndDropListsCustom extends ConsumerWidget {
         children: <Widget>[
           Expanded(
             child: ObsBuilder(
-              streams: [
-                bloc.selectedLabelListSubject,
-                bloc.selectedListSubject,
-              ],
+              streams: const [],
               builder: (context) {
-                final isSelected = bloc.selectedLabelListSubject.value;
-                bloc.selectedListSubject.value = innerList;
+                final isSelected = bloc.appBarEnumSubject.value ==
+                    BoardDetailAppBarEnum.editListLabel;
                 return GestureDetector(
                   onDoubleTap: () {
                     bloc.onTapLabelListTextField(
-                        open: true, idList: innerList?.id,);
+                      idList: innerList?.id,
+                    );
                   },
                   child: Container(
-                    height: height / 13.5,
                     decoration: const BoxDecoration(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(7.0)),
@@ -178,11 +179,11 @@ class DragAndDropListsCustom extends ConsumerWidget {
                     child: isSelected &&
                             bloc.idListEditSubject.value == innerList?.id
                         ? TextFormField(
-                            controller: bloc.labelListEditingController,
                             onChanged: (value) {
-                              bloc.titleBoardSubject.value = value;
+                              bloc.titleListEditSubject.value = value;
                             },
-                            focusNode: bloc.focusNodeLabelList,
+                            autofocus: true,
+                            initialValue: innerList?.label ?? '',
                             style: const AppTextStyle.black(
                               fontSize: 14,
                               color: Colors.black,
@@ -210,8 +211,10 @@ class DragAndDropListsCustom extends ConsumerWidget {
             ),
           ),
           GestureDetector(
-            onTap: () =>
-                bloc.showBottomSheet(context: context, listFragment: innerList),
+            onTap: () => bloc.showBottomSheetListDetail(
+              context: context,
+              listFragment: innerList,
+            ),
             child: const Icon(
               Icons.more_vert,
               color: Colors.black,
@@ -223,13 +226,13 @@ class DragAndDropListsCustom extends ConsumerWidget {
         padding:
             EdgeInsetsConstants.horizontal10 + EdgeInsetsConstants.vertical16,
         child: ObsBuilder(
-          streams: [bloc.isAddCardSubject, bloc.indexAddCardSubject],
+          streams: [bloc.indexAddCardSubject],
           builder: (context) {
             final indexCard = bloc.indexAddCardSubject.value;
-            final isShowAddCard = indexCard == null
-                ? true
-                : bloc.isAddCardSubject.value == true &&
-                    indexCard != outerIndex;
+            final isAddCard =
+                bloc.appBarEnumSubject.value == BoardDetailAppBarEnum.addCard;
+            final isShowAddCard =
+                indexCard == null ? true : isAddCard && indexCard != outerIndex;
             return AnimatedSwitcher(
               key: const ValueKey('add_card'),
               duration: const Duration(milliseconds: 500),
@@ -238,8 +241,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
                       children: <Widget>[
                         InkWell(
                           onTap: () {
-                            bloc.openSearch(false);
-                            bloc.onTapAddCard(outerIndex);
+                            bloc.onTapOpenAddCard(outerIndex);
                           },
                           child: const Row(
                             children: [

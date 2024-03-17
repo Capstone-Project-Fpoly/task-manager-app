@@ -46,7 +46,7 @@ class LoginWithOtherEmailBloc extends BlocBase {
       return false;
     }
     if (!RegexConstants.email.hasMatch(emailController.text)) {
-      errorCheckTextSubject.value = 'email không đúng định dạng';
+      errorCheckTextSubject.value = 'Email không đúng định dạng';
       return false;
     }
 

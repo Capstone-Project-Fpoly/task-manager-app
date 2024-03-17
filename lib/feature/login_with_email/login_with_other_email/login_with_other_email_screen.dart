@@ -62,8 +62,9 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                       hintText: 'Nhập Email',
                       keyBroadType: TextInputType.emailAddress,
                     ),
+                    SizedBoxConstants.h4,
                     Container(
-                      width: width - 100,
+                      width: MediaQuery.of(context).size.width * 0.75,
                       alignment: Alignment.centerLeft,
                       child: Text(
                         bloc.errorCheckTextSubject.value,
@@ -92,9 +93,9 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                                 ),
                         ),
                       ),
+                    SizedBoxConstants.h4,
                     if (bloc.isPassSubject.value)
                       Container(
-                        padding: EdgeInsetsConstants.left8,
                         width: MediaQuery.of(context).size.width * 0.75,
                         alignment: Alignment.centerLeft,
                         child: Text(
