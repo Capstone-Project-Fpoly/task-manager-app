@@ -1,55 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:task_manager/base/bloc/bloc_provider.dart';
-import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/edge_insets.dart';
-import 'package:task_manager/shared/utilities/color.dart';
+import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/shared/widgets/card_item/card_Item_widget.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class ListSearchByBoard extends ConsumerWidget {
   const ListSearchByBoard({super.key});
+
   @override
   Widget build(BuildContext context, ref) {
-    final bloc = ref.watch(BlocProvider.myCard);
-    return ObsBuilder(
-      streams: [bloc.listSearchBoardMyCardSubject],
-      builder: (context) {
-        final listBoards = bloc.listSearchBoardMyCardSubject.value;
-        return ListView.builder(
-          itemCount: listBoards.length,
-          itemBuilder: (BuildContext context, int index) {
-            final board = listBoards[index];
-            final color = ColorUtils.getColorFromHex(board?.color);
-            final hslColor = HSLColor.fromColor(color);
-            final darkerColor =
-                hslColor.withLightness(hslColor.lightness * 0.5).toColor();
-            return ListTile(
-              title: Container(
-                decoration: BoxDecoration(
-                  color: darkerColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                ),
-                padding: EdgeInsetsConstants.all8,
-                child: Text(
-                  board!.title.toString(),
-                  style: const AppTextStyle.white(
-                    fontSize: 20,
-                  ),
-                ),
+    // final bloc = ref.watch(BlocProvider.myCard);
+    return ListView.builder(
+      itemCount: 2,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Container(
+            decoration: const BoxDecoration(
+              // color: darkerColor,
+              color: Colors.blue,
+              border: Border(
+                  top: BorderSide(color: Colors.grey, width: 1),
+                  bottom: BorderSide(color: Colors.grey, width: 1)),
+            ),
+            padding: EdgeInsetsConstants.all8,
+            child: Text(
+              // board!.title.toString(),
+              'Tên Bảng ${index + 1}',
+              style: const AppTextStyle.white(
+                fontSize: 20,
               ),
-              subtitle: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text('ListTile bên trong $index'),
-                    onTap: () {},
-                  );
-                },
-              ),
-            );
-          },
+            ),
+          ),
+          subtitle: Padding(
+            padding: EdgeInsetsConstants.left16 + EdgeInsetsConstants.right16,
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 2,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    CardItemWidget(
+                      onTap: () {},
+                    ),
+                    SizedBoxConstants.h2,
+                    const Row(
+                      children: [
+                        Text('Tên Bảng',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black54,),),
+                        SizedBoxConstants.w4,
+                        Text('trong danh sách'),
+                        SizedBoxConstants.w4,
+                        Text('Tên Danh Sách',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black54,),),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
         );
       },
     );

@@ -6,64 +6,16 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
-import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
-import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 
 class MyCardBloc extends BlocBase {
   final Ref ref;
 
   Future<void> getListBoard(String query) async {
-    final user = appBloc.userSubject.value;
-    isLoadingSubject.value = true;
-    final resultBoard = await graphqlService.client.mutate$getBoards(
-      Options$Mutation$getBoards(),
-    );
-    if (resultBoard.hasException) {
-      toastService.showText(
-        message: resultBoard.exception?.graphqlErrors[0].message ?? 'Lỗi',
-      );
-      return;
-    }
-    if (resultBoard.parsedData == null) {
-      toastService.showText(
-        message: resultBoard.exception?.graphqlErrors[0].message ??
-            'Không lấy được dữ liệu!',
-      );
-      return;
-    }
-    final listBoard = resultBoard.parsedData?.getBoards ?? [];
-    final listBoardTemp = [];
-    for (final item in listBoard) {
-      if (item == null) continue;
-      final resultList = await graphqlService.client.mutate$getList(
-        Options$Mutation$getList(
-          variables: Variables$Mutation$getList(
-            idBoard: item.id,
-          ),
-        ),
-      );
-      if (resultList.hasException || resultList.parsedData == null) continue;
-      final listOfBoard =
-          resultList.parsedData?.getLists ?? [] as List<Fragment$ListFragment>;
-      if (listOfBoard.contains(user!.uid)) {
-        listBoardTemp.remove(item);
-      } else {
-        listBoardTemp.add(item);
-      }
-    }
-    listSearchBoardMyCardSubject.value =
-        listBoardTemp as List<Fragment$BoardFragment>;
   }
 
   MyCardBloc(this.ref) {
     init();
   }
-
-  // void searchLocalBoard(String query) {
-  //   final result = list
-  //       .where((element) => element?.title?.contains(query) ?? false)
-  //       .toList();
-  // }
 
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final isFindCardByBoardSubject = BehaviorSubject<bool>.seeded(true);
