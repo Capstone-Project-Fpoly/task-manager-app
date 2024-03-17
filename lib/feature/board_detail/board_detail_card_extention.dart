@@ -91,4 +91,5 @@ extension BoardDetailCardExtention on BoardDetailBloc {
       return;
     }
   }
+
 }

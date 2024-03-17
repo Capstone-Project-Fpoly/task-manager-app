@@ -6,6 +6,7 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/board_detail/widget/drag_and_drop_lists_custom.dart';
 import 'package:task_manager/shared/utilities/color.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class BoardDetailScreen extends ConsumerWidget {
   const BoardDetailScreen({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class BoardDetailScreen extends ConsumerWidget {
       streams: [
         bloc.isAddCardSubject,
         bloc.isAddListSubject,
+        bloc.selectedTitleBoardSubject,
         bloc.isDraggingCardSubject,
         bloc.isDragCardMoveContainerDeleteSubject,
       ],
@@ -68,7 +70,9 @@ class BoardDetailScreen extends ConsumerWidget {
                 )
               : AppBar(
                   leading: bloc.isAddListSubject.value == false &&
-                          bloc.isAddCardSubject.value == false
+                          bloc.isAddCardSubject.value == false &&
+                          bloc.selectedTitleBoardSubject.value == false &&
+                          bloc.selectedLabelListSubject.value == false
                       ? InkWell(
                           onTap: () {
                             bloc.onBackToBoardScreen();
@@ -107,8 +111,23 @@ class BoardDetailScreen extends ConsumerWidget {
                       return bloc.isAddListSubject.value == false
                           ? bloc.isAddCardSubject.value == true
                               ? const Text('Thêm thẻ...')
-                              : Text(
-                                  bloc.boardFragment.title ?? 'Bảng thử nghiệm',
+                              : TextFormField(
+                                  controller: bloc.titleBoardEditingController,
+                                  onTap: () {
+                                    bloc.onTapTitleTextField(true);
+                                  },
+                                  onChanged: (value) {
+                                    bloc.titleBoardSubject.value = value;
+                                  },
+                                  focusNode: bloc.focusNode,
+                                  style: const AppTextStyle.white(
+                                    fontSize: 20,
+                                  ),
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: bloc.boardFragment.title ??
+                                        'Bảng thử nghiệm',
+                                  ),
                                 )
                           : const Text('Thêm danh sách');
                     },
@@ -117,7 +136,9 @@ class BoardDetailScreen extends ConsumerWidget {
                   leadingWidth: 50,
                   actions: [
                     bloc.isAddListSubject.value == false &&
-                            bloc.isAddCardSubject.value == false
+                            bloc.isAddCardSubject.value == false &&
+                            bloc.selectedTitleBoardSubject.value == false &&
+                            bloc.selectedLabelListSubject.value == false
                         ? Row(
                             children: [
                               ObsBuilder(
@@ -172,14 +193,23 @@ class BoardDetailScreen extends ConsumerWidget {
                             padding: EdgeInsetsConstants.right16,
                             child: InkWell(
                               onTap: () {
-                                bloc.add();
+                                if (bloc.selectedTitleBoardSubject.value) {
+                                  bloc.update();
+                                } else {
+                                  bloc.add();
+                                }
                               },
                               child: ObsBuilder(
-                                streams: [bloc.isLoadingAddSubject],
+                                streams: [
+                                  bloc.isLoadingAddSubject,
+                                  bloc.isLoadingUpdateSubject,
+                                ],
                                 builder: (context) {
                                   final isLoading =
                                       bloc.isLoadingAddSubject.value;
-                                  if (isLoading) {
+                                  final isLoadingUpdate =
+                                      bloc.isLoadingUpdateSubject.value;
+                                  if (isLoading || isLoadingUpdate) {
                                     return const SizedBox(
                                       width: 24,
                                       height: 24,

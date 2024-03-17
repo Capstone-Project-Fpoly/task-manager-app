@@ -10,6 +10,7 @@ import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/color.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DragAndDropListsCustom extends ConsumerWidget {
   @override
@@ -154,19 +155,58 @@ class DragAndDropListsCustom extends ConsumerWidget {
       header: Row(
         children: <Widget>[
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(7.0)),
-              ),
-              padding: EdgeInsetsConstants.all10,
-              child: Text(
-                innerList?.label ?? '',
-                maxLines: 1,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+            child: ObsBuilder(
+              streams: [
+                bloc.selectedLabelListSubject,
+                bloc.selectedListSubject,
+              ],
+              builder: (context) {
+                final isSelected = bloc.selectedLabelListSubject.value;
+                bloc.selectedListSubject.value = innerList;
+                return GestureDetector(
+                  onDoubleTap: () {
+                    bloc.onTapLabelListTextField(
+                        open: true, idList: innerList?.id,);
+                  },
+                  child: Container(
+                    height: height / 13.5,
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(7.0)),
+                    ),
+                    padding: EdgeInsetsConstants.all10,
+                    child: isSelected &&
+                            bloc.idListEditSubject.value == innerList?.id
+                        ? TextFormField(
+                            controller: bloc.labelListEditingController,
+                            onChanged: (value) {
+                              bloc.titleBoardSubject.value = value;
+                            },
+                            focusNode: bloc.focusNodeLabelList,
+                            style: const AppTextStyle.black(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.start,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: innerList?.label ?? '',
+                            ),
+                            maxLines: 1,
+                          )
+                        : Text(
+                            innerList?.label ?? '',
+                            maxLines: 1,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                  ),
+                );
+              },
             ),
           ),
           GestureDetector(

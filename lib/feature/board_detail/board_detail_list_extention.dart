@@ -3,6 +3,7 @@ import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/create_list.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/delete_list.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/moveList.graphql.dart';
+import 'package:task_manager/graphql/Mutations/list/update_list.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 
 extension BoardDetailListExtention on BoardDetailBloc {
@@ -72,5 +73,30 @@ extension BoardDetailListExtention on BoardDetailBloc {
     final listTemp = listFragmentsSubject.value;
     listTemp.removeWhere((element) => element?.id == idList);
     listFragmentsSubject.value = listTemp;
+  }
+
+  Future<void> onUpdateList({
+    required String id,
+    required String label,
+  }) async {
+    focusNode.unfocus();
+    if (labelListSubject.value.trim().isEmpty) {
+      return;
+    }
+    final result = await graphqlService.client.mutate$UpdateList(
+      Options$Mutation$UpdateList(
+        variables: Variables$Mutation$UpdateList(
+          idList: id,
+          label: label,
+        ),
+      ),
+    );
+    if (result.hasException) {
+      toastService.showText(
+        message: result.exception?.graphqlErrors.first.message ??
+            'Lỗi không thể cập nhật bảng',
+      );
+      return;
+    }
   }
 }
