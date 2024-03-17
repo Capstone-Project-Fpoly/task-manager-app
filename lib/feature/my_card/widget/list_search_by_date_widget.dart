@@ -141,6 +141,7 @@ class ListSearchByDate extends ConsumerWidget {
                             ),
                           ],
                         ),
+                        SizedBoxConstants.h16,
                       ],
                     );
                   },
@@ -204,6 +205,7 @@ class ListSearchByDate extends ConsumerWidget {
                             ),
                           ],
                         ),
+                        SizedBoxConstants.h16,
                       ],
                     );
                   },
