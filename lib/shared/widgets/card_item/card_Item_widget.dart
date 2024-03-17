@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/constants/edge_insets.dart';
@@ -39,7 +37,7 @@ class CardItemWidget extends ConsumerWidget {
                   ),
                 ),
                 child: ClipRRect(
-                  borderRadius:const BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(10),
                     topLeft: Radius.circular(10),
                   ),

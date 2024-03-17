@@ -10,8 +10,7 @@ import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 class MyCardBloc extends BlocBase {
   final Ref ref;
 
-  Future<void> getListBoard(String query) async {
-  }
+  Future<void> getListBoard(String query) async {}
 
   MyCardBloc(this.ref) {
     init();

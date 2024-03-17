@@ -21,8 +21,9 @@ class ListSearchByBoard extends ConsumerWidget {
               // color: darkerColor,
               color: Colors.blue,
               border: Border(
-                  top: BorderSide(color: Colors.grey, width: 1),
-                  bottom: BorderSide(color: Colors.grey, width: 1)),
+                top: BorderSide(color: Colors.grey, width: 1),
+                bottom: BorderSide(color: Colors.grey, width: 1),
+              ),
             ),
             padding: EdgeInsetsConstants.all8,
             child: Text(
@@ -48,19 +49,25 @@ class ListSearchByBoard extends ConsumerWidget {
                     SizedBoxConstants.h2,
                     const Row(
                       children: [
-                        Text('Tên Bảng',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black54,),),
-                        SizedBoxConstants.w4,
-                        Text('trong danh sách'),
-                        SizedBoxConstants.w4,
-                        Text('Tên Danh Sách',
+                        Text(
+                          'Tên Bảng',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black54,),),
+                            color: Colors.black54,
+                          ),
+                        ),
+                        SizedBoxConstants.w4,
+                        Text('trong danh sách'),
+                        SizedBoxConstants.w4,
+                        Text(
+                          'Tên Danh Sách',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black54,
+                          ),
+                        ),
                       ],
                     ),
                   ],
