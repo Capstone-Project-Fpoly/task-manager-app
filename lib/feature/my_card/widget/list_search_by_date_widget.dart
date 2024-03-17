@@ -48,7 +48,7 @@ class ListSearchByDate extends ConsumerWidget {
                 child: ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 1,
+                  itemCount: 2,
                   itemBuilder: (BuildContext context, int index) {
                     return const Column(
                       children: [
@@ -77,6 +77,7 @@ class ListSearchByDate extends ConsumerWidget {
                             ),
                           ],
                         ),
+                        SizedBoxConstants.h16,
                       ],
                     );
                   },
