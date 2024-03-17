@@ -81,6 +81,7 @@ class ListSearchByBoard extends ConsumerWidget {
                         ),
                       ],
                     ),
+                    SizedBoxConstants.h16,
                   ],
                 );
               },
