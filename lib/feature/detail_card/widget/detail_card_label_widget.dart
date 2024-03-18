@@ -37,6 +37,7 @@ class DetailCardLabelWidget extends ConsumerWidget {
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: bloc.listColorSubject.value.length,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, i) {
                         return Column(
                           children: [

@@ -61,7 +61,7 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
                 shrinkWrap: true,
                 children: bloc.listColorDefaultSubject.value
                     .map(
-                      (data) => _item(data, bloc),
+                      (data) => _item(color: data, bloc: bloc),
                     )
                     .toList(),
               ),
@@ -106,7 +106,7 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
     );
   }
 
-  Widget _item(ColorLabel color, DetailCardBloc bloc) {
+  Widget _item({required ColorLabel color, required DetailCardBloc bloc}) {
     return InkWell(
       onTap: () {
         bloc.onTapSelectColorAddLabel(color);
