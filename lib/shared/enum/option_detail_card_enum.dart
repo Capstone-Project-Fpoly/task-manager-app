@@ -1,27 +1,27 @@
 enum OptionDetailCardEnum {
   watch(
     title: 'Xem',
-    id: 1,
+    id: 0,
   ),
 
   move(
     title: 'Di chuyển thẻ',
-    id: 2,
+    id: 1,
   ),
 
   copy(
     title: 'Sao chép thẻ',
-    id: 3,
+    id: 2,
   ),
 
   save(
     title: 'Lưu',
-    id: 4,
+    id: 3,
   ),
 
   delete(
     title: 'Xóa',
-    id: 5,
+    id: 4,
   );
 
   const OptionDetailCardEnum({

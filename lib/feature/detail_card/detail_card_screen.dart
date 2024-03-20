@@ -100,7 +100,10 @@ class DetailCardScreen extends ConsumerWidget {
                             ),
                           )
                           .toList(),
-                      onSelected: (value) => bloc.chooseOption(),
+                      onSelected: (value) => bloc.chooseOption(
+                        idOption: value.id,
+                        context: context,
+                      ),
                       constraints: BoxConstraints(
                         minWidth: width - 200,
                       ),

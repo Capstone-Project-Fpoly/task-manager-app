@@ -7,6 +7,7 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/toast/toast_service.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_end_date.dart';
+import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_moving_card.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_start_date.dart';
 import 'package:task_manager/graphql/Fragment/comment_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/notification_fragment.graphql.dart';
@@ -239,8 +240,34 @@ class DetailCardBloc extends BlocBase {
     isShowLabelSubject.value = !isShowLabelSubject.value;
   }
 
-  void chooseOption() {
-    isShowOptionAllSubject.value = !isShowOptionAllSubject.value;
+  void chooseOption({required int idOption, required BuildContext context}) {
+    switch (idOption) {
+      case 0:
+        print('xem');
+        break;
+      case 1:
+        movingCard(context);
+        break;
+      case 2:
+        print('sao chép');
+        break;
+      case 3:
+        print('lưu');
+        break;
+      case 4:
+        print('xóa');
+        break;
+      default:
+        return;
+    }
+  }
+
+  void movingCard(BuildContext context) {
+    showDialog(
+      useRootNavigator: false,
+      context: context,
+      builder: (_) => const DetailCardDialogMovingCardWidget(),
+    );
   }
 
   void onBack() {
