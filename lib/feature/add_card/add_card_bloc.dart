@@ -18,16 +18,23 @@ class AddCardBloc extends BlocBase {
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
-  final listBoardSubject = BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
-  final selectedBoardSubject = BehaviorSubject<Fragment$BoardFragment?>.seeded(null);
+  final listBoardSubject =
+      BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
+  final selectedBoardSubject =
+      BehaviorSubject<Fragment$BoardFragment?>.seeded(null);
 
-  final listListSubject = BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
-  final selectedListSubject = BehaviorSubject<Fragment$ListFragment?>.seeded(null);
+  final listListSubject =
+      BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
+  final selectedListSubject =
+      BehaviorSubject<Fragment$ListFragment?>.seeded(null);
   final selectedTextListSubject = BehaviorSubject<String?>.seeded(null);
 
-  final listMemberSubject = BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
-  final listSelectedMemberSubject = BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
-  final selectedMemberSubject = BehaviorSubject<Fragment$UserFragment?>.seeded(null);
+  final listMemberSubject =
+      BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
+  final listSelectedMemberSubject =
+      BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
+  final selectedMemberSubject =
+      BehaviorSubject<Fragment$UserFragment?>.seeded(null);
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
 
   final timeStartSubject = BehaviorSubject<String?>.seeded(null);
@@ -35,8 +42,8 @@ class AddCardBloc extends BlocBase {
 
   final nameCardSubject = BehaviorSubject<String?>.seeded(null);
   final descriptionCardSubject = BehaviorSubject<String?>.seeded(null);
-  final FocusNode focusNodeName =FocusNode();
-  final FocusNode focusNodeDescription =FocusNode();
+  final FocusNode focusNodeName = FocusNode();
+  final FocusNode focusNodeDescription = FocusNode();
   final isSubmitSubject = BehaviorSubject<bool>.seeded(false);
   final isSubmitListSubject = BehaviorSubject<bool>.seeded(false);
 
@@ -61,15 +68,17 @@ class AddCardBloc extends BlocBase {
     isSubmitListSubject.close();
     selectedMemberSubject.close();
   }
+
   void init() {
     getBoard();
-
   }
+
   void onBackToBoardScreen() {
     routerService.pop();
   }
+
   Future<void> onTapAddCard() async {
-    final String titleCrad = nameCardSubject.value??'';
+    final String titleCrad = nameCardSubject.value ?? '';
     // final String descriptionCard = descriptionCardSubject.value??'';
     // final String timeStart = timeStartSubject.value??'';
     // final String timeFinish = timeFinishSubject.value??'';
@@ -125,6 +134,7 @@ class AddCardBloc extends BlocBase {
     getListByIdBoard();
     memberBoard();
   }
+
   void getListByIdBoard() async {
     isSubmitSubject.value = false;
     isSubmitListSubject.value = false;
@@ -139,7 +149,7 @@ class AddCardBloc extends BlocBase {
       ),
     );
     isLoadingSubject.value = false;
-    if (result.hasException){
+    if (result.hasException) {
       toastService.showText(
         message: result.exception?.graphqlErrors[0].message ?? 'Lỗi',
       );
@@ -148,10 +158,9 @@ class AddCardBloc extends BlocBase {
     listListSubject.value = result.parsedData?.getLists ?? [];
     if (listListSubject.value.isEmpty) {
       selectedTextListSubject.value = 'Không có danh sách nào';
-    }
-    else if(listListSubject.value.length == 1) {
-      selectedTextListSubject.value = listListSubject.value.first?.label??'';
-    }else{
+    } else if (listListSubject.value.length == 1) {
+      selectedTextListSubject.value = listListSubject.value.first?.label ?? '';
+    } else {
       selectedTextListSubject.value = 'Chọn danh sách';
     }
   }
@@ -173,16 +182,16 @@ class AddCardBloc extends BlocBase {
   Future<void> showDateTimePickerFisnish(BuildContext context) async {
     DateTime selectedDate = DateTime.now();
     final TimeOfDay selectedTime = TimeOfDay.now();
-    final DateTime tempDate = DateFormat('yyyy-MM-dd hh:mm:ss').parse(timeStartSubject.value??'');
+    final DateTime tempDate =
+        DateFormat('yyyy-MM-dd hh:mm:ss').parse(timeStartSubject.value ?? '');
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
       selectableDayPredicate: (DateTime val) =>
-      val.day < tempDate.day ? false : true,
+          val.day < tempDate.day ? false : true,
     );
-
 
     if (pickedDate != null) {
       // Pick hour and minute
@@ -214,12 +223,10 @@ class AddCardBloc extends BlocBase {
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
       selectableDayPredicate: (DateTime val) =>
-      val.day < selectedDate.day ? false : true,
+          val.day < selectedDate.day ? false : true,
     );
 
-
     if (pickedDate != null) {
-
       // ignore: use_build_context_synchronously
       final TimeOfDay? pickedTime = await showTimePicker(
         context: context,
@@ -238,6 +245,7 @@ class AddCardBloc extends BlocBase {
       }
     }
   }
+
   late final appBloc = ref.read(BlocProvider.app);
   AddCardBloc(this.ref) {
     init();
