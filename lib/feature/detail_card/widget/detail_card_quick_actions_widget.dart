@@ -26,7 +26,7 @@ class DetailCardQuickActionsWidget extends ConsumerWidget {
             children: [
               Material(
                 borderRadius: BorderRadius.circular(30),
-                color: ColorConstants.primaryColorLight.withOpacity(0.3),
+                color: ColorConstants.primaryColorLight.withOpacity(0.2),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(30),
                   onTap: () {
@@ -34,9 +34,21 @@ class DetailCardQuickActionsWidget extends ConsumerWidget {
                   },
                   child: Ink(
                     width: (width - 30) / 2,
-                    child: const ListTile(
-                      leading: Icon(Icons.check_box_outlined),
-                      title: Text(
+                    child: ListTile(
+                      leading: Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Icon(
+                          Icons.check_box_outlined,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                      title: const Text(
                         'Thêm danh sách công việc',
                         style: TextStyle(
                           color: ColorConstants.primaryBlack,
@@ -49,7 +61,7 @@ class DetailCardQuickActionsWidget extends ConsumerWidget {
               ),
               Material(
                 borderRadius: BorderRadius.circular(30),
-                color: ColorConstants.primaryColorLight.withOpacity(0.3),
+                color: ColorConstants.primaryColorLight.withOpacity(0.2),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(30),
                   onTap: () {
@@ -62,9 +74,21 @@ class DetailCardQuickActionsWidget extends ConsumerWidget {
                   },
                   child: Ink(
                     width: (width - 30) / 2,
-                    child: const ListTile(
-                      leading: Icon(Icons.person_outline),
-                      title: Text(
+                    child: ListTile(
+                      leading: Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: Colors.purpleAccent,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Icon(
+                          Icons.person_outline,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                      ),
+                      title: const Text(
                         'Thành viên',
                         style: TextStyle(
                           color: ColorConstants.primaryBlack,

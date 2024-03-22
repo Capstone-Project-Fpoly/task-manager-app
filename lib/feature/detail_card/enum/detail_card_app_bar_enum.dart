@@ -1,1 +1,1 @@
-enum DetailCardAppBarEnum { description, checklist, label, comment }
+enum DetailCardAppBarEnum { description, checklist, label, comment, title }

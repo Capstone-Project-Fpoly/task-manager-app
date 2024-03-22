@@ -12,21 +12,13 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
   Widget build(context, ref) {
     final bloc = ref.watch(BlocProvider.detailCardBloc);
     final width = MediaQuery.of(context).size.width;
-    return
-        // Container(
-        //   width: width,
-        //   height: 70,
-        //   color: Colors.amber,
-        // );
-        AnimatedContainer(
+    return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       width: width,
       decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(
-          top: BorderSide(
-            color: ColorConstants.inputBorder,
-          ),
+          top: BorderSide(color: ColorConstants.inputBorder),
         ),
       ),
       child: Column(
@@ -35,27 +27,17 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
-                ),
-                child: Container(
-                  width: width - 52,
-                  decoration: BoxDecoration(
-                    color: ColorConstants.primaryColorBlueLight,
-                    borderRadius: BorderRadius.circular(20),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
                   ),
                   child: TextFormField(
                     focusNode: bloc.focusNodeComment,
                     controller: bloc.commentController,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
                       isDense: true,
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 10,
@@ -66,6 +48,11 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
                         color: Colors.black.withOpacity(0.5),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                     maxLines: 5,

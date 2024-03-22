@@ -27,14 +27,20 @@ class DetailCardHeaderWidget extends ConsumerWidget {
                 streams: [bloc.cardSubject],
                 builder: (context) {
                   return Padding(
-                    padding: EdgeInsetsConstants.horizontal12 +
-                        EdgeInsetsConstants.bottom16,
-                    child: Text(
-                      bloc.cardSubject.value?.title ?? '',
+                    padding: EdgeInsetsConstants.horizontal12,
+                    child: TextField(
+                      focusNode: bloc.focusNodeTitle,
+                      controller: bloc.titleController,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
                       ),
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                      ),
+                      onTap: () {
+                        bloc.onTapTitle();
+                      },
                     ),
                   );
                 },
@@ -85,7 +91,7 @@ class DetailCardHeaderWidget extends ConsumerWidget {
                 ),
               ),
               if (bloc.isShowQuickActionsSubject.value)
-                const DetailCardQuickActionsWidget()
+                const DetailCardQuickActionsWidget(),
             ],
           ),
         );

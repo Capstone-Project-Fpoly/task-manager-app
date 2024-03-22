@@ -17,10 +17,12 @@ import 'package:task_manager/graphql/Fragment/comment_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/notification_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/get_card.graphql.dart';
+import 'package:task_manager/graphql/queries/board/get_user_of_board.graphql.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
 
 class DetailCardBloc extends BlocBase {
   final String idCard;
+  final String idBoard;
   final Ref ref;
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
@@ -64,12 +66,17 @@ class DetailCardBloc extends BlocBase {
   final endTimeSubject = BehaviorSubject<TimeOfDay?>.seeded(null);
 
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
-  final usersSubject = BehaviorSubject<List<Fragment$UserFragment>?>.seeded([]);
+  final usersSubject = BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
+  final usersOfBoard = BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
 
   final listCheckListSubject =
       BehaviorSubject<List<Fragment$CheckListFragment>>.seeded([]);
 
   final isLoadingUpdateSubject = BehaviorSubject<bool>.seeded(false);
+
+  final titleController = TextEditingController();
+
+  final focusNodeTitle = FocusNode();
 
   @override
   void dispose() {
@@ -105,6 +112,9 @@ class DetailCardBloc extends BlocBase {
     isLoadingUpdateSubject.close();
     startTimeSubject.close();
     endTimeSubject.close();
+    titleController.dispose();
+    focusNodeTitle.dispose();
+    usersOfBoard.close();
   }
 
   void setDateTime() {
@@ -145,6 +155,8 @@ class DetailCardBloc extends BlocBase {
     listCheckListSubject.value = card?.checkLists ?? [];
     addTitleStartDateTime();
     addTitleEndDateTime();
+
+    titleController.text = card?.title ?? '';
     listColorSubject.add([
       ColorLabel(color: '2196F3', id: 1),
       ColorLabel(color: 'FBFADA', id: 2),
@@ -176,6 +188,12 @@ class DetailCardBloc extends BlocBase {
     appBarEnumSubject.value = null;
     focusNodeDescription.unfocus();
     descriptionController.text = cardSubject.value?.description ?? '';
+  }
+
+  void onTapBackTitle() {
+    appBarEnumSubject.value = null;
+    focusNodeTitle.unfocus();
+    titleController.text = cardSubject.value?.title ?? '';
   }
 
   void onBackToBoardScreen() {
@@ -241,6 +259,10 @@ class DetailCardBloc extends BlocBase {
 
   void onTapDescription() {
     appBarEnumSubject.value = DetailCardAppBarEnum.description;
+  }
+
+  void onTapTitle() {
+    appBarEnumSubject.value = DetailCardAppBarEnum.title;
   }
 
   //Quick Action Bloc
@@ -431,36 +453,69 @@ class DetailCardBloc extends BlocBase {
   }
 
   late final appBloc = ref.read(BlocProvider.app);
-  DetailCardBloc(this.ref, {required this.idCard}) {
+  DetailCardBloc(this.ref, {required this.idCard, required this.idBoard}) {
     fetchCard();
   }
 
   Future<void> fetchCard() async {
     isLoadingSubject.value = true;
-    final result = await graphqlService.client.mutate$GetCard(
-      Options$Mutation$GetCard(
-        variables: Variables$Mutation$GetCard(
-          idCard: idCard,
+    final (resultGetCard, resultGetUser) = await (
+      graphqlService.client.mutate$GetCard(
+        Options$Mutation$GetCard(
+          variables: Variables$Mutation$GetCard(
+            idCard: idCard,
+          ),
         ),
       ),
-    );
+      graphqlService.client.query$GetUserOfBoard(
+        Options$Query$GetUserOfBoard(
+          variables: Variables$Query$GetUserOfBoard(
+            idBoard: idBoard,
+          ),
+        ),
+      ),
+    ).wait;
     isLoadingSubject.value = false;
-    if (result.hasException) {
-      final message = result.exception?.graphqlErrors.first.message;
+    if (resultGetCard.hasException) {
+      final message = resultGetCard.exception?.graphqlErrors.first.message;
       toastService.showText(message: message);
       routerService.pop();
       return;
     }
-    cardSubject.value = result.parsedData?.getCard;
+    // get user of board
+    if (!resultGetUser.hasException) {
+      usersOfBoard.value = resultGetUser.parsedData?.getUsersOfBoard ?? [];
+    }
+    cardSubject.value = resultGetCard.parsedData?.getCard;
     init();
   }
 
   Future<void> onTapUpdateDescription() async {
+    if (descriptionController.text == cardSubject.value?.description) {
+      onTapBackDescription();
+      return;
+    }
     isLoadingUpdateSubject.value = true;
     final card = await updateCard(description: descriptionController.text);
     isLoadingUpdateSubject.value = false;
     appBarEnumSubject.value = null;
     focusNodeDescription.unfocus();
+    if (card == null) {
+      return;
+    }
+    cardSubject.value = card;
+  }
+
+  Future<void> onTapUpdateTitle() async {
+    if (titleController.text == cardSubject.value?.title) {
+      onTapBackTitle();
+      return;
+    }
+    isLoadingUpdateSubject.value = true;
+    final card = await updateCard(title: titleController.text);
+    isLoadingUpdateSubject.value = false;
+    appBarEnumSubject.value = null;
+    focusNodeTitle.unfocus();
     if (card == null) {
       return;
     }

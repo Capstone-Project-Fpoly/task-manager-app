@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
+import 'package:task_manager/base/dependency/router/arguments/detail_card_argument.dart';
 import 'package:task_manager/feature/add_board/add_board_bloc.dart';
 import 'package:task_manager/feature/add_board/add_board_screen.dart';
 import 'package:task_manager/feature/add_card/add_card_bloc.dart';
@@ -11,8 +12,8 @@ import 'package:task_manager/feature/board/board_bloc.dart';
 import 'package:task_manager/feature/board/board_screen.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/feature/board_detail/board_detail_screen.dart';
-import 'package:task_manager/feature/detail_card/detail_card_screen.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
+import 'package:task_manager/feature/detail_card/detail_card_screen.dart';
 import 'package:task_manager/feature/help/help_screen.dart';
 import 'package:task_manager/feature/invite_member/invite_member_bloc.dart';
 import 'package:task_manager/feature/invite_member/invite_member_screen.dart';
@@ -241,10 +242,13 @@ class RouteScreen {
   }
 
   static PageRoute detailCardRoute(RouteSettings settings) {
-    final idCard = settings.arguments as String;
+    final detailCardArgument = settings.arguments as DetailCardArgument;
+    final idCard = detailCardArgument.idCard;
+    final idBoard = detailCardArgument.idBoard;
+
     BlocProvider.detailCardBloc = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-      (ref) => DetailCardBloc(ref, idCard: idCard),
+      (ref) => DetailCardBloc(ref, idCard: idCard, idBoard: idBoard),
     );
     return MaterialPageRoute(
       settings: settings,
