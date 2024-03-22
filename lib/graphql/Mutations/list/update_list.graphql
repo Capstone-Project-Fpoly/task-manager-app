@@ -1,0 +1,5 @@
+mutation UpdateList($idList: String!,$label: String!){
+    updateList(idList: $idList,label: $label){
+        ...ListFragment
+    }
+}

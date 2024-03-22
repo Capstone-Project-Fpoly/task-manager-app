@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EdgeInsetsConstants {
+  static const all2 = EdgeInsets.all(2);
   static const all4 = EdgeInsets.all(4);
   static const all8 = EdgeInsets.all(8);
   static const all10 = EdgeInsets.all(10);
@@ -14,6 +15,7 @@ class EdgeInsetsConstants {
   static const all40 = EdgeInsets.all(40);
   static const all50 = EdgeInsets.all(50);
 
+  static const left2 = EdgeInsets.only(left: 2);
   static const left4 = EdgeInsets.only(left: 4);
   static const left8 = EdgeInsets.only(left: 8);
   static const left12 = EdgeInsets.only(left: 12);
@@ -26,6 +28,7 @@ class EdgeInsetsConstants {
   static const left40 = EdgeInsets.only(left: 40);
   static const left50 = EdgeInsets.only(left: 50);
 
+  static const right2 = EdgeInsets.only(right: 2);
   static const right4 = EdgeInsets.only(right: 4);
   static const right8 = EdgeInsets.only(right: 8);
   static const right10 = EdgeInsets.only(right: 10);
@@ -52,6 +55,7 @@ class EdgeInsetsConstants {
   static const top40 = EdgeInsets.only(top: 40);
   static const top50 = EdgeInsets.only(top: 50);
 
+  static const bottom2 = EdgeInsets.only(bottom: 2);
   static const bottom4 = EdgeInsets.only(bottom: 4);
   static const bottom8 = EdgeInsets.only(bottom: 8);
   static const bottom12 = EdgeInsets.only(bottom: 12);
@@ -64,6 +68,7 @@ class EdgeInsetsConstants {
   static const bottom40 = EdgeInsets.only(bottom: 40);
   static const bottom50 = EdgeInsets.only(bottom: 50);
 
+  static const horizontal2 = EdgeInsets.symmetric(horizontal: 2);
   static const horizontal4 = EdgeInsets.symmetric(horizontal: 4);
   static const horizontal8 = EdgeInsets.symmetric(horizontal: 8);
   static const horizontal10 = EdgeInsets.symmetric(horizontal: 10);
@@ -76,6 +81,7 @@ class EdgeInsetsConstants {
   static const horizontal36 = EdgeInsets.symmetric(horizontal: 36);
   static const horizontal40 = EdgeInsets.symmetric(horizontal: 40);
 
+  static const vertical2 = EdgeInsets.symmetric(vertical: 2);
   static const vertical4 = EdgeInsets.symmetric(vertical: 4);
   static const vertical8 = EdgeInsets.symmetric(vertical: 8);
   static const vertical10 = EdgeInsets.symmetric(vertical: 10);

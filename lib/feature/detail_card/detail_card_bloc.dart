@@ -6,32 +6,31 @@ import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/toast/toast_service.dart';
+import 'package:task_manager/feature/detail_card/enum/detail_card_app_bar_enum.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_extension.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_end_date.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_moving_card.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_start_date.dart';
+import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/check_list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/comment_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/notification_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
-import 'package:task_manager/schema.graphql.dart';
+import 'package:task_manager/graphql/Mutations/card/get_card.graphql.dart';
+import 'package:task_manager/shared/utilities/datetime.dart';
 
 class DetailCardBloc extends BlocBase {
+  final String idCard;
   final Ref ref;
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
 
   final isShowQuickActionsSubject = BehaviorSubject<bool>.seeded(false);
-  final isShowLabelSubject = BehaviorSubject<bool>.seeded(false);
-  final isShowOptionAllSubject = BehaviorSubject<bool>.seeded(false);
-  final isShowFloatingSubject = BehaviorSubject<bool>.seeded(true);
-  final isSendCommentSubject = BehaviorSubject<bool>.seeded(false);
+  final isChatCommentSubject = BehaviorSubject<bool>.seeded(false);
   final isShowNotificationSubject = BehaviorSubject<bool>.seeded(false);
   final isShowErrorStartDateSubject = BehaviorSubject<bool>.seeded(false);
   final isShowErrorEndDateSubject = BehaviorSubject<bool>.seeded(false);
-  final isShowTitleCommentSubject = BehaviorSubject<bool>.seeded(false);
-  final isShowChecklistSubject = BehaviorSubject<bool>.seeded(false);
-  final isShowTitleChecklistSubject = BehaviorSubject<bool>.seeded(false);
-  final isShowTitleDescriptionSubject = BehaviorSubject<bool>.seeded(false);
 
   final listColorSubject = BehaviorSubject<List<ColorLabel>>.seeded([]);
   final listColorDefaultSubject = BehaviorSubject<List<ColorLabel>>.seeded([]);
@@ -50,9 +49,28 @@ class DetailCardBloc extends BlocBase {
   final endTimeController = TextEditingController();
   final checklistController = TextEditingController();
 
-  final focusNode = FocusNode();
+  final focusNodeDescription = FocusNode();
   final focusNodeComment = FocusNode();
   final focusNodeChecklist = FocusNode();
+
+  final appBarEnumSubject = BehaviorSubject<DetailCardAppBarEnum?>.seeded(null);
+
+  final cardSubject = BehaviorSubject<Fragment$CardFragment?>.seeded(null);
+
+  final startDateSubject = BehaviorSubject<DateTime?>.seeded(null);
+  final startTimeSubject = BehaviorSubject<TimeOfDay?>.seeded(null);
+
+  final endDateSubject = BehaviorSubject<DateTime?>.seeded(null);
+  final endTimeSubject = BehaviorSubject<TimeOfDay?>.seeded(null);
+
+  final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
+  final usersSubject = BehaviorSubject<List<Fragment$UserFragment>?>.seeded([]);
+
+  final listCheckListSubject =
+      BehaviorSubject<List<Fragment$CheckListFragment>>.seeded([]);
+
+  final isLoadingUpdateSubject = BehaviorSubject<bool>.seeded(false);
+
   @override
   void dispose() {
     super.dispose();
@@ -61,34 +79,72 @@ class DetailCardBloc extends BlocBase {
     commentController.dispose();
     startDateController.dispose();
     endDateController.dispose();
-    isShowLabelSubject.close();
-    isShowOptionAllSubject.close();
     listColorSubject.close();
-    isShowFloatingSubject.close();
     listNotificationFragmentsSubject.close();
     listCommentFragmentsSubject.close();
     startDateTimeController.dispose();
     endDateTimeController.dispose();
     startTimeController.dispose();
     endTimeController.dispose();
-    isSendCommentSubject.close();
+    isChatCommentSubject.close();
     isShowNotificationSubject.close();
     isShowErrorEndDateSubject.close();
     isShowErrorStartDateSubject.close();
-    isShowTitleCommentSubject.close();
-    isShowChecklistSubject.close();
-    isShowTitleChecklistSubject.close();
-    isShowTitleDescriptionSubject.close();
     listColorDefaultSubject.close();
     checklistController.dispose();
+    appBarEnumSubject.close();
+    focusNodeDescription.dispose();
+    focusNodeComment.dispose();
+    focusNodeChecklist.dispose();
+    cardSubject.close();
+    startDateSubject.close();
+    endDateSubject.close();
+    isLoadingSubject.close();
+    usersSubject.close();
+    listCheckListSubject.close();
+    isLoadingUpdateSubject.close();
+    startTimeSubject.close();
+    endTimeSubject.close();
+  }
+
+  void setDateTime() {
+    final card = cardSubject.value;
+    final startDateTime = card?.startedDate != null
+        ? parseDateString(card!.startedDate!, format: 'yyyy-MM-ddTHH:mm:ss.SSS')
+        : null;
+    final endDateTime = card?.endDate != null
+        ? parseDateString(card!.endDate!, format: 'yyyy-MM-ddTHH:mm:ss.SSS')
+        : null;
+    startTimeSubject.value = startDateTime != null
+        ? TimeOfDay(hour: startDateTime.hour, minute: startDateTime.minute)
+        : null;
+    startDateSubject.value = startDateTime;
+    endTimeSubject.value = endDateTime != null
+        ? TimeOfDay(hour: endDateTime.hour, minute: endDateTime.minute)
+        : null;
+    endDateSubject.value = endDateTime;
+    startDateController.text = startDateTime != null
+        ? DateFormat('dd/MM/yyyy').format(startDateTime)
+        : '';
+    endDateController.text =
+        endDateTime != null ? DateFormat('dd/MM/yyyy').format(endDateTime) : '';
+    startTimeController.text =
+        startDateTime != null ? DateFormat('HH:mm').format(startDateTime) : '';
+    endTimeController.text =
+        endDateTime != null ? DateFormat('HH:mm').format(endDateTime) : '';
   }
 
   void init() {
-    startDateController.text = DateFormat('dd/MM/yyyy').format(DateTime.now());
-    endDateController.text = DateFormat('dd/MM/yyyy').format(DateTime.now());
-    startTimeController.text = DateFormat('HH:mm').format(DateTime.now());
-    endTimeController.text = DateFormat('HH:mm').format(DateTime.now());
+    final card = cardSubject.value;
+    print(card?.toJson());
+    setDateTime();
 
+    descriptionController.text = card?.description ?? '';
+    usersSubject.value = card?.users ?? [];
+    listCommentFragmentsSubject.value = card?.comments ?? [];
+    listCheckListSubject.value = card?.checkLists ?? [];
+    addTitleStartDateTime();
+    addTitleEndDateTime();
     listColorSubject.add([
       ColorLabel(color: '2196F3', id: 1),
       ColorLabel(color: 'FBFADA', id: 2),
@@ -114,111 +170,20 @@ class DetailCardBloc extends BlocBase {
       ColorLabel(color: 'f5cd47', id: 14, isSelected: false),
       ColorLabel(color: 'fdd0ec', id: 15, isSelected: false),
     ]);
+  }
 
-    listNotificationFragmentsSubject.add([
-      Fragment$NotificationFragment(
-        id: '1',
-        content: 'Nội dung thông báo',
-        data: 'data',
-        is_seen: false,
-        title: 'Thông báo 1',
-        topic: Enum$TopicNotification.Card,
-        createdAt: '2024-03-09',
-        creator: Fragment$UserFragment(uid: '0'),
-      ),
-      Fragment$NotificationFragment(
-        id: '2',
-        content: 'Nội dung thông báo',
-        data: 'data',
-        is_seen: false,
-        title: 'Thông báo 2',
-        topic: Enum$TopicNotification.Card,
-        createdAt: '2024-03-09',
-        creator: Fragment$UserFragment(uid: '0'),
-      ),
-      Fragment$NotificationFragment(
-        id: '3',
-        content: 'Nội dung thông báo',
-        data: 'data',
-        is_seen: false,
-        title: 'Thông báo 3',
-        topic: Enum$TopicNotification.Card,
-        createdAt: '2024-03-09',
-        creator: Fragment$UserFragment(uid: '0'),
-      ),
-      Fragment$NotificationFragment(
-        id: '4',
-        content: 'Nội dung thông báo',
-        data: 'data',
-        is_seen: false,
-        title: 'Thông báo 4',
-        topic: Enum$TopicNotification.Card,
-        createdAt: '2024-03-09',
-        creator: Fragment$UserFragment(uid: '0'),
-      ),
-      Fragment$NotificationFragment(
-        id: '5',
-        content: 'Nội dung thông báo',
-        data: 'data',
-        is_seen: false,
-        title: 'Thông báo 5',
-        topic: Enum$TopicNotification.Card,
-        createdAt: '2024-03-09',
-        creator: Fragment$UserFragment(uid: '0'),
-      ),
-      Fragment$NotificationFragment(
-        id: '6',
-        content: 'Nội dung thông báo',
-        data: 'data',
-        is_seen: false,
-        title: 'Thông báo 6',
-        topic: Enum$TopicNotification.Card,
-        createdAt: '2024-03-09',
-        creator: Fragment$UserFragment(uid: '0'),
-      ),
-    ]);
-
-    listCommentFragmentsSubject.add([
-      Fragment$CommentFragment(
-        id: '1',
-        createdAt: '2024-03-09',
-        user: Fragment$UserFragment(uid: '1', fullName: 'Đinh Viết Khang'),
-        comment: 'Bình luận 1',
-      ),
-      Fragment$CommentFragment(
-        id: '2',
-        createdAt: '2024-03-09',
-        user: Fragment$UserFragment(uid: '1', fullName: 'Đinh Viết Khang'),
-        comment: 'Bình luận 2',
-      ),
-      // Fragment$CommentFragment(id:'3', createdAt: '', user: Fragment$UserFragment(uid: '1'), comment: 'Bình luận 3'),
-      // Fragment$CommentFragment(id:'4', createdAt: '', user: Fragment$UserFragment(uid: '1'), comment: 'Bình luận 4'),
-      // Fragment$CommentFragment(id:'5', createdAt: '', user: Fragment$UserFragment(uid: '1'), comment: 'Bình luận 5'),
-    ]);
+  void onTapBackDescription() {
+    appBarEnumSubject.value = null;
+    focusNodeDescription.unfocus();
+    descriptionController.text = cardSubject.value?.description ?? '';
   }
 
   void onBackToBoardScreen() {
-    if (!isShowFloatingSubject.value) {
-      focusNode.unfocus();
-      focusNodeChecklist.unfocus();
-
-      isShowFloatingSubject.value = true;
-      isShowTitleCommentSubject.value = false;
-      isShowTitleDescriptionSubject.value = false;
-      isShowTitleChecklistSubject.value = false;
-      return;
-    }
-    if (focusNode.hasFocus) {
-      focusNode.unfocus();
-      return;
-    }
-    if (focusNodeComment.hasFocus) {
+    if (appBarEnumSubject.value != null) {
       focusNodeComment.unfocus();
-      isShowTitleCommentSubject.value = false;
-      return;
-    }
-    if (isShowLabelSubject.value == true) {
-      isShowLabelSubject.value = false;
+      focusNodeChecklist.unfocus();
+      focusNodeDescription.unfocus();
+      appBarEnumSubject.value = null;
       return;
     }
     routerService.pop();
@@ -237,7 +202,7 @@ class DetailCardBloc extends BlocBase {
   }
 
   void showLabel() {
-    isShowLabelSubject.value = !isShowLabelSubject.value;
+    appBarEnumSubject.value = DetailCardAppBarEnum.label;
   }
 
   void chooseOption({required int idOption, required BuildContext context}) {
@@ -275,21 +240,14 @@ class DetailCardBloc extends BlocBase {
   }
 
   void onTapDescription() {
-    isShowFloatingSubject.value = false;
-    isShowTitleDescriptionSubject.value = !isShowTitleDescriptionSubject.value;
+    appBarEnumSubject.value = DetailCardAppBarEnum.description;
   }
 
   //Quick Action Bloc
 
   void onTapShowChecklist() {
-    isShowChecklistSubject.value = !isShowChecklistSubject.value;
-    isShowTitleChecklistSubject.value = !isShowTitleChecklistSubject.value;
-    isShowFloatingSubject.value = !isShowFloatingSubject.value;
-    if (focusNodeChecklist.hasFocus) {
-      focusNodeChecklist.unfocus();
-    } else {
-      focusNodeChecklist.requestFocus();
-    }
+    focusNodeChecklist.requestFocus();
+    appBarEnumSubject.value = DetailCardAppBarEnum.checklist;
   }
 
   //Label Widget Bloc
@@ -305,6 +263,26 @@ class DetailCardBloc extends BlocBase {
 
   // DateTime Widget Bloc
   void completeSelectStartDate() {
+    addTitleStartDateTime();
+    if (startDateSubject.value != null && startTimeSubject.value != null) {
+      final startDateTime = DateTime(
+        startDateSubject.value!.year,
+        startDateSubject.value!.month,
+        startDateSubject.value!.day,
+        startTimeSubject.value!.hour,
+        startTimeSubject.value!.minute,
+      );
+      updateCard(startedDate: startDateTime.toIso8601String());
+    }
+    routerService.pop();
+  }
+
+  void cancelSelectDateTime() {
+    routerService.pop();
+    setDateTime();
+  }
+
+  void addTitleStartDateTime() {
     if (startDateController.text.isNotEmpty &&
         endDateController.text.isNotEmpty) {
       final startDate = DateFormat('dd/MM/yyyy HH:mm').parse(
@@ -313,6 +291,7 @@ class DetailCardBloc extends BlocBase {
       final endDate = DateFormat('dd/MM/yyyy HH:mm').parse(
         '${endDateController.text} ${endTimeController.text.isEmpty ? "23:59" : endTimeController.text}',
       );
+
       if (startDate.isAfter(endDate)) {
         isShowErrorStartDateSubject.value = true;
         return;
@@ -326,16 +305,9 @@ class DetailCardBloc extends BlocBase {
       startDateTimeController.text =
           '${startTimeController.text}${startDateController.text}';
     }
-    routerService.pop();
   }
 
-  void cancelSelectStartDate() {
-    routerService.pop();
-    startDateController.text = DateFormat('dd/MM/yyyy').format(DateTime.now());
-    startTimeController.text = DateFormat('HH:mm').format(DateTime.now());
-  }
-
-  void completeSelectEndDate() {
+  void addTitleEndDateTime() {
     if (startDateController.text.isNotEmpty &&
         endDateController.text.isNotEmpty) {
       final startDate = DateFormat('dd/MM/yyyy HH:mm').parse(
@@ -357,13 +329,21 @@ class DetailCardBloc extends BlocBase {
       endDateTimeController.text =
           '${endTimeController.text}${endDateController.text}';
     }
-    routerService.pop();
   }
 
-  void cancelSelectEndDate() {
+  void completeSelectEndDate() {
+    addTitleEndDateTime();
+    if (endDateSubject.value != null && endTimeSubject.value != null) {
+      final endDateTime = DateTime(
+        endDateSubject.value!.year,
+        endDateSubject.value!.month,
+        endDateSubject.value!.day,
+        endTimeSubject.value!.hour,
+        endTimeSubject.value!.minute,
+      );
+      updateCard(endDate: endDateTime.toIso8601String());
+    }
     routerService.pop();
-    // endDateController.text = DateFormat('dd/MM/yyyy').format(DateTime.now());
-    // endTimeController.text = DateFormat('HH:mm').format(DateTime.now());
   }
 
   void showDialogStartDate({required BuildContext context}) {
@@ -391,18 +371,19 @@ class DetailCardBloc extends BlocBase {
   //Comment Widget Bloc
   void onChangeCommentField(String value) {
     if (value.isEmpty) {
-      isSendCommentSubject.value = false;
+      isChatCommentSubject.value = false;
     } else {
-      isSendCommentSubject.value = true;
+      isChatCommentSubject.value = true;
     }
   }
 
   void onTapCommentField() {
-    isShowTitleCommentSubject.value = true;
+    focusNodeComment.requestFocus();
+    appBarEnumSubject.value = DetailCardAppBarEnum.comment;
   }
 
   void sendComment() {
-    if (!isSendCommentSubject.value) {
+    if (!isChatCommentSubject.value) {
       return;
     }
     final comment = Fragment$CommentFragment(
@@ -423,9 +404,8 @@ class DetailCardBloc extends BlocBase {
 
   //Checklist Bloc
   void onTapChecklistField() {
-    isShowTitleDescriptionSubject.value = false;
-    isShowTitleChecklistSubject.value = true;
-    isShowFloatingSubject.value = false;
+    appBarEnumSubject.value = DetailCardAppBarEnum.checklist;
+    focusNodeChecklist.requestFocus();
   }
 
   //Add Label Bloc
@@ -451,8 +431,40 @@ class DetailCardBloc extends BlocBase {
   }
 
   late final appBloc = ref.read(BlocProvider.app);
-  DetailCardBloc(this.ref) {
+  DetailCardBloc(this.ref, {required this.idCard}) {
+    fetchCard();
+  }
+
+  Future<void> fetchCard() async {
+    isLoadingSubject.value = true;
+    final result = await graphqlService.client.mutate$GetCard(
+      Options$Mutation$GetCard(
+        variables: Variables$Mutation$GetCard(
+          idCard: idCard,
+        ),
+      ),
+    );
+    isLoadingSubject.value = false;
+    if (result.hasException) {
+      final message = result.exception?.graphqlErrors.first.message;
+      toastService.showText(message: message);
+      routerService.pop();
+      return;
+    }
+    cardSubject.value = result.parsedData?.getCard;
     init();
+  }
+
+  Future<void> onTapUpdateDescription() async {
+    isLoadingUpdateSubject.value = true;
+    final card = await updateCard(description: descriptionController.text);
+    isLoadingUpdateSubject.value = false;
+    appBarEnumSubject.value = null;
+    focusNodeDescription.unfocus();
+    if (card == null) {
+      return;
+    }
+    cardSubject.value = card;
   }
 }
 

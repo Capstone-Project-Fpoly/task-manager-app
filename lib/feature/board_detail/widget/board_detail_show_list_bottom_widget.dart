@@ -54,7 +54,7 @@ class BoardDetailShowListDetailBottomSheet extends ConsumerWidget {
                         textAlign: TextAlign.center,
                       ),
                       onTap: () {
-                        bloc.back();
+                        bloc.onTapBack();
                       },
                     ),
                   ),
@@ -180,7 +180,7 @@ class BoardDetailShowListDetailBottomSheet extends ConsumerWidget {
           actions: [
             TextButton(
               onPressed: () {
-                bloc.back();
+                bloc.onTapBack();
               },
               child: const Text('hủy'),
             ),

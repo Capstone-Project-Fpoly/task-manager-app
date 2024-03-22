@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
+import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/shared/widgets/icons/send_icon.dart';
 
@@ -86,16 +87,21 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,
                   ),
-                  child: !bloc.isSendCommentSubject.value
-                      ? const SendIcon(
-                          width: 20,
-                          height: 20,
-                        )
-                      : const SendIcon(
-                          width: 20,
-                          height: 20,
-                          color: ColorConstants.primary,
-                        ),
+                  child: ObsBuilder(
+                    streams: [bloc.isChatCommentSubject],
+                    builder: (context) {
+                      return !bloc.isChatCommentSubject.value
+                          ? const SendIcon(
+                              width: 20,
+                              height: 20,
+                            )
+                          : const SendIcon(
+                              width: 20,
+                              height: 20,
+                              color: ColorConstants.primary,
+                            );
+                    },
+                  ),
                 ),
               ),
               const SizedBox(

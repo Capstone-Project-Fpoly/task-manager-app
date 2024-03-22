@@ -101,7 +101,6 @@ class DetailCardLabelWidget extends ConsumerWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(10),
                       onTap: () {
-                        bloc.isShowFloatingSubject.value = false;
                         showModalBottomSheet(
                           context: context,
                           builder: (context) {

@@ -11,6 +11,7 @@ import 'package:task_manager/feature/login_with_email/login_with_email_bloc.dart
 import 'package:task_manager/feature/login_with_email/login_with_other_email/login_with_other_email_bloc.dart';
 import 'package:task_manager/feature/menu_board/menu_board_bloc.dart';
 import 'package:task_manager/feature/my_board/my_board_bloc.dart';
+import 'package:task_manager/feature/my_card/my_card_bloc.dart';
 import 'package:task_manager/feature/notification/notification_bloc.dart';
 import 'package:task_manager/feature/reg_with_email/reg_with_email_bloc.dart';
 import 'package:task_manager/feature/setting_board/setting_board_bloc.dart';
@@ -23,6 +24,7 @@ class BlocProvider {
   static late AutoDisposeProvider<LoginWithOtherEmailBloc> loginWithOtherEmail;
   static late AutoDisposeProvider<RegEmailBloc> regWithEmail;
   static late AutoDisposeProvider<BoardBloc> board;
+  static late AutoDisposeProvider<MyCardBloc> myCard;
   static late AutoDisposeProvider<MyBoardBloc> myBoard;
   static late AutoDisposeProvider<BoardDetailBloc> boardDetail;
   static late AutoDisposeProvider<AddBoardBloc> addBoard;

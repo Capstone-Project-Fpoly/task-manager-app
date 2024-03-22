@@ -41,43 +41,51 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                 SizedBoxConstants.h10,
                 Row(
                   children: [
-                    SizedBox(
-                      width: 175,
-                      child: Material(
-                        color: ColorConstants.white,
-                        child: InkWell(
-                          onTap: () {
-                            showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2100),
-                            ).then((value) {
-                              bloc.startDateController.text =
-                                  formatDateTimeDetailCard(
-                                value.toString(),
-                              );
-                            });
-                          },
-                          child: TextField(
-                            style: const TextStyle(
-                              color: ColorConstants.primaryBlack,
-                              fontSize: 14,
-                            ),
-                            enabled: false,
-                            controller: bloc.startDateController,
-                            decoration: const InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsetsConstants.bottom4,
-                              hintText: 'Chọn ngày',
-                              hintStyle: TextStyle(
-                                fontSize: 13,
-                                color: ColorConstants.primaryBlack,
+                    ObsBuilder(
+                      streams: [bloc.startDateSubject, bloc.startTimeSubject],
+                      builder: (context) {
+                        final startDateTime = bloc.startDateSubject.value;
+                        return SizedBox(
+                          width: 175,
+                          child: Material(
+                            color: ColorConstants.white,
+                            child: InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: startDateTime,
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2100),
+                                ).then((value) {
+                                  if (value == null) return;
+                                  bloc.startDateSubject.value = value;
+                                  bloc.startDateController.text =
+                                      formatDateTimeDetailCard(
+                                    value.toString(),
+                                  );
+                                });
+                              },
+                              child: TextField(
+                                style: const TextStyle(
+                                  color: ColorConstants.primaryBlack,
+                                  fontSize: 14,
+                                ),
+                                enabled: false,
+                                controller: bloc.startDateController,
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsetsConstants.bottom4,
+                                  hintText: 'Chọn ngày',
+                                  hintStyle: TextStyle(
+                                    fontSize: 13,
+                                    color: ColorConstants.primaryBlack,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                     SizedBoxConstants.w10,
                     SizedBox(
@@ -86,16 +94,19 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                         color: ColorConstants.white,
                         child: InkWell(
                           onTap: () {
-                            showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                              initialEntryMode: TimePickerEntryMode.dial,
-                            ).then((value) {
-                              if (value != null) {
-                                bloc.startTimeController.text =
-                                    '${value.hour}:${value.minute}';
-                              }
-                            });
+                            if (bloc.startDateSubject.value != null) {
+                              showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay.now(),
+                                initialEntryMode: TimePickerEntryMode.dial,
+                              ).then((value) {
+                                if (value != null) {
+                                  bloc.startTimeController.text =
+                                      '${value.hour}:${value.minute}';
+                                  bloc.startTimeSubject.value = value;
+                                }
+                              });
+                            }
                           },
                           child: TextField(
                             style: const TextStyle(
@@ -137,7 +148,7 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          bloc.cancelSelectStartDate();
+                          bloc.cancelSelectDateTime();
                         },
                         child: const Text(
                           'Hủy',

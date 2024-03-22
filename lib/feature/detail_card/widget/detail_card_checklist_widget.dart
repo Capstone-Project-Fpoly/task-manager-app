@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
+import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/feature/detail_card/enum/detail_card_app_bar_enum.dart';
 
 class DetailCardChecklistWidget extends ConsumerWidget {
   const DetailCardChecklistWidget({super.key});
@@ -14,42 +16,6 @@ class DetailCardChecklistWidget extends ConsumerWidget {
     final width = MediaQuery.of(context).size.width;
     return Column(
       children: [
-        Container(
-          color: ColorConstants.white,
-          padding: EdgeInsetsConstants.all12,
-          width: width,
-          child: Row(
-            children: [
-              Container(
-                width: 30,
-                alignment: Alignment.centerLeft,
-                child: const Icon(
-                  Icons.check_box_outlined,
-                  color: ColorConstants.primary,
-                ),
-              ),
-              SizedBoxConstants.w6,
-              const Text(
-                'Danh sách công việc',
-                style: TextStyle(
-                  color: ColorConstants.primaryBlack,
-                ),
-              ),
-              const Spacer(),
-              const InkWell(
-                child: Icon(
-                  Icons.add,
-                  color: ColorConstants.primary,
-                ),
-              ),
-              SizedBoxConstants.w12,
-            ],
-          ),
-        ),
-        const Divider(
-          height: 0,
-          color: ColorConstants.divider,
-        ),
         Container(
           color: ColorConstants.white,
           padding: EdgeInsetsConstants.all12,

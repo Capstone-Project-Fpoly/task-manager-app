@@ -57,6 +57,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                                   formatDateTimeDetailCard(
                                 value.toString(),
                               );
+                              bloc.endDateSubject.value = value;
                             });
                           },
                           child: TextField(
@@ -102,6 +103,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                                 bloc.endTimeController.text =
                                     '${value.hour}:${value.minute}';
                               }
+                              bloc.endTimeSubject.value = value;
                             });
                           },
                           child: TextField(
@@ -144,7 +146,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          bloc.cancelSelectEndDate();
+                          bloc.cancelSelectDateTime();
                         },
                         child: const Text(
                           'Hủy',

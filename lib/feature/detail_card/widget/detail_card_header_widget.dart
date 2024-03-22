@@ -23,27 +23,32 @@ class DetailCardHeaderWidget extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsetsConstants.horizontal12 +
-                    EdgeInsetsConstants.bottom16,
-                child: const Text(
-                  'Name Card',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                  ),
-                ),
+              ObsBuilder(
+                streams: [bloc.cardSubject],
+                builder: (context) {
+                  return Padding(
+                    padding: EdgeInsetsConstants.horizontal12 +
+                        EdgeInsetsConstants.bottom16,
+                    child: Text(
+                      bloc.cardSubject.value?.title ?? '',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                    ),
+                  );
+                },
               ),
-              Padding(
-                padding: EdgeInsetsConstants.horizontal12 +
-                    EdgeInsetsConstants.bottom16,
-                child: const Text(
-                  'Name Board',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsetsConstants.horizontal12 +
+              //       EdgeInsetsConstants.bottom16,
+              //   child: const Text(
+              //     'Name Board',
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
               const Divider(
                 height: 0,
                 color: ColorConstants.divider,
@@ -79,9 +84,8 @@ class DetailCardHeaderWidget extends ConsumerWidget {
                   ),
                 ),
               ),
-              bloc.isShowQuickActionsSubject.value
-                  ? const DetailCardQuickActionsWidget()
-                  : const SizedBox.shrink(),
+              if (bloc.isShowQuickActionsSubject.value)
+                const DetailCardQuickActionsWidget()
             ],
           ),
         );

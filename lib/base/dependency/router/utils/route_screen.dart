@@ -26,6 +26,7 @@ import 'package:task_manager/feature/menu_board/menu_board_bloc.dart';
 import 'package:task_manager/feature/menu_board/menu_board_screen.dart';
 import 'package:task_manager/feature/my_board/my_board_bloc.dart';
 import 'package:task_manager/feature/my_board/my_board_screen.dart';
+import 'package:task_manager/feature/my_card/my_card_bloc.dart';
 import 'package:task_manager/feature/my_card/my_card_screen.dart';
 import 'package:task_manager/feature/notification/notification_bloc.dart';
 import 'package:task_manager/feature/notification/notification_screen.dart';
@@ -76,9 +77,13 @@ class RouteScreen {
   }
 
   static PageRoute myCardPageRoute(RouteSettings settings) {
+    BlocProvider.myCard = createAutoDisposeBloc(
+      //Nhớ khởi tạo provider cho bloc
+      (ref) => MyCardBloc(ref),
+    );
     return MaterialPageRoute(
       settings: settings,
-      builder: (_) => const MyCradScreen(),
+      builder: (_) => const MyCardScreen(),
     );
   }
 
@@ -236,10 +241,10 @@ class RouteScreen {
   }
 
   static PageRoute detailCardRoute(RouteSettings settings) {
-    // final id = settings.arguments as String;
+    final idCard = settings.arguments as String;
     BlocProvider.detailCardBloc = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-      (ref) => DetailCardBloc(ref),
+      (ref) => DetailCardBloc(ref, idCard: idCard),
     );
     return MaterialPageRoute(
       settings: settings,
