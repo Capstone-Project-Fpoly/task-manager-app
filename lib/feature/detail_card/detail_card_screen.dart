@@ -40,7 +40,7 @@ class DetailCardScreen extends ConsumerWidget {
                 );
               }
               return SingleChildScrollView(
-                reverse: appBarEnum == DetailCardAppBarEnum.checklist,
+                reverse: true,
                 child: Column(
                   children: [
                     SizedBoxConstants.h40,

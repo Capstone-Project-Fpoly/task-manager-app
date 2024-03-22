@@ -18,6 +18,7 @@ import 'package:task_manager/graphql/Fragment/notification_fragment.graphql.dart
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/get_card.graphql.dart';
 import 'package:task_manager/graphql/queries/board/get_user_of_board.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
 
 class DetailCardBloc extends BlocBase {
@@ -78,6 +79,8 @@ class DetailCardBloc extends BlocBase {
 
   final focusNodeTitle = FocusNode();
 
+  final isShowChecklistSubject = BehaviorSubject<bool>.seeded(false);
+
   @override
   void dispose() {
     super.dispose();
@@ -115,6 +118,7 @@ class DetailCardBloc extends BlocBase {
     titleController.dispose();
     focusNodeTitle.dispose();
     usersOfBoard.close();
+    isShowChecklistSubject.close();
   }
 
   void setDateTime() {
@@ -146,13 +150,12 @@ class DetailCardBloc extends BlocBase {
 
   void init() {
     final card = cardSubject.value;
-    print(card?.toJson());
     setDateTime();
 
     descriptionController.text = card?.description ?? '';
-    usersSubject.value = card?.users ?? [];
-    listCommentFragmentsSubject.value = card?.comments ?? [];
-    listCheckListSubject.value = card?.checkLists ?? [];
+    listCommentFragmentsSubject.value = [...card?.comments ?? []];
+    listCheckListSubject.value = [...card?.checkLists ?? []];
+    usersSubject.value = [...card?.users ?? []];
     addTitleStartDateTime();
     addTitleEndDateTime();
 
@@ -196,6 +199,56 @@ class DetailCardBloc extends BlocBase {
     titleController.text = cardSubject.value?.title ?? '';
   }
 
+  List<Input$CheckListInput>? getListInputCheckList() {
+    listCheckListSubject.value
+        .removeWhere((element) => element.content.isEmpty);
+    if (listCheckListSubject.value.isEmpty) {
+      return null;
+    }
+    if (listCheckListSubject.value.length !=
+        cardSubject.value?.checkLists?.length) {
+      return listCheckListSubject.value
+          .map(
+            (e) => Input$CheckListInput(
+              content: e.content,
+              isChecked: e.isChecked,
+            ),
+          )
+          .toList();
+    }
+
+    for (int i = 0; i < listCheckListSubject.value.length; i++) {
+      if (listCheckListSubject.value[i].content !=
+              cardSubject.value?.checkLists?[i].content ||
+          listCheckListSubject.value[i].isChecked !=
+              cardSubject.value?.checkLists?[i].isChecked) {
+        return listCheckListSubject.value
+            .map(
+              (e) => Input$CheckListInput(
+                content: e.content,
+                isChecked: e.isChecked,
+              ),
+            )
+            .toList();
+      }
+    }
+    return null;
+  }
+
+  List<String>? getListIdUser() {
+    usersSubject.value.removeWhere((element) => element == null);
+    if (usersSubject.value.isEmpty) return null;
+    if (usersSubject.value.length != cardSubject.value?.users?.length) {
+      return usersSubject.value.map((e) => e!.uid).toList();
+    }
+    for (int i = 0; i < usersSubject.value.length; i++) {
+      if (usersSubject.value[i]?.uid != cardSubject.value?.users?[i].uid) {
+        return usersSubject.value.map((e) => e!.uid).toList();
+      }
+    }
+    return null;
+  }
+
   void onBackToBoardScreen() {
     if (appBarEnumSubject.value != null) {
       focusNodeComment.unfocus();
@@ -204,6 +257,10 @@ class DetailCardBloc extends BlocBase {
       appBarEnumSubject.value = null;
       return;
     }
+    final listInputCheckList = getListInputCheckList();
+    final users = getListIdUser();
+
+    updateCard(checkLists: listInputCheckList, users: users);
     routerService.pop();
   }
 
@@ -223,27 +280,7 @@ class DetailCardBloc extends BlocBase {
     appBarEnumSubject.value = DetailCardAppBarEnum.label;
   }
 
-  void chooseOption({required int idOption, required BuildContext context}) {
-    switch (idOption) {
-      case 0:
-        print('xem');
-        break;
-      case 1:
-        movingCard(context);
-        break;
-      case 2:
-        print('sao chép');
-        break;
-      case 3:
-        print('lưu');
-        break;
-      case 4:
-        print('xóa');
-        break;
-      default:
-        return;
-    }
-  }
+  void chooseOption({required int idOption, required BuildContext context}) {}
 
   void movingCard(BuildContext context) {
     showDialog(
@@ -453,6 +490,7 @@ class DetailCardBloc extends BlocBase {
   }
 
   late final appBloc = ref.read(BlocProvider.app);
+
   DetailCardBloc(this.ref, {required this.idCard, required this.idBoard}) {
     fetchCard();
   }

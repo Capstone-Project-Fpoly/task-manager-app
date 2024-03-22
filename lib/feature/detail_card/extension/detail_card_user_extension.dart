@@ -4,7 +4,6 @@ import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 extension DetailCardUserExtension on DetailCardBloc {
   void addUserToCard(Fragment$UserFragment? user) {
     // nếu đã có user trong danh sách thì xóa đi,nếu chưa có thì thêm vào
-
     final users = usersSubject.value;
     if (users.contains(user)) {
       users.remove(user);

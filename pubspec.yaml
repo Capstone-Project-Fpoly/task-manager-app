@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^1.0.2
   flutter_mentions: any
   graphql_flutter: any
@@ -59,7 +61,6 @@ dependencies:
   fluttericon: ^2.0.0
   flutter_localization: ^0.2.0
   omni_datetime_picker: ^1.0.9
-  flutter_localizations: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
