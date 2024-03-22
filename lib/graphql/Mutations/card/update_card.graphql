@@ -1,0 +1,5 @@
+mutation UpdateCard($input: InputUpdateCard!) {
+  updateCard(input: $input) {
+    ...CardFragment
+  }
+}

@@ -1,10 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/base/dependency/router/arguments/detail_card_argument.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/board_detail/board_detail_card_extention.dart';
 import 'package:task_manager/feature/board_detail/board_detail_list_extention.dart';
@@ -384,6 +386,17 @@ class BoardDetailBloc extends BlocBase {
     if (isLoadingSubject.value) return;
     appBarEnumSubject.value = null;
     routerService.push(RouteInput.notification(idBoard: boardFragment.id));
+  }
+
+  Future<void> onNextToDetailCard(String? idCard) async {
+    if (idCard == null || idCard.isEmpty) return;
+    final detailCardArgument =
+        DetailCardArgument(idCard: idCard, idBoard: boardFragment.id);
+    await routerService.push(
+      RouteInput.detailCard(
+        detailCardArgument: detailCardArgument,
+      ),
+    );
   }
 
   void onTapEditBoardTitle() {

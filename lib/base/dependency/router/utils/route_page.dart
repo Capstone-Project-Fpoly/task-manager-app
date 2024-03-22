@@ -31,6 +31,8 @@ class RoutePage {
         return RouteScreen.inviteMember(settings);
       case RouteName.menuBoard:
         return RouteScreen.menuBoardRoute(settings);
+      case RouteName.detailCard:
+        return RouteScreen.detailCardRoute(settings);
     }
     return RouteScreen.unknownPageRoute(settings);
   }

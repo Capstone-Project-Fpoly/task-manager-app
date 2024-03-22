@@ -12,6 +12,10 @@ class ColorConstants {
   static const grayText = Color(0xFF8C8C8C);
   static const divider = Color(0xFFBDBDBD);
   static const white = Color(0xFFFFFFFF);
+  static const black = Color(0xFF000000);
+  static const grey = Color(0xFF9E9E9E);
+  static const red = Color(0xFFF44336);
+  static const comment = Color(0xFFECECEC);
 
   static const darkColor = Color(0xFF18264D);
   static final darkColorOpacity50 = darkColor.withOpacity(0.5);
@@ -39,6 +43,7 @@ class ColorConstants {
   static const transparent = Colors.transparent;
 
   static const background = Colors.white;
+  static const backgroundDetailCard = Color(0XFFF5F7F8);
   static const textFieldColor = Color(0xFFF3F4F6);
   static const boxShadow = Color.fromRGBO(51, 73, 255, 0.30);
   static const deepPink = Color(0xFFF44182);
