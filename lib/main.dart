@@ -14,6 +14,7 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/firebase_options.dart';
 import 'package:task_manager/shared/theme/main.dart';
 import 'package:task_manager/shared/utilities/fcm.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> initDependencies() async {
   await dotenv.load(fileName: '.env');
@@ -63,6 +64,14 @@ class MyApp extends ConsumerWidget {
       navigatorKey: routerService.navigatorKey,
       initialRoute: RouteName.login,
       color: ColorConstants.primary,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('vi', 'VN'), // Tiếng Việt
+      ],
     );
     return GraphQLProvider(
       client: graphQLService.clientValueNotifier,

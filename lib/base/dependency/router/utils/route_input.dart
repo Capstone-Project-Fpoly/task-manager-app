@@ -1,3 +1,4 @@
+import 'package:task_manager/base/dependency/router/arguments/detail_card_argument.dart';
 import 'package:task_manager/base/dependency/router/utils/route_name.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 
@@ -36,4 +37,7 @@ class RouteInput {
   RouteInput.notification({String? idBoard})
       : routeName = RouteName.notification,
         arguments = idBoard;
+  RouteInput.detailCard({required DetailCardArgument detailCardArgument})
+      : routeName = RouteName.detailCard,
+        arguments = detailCardArgument;
 }

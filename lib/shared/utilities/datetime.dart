@@ -18,10 +18,39 @@ DateTime parseDateString(
   return formatter.parse(dateString);
 }
 
-String formatDateTimeNotification(String isoDateString) {
+String formatDateTimeNotification(
+  String isoDateString, {
+  String format = 'HH:mm, dd MMM',
+  String? locale = 'vi_VN',
+}) {
   try {
     final date = DateTime.parse(isoDateString);
-    return DateFormat('HH:mm, dd MMM', 'vi_VN').format(date);
+    return DateFormat(format, locale).format(date);
+  } catch (e) {
+    return '';
+  }
+}
+
+String formatDateTimeDetailCard(String stringDate) {
+  try {
+    if (stringDate == '') return stringDate;
+    final DateTime dateTime =
+        DateFormat('yyyy-MM-dd HH:mm:ss').parse(stringDate);
+    final String time = DateFormat('dd/MM/yyyy').format(dateTime);
+    stringDate = time;
+    return stringDate;
+  } catch (e) {
+    return '';
+  }
+}
+
+String formatDateTimeCommentCard(String stringDate) {
+  try {
+    if (stringDate == '') return stringDate;
+    final DateTime dateTime = DateFormat('yyyy-MM-dd').parse(stringDate);
+    final String time = DateFormat('dd/MM/yyyy').format(dateTime);
+    stringDate = time;
+    return stringDate;
   } catch (e) {
     return '';
   }

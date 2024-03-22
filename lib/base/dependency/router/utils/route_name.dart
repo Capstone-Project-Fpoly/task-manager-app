@@ -18,5 +18,6 @@ class RouteName {
   static const settingBoard = 'settingBoard';
   static const notification = 'notification';
 
+  static const detailCard = 'detailCard';
   RouteName._();
 }

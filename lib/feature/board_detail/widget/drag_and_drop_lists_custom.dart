@@ -348,31 +348,36 @@ class DragAndDropListsCustom extends ConsumerWidget {
             idList: listFragment?.id,
           );
         },
-        child: Card(
-          key: ObjectKey({'idCard': item?.id, 'idList': listFragment?.id}),
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Container(
-            padding: EdgeInsetsConstants.horizontal10 +
-                EdgeInsetsConstants.vertical16,
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 1,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                ),
-              ],
+        child: InkWell(
+          onTap: () {
+            bloc.onNextToDetailCard(item?.id);
+          },
+          child: Card(
+            key: ObjectKey({'idCard': item?.id, 'idList': listFragment?.id}),
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-            child: Text(
-              item?.title ?? '',
-              style: const TextStyle(color: Colors.black),
+            child: Container(
+              padding: EdgeInsetsConstants.horizontal10 +
+                  EdgeInsetsConstants.vertical16,
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Text(
+                item?.title ?? '',
+                style: const TextStyle(color: Colors.black),
+              ),
             ),
           ),
         ),

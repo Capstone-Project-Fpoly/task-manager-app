@@ -1,8 +1,8 @@
-import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/check_list_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/comment_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
+import '../../Fragment/card_fragment.graphql.dart';
+import '../../Fragment/check_list_fragment.graphql.dart';
+import '../../Fragment/comment_fragment.graphql.dart';
+import '../../Fragment/list_fragment.graphql.dart';
+import '../../Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
@@ -56,7 +56,7 @@ class Variables$Mutation$UpdateList {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Variables$Mutation$UpdateList ||
+    if (!(other is Variables$Mutation$UpdateList) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -112,28 +112,24 @@ class _CopyWithImpl$Variables$Mutation$UpdateList<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? idList = _undefined,
     Object? label = _undefined,
   }) =>
-      _then(
-        Variables$Mutation$UpdateList._({
-          ..._instance._$data,
-          if (idList != _undefined && idList != null)
-            'idList': (idList as String),
-          if (label != _undefined && label != null) 'label': (label as String),
-        }),
-      );
+      _then(Variables$Mutation$UpdateList._({
+        ..._instance._$data,
+        if (idList != _undefined && idList != null)
+          'idList': (idList as String),
+        if (label != _undefined && label != null) 'label': (label as String),
+      }));
 }
 
 class _CopyWithStubImpl$Variables$Mutation$UpdateList<TRes>
     implements CopyWith$Variables$Mutation$UpdateList<TRes> {
   _CopyWithStubImpl$Variables$Mutation$UpdateList(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     String? idList,
     String? label,
@@ -154,8 +150,7 @@ class Mutation$UpdateList {
       updateList: l$updateList == null
           ? null
           : Fragment$ListFragment.fromJson(
-              (l$updateList as Map<String, dynamic>),
-            ),
+              (l$updateList as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
@@ -165,12 +160,12 @@ class Mutation$UpdateList {
   final String $__typename;
 
   Map<String, dynamic> toJson() {
-    final resultData = <String, dynamic>{};
+    final _resultData = <String, dynamic>{};
     final l$updateList = updateList;
-    resultData['updateList'] = l$updateList?.toJson();
+    _resultData['updateList'] = l$updateList?.toJson();
     final l$$__typename = $__typename;
-    resultData['__typename'] = l$$__typename;
-    return resultData;
+    _resultData['__typename'] = l$$__typename;
+    return _resultData;
   }
 
   @override
@@ -188,7 +183,7 @@ class Mutation$UpdateList {
     if (identical(this, other)) {
       return true;
     }
-    if (other is! Mutation$UpdateList || runtimeType != other.runtimeType) {
+    if (!(other is Mutation$UpdateList) || runtimeType != other.runtimeType) {
       return false;
     }
     final l$updateList = updateList;
@@ -242,31 +237,25 @@ class _CopyWithImpl$Mutation$UpdateList<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  @override
   TRes call({
     Object? updateList = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(
-        Mutation$UpdateList(
-          updateList: updateList == _undefined
-              ? _instance.updateList
-              : (updateList as Fragment$ListFragment?),
-          $__typename: $__typename == _undefined || $__typename == null
-              ? _instance.$__typename
-              : ($__typename as String),
-        ),
-      );
+      _then(Mutation$UpdateList(
+        updateList: updateList == _undefined
+            ? _instance.updateList
+            : (updateList as Fragment$ListFragment?),
+        $__typename: $__typename == _undefined || $__typename == null
+            ? _instance.$__typename
+            : ($__typename as String),
+      ));
 
-  @override
   CopyWith$Fragment$ListFragment<TRes> get updateList {
     final local$updateList = _instance.updateList;
     return local$updateList == null
         ? CopyWith$Fragment$ListFragment.stub(_then(_instance))
         : CopyWith$Fragment$ListFragment(
-            local$updateList,
-            (e) => call(updateList: e),
-          );
+            local$updateList, (e) => call(updateList: e));
   }
 }
 
@@ -274,77 +263,62 @@ class _CopyWithStubImpl$Mutation$UpdateList<TRes>
     implements CopyWith$Mutation$UpdateList<TRes> {
   _CopyWithStubImpl$Mutation$UpdateList(this._res);
 
-  final TRes _res;
+  TRes _res;
 
-  @override
   call({
     Fragment$ListFragment? updateList,
     String? $__typename,
   }) =>
       _res;
 
-  @override
   CopyWith$Fragment$ListFragment<TRes> get updateList =>
       CopyWith$Fragment$ListFragment.stub(_res);
 }
 
-const documentNodeMutationUpdateList = DocumentNode(
-  definitions: [
-    OperationDefinitionNode(
-      type: OperationType.mutation,
-      name: NameNode(value: 'UpdateList'),
-      variableDefinitions: [
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'idList')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+const documentNodeMutationUpdateList = DocumentNode(definitions: [
+  OperationDefinitionNode(
+    type: OperationType.mutation,
+    name: NameNode(value: 'UpdateList'),
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'idList')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-        VariableDefinitionNode(
-          variable: VariableNode(name: NameNode(value: 'label')),
-          type: NamedTypeNode(
-            name: NameNode(value: 'String'),
-            isNonNull: true,
-          ),
-          defaultValue: DefaultValueNode(value: null),
-          directives: [],
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'label')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'String'),
+          isNonNull: true,
         ),
-      ],
-      directives: [],
-      selectionSet: SelectionSetNode(
-        selections: [
-          FieldNode(
-            name: NameNode(value: 'updateList'),
-            alias: null,
-            arguments: [
-              ArgumentNode(
-                name: NameNode(value: 'idList'),
-                value: VariableNode(name: NameNode(value: 'idList')),
-              ),
-              ArgumentNode(
-                name: NameNode(value: 'label'),
-                value: VariableNode(name: NameNode(value: 'label')),
-              ),
-            ],
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      ),
+    ],
+    directives: [],
+    selectionSet: SelectionSetNode(selections: [
+      FieldNode(
+        name: NameNode(value: 'updateList'),
+        alias: null,
+        arguments: [
+          ArgumentNode(
+            name: NameNode(value: 'idList'),
+            value: VariableNode(name: NameNode(value: 'idList')),
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'label'),
+            value: VariableNode(name: NameNode(value: 'label')),
+          ),
+        ],
+        directives: [],
+        selectionSet: SelectionSetNode(selections: [
+          FragmentSpreadNode(
+            name: NameNode(value: 'ListFragment'),
             directives: [],
-            selectionSet: SelectionSetNode(
-              selections: [
-                FragmentSpreadNode(
-                  name: NameNode(value: 'ListFragment'),
-                  directives: [],
-                ),
-                FieldNode(
-                  name: NameNode(value: '__typename'),
-                  alias: null,
-                  arguments: [],
-                  directives: [],
-                  selectionSet: null,
-                ),
-              ],
-            ),
           ),
           FieldNode(
             name: NameNode(value: '__typename'),
@@ -353,16 +327,23 @@ const documentNodeMutationUpdateList = DocumentNode(
             directives: [],
             selectionSet: null,
           ),
-        ],
+        ]),
       ),
-    ),
-    fragmentDefinitionListFragment,
-    fragmentDefinitionCardFragment,
-    fragmentDefinitionUserFragment,
-    fragmentDefinitionCommentFragment,
-    fragmentDefinitionCheckListFragment,
-  ],
-);
+      FieldNode(
+        name: NameNode(value: '__typename'),
+        alias: null,
+        arguments: [],
+        directives: [],
+        selectionSet: null,
+      ),
+    ]),
+  ),
+  fragmentDefinitionListFragment,
+  fragmentDefinitionCardFragment,
+  fragmentDefinitionUserFragment,
+  fragmentDefinitionCommentFragment,
+  fragmentDefinitionCheckListFragment,
+]);
 Mutation$UpdateList _parserFn$Mutation$UpdateList(Map<String, dynamic> data) =>
     Mutation$UpdateList.fromJson(data);
 typedef OnMutationCompleted$Mutation$UpdateList = FutureOr<void> Function(
@@ -450,13 +431,11 @@ class WatchOptions$Mutation$UpdateList
 
 extension ClientExtension$Mutation$UpdateList on graphql.GraphQLClient {
   Future<graphql.QueryResult<Mutation$UpdateList>> mutate$UpdateList(
-    Options$Mutation$UpdateList options,
-  ) async =>
-      await mutate(options);
+          Options$Mutation$UpdateList options) async =>
+      await this.mutate(options);
   graphql.ObservableQuery<Mutation$UpdateList> watchMutation$UpdateList(
-    WatchOptions$Mutation$UpdateList options,
-  ) =>
-      watchMutation(options);
+          WatchOptions$Mutation$UpdateList options) =>
+      this.watchMutation(options);
 }
 
 class Mutation$UpdateList$HookResult {
@@ -470,9 +449,8 @@ class Mutation$UpdateList$HookResult {
   final graphql.QueryResult<Mutation$UpdateList> result;
 }
 
-Mutation$UpdateList$HookResult useMutation$UpdateList([
-  WidgetOptions$Mutation$UpdateList? options,
-]) {
+Mutation$UpdateList$HookResult useMutation$UpdateList(
+    [WidgetOptions$Mutation$UpdateList? options]) {
   final result = graphql_flutter
       .useMutation(options ?? WidgetOptions$Mutation$UpdateList());
   return Mutation$UpdateList$HookResult(
@@ -486,8 +464,7 @@ Mutation$UpdateList$HookResult useMutation$UpdateList([
 }
 
 graphql.ObservableQuery<Mutation$UpdateList> useWatchMutation$UpdateList(
-  WatchOptions$Mutation$UpdateList options,
-) =>
+        WatchOptions$Mutation$UpdateList options) =>
     graphql_flutter.useWatchMutation(options);
 
 class WidgetOptions$Mutation$UpdateList
