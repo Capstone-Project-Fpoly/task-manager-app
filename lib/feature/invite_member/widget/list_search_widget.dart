@@ -20,6 +20,7 @@ class SearchItemListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.inviteMember);
+    final width = MediaQuery.of(context).size.width;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,7 +29,7 @@ class SearchItemListWidget extends ConsumerWidget {
           url: user.avatar ?? '',
           width: MediaQuery.of(context).size.width * 0.10,
         ),
-        SizedBoxConstants.w16,
+        SizedBoxConstants.w12,
         Container(
           width: MediaQuery.of(context).size.width * 0.62,
           padding: EdgeInsetsConstants.left8,

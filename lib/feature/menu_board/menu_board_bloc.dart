@@ -16,6 +16,7 @@ class MenuBoardBloc extends BlocBase {
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final boardBloc = ref.read(BlocProvider.boardDetail);
+  late final appBloc = ref.watch(BlocProvider.app);
 
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   final listMemberSubject =
@@ -46,12 +47,20 @@ class MenuBoardBloc extends BlocBase {
   }
 
   void onTapInviteMember() {
+    if (!checkAdminOfBoard(appBloc.userSubject.value)) {
+      toastService.showText(message: 'Bạn không phải quản trị viên');
+      return;
+    }
+    if (boardBloc.boardFragment.isPublic == false) {
+      toastService.showText(message: 'Bảng không cho phép tham gia');
+      return;
+    }
     routerService.push(RouteInput.inviteMember());
   }
 
-  bool checkAdminOfBoard(Fragment$UserFragment user) {
+  bool checkAdminOfBoard(Fragment$UserFragment? user) {
     final board = boardBloc.boardFragment;
-    if (user == board.ownerUser) return true;
+    if (user?.uid == board.ownerUser.uid) return true;
     return false;
   }
 
