@@ -1,0 +1,5 @@
+subscription DetailBoard($idBoard: String!) {
+  detailBoard(idBoard: $idBoard){
+    ...ListFragment
+  }
+}
