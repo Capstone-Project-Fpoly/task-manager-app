@@ -93,13 +93,11 @@ class CardItemWidget extends ConsumerWidget {
                       style: const TextStyle(color: Colors.black),
                     ),
                     if (isShow) SizedBoxConstants.h8,
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
                       children: [
                         if (startDate.isNotEmpty)
                           Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
                                 decoration: const BoxDecoration(
@@ -128,6 +126,7 @@ class CardItemWidget extends ConsumerWidget {
                           ),
                         if (endDate.isNotEmpty)
                           Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
                                 padding: EdgeInsetsConstants.all2,
@@ -160,6 +159,7 @@ class CardItemWidget extends ConsumerWidget {
                           Container(
                             margin: EdgeInsetsConstants.right8,
                             child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Icon(
                                   Icons.chat_bubble_outline,
@@ -174,7 +174,7 @@ class CardItemWidget extends ConsumerWidget {
                               ],
                             ),
                           ),
-                        if (countCheckList != null && countIsCheckedList! > 0)
+                        if (countCheckList != null && countCheckList > 0)
                           Container(
                             padding: EdgeInsetsConstants.all2,
                             decoration: BoxDecoration(
@@ -184,6 +184,7 @@ class CardItemWidget extends ConsumerWidget {
                               ),
                             ),
                             child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 const Icon(
                                   Icons.check_box_outlined,
