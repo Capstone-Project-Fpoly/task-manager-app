@@ -29,7 +29,7 @@ class AddBoardBloc extends BlocBase {
   );
   final nameBoardSubject = BehaviorSubject<String>.seeded('');
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
-  final isPublicSubject = BehaviorSubject<bool>.seeded(false);
+  final isPublicSubject = BehaviorSubject<bool>.seeded(true);
   final focusNode = FocusNode();
 
   @override
