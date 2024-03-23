@@ -2,13 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
-import 'package:task_manager/shared/widgets/icons/avatar_default_icon.dart';
+import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
+import 'package:task_manager/shared/utilities/datetime.dart';
 
 class CardItemWidget extends ConsumerWidget {
-  const CardItemWidget({super.key});
+  final Fragment$CardFragment? card;
+  const CardItemWidget({super.key, required this.card});
 
   @override
   Widget build(BuildContext context, ref) {
+    final startDate =
+        formatDateTimeNotification(card?.startedDate, format: 'dd MMM');
+    final endDate = formatDateTimeNotification(card?.endDate, format: 'dd MMM');
+    final countComment = card?.comments?.length;
+    final countCheckList = card?.checkLists?.length;
+    final countIsCheckedList =
+        card?.checkLists?.where((e) => e.isChecked).toList().length;
+    final isShow = endDate.isNotEmpty ||
+        startDate.isNotEmpty ||
+        countComment! > 0 ||
+        countCheckList! > 0;
+
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsetsConstants.bottom4 + EdgeInsetsConstants.top8,
@@ -17,9 +31,9 @@ class CardItemWidget extends ConsumerWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          if (true)
+          if (false)
             Container(
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
@@ -43,25 +57,16 @@ class CardItemWidget extends ConsumerWidget {
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsetsConstants.left12 +
-                EdgeInsetsConstants.top8 +
                 EdgeInsetsConstants.bottom8 +
                 EdgeInsetsConstants.right12,
             decoration: const BoxDecoration(
               color: Colors.white,
-              //bo khi không có ảnh và khi có ảnh cover card
-              // borderRadius: true
-              //     ? BorderRadius.only(
-              //         bottomRight: Radius.circular(10),
-              //         bottomLeft: Radius.circular(10),
-              //       )
-              //     : BorderRadius.all(
-              //         Radius.circular(10),
-              //       ),
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
             ),
+            alignment: Alignment.centerLeft,
             child: Wrap(
               direction: Axis.horizontal,
               runAlignment: WrapAlignment.start,
@@ -72,141 +77,130 @@ class CardItemWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.15,
-                      height: MediaQuery.of(context).size.width * 0.05,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        color: Colors.blue,
+                    if (false)
+                      Container(
+                        margin: EdgeInsetsConstants.top8 +
+                            EdgeInsetsConstants.bottom4,
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        height: MediaQuery.of(context).size.width * 0.05,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          color: Colors.blue,
+                        ),
                       ),
+                    Text(
+                      card?.title ?? '',
+                      style: const TextStyle(color: Colors.black),
                     ),
-                    SizedBoxConstants.h4,
-                    const Text('name card'),
-                    SizedBoxConstants.h4,
+                    if (isShow) SizedBoxConstants.h8,
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.visibility_outlined,
-                          size: 15,
-                        ),
-                        SizedBoxConstants.w4,
-                        Container(
-                          padding: EdgeInsetsConstants.all4,
-                          decoration: const BoxDecoration(
-                            color: Colors.blue,
-                            //thay đổi theo trạng thái hoàn thành
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(3),
-                            ),
-                          ),
-                          child: const Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                        if (startDate.isNotEmpty)
+                          Row(
                             children: [
-                              Icon(
-                                Icons.access_alarm,
-                                size: 12,
+                              Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(3),
+                                  ),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.access_time,
+                                      size: 14,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBoxConstants.w4,
+                                    Text(
+                                      'Bắt đầu: ${startDate}',
+                                      style: const TextStyle(fontSize: 11),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              SizedBoxConstants.w4,
-                              /*có 3 trường hợp hiển thị text
-                              * có ngày bắt đầu không có ngày kết thúc
-                              * có ngày kết thúc nhưng không có ngày bắt đầu
-                              * có cả ngày bắt đầu với ngày kết thúc*/
-                              Text(
-                                'thời gian',
-                                style: TextStyle(fontSize: 11),
-                              ),
+                              SizedBoxConstants.w8,
                             ],
                           ),
-                        ),
-                        SizedBoxConstants.w4,
-                        //mo ta
-                        const Icon(
-                          Icons.menu,
-                          size: 15,
-                          color: Colors.grey,
-                        ),
-                        const Row(
-                          children: [
-                            SizedBoxConstants.w8,
-                            Icon(
-                              Icons.message,
-                              size: 13,
-                              color: Colors.grey,
-                            ),
-                            SizedBoxConstants.w2,
-                            Text(
-                              '1',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        const Row(
-                          children: [
-                            SizedBoxConstants.w8,
-                            Icon(
-                              Icons.attach_file,
-                              size: 13,
-                              color: Colors.grey,
-                            ),
-                            SizedBoxConstants.w2,
-                            Text(
-                              '1',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        SizedBoxConstants.w4,
-                        Container(
-                          padding: EdgeInsetsConstants.left2 +
-                              EdgeInsetsConstants.all2,
-                          decoration: const BoxDecoration(
-                            color: Colors.blue,
-                            //thay đổi theo trạng thái hoàn thành
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(3),
-                            ),
-                          ),
-                          child: const Row(
+                        if (endDate.isNotEmpty)
+                          Row(
                             children: [
-                              Icon(
-                                Icons.check_box_outlined,
-                                size: 15,
-                                color: Colors.grey,
+                              Container(
+                                padding: EdgeInsetsConstants.all2,
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow[100],
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(3),
+                                  ),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.access_time,
+                                      size: 14,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBoxConstants.w4,
+                                    Text(
+                                      endDate,
+                                      style: const TextStyle(fontSize: 11),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              SizedBoxConstants.w2,
-                              Text(
-                                '1/2',
-                                style: TextStyle(fontSize: 12),
-                              ),
+                              SizedBoxConstants.w8,
                             ],
                           ),
-                        ),
+                        if (countComment != null && countComment > 0)
+                          Container(
+                            margin: EdgeInsetsConstants.right8,
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.chat_bubble_outline,
+                                  size: 13,
+                                  color: Colors.black,
+                                ),
+                                SizedBoxConstants.w2,
+                                Text(
+                                  '$countComment',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (countCheckList != null && countIsCheckedList! > 0)
+                          Container(
+                            padding: EdgeInsetsConstants.all2,
+                            decoration: BoxDecoration(
+                              color: Colors.green[100],
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(3),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.check_box_outlined,
+                                  size: 14,
+                                  color: Colors.black,
+                                ),
+                                SizedBoxConstants.w2,
+                                Text(
+                                  '$countIsCheckedList/$countCheckList',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ),
                       ],
                     ),
-                    SizedBoxConstants.h4,
                   ],
-                ),
-                SizedBox(
-                  height: 50,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    reverse: true,
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return const AvatarDefaultIcon(
-                        width: 40,
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        width: 2,
-                      );
-                    },
-                  ),
                 ),
               ],
             ),

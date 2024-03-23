@@ -6,6 +6,7 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
+import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 
 class DetailCardListCommentWidget extends ConsumerWidget {
   const DetailCardListCommentWidget({super.key});
@@ -25,41 +26,38 @@ class DetailCardListCommentWidget extends ConsumerWidget {
           physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: [
-              SizedBox(
-                width: width,
-                child: Row(
-                  children: [
-                    SizedBoxConstants.w12,
-                    const Text(
-                      'Hoạt động',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+              Row(
+                children: [
+                  SizedBoxConstants.w12,
+                  const Text(
+                    'Hoạt động',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
-                    const Spacer(),
-                    PopupMenuButton(
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          value: true,
-                          child: !bloc.isShowNotificationSubject.value
-                              ? const Text('Hiện thông báo')
-                              : const Text('Hiện bình luận'),
-                        ),
-                      ],
-                      onSelected: (value) {
-                        bloc.showNotification(value);
-                      },
-                      constraints: BoxConstraints(
-                        minWidth: width - 350,
+                  ),
+                  const Spacer(),
+                  PopupMenuButton(
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        value: true,
+                        child: !bloc.isShowNotificationSubject.value
+                            ? const Text('Hiện thông báo')
+                            : const Text('Hiện bình luận'),
                       ),
-                      child: const Icon(
-                        Icons.more_vert,
-                        color: ColorConstants.primary,
-                      ),
+                    ],
+                    onSelected: (value) {
+                      bloc.showNotification(value);
+                    },
+                    constraints: BoxConstraints(
+                      minWidth: width - 350,
                     ),
-                    SizedBoxConstants.w12,
-                  ],
-                ),
+                    child: const Icon(
+                      Icons.more_vert,
+                      color: ColorConstants.primary,
+                    ),
+                  ),
+                  SizedBoxConstants.w12,
+                ],
               ),
               SizedBoxConstants.h10,
               if (!bloc.isShowNotificationSubject.value)
@@ -68,6 +66,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                   shrinkWrap: true,
                   itemCount: bloc.listCommentFragmentsSubject.value.length,
                   itemBuilder: (context, i) {
+                    final comment = bloc.listCommentFragmentsSubject.value[i];
                     return Container(
                       padding: EdgeInsetsConstants.horizontal12 +
                           EdgeInsetsConstants.bottom12,
@@ -76,26 +75,10 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsetsConstants.right12,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: ColorConstants.black,
-                                  ),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                alignment: Alignment.center,
-                                width: 40,
-                                height: 40,
-                                child: Text(
-                                  'Khang'.toUpperCase().substring(0, 1),
-                                ),
-                              ),
-                            ),
+                          AppCircleAvatar(
+                            url: comment.user.avatar ?? '',
+                            width: 40,
+                            height: 40,
                           ),
                           const SizedBox(
                             width: 5,
@@ -117,9 +100,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      bloc.listCommentFragmentsSubject.value[i]
-                                              .user.fullName ??
-                                          '',
+                                      comment.user.fullName ?? '',
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: ColorConstants.black,
@@ -129,8 +110,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                       height: 5,
                                     ),
                                     Text(
-                                      bloc.listCommentFragmentsSubject.value[i]
-                                          .comment,
+                                      comment.comment,
                                     ),
                                   ],
                                 ),
@@ -142,8 +122,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: Text(
                                   formatDateTimeCommentCard(
-                                    bloc.listCommentFragmentsSubject.value[i]
-                                        .createdAt,
+                                    comment.createdAt,
                                   ),
                                   style: const TextStyle(
                                     color: ColorConstants.grey,

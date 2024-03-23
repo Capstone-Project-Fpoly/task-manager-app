@@ -24,24 +24,24 @@ class DetailCardChecklistWidget extends ConsumerWidget {
           width: width,
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsetsConstants.horizontal12,
-                child: Row(
-                  children: [
-                    SizedBoxConstants.w6,
-                    const Text(
-                      'Danh sách công việc',
-                      style: TextStyle(
-                        color: ColorConstants.primaryBlack,
-                        fontWeight: FontWeight.bold,
+              InkWell(
+                onTap: () {
+                  bloc.onChangeShowCheckList();
+                },
+                child: Padding(
+                  padding: EdgeInsetsConstants.horizontal12,
+                  child: Row(
+                    children: [
+                      SizedBoxConstants.w6,
+                      const Text(
+                        'Danh sách công việc',
+                        style: TextStyle(
+                          color: ColorConstants.primaryBlack,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const Spacer(),
-                    InkWell(
-                      onTap: () {
-                        bloc.onChangeShowCheckList();
-                      },
-                      child: ObsBuilder(
+                      const Spacer(),
+                      ObsBuilder(
                         streams: [bloc.isShowChecklistSubject],
                         builder: (context) {
                           final isShowChecklist =
@@ -54,32 +54,32 @@ class DetailCardChecklistWidget extends ConsumerWidget {
                           );
                         },
                       ),
-                    ),
-                    SizedBoxConstants.w12,
-                    PopupMenuButton(
-                      itemBuilder: (context) => [
-                        const PopupMenuItem(
-                          value: 'done',
-                          child: Text('Đã hoàn thành'),
-                        ),
-                        const PopupMenuItem(
-                          value: 'delete',
-                          child: Text(
-                            'Xóa',
-                            style: TextStyle(color: ColorConstants.red),
+                      SizedBoxConstants.w12,
+                      PopupMenuButton(
+                        itemBuilder: (context) => [
+                          const PopupMenuItem(
+                            value: 'done',
+                            child: Text('Đã hoàn thành'),
                           ),
+                          const PopupMenuItem(
+                            value: 'delete',
+                            child: Text(
+                              'Xóa',
+                              style: TextStyle(color: ColorConstants.red),
+                            ),
+                          ),
+                        ],
+                        onSelected: (value) {},
+                        constraints: BoxConstraints(
+                          minWidth: width - 350,
                         ),
-                      ],
-                      onSelected: (value) {},
-                      constraints: BoxConstraints(
-                        minWidth: width - 350,
+                        child: const Icon(
+                          Icons.more_vert,
+                          color: ColorConstants.primary,
+                        ),
                       ),
-                      child: const Icon(
-                        Icons.more_vert,
-                        color: ColorConstants.primary,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               SizedBoxConstants.h12,

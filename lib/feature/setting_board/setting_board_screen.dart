@@ -154,7 +154,6 @@ class SettingBoardScreen extends ConsumerWidget {
                           color: ColorConstants.divider,
                         ),
                         ListTile(
-                          onTap: () {},
                           title: const Text(
                             'Quyền xem',
                             style: AppTextStyle.black(fontSize: 14),
@@ -165,6 +164,8 @@ class SettingBoardScreen extends ConsumerWidget {
                               return SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.28,
                                 child: PopupMenuButton(
+                                  initialValue:
+                                      bloc.selectedStatusSubject.value,
                                   itemBuilder: (context) =>
                                       BoardStatusEnum.values
                                           .map(
@@ -192,35 +193,6 @@ class SettingBoardScreen extends ConsumerWidget {
                                 ),
                               );
                             },
-                          ),
-                        ),
-                        const Divider(
-                          height: 0,
-                          color: ColorConstants.divider,
-                        ),
-                        ListTile(
-                          onTap: () {},
-                          title: const Text(
-                            'Chỉnh sửa nhãn',
-                            style: AppTextStyle.black(fontSize: 14),
-                          ),
-                        ),
-                        const Divider(
-                          height: 0,
-                          color: ColorConstants.divider,
-                        ),
-                        ListTile(
-                          onTap: () {},
-                          title: const Text(
-                            'Ai có thể bình luận',
-                            style: AppTextStyle.black(fontSize: 14),
-                          ),
-                          trailing: const Text(
-                            'Thành Viên',
-                            style: AppTextStyle.black(
-                              fontSize: 14,
-                              color: ColorConstants.grayText,
-                            ),
                           ),
                         ),
                         const Divider(

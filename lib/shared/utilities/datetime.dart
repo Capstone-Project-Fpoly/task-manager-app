@@ -19,10 +19,11 @@ DateTime parseDateString(
 }
 
 String formatDateTimeNotification(
-  String isoDateString, {
+  String? isoDateString, {
   String format = 'HH:mm, dd MMM',
   String? locale = 'vi_VN',
 }) {
+  if (isoDateString == null) return '';
   try {
     final date = DateTime.parse(isoDateString);
     return DateFormat(format, locale).format(date);

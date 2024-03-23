@@ -40,7 +40,6 @@ class DetailCardScreen extends ConsumerWidget {
                 );
               }
               return SingleChildScrollView(
-                reverse: true,
                 child: Column(
                   children: [
                     SizedBoxConstants.h40,
