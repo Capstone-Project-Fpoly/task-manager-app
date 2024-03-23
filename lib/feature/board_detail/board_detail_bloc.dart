@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
@@ -11,11 +12,13 @@ import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/board_detail/board_detail_card_extention.dart';
 import 'package:task_manager/feature/board_detail/board_detail_list_extention.dart';
 import 'package:task_manager/feature/board_detail/enum/board_detail_app_bar_enum.dart';
+import 'package:task_manager/feature/board_detail/extension/board_detail_subscription_extension.dart';
 import 'package:task_manager/feature/board_detail/widget/board_detail_show_list_bottom_widget.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/update_board.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
+import 'package:task_manager/graphql/Subscriptions/detail_board.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
 
@@ -61,6 +64,8 @@ class BoardDetailBloc extends BlocBase {
   final appBarEnumSubject =
       BehaviorSubject<BoardDetailAppBarEnum?>.seeded(null);
 
+  StreamSubscription<QueryResult<Subscription$DetailBoard>>? subscription;
+
   List<Fragment$ListFragment?> listFragmentsCurrent = [];
 
   Future<void> fetchListFragmentByIdBoard() async {
@@ -77,6 +82,12 @@ class BoardDetailBloc extends BlocBase {
   }
 
   Future<void> init() async {
+    subscription = subscriptionDetailBoard().listen((event) {
+      if (event.data == null) return;
+      final data = event.parsedData?.detailBoard;
+      if (data == null) return;
+      listFragmentsSubject.value = data;
+    });
     titleBoardSubject.value = boardFragment.title!;
     isLoadingSubject.value = true;
     await fetchListFragmentByIdBoard();
@@ -145,6 +156,7 @@ class BoardDetailBloc extends BlocBase {
     titleBoardSubject.close();
     idListEditSubject.close();
     titleListEditSubject.close();
+    subscription?.cancel();
   }
 
   void onTapLabelListTextField({required String? idList}) {

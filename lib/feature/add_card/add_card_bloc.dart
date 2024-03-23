@@ -179,7 +179,8 @@ class AddCardBloc extends BlocBase {
     listMemberSubject.value = result.parsedData?.getUsersOfBoard ?? [];
   }
 
-  Future<void> showDateTimePickerFisnish(BuildContext context) async {
+  Future<void> showDateTimePickerFinish(BuildContext context) async {
+    if (!context.mounted) return;
     DateTime selectedDate = DateTime.now();
     final TimeOfDay selectedTime = TimeOfDay.now();
     final DateTime tempDate =

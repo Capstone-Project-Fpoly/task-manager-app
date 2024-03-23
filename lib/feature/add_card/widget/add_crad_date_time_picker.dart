@@ -52,7 +52,7 @@ class AddCardDateTimePicker extends ConsumerWidget {
                 SizedBoxConstants.h16,
                 InkWell(
                   onTap: () {
-                    bloc.showDateTimePickerFisnish(context);
+                    bloc.showDateTimePickerFinish(context);
                   },
                   child: Text(
                     bloc.timeFinishSubject.value == null

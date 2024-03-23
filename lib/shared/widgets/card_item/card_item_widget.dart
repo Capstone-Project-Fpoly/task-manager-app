@@ -100,6 +100,7 @@ class CardItemWidget extends ConsumerWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Container(
+                                padding: EdgeInsetsConstants.all2,
                                 decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(3),

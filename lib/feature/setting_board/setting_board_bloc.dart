@@ -119,7 +119,6 @@ class SettingBoardBloc extends BlocBase {
     if (nameBoardSubject.value.trim().isEmpty) {
       return;
     }
-    print(isPublic);
     final result = await graphqlService.client.mutate$UpdateBoard(
       Options$Mutation$UpdateBoard(
         variables: Variables$Mutation$UpdateBoard(
@@ -132,7 +131,6 @@ class SettingBoardBloc extends BlocBase {
         ),
       ),
     );
-    print(result);
     if (result.hasException) {
       toastService.showText(
         message: result.exception?.graphqlErrors.first.message ??

@@ -36,6 +36,7 @@ type Comment {
   comment: String!
   createdAt: String!
   id: String!
+  updatedAt: String!
   user: User!
 }
 
@@ -95,11 +96,14 @@ type Mutation {
   acceptInviteToBoard(idBoard: String!, idNotification: String!): Boolean
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
   createCard(idList: String!, title: String!): Card
+  createComment(content: String!, idCard: String!): Comment
   createList(idBoard: String!, label: String!): List
   deleteCard(idCard: String!, idList: String!): Boolean
+  deleteComment(content: String!, idCard: String!): Boolean
   deleteList(idList: String!): Boolean
   getBoards: [Board]
   getCard(idCard: String!): Card
+  getComments(idCard: String!): [Comment]
   getLists(idBoard: String!): [List]
   inviteUsersToBoard(idBoard: String!, idUsers: [String!]): Boolean
   leaveBoard(idBoard: String!): Boolean
@@ -115,6 +119,7 @@ type Mutation {
   testCallSubscription(name: String): String
   updateBoard(idBoard: String!, input: InputUpdateBoard!): Board
   updateCard(input: InputUpdateCard!): Card
+  updateComment(content: String!, idComment: String!): Comment
   updateList(idList: String!, label: String!): List
   verifyEmail(input: InputVerifyEmail!): Boolean
 }
@@ -151,6 +156,7 @@ enum Reminder {
 }
 
 type Subscription {
+  detailBoard(idBoard: String!): [List]
   test(id: String!): String
 }
 

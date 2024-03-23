@@ -53,7 +53,6 @@ extension BoardDetailListExtention on BoardDetailBloc {
   Future<void> deleteList(String idList) async {
     routerService.pop(result: false);
     routerService.pop(result: false);
-    isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$DeleteList(
       Options$Mutation$DeleteList(
         variables: Variables$Mutation$DeleteList(idList: idList),
@@ -61,10 +60,8 @@ extension BoardDetailListExtention on BoardDetailBloc {
     );
     if (result.hasException) {
       toastService.showText(message: 'không thành công');
-      isLoadingSubject.value = false;
       return;
     }
-    isLoadingSubject.value = false;
     if (result.parsedData?.deleteList == null ||
         result.parsedData!.deleteList == false) {
       toastService.showText(message: 'không thành công');
