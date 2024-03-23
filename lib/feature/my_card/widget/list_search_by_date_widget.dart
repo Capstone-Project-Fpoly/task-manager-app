@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
-import 'package:task_manager/shared/widgets/card_item/card_item_widget.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class ListSearchByDate extends ConsumerWidget {
@@ -52,7 +51,7 @@ class ListSearchByDate extends ConsumerWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return const Column(
                       children: [
-                        CardItemWidget(),
+                        // CardItemWidget(),
                         SizedBoxConstants.h2,
                         Row(
                           children: [
@@ -116,7 +115,7 @@ class ListSearchByDate extends ConsumerWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return const Column(
                       children: [
-                        CardItemWidget(),
+                        // CardItemWidget(),
                         SizedBoxConstants.h2,
                         Row(
                           children: [
@@ -180,7 +179,7 @@ class ListSearchByDate extends ConsumerWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return const Column(
                       children: [
-                        CardItemWidget(),
+                        // CardItemWidget(),
                         SizedBoxConstants.h2,
                         Row(
                           children: [

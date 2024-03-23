@@ -11,6 +11,7 @@ import 'package:task_manager/feature/board_detail/enum/board_detail_app_bar_enum
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/color.dart';
+import 'package:task_manager/shared/widgets/card_item/card_item_widget.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DragAndDropListsCustom extends ConsumerWidget {
@@ -358,26 +359,29 @@ class DragAndDropListsCustom extends ConsumerWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Container(
-              padding: EdgeInsetsConstants.horizontal10 +
-                  EdgeInsetsConstants.vertical16,
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Text(
-                item?.title ?? '',
-                style: const TextStyle(color: Colors.black),
-              ),
+            // child: Container(
+            //   padding: EdgeInsetsConstants.horizontal10 +
+            //       EdgeInsetsConstants.vertical16,
+            //   alignment: Alignment.centerLeft,
+            //   decoration: BoxDecoration(
+            //     color: Colors.white,
+            //     borderRadius: BorderRadius.circular(5),
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: Colors.grey.withOpacity(0.2),
+            //         spreadRadius: 1,
+            //         blurRadius: 7,
+            //         offset: const Offset(0, 3),
+            //       ),
+            //     ],
+            //   ),
+            //   child: Text(
+            //     item?.title ?? '',
+            //     style: const TextStyle(color: Colors.black),
+            //   ),
+            // ),
+            child: CardItemWidget(
+              card: item,
             ),
           ),
         ),

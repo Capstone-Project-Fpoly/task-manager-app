@@ -102,7 +102,7 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                               ).then((value) {
                                 if (value != null) {
                                   bloc.startTimeController.text =
-                                      '${value.hour}:${value.minute}';
+                                      '${value.hour}:${value.minute < 10 ? '0' : ''}${value.minute}';
                                   bloc.startTimeSubject.value = value;
                                 }
                               });

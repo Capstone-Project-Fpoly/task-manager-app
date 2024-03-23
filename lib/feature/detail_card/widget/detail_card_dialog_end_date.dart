@@ -101,7 +101,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                             ).then((value) {
                               if (value != null) {
                                 bloc.endTimeController.text =
-                                    '${value.hour}:${value.minute}';
+                                    '${value.hour}:${value.minute < 10 ? '0${value.minute}' : value.minute}';
                               }
                               bloc.endTimeSubject.value = value;
                             });

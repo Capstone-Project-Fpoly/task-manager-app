@@ -202,9 +202,6 @@ class DetailCardBloc extends BlocBase {
   List<Input$CheckListInput>? getListInputCheckList() {
     listCheckListSubject.value
         .removeWhere((element) => element.content.isEmpty);
-    if (listCheckListSubject.value.isEmpty) {
-      return null;
-    }
     if (listCheckListSubject.value.length !=
         cardSubject.value?.checkLists?.length) {
       return listCheckListSubject.value
@@ -237,7 +234,6 @@ class DetailCardBloc extends BlocBase {
 
   List<String>? getListIdUser() {
     usersSubject.value.removeWhere((element) => element == null);
-    if (usersSubject.value.isEmpty) return null;
     if (usersSubject.value.length != cardSubject.value?.users?.length) {
       return usersSubject.value.map((e) => e!.uid).toList();
     }
@@ -259,7 +255,6 @@ class DetailCardBloc extends BlocBase {
     }
     final listInputCheckList = getListInputCheckList();
     final users = getListIdUser();
-
     updateCard(checkLists: listInputCheckList, users: users);
     routerService.pop();
   }

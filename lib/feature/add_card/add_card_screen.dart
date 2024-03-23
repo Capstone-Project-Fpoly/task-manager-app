@@ -241,8 +241,8 @@ class AddCardScreen extends ConsumerWidget {
                                         title: Text(
                                           item?.fullName ?? '',
                                           style: const TextStyle(
-                                              color:
-                                                  ColorConstants.primaryBlack),
+                                            color: ColorConstants.primaryBlack,
+                                          ),
                                         ),
                                         leading: AppCircleAvatar(
                                           url: item?.avatar ?? '',

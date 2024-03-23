@@ -52,10 +52,15 @@ extension DetailCardCheckListExtension on DetailCardBloc {
   }
 
   void onCheckListDeleted(Fragment$CheckListFragment item) {
-    final newCheckListItems = listCheckListSubject.value
-        .where((element) => element.id != item.id)
-        .toList();
-    listCheckListSubject.value = newCheckListItems;
+    final newCheckListItems = [...listCheckListSubject.value];
+    newCheckListItems.removeWhere((element) => element.id == item.id);
+    listCheckListSubject.value = [...newCheckListItems];
+    for (final checkList in newCheckListItems) {
+      print(checkList.toJson());
+    }
+    for (final checkList in listCheckListSubject.value) {
+      print(checkList.toJson());
+    }
   }
 
   void onCheckListChanged(Fragment$CheckListFragment item, String text) {

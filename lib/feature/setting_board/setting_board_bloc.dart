@@ -51,6 +51,9 @@ class SettingBoardBloc extends BlocBase {
     nameBoardSubject.value = boardBloc.selectedBoardSubject.value!.title ?? '';
     textEditingController.text = nameBoardSubject.value;
     isPublicSubject.value = boardBloc.selectedBoardSubject.value!.isPublic;
+    selectedStatusSubject.value = isPublicSubject.value
+        ? BoardStatusEnum.public
+        : BoardStatusEnum.private;
   }
 
   void onBackToBoardScreen() {
