@@ -142,6 +142,9 @@ class DetailCardChecklistWidget extends ConsumerWidget {
             focusNode: bloc.focusNodeChecklist,
             controller: bloc.checklistController,
             keyboardType: TextInputType.multiline,
+            scrollPadding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).viewInsets.bottom,
+            ),
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'Thêm mục...',
