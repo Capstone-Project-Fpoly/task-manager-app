@@ -41,8 +41,20 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                       PopupMenuItem(
                         value: true,
                         child: !bloc.isShowNotificationSubject.value
-                            ? const Text('Hiện thông báo')
-                            : const Text('Hiện bình luận'),
+                            ? const Row(
+                                children: [
+                                  Icon(Icons.check_box_outline_blank),
+                                  SizedBoxConstants.w8,
+                                  Text('Hiện thông báo'),
+                                ],
+                              )
+                            : const Row(
+                                children: [
+                                  Icon(Icons.check_box),
+                                  SizedBoxConstants.w8,
+                                  Text('Hiện thông báo'),
+                                ],
+                              ),
                       ),
                     ],
                     onSelected: (value) {
