@@ -41,7 +41,7 @@ extension BoardDetailCardExtention on BoardDetailBloc {
     final result = await graphqlService.client.mutate$MoveCard(
       Options$Mutation$MoveCard(
         variables: Variables$Mutation$MoveCard(
-          idBoard: boardFragment.id,
+          idBoard: currentBoardSubject.value.id,
           input: input,
         ),
       ),

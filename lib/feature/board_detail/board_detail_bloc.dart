@@ -33,6 +33,9 @@ class BoardDetailBloc extends BlocBase {
   late final boardBloc = ref.read(BlocProvider.board);
   late final localStorage = ref.read(AppService.localStorage);
 
+  late final currentBoardSubject =
+      BehaviorSubject<Fragment$BoardFragment>.seeded(boardFragment);
+
   final isDraggingCardSubject = BehaviorSubject<bool>.seeded(false);
   final isDraggingListSubject = BehaviorSubject<bool>.seeded(false);
 
@@ -72,7 +75,7 @@ class BoardDetailBloc extends BlocBase {
     final result = await graphqlService.client.mutate$getList(
       Options$Mutation$getList(
         variables: Variables$Mutation$getList(
-          idBoard: boardFragment.id,
+          idBoard: currentBoardSubject.value.id,
         ),
       ),
     );
@@ -88,7 +91,7 @@ class BoardDetailBloc extends BlocBase {
       if (data == null) return;
       listFragmentsSubject.value = data;
     });
-    titleBoardSubject.value = boardFragment.title!;
+    titleBoardSubject.value = currentBoardSubject.value.title!;
     isLoadingSubject.value = true;
     await fetchListFragmentByIdBoard();
     isLoadingSubject.value = false;
@@ -156,6 +159,7 @@ class BoardDetailBloc extends BlocBase {
     titleBoardSubject.close();
     idListEditSubject.close();
     titleListEditSubject.close();
+    currentBoardSubject.close();
     subscription?.cancel();
   }
 
@@ -222,11 +226,11 @@ class BoardDetailBloc extends BlocBase {
       return;
     }
     // cập nhật lại bảng
-    final board = boardFragment;
+    final board = currentBoardSubject.value;
     final newBoard = board.copyWith(
       title: titleBoardSubject.value,
     );
-    boardFragment = newBoard;
+    currentBoardSubject.value = newBoard;
   }
 
   Future<void> onTapAddList() async {
@@ -263,7 +267,7 @@ class BoardDetailBloc extends BlocBase {
 
   void onTapOpenMenuBoardScreen() {
     if (isLoadingSubject.value) return;
-    routerService.push(RouteInput.menuBoard(boardFragment: boardFragment));
+    routerService.push(RouteInput.menuBoard());
   }
 
   void onItemReorder(
@@ -397,13 +401,14 @@ class BoardDetailBloc extends BlocBase {
   void onTapNotification() {
     if (isLoadingSubject.value) return;
     appBarEnumSubject.value = null;
-    routerService.push(RouteInput.notification(idBoard: boardFragment.id));
+    routerService
+        .push(RouteInput.notification(idBoard: currentBoardSubject.value.id));
   }
 
   Future<void> onNextToDetailCard(String? idCard) async {
     if (idCard == null || idCard.isEmpty) return;
-    final detailCardArgument =
-        DetailCardArgument(idCard: idCard, idBoard: boardFragment.id);
+    final detailCardArgument = DetailCardArgument(
+        idCard: idCard, idBoard: currentBoardSubject.value.id);
     await routerService.push(
       RouteInput.detailCard(
         detailCardArgument: detailCardArgument,

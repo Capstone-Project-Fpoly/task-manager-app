@@ -7,7 +7,7 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
     return graphqlService.client.subscribe$DetailBoard(
       Options$Subscription$DetailBoard(
         variables: Variables$Subscription$DetailBoard(
-          idBoard: boardFragment.id,
+          idBoard: currentBoardSubject.value.id,
         ),
       ),
     );

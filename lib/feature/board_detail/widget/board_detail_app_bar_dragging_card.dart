@@ -16,7 +16,8 @@ class BoardDetailAppBarDraggingCard extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    final color = ColorUtils.getColorFromHex(bloc.boardFragment.color);
+    final currentBoard = bloc.currentBoardSubject.value;
+    final color = ColorUtils.getColorFromHex(currentBoard.color);
     final hslColor = HSLColor.fromColor(color);
 
     final darkerColor =

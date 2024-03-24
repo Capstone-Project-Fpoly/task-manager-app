@@ -14,7 +14,7 @@ extension BoardDetailListExtention on BoardDetailBloc {
     final result = await graphqlService.client.mutate$CreateList(
       Options$Mutation$CreateList(
         variables: Variables$Mutation$CreateList(
-          idBoard: boardFragment.id,
+          idBoard: currentBoardSubject.value.id,
           label: label,
         ),
       ),
@@ -33,7 +33,7 @@ extension BoardDetailListExtention on BoardDetailBloc {
     final result = await graphqlService.client.mutate$MoveList(
       Options$Mutation$MoveList(
         variables: Variables$Mutation$MoveList(
-          idBoard: boardFragment.id,
+          idBoard: currentBoardSubject.value.id,
           input: Input$InputMoveList(
             newListIndex: newListIndex,
             oldListIndex: oldListIndex,

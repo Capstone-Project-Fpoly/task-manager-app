@@ -5,6 +5,7 @@ import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/update_board.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/enum/board_status_enum.dart';
@@ -67,7 +68,16 @@ class SettingBoardBloc extends BlocBase {
         currentBoard?.isPublic != currentIsPublic) {
       boardBloc.getBoard();
     }
-    routerService.pop();
+    Fragment$BoardFragment? resultPop;
+    if (boardBloc.selectedBoardSubject.value != null) {
+      resultPop = currentBoard!.copyWith(
+        color: currentColor,
+        title: currentTitle,
+        isPublic: currentIsPublic,
+      );
+      boardBloc.selectedBoardSubject.value = resultPop;
+    }
+    routerService.pop(result: resultPop);
   }
 
   void onTapTitleTextField(bool open) {

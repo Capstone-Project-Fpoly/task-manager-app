@@ -14,14 +14,15 @@ class MenuBoardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.menuBoardBloc);
-    final color =
-        ColorUtils.getColorFromHex(bloc.boardBloc.boardFragment.color);
-    final hslColor = HSLColor.fromColor(color);
-    final darkerColor =
-        hslColor.withLightness(hslColor.lightness * 0.5).toColor();
+
     return ObsBuilder(
-      streams: [bloc.isLoadingSubject],
+      streams: [bloc.isLoadingSubject, bloc.currentBoardSubject],
       builder: (context) {
+        final color =
+            ColorUtils.getColorFromHex(bloc.currentBoardSubject.value?.color);
+        final hslColor = HSLColor.fromColor(color);
+        final darkerColor =
+            hslColor.withLightness(hslColor.lightness * 0.5).toColor();
         return LoadingOverlay(
           isLoading: bloc.isLoadingSubject.value,
           child: Scaffold(

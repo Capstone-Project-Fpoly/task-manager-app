@@ -15,18 +15,21 @@ class BoardDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.boardDetail);
-    final color = ColorUtils.getColorFromHex(bloc.boardFragment.color);
-    final hslColor = HSLColor.fromColor(color);
 
-    final darkerColor =
-        hslColor.withLightness(hslColor.lightness * 0.5).toColor();
     return ObsBuilder(
       streams: [
         bloc.isDraggingCardSubject,
         bloc.isDragCardMoveContainerDeleteSubject,
         bloc.appBarEnumSubject,
+        bloc.currentBoardSubject,
       ],
       builder: (context) {
+        final currentBoard = bloc.currentBoardSubject.value;
+        final color = ColorUtils.getColorFromHex(currentBoard.color);
+        final hslColor = HSLColor.fromColor(color);
+
+        final darkerColor =
+            hslColor.withLightness(hslColor.lightness * 0.5).toColor();
         final isDragCardMove = bloc.isDragCardMoveContainerDeleteSubject.value;
         final appBarEnum = bloc.appBarEnumSubject.value;
         return Scaffold(
@@ -46,7 +49,7 @@ class BoardDetailScreen extends ConsumerWidget {
                       title: GestureDetector(
                         onDoubleTap: bloc.onTapEditBoardTitle,
                         child: Text(
-                          bloc.boardFragment.title ?? 'Bảng thử nghiệm',
+                          currentBoard.title ?? 'Bảng thử nghiệm',
                           style: const AppTextStyle.white(
                             fontSize: 20,
                           ),
@@ -97,7 +100,7 @@ class BoardDetailScreen extends ConsumerWidget {
                 return Container(
                   height: double.infinity,
                   width: double.infinity,
-                  color: ColorUtils.getColorFromHex(bloc.boardFragment.color),
+                  color: ColorUtils.getColorFromHex(currentBoard.color),
                   child: const Center(child: CircularProgressIndicator()),
                 );
               }

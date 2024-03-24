@@ -12,7 +12,8 @@ class BoardDetailAppBarEditBoardTitle extends StatelessWidget
   final BoardDetailBloc bloc;
   @override
   AppBar build(BuildContext context) {
-    final color = ColorUtils.getColorFromHex(bloc.boardFragment.color);
+    final currentBoard = bloc.currentBoardSubject.value;
+    final color = ColorUtils.getColorFromHex(currentBoard.color);
     final hslColor = HSLColor.fromColor(color);
     final darkerColor =
         hslColor.withLightness(hslColor.lightness * 0.5).toColor();
@@ -24,7 +25,7 @@ class BoardDetailAppBarEditBoardTitle extends StatelessWidget
         child: const Icon(Icons.clear),
       ),
       title: TextFormField(
-        initialValue: bloc.boardFragment.title ?? 'Bảng thử nghiệm',
+        initialValue: currentBoard.title ?? 'Bảng thử nghiệm',
         // controller: bloc.titleBoardEditingController,
         onChanged: (value) {
           bloc.titleBoardSubject.value = value;
@@ -35,7 +36,7 @@ class BoardDetailAppBarEditBoardTitle extends StatelessWidget
         ),
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: bloc.boardFragment.title ?? 'Bảng thử nghiệm',
+          hintText: currentBoard.title ?? 'Bảng thử nghiệm',
         ),
       ),
       backgroundColor: darkerColor,
