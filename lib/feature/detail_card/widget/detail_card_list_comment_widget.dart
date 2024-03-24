@@ -40,17 +40,23 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                     itemBuilder: (context) => [
                       PopupMenuItem(
                         value: true,
-                        child: !bloc.isShowNotificationSubject.value
-                            ? const Row(
+                        child: bloc.isShowNotificationSubject.value
+                            ? Row(
                                 children: [
-                                  Icon(Icons.check_box_outline_blank),
+                                  Icon(
+                                    Icons.check_box,
+                                    color: Colors.green[400],
+                                  ),
                                   SizedBoxConstants.w8,
-                                  Text('Hiện thông báo'),
+                                  const Text('Hiện thông báo'),
                                 ],
                               )
                             : const Row(
                                 children: [
-                                  Icon(Icons.check_box),
+                                  Icon(
+                                    Icons.check_box_outline_blank,
+                                    color: Colors.black,
+                                  ),
                                   SizedBoxConstants.w8,
                                   Text('Hiện thông báo'),
                                 ],
