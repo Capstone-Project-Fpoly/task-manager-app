@@ -10,7 +10,8 @@ class BoardDetailAppBarSearch extends StatelessWidget
   final BoardDetailBloc bloc;
   @override
   AppBar build(BuildContext context) {
-    final color = ColorUtils.getColorFromHex(bloc.boardFragment.color);
+    final currentBoard = bloc.currentBoardSubject.value;
+    final color = ColorUtils.getColorFromHex(currentBoard.color);
     final hslColor = HSLColor.fromColor(color);
 
     final darkerColor =

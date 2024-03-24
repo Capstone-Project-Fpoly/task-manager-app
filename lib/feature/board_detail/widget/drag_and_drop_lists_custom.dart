@@ -25,10 +25,12 @@ class DragAndDropListsCustom extends ConsumerWidget {
         bloc.listFragmentsSubject,
         bloc.isZoomSubject,
         bloc.isDraggingCardSubject,
+        bloc.currentBoardSubject,
       ],
       builder: (context) {
+        final currentBoard = bloc.currentBoardSubject.value;
         return Container(
-          color: ColorUtils.getColorFromHex(bloc.boardFragment.color),
+          color: ColorUtils.getColorFromHex(currentBoard.color),
           child: DragAndDropLists(
             scrollController: bloc.scrollListController,
             contentsWhenEmpty: const Text(

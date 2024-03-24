@@ -230,10 +230,9 @@ class RouteScreen {
   }
 
   static PageRoute menuBoardRoute(RouteSettings settings) {
-    final boardFragment = settings.arguments as Fragment$BoardFragment;
     BlocProvider.menuBoardBloc = createAutoDisposeBloc(
       //Nhớ khởi tạo provider cho bloc
-      (ref) => MenuBoardBloc(ref, boardFragment: boardFragment),
+      (ref) => MenuBoardBloc(ref),
     );
     return MaterialPageRoute(
       settings: settings,

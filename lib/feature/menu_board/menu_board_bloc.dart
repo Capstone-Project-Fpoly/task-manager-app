@@ -11,18 +11,19 @@ import 'package:task_manager/graphql/queries/board/get_user_of_board.graphql.dar
 class MenuBoardBloc extends BlocBase {
   final Ref ref;
 
-  final Fragment$BoardFragment boardFragment;
+  // final Fragment$BoardFragment currentBoardSubject.value;
   late final toastService = ref.watch(AppService.toast);
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
-  late final boardBloc = ref.read(BlocProvider.boardDetail);
+  late final boardDetailBloc = ref.read(BlocProvider.boardDetail);
   late final appBloc = ref.watch(BlocProvider.app);
 
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   final listMemberSubject =
       BehaviorSubject<List<Fragment$UserFragment?>>.seeded([]);
-
-  MenuBoardBloc(this.ref, {required this.boardFragment}) {
+  final currentBoardSubject =
+      BehaviorSubject<Fragment$BoardFragment?>.seeded(null);
+  MenuBoardBloc(this.ref) {
     init();
   }
 
@@ -31,15 +32,20 @@ class MenuBoardBloc extends BlocBase {
     super.dispose();
     isLoadingSubject.close();
     listMemberSubject.close();
+    currentBoardSubject.close();
   }
 
   Future<void> init() async {
     isLoadingSubject.value = true;
+    currentBoardSubject.value = boardDetailBloc.currentBoardSubject.value;
     await memberBoard();
   }
 
-  void onTapSettingBoard() {
-    routerService.push(RouteInput.settingBoard());
+  Future<void> onTapSettingBoard() async {
+    final result = await routerService.push(RouteInput.settingBoard());
+    if (result == null) return;
+    currentBoardSubject.value = result as Fragment$BoardFragment;
+    boardDetailBloc.currentBoardSubject.value = result;
   }
 
   void onTapBack() {
@@ -51,7 +57,7 @@ class MenuBoardBloc extends BlocBase {
       toastService.showText(message: 'Bạn không phải quản trị viên');
       return;
     }
-    if (boardBloc.boardFragment.isPublic == false) {
+    if (currentBoardSubject.value?.isPublic == false) {
       toastService.showText(message: 'Bảng không cho phép tham gia');
       return;
     }
@@ -59,8 +65,8 @@ class MenuBoardBloc extends BlocBase {
   }
 
   bool checkAdminOfBoard(Fragment$UserFragment? user) {
-    final board = boardBloc.boardFragment;
-    if (user?.uid == board.ownerUser.uid) return true;
+    final board = currentBoardSubject.value;
+    if (user?.uid == board?.ownerUser.uid) return true;
     return false;
   }
 
@@ -68,7 +74,7 @@ class MenuBoardBloc extends BlocBase {
     final result = await graphqlService.client.query$GetUserOfBoard(
       Options$Query$GetUserOfBoard(
         variables: Variables$Query$GetUserOfBoard(
-          idBoard: boardFragment.id,
+          idBoard: boardDetailBloc.currentBoardSubject.value.id,
           query: null,
         ),
       ),

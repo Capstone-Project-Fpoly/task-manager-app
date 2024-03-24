@@ -10,7 +10,8 @@ class BoardDetailAppBarAddList extends StatelessWidget
   const BoardDetailAppBarAddList(this.bloc, {Key? key}) : super(key: key);
   @override
   AppBar build(BuildContext context) {
-    final color = ColorUtils.getColorFromHex(bloc.boardFragment.color);
+    final currentBoard = bloc.currentBoardSubject.value;
+    final color = ColorUtils.getColorFromHex(currentBoard.color);
     final hslColor = HSLColor.fromColor(color);
 
     final darkerColor =
