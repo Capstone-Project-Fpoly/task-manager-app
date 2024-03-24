@@ -29,9 +29,11 @@ class DetailCardListCommentWidget extends ConsumerWidget {
               Row(
                 children: [
                   SizedBoxConstants.w12,
-                  const Text(
-                    'Hoạt động',
-                    style: TextStyle(
+                  Text(
+                    bloc.isShowNotificationSubject.value
+                        ? 'Thông báo'
+                        : 'Hoạt động',
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),

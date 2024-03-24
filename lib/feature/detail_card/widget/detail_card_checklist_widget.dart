@@ -32,7 +32,6 @@ class DetailCardChecklistWidget extends ConsumerWidget {
                   padding: EdgeInsetsConstants.horizontal12,
                   child: Row(
                     children: [
-                      SizedBoxConstants.w6,
                       const Text(
                         'Danh sách công việc',
                         style: TextStyle(
