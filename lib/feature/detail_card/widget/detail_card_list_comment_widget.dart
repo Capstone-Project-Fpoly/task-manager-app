@@ -29,9 +29,11 @@ class DetailCardListCommentWidget extends ConsumerWidget {
               Row(
                 children: [
                   SizedBoxConstants.w12,
-                  const Text(
-                    'Hoạt động',
-                    style: TextStyle(
+                  Text(
+                    bloc.isShowNotificationSubject.value
+                        ? 'Thông báo'
+                        : 'Hoạt động',
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -40,9 +42,27 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                     itemBuilder: (context) => [
                       PopupMenuItem(
                         value: true,
-                        child: !bloc.isShowNotificationSubject.value
-                            ? const Text('Hiện thông báo')
-                            : const Text('Hiện bình luận'),
+                        child: bloc.isShowNotificationSubject.value
+                            ? Row(
+                                children: [
+                                  Icon(
+                                    Icons.check_box,
+                                    color: Colors.green[400],
+                                  ),
+                                  SizedBoxConstants.w8,
+                                  const Text('Hiện thông báo'),
+                                ],
+                              )
+                            : const Row(
+                                children: [
+                                  Icon(
+                                    Icons.check_box_outline_blank,
+                                    color: Colors.black,
+                                  ),
+                                  SizedBoxConstants.w8,
+                                  Text('Hiện thông báo'),
+                                ],
+                              ),
                       ),
                     ],
                     onSelected: (value) {
