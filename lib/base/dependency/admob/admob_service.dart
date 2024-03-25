@@ -34,7 +34,9 @@ class AdmobService {
     );
   }
 
-  Future<void> onTapRewardedAd({required void Function(AdWithoutView, RewardItem) onUserEarnedReward,}) async {
+  Future<void> onTapRewardedAd({
+    required void Function(AdWithoutView, RewardItem) onUserEarnedReward,
+  }) async {
     return RewardedAd.load(
       adUnitId: rewardedAdUnitId,
       request: const AdRequest(),

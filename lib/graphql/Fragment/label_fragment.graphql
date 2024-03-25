@@ -1,0 +1,5 @@
+fragment LabelFragment on LabelCard{
+    id
+    title
+    color
+}

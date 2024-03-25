@@ -96,7 +96,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           AppCircleAvatar(
-                            url: comment.user.avatar ?? '',
+                            url: comment.user?.avatar ?? '',
                             width: 40,
                             height: 40,
                           ),
@@ -120,7 +120,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      comment.user.fullName ?? '',
+                                      comment.user?.fullName ?? '',
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: ColorConstants.black,

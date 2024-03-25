@@ -49,9 +49,10 @@ class SettingBoardBloc extends BlocBase {
         '0XFF${boardBloc.selectedBoardSubject.value?.color ?? '2196F3'}',
       ),
     );
-    nameBoardSubject.value = boardBloc.selectedBoardSubject.value!.title ?? '';
+    nameBoardSubject.value = boardBloc.selectedBoardSubject.value?.title ?? '';
     textEditingController.text = nameBoardSubject.value;
-    isPublicSubject.value = boardBloc.selectedBoardSubject.value!.isPublic;
+    isPublicSubject.value =
+        boardBloc.selectedBoardSubject.value?.isPublic ?? true;
     selectedStatusSubject.value = isPublicSubject.value
         ? BoardStatusEnum.public
         : BoardStatusEnum.private;

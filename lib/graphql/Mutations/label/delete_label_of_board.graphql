@@ -1,0 +1,3 @@
+mutation DeleteLabelOfBoard($idLabel: String!) {
+    deleteLabelOfBoard(idLabel: $idLabel)
+}

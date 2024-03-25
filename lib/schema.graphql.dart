@@ -126,6 +126,340 @@ class _CopyWithStubImpl$Input$CheckListInput<TRes>
       _res;
 }
 
+class Input$InputCreateCard {
+  factory Input$InputCreateCard({
+    List<Input$CheckListInput>? checkLists,
+    String? description,
+    String? endDate,
+    required String idList,
+    required Enum$Reminder reminder,
+    String? startedDate,
+    required String title,
+    List<String>? users,
+  }) =>
+      Input$InputCreateCard._({
+        if (checkLists != null) r'checkLists': checkLists,
+        if (description != null) r'description': description,
+        if (endDate != null) r'endDate': endDate,
+        r'idList': idList,
+        r'reminder': reminder,
+        if (startedDate != null) r'startedDate': startedDate,
+        r'title': title,
+        if (users != null) r'users': users,
+      });
+
+  Input$InputCreateCard._(this._$data);
+
+  factory Input$InputCreateCard.fromJson(Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('checkLists')) {
+      final l$checkLists = data['checkLists'];
+      result$data['checkLists'] = (l$checkLists as List<dynamic>?)
+          ?.map(
+              (e) => Input$CheckListInput.fromJson((e as Map<String, dynamic>)))
+          .toList();
+    }
+    if (data.containsKey('description')) {
+      final l$description = data['description'];
+      result$data['description'] = (l$description as String?);
+    }
+    if (data.containsKey('endDate')) {
+      final l$endDate = data['endDate'];
+      result$data['endDate'] = (l$endDate as String?);
+    }
+    final l$idList = data['idList'];
+    result$data['idList'] = (l$idList as String);
+    final l$reminder = data['reminder'];
+    result$data['reminder'] = fromJson$Enum$Reminder((l$reminder as String));
+    if (data.containsKey('startedDate')) {
+      final l$startedDate = data['startedDate'];
+      result$data['startedDate'] = (l$startedDate as String?);
+    }
+    final l$title = data['title'];
+    result$data['title'] = (l$title as String);
+    if (data.containsKey('users')) {
+      final l$users = data['users'];
+      result$data['users'] =
+          (l$users as List<dynamic>?)?.map((e) => (e as String)).toList();
+    }
+    return Input$InputCreateCard._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  List<Input$CheckListInput>? get checkLists =>
+      (_$data['checkLists'] as List<Input$CheckListInput>?);
+
+  String? get description => (_$data['description'] as String?);
+
+  String? get endDate => (_$data['endDate'] as String?);
+
+  String get idList => (_$data['idList'] as String);
+
+  Enum$Reminder get reminder => (_$data['reminder'] as Enum$Reminder);
+
+  String? get startedDate => (_$data['startedDate'] as String?);
+
+  String get title => (_$data['title'] as String);
+
+  List<String>? get users => (_$data['users'] as List<String>?);
+
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('checkLists')) {
+      final l$checkLists = checkLists;
+      result$data['checkLists'] = l$checkLists?.map((e) => e.toJson()).toList();
+    }
+    if (_$data.containsKey('description')) {
+      final l$description = description;
+      result$data['description'] = l$description;
+    }
+    if (_$data.containsKey('endDate')) {
+      final l$endDate = endDate;
+      result$data['endDate'] = l$endDate;
+    }
+    final l$idList = idList;
+    result$data['idList'] = l$idList;
+    final l$reminder = reminder;
+    result$data['reminder'] = toJson$Enum$Reminder(l$reminder);
+    if (_$data.containsKey('startedDate')) {
+      final l$startedDate = startedDate;
+      result$data['startedDate'] = l$startedDate;
+    }
+    final l$title = title;
+    result$data['title'] = l$title;
+    if (_$data.containsKey('users')) {
+      final l$users = users;
+      result$data['users'] = l$users?.map((e) => e).toList();
+    }
+    return result$data;
+  }
+
+  CopyWith$Input$InputCreateCard<Input$InputCreateCard> get copyWith =>
+      CopyWith$Input$InputCreateCard(
+        this,
+        (i) => i,
+      );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Input$InputCreateCard) || runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$checkLists = checkLists;
+    final lOther$checkLists = other.checkLists;
+    if (_$data.containsKey('checkLists') !=
+        other._$data.containsKey('checkLists')) {
+      return false;
+    }
+    if (l$checkLists != null && lOther$checkLists != null) {
+      if (l$checkLists.length != lOther$checkLists.length) {
+        return false;
+      }
+      for (int i = 0; i < l$checkLists.length; i++) {
+        final l$checkLists$entry = l$checkLists[i];
+        final lOther$checkLists$entry = lOther$checkLists[i];
+        if (l$checkLists$entry != lOther$checkLists$entry) {
+          return false;
+        }
+      }
+    } else if (l$checkLists != lOther$checkLists) {
+      return false;
+    }
+    final l$description = description;
+    final lOther$description = other.description;
+    if (_$data.containsKey('description') !=
+        other._$data.containsKey('description')) {
+      return false;
+    }
+    if (l$description != lOther$description) {
+      return false;
+    }
+    final l$endDate = endDate;
+    final lOther$endDate = other.endDate;
+    if (_$data.containsKey('endDate') != other._$data.containsKey('endDate')) {
+      return false;
+    }
+    if (l$endDate != lOther$endDate) {
+      return false;
+    }
+    final l$idList = idList;
+    final lOther$idList = other.idList;
+    if (l$idList != lOther$idList) {
+      return false;
+    }
+    final l$reminder = reminder;
+    final lOther$reminder = other.reminder;
+    if (l$reminder != lOther$reminder) {
+      return false;
+    }
+    final l$startedDate = startedDate;
+    final lOther$startedDate = other.startedDate;
+    if (_$data.containsKey('startedDate') !=
+        other._$data.containsKey('startedDate')) {
+      return false;
+    }
+    if (l$startedDate != lOther$startedDate) {
+      return false;
+    }
+    final l$title = title;
+    final lOther$title = other.title;
+    if (l$title != lOther$title) {
+      return false;
+    }
+    final l$users = users;
+    final lOther$users = other.users;
+    if (_$data.containsKey('users') != other._$data.containsKey('users')) {
+      return false;
+    }
+    if (l$users != null && lOther$users != null) {
+      if (l$users.length != lOther$users.length) {
+        return false;
+      }
+      for (int i = 0; i < l$users.length; i++) {
+        final l$users$entry = l$users[i];
+        final lOther$users$entry = lOther$users[i];
+        if (l$users$entry != lOther$users$entry) {
+          return false;
+        }
+      }
+    } else if (l$users != lOther$users) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$checkLists = checkLists;
+    final l$description = description;
+    final l$endDate = endDate;
+    final l$idList = idList;
+    final l$reminder = reminder;
+    final l$startedDate = startedDate;
+    final l$title = title;
+    final l$users = users;
+    return Object.hashAll([
+      _$data.containsKey('checkLists')
+          ? l$checkLists == null
+              ? null
+              : Object.hashAll(l$checkLists.map((v) => v))
+          : const {},
+      _$data.containsKey('description') ? l$description : const {},
+      _$data.containsKey('endDate') ? l$endDate : const {},
+      l$idList,
+      l$reminder,
+      _$data.containsKey('startedDate') ? l$startedDate : const {},
+      l$title,
+      _$data.containsKey('users')
+          ? l$users == null
+              ? null
+              : Object.hashAll(l$users.map((v) => v))
+          : const {},
+    ]);
+  }
+}
+
+abstract class CopyWith$Input$InputCreateCard<TRes> {
+  factory CopyWith$Input$InputCreateCard(
+    Input$InputCreateCard instance,
+    TRes Function(Input$InputCreateCard) then,
+  ) = _CopyWithImpl$Input$InputCreateCard;
+
+  factory CopyWith$Input$InputCreateCard.stub(TRes res) =
+      _CopyWithStubImpl$Input$InputCreateCard;
+
+  TRes call({
+    List<Input$CheckListInput>? checkLists,
+    String? description,
+    String? endDate,
+    String? idList,
+    Enum$Reminder? reminder,
+    String? startedDate,
+    String? title,
+    List<String>? users,
+  });
+  TRes checkLists(
+      Iterable<Input$CheckListInput>? Function(
+              Iterable<CopyWith$Input$CheckListInput<Input$CheckListInput>>?)
+          _fn);
+}
+
+class _CopyWithImpl$Input$InputCreateCard<TRes>
+    implements CopyWith$Input$InputCreateCard<TRes> {
+  _CopyWithImpl$Input$InputCreateCard(
+    this._instance,
+    this._then,
+  );
+
+  final Input$InputCreateCard _instance;
+
+  final TRes Function(Input$InputCreateCard) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({
+    Object? checkLists = _undefined,
+    Object? description = _undefined,
+    Object? endDate = _undefined,
+    Object? idList = _undefined,
+    Object? reminder = _undefined,
+    Object? startedDate = _undefined,
+    Object? title = _undefined,
+    Object? users = _undefined,
+  }) =>
+      _then(Input$InputCreateCard._({
+        ..._instance._$data,
+        if (checkLists != _undefined)
+          'checkLists': (checkLists as List<Input$CheckListInput>?),
+        if (description != _undefined) 'description': (description as String?),
+        if (endDate != _undefined) 'endDate': (endDate as String?),
+        if (idList != _undefined && idList != null)
+          'idList': (idList as String),
+        if (reminder != _undefined && reminder != null)
+          'reminder': (reminder as Enum$Reminder),
+        if (startedDate != _undefined) 'startedDate': (startedDate as String?),
+        if (title != _undefined && title != null) 'title': (title as String),
+        if (users != _undefined) 'users': (users as List<String>?),
+      }));
+
+  TRes checkLists(
+          Iterable<Input$CheckListInput>? Function(
+                  Iterable<
+                      CopyWith$Input$CheckListInput<Input$CheckListInput>>?)
+              _fn) =>
+      call(
+          checkLists: _fn(
+              _instance.checkLists?.map((e) => CopyWith$Input$CheckListInput(
+                    e,
+                    (i) => i,
+                  )))?.toList());
+}
+
+class _CopyWithStubImpl$Input$InputCreateCard<TRes>
+    implements CopyWith$Input$InputCreateCard<TRes> {
+  _CopyWithStubImpl$Input$InputCreateCard(this._res);
+
+  TRes _res;
+
+  call({
+    List<Input$CheckListInput>? checkLists,
+    String? description,
+    String? endDate,
+    String? idList,
+    Enum$Reminder? reminder,
+    String? startedDate,
+    String? title,
+    List<String>? users,
+  }) =>
+      _res;
+
+  checkLists(_fn) => _res;
+}
+
 class Input$InputEmail {
   factory Input$InputEmail({
     required String email,
@@ -851,6 +1185,7 @@ class Input$InputUpdateCard {
     String? description,
     String? endDate,
     required String idCard,
+    List<String>? labels,
     required Enum$Reminder reminder,
     String? startedDate,
     String? title,
@@ -861,6 +1196,7 @@ class Input$InputUpdateCard {
         if (description != null) r'description': description,
         if (endDate != null) r'endDate': endDate,
         r'idCard': idCard,
+        if (labels != null) r'labels': labels,
         r'reminder': reminder,
         if (startedDate != null) r'startedDate': startedDate,
         if (title != null) r'title': title,
@@ -888,6 +1224,11 @@ class Input$InputUpdateCard {
     }
     final l$idCard = data['idCard'];
     result$data['idCard'] = (l$idCard as String);
+    if (data.containsKey('labels')) {
+      final l$labels = data['labels'];
+      result$data['labels'] =
+          (l$labels as List<dynamic>?)?.map((e) => (e as String)).toList();
+    }
     final l$reminder = data['reminder'];
     result$data['reminder'] = fromJson$Enum$Reminder((l$reminder as String));
     if (data.containsKey('startedDate')) {
@@ -917,6 +1258,8 @@ class Input$InputUpdateCard {
 
   String get idCard => (_$data['idCard'] as String);
 
+  List<String>? get labels => (_$data['labels'] as List<String>?);
+
   Enum$Reminder get reminder => (_$data['reminder'] as Enum$Reminder);
 
   String? get startedDate => (_$data['startedDate'] as String?);
@@ -941,6 +1284,10 @@ class Input$InputUpdateCard {
     }
     final l$idCard = idCard;
     result$data['idCard'] = l$idCard;
+    if (_$data.containsKey('labels')) {
+      final l$labels = labels;
+      result$data['labels'] = l$labels?.map((e) => e).toList();
+    }
     final l$reminder = reminder;
     result$data['reminder'] = toJson$Enum$Reminder(l$reminder);
     if (_$data.containsKey('startedDate')) {
@@ -1014,6 +1361,25 @@ class Input$InputUpdateCard {
     if (l$idCard != lOther$idCard) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (_$data.containsKey('labels') != other._$data.containsKey('labels')) {
+      return false;
+    }
+    if (l$labels != null && lOther$labels != null) {
+      if (l$labels.length != lOther$labels.length) {
+        return false;
+      }
+      for (int i = 0; i < l$labels.length; i++) {
+        final l$labels$entry = l$labels[i];
+        final lOther$labels$entry = lOther$labels[i];
+        if (l$labels$entry != lOther$labels$entry) {
+          return false;
+        }
+      }
+    } else if (l$labels != lOther$labels) {
+      return false;
+    }
     final l$reminder = reminder;
     final lOther$reminder = other.reminder;
     if (l$reminder != lOther$reminder) {
@@ -1064,6 +1430,7 @@ class Input$InputUpdateCard {
     final l$description = description;
     final l$endDate = endDate;
     final l$idCard = idCard;
+    final l$labels = labels;
     final l$reminder = reminder;
     final l$startedDate = startedDate;
     final l$title = title;
@@ -1077,6 +1444,11 @@ class Input$InputUpdateCard {
       _$data.containsKey('description') ? l$description : const {},
       _$data.containsKey('endDate') ? l$endDate : const {},
       l$idCard,
+      _$data.containsKey('labels')
+          ? l$labels == null
+              ? null
+              : Object.hashAll(l$labels.map((v) => v))
+          : const {},
       l$reminder,
       _$data.containsKey('startedDate') ? l$startedDate : const {},
       _$data.containsKey('title') ? l$title : const {},
@@ -1103,6 +1475,7 @@ abstract class CopyWith$Input$InputUpdateCard<TRes> {
     String? description,
     String? endDate,
     String? idCard,
+    List<String>? labels,
     Enum$Reminder? reminder,
     String? startedDate,
     String? title,
@@ -1132,6 +1505,7 @@ class _CopyWithImpl$Input$InputUpdateCard<TRes>
     Object? description = _undefined,
     Object? endDate = _undefined,
     Object? idCard = _undefined,
+    Object? labels = _undefined,
     Object? reminder = _undefined,
     Object? startedDate = _undefined,
     Object? title = _undefined,
@@ -1145,6 +1519,7 @@ class _CopyWithImpl$Input$InputUpdateCard<TRes>
         if (endDate != _undefined) 'endDate': (endDate as String?),
         if (idCard != _undefined && idCard != null)
           'idCard': (idCard as String),
+        if (labels != _undefined) 'labels': (labels as List<String>?),
         if (reminder != _undefined && reminder != null)
           'reminder': (reminder as Enum$Reminder),
         if (startedDate != _undefined) 'startedDate': (startedDate as String?),
@@ -1176,6 +1551,7 @@ class _CopyWithStubImpl$Input$InputUpdateCard<TRes>
     String? description,
     String? endDate,
     String? idCard,
+    List<String>? labels,
     Enum$Reminder? reminder,
     String? startedDate,
     String? title,

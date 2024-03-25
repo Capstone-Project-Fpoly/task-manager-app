@@ -100,7 +100,7 @@ class BoardBloc extends BlocBase {
     selectedSearchSubject.value = false;
     selectedBoardSubject.value = board;
     idUserSubject.value = appBloc.userSubject.value!.uid;
-    if (idUserSubject.value == board?.ownerUser.uid) {
+    if (idUserSubject.value == board?.ownerUser?.uid) {
       isOwnerBroadSubject.value = true;
     } else {
       isOwnerBroadSubject.value = false;

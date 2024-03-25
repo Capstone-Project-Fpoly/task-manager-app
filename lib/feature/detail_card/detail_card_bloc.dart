@@ -14,9 +14,11 @@ import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_start
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/check_list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/comment_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/label_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/notification_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/get_card.graphql.dart';
+import 'package:task_manager/graphql/Mutations/label/get_labels_of_board.graphql.dart';
 import 'package:task_manager/graphql/queries/board/get_user_of_board.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
@@ -35,8 +37,11 @@ class DetailCardBloc extends BlocBase {
   final isShowErrorStartDateSubject = BehaviorSubject<bool>.seeded(false);
   final isShowErrorEndDateSubject = BehaviorSubject<bool>.seeded(false);
 
-  final listColorSubject = BehaviorSubject<List<ColorLabel>>.seeded([]);
-  final listColorDefaultSubject = BehaviorSubject<List<ColorLabel>>.seeded([]);
+  final listLabelOfCardSubject =
+      BehaviorSubject<List<Fragment$LabelFragment?>>.seeded([]);
+  final listLabelOfBoardSubject =
+      BehaviorSubject<List<Fragment$LabelFragment?>>.seeded([]);
+
   final listNotificationFragmentsSubject =
       BehaviorSubject<List<Fragment$NotificationFragment>>.seeded([]);
   final listCommentFragmentsSubject =
@@ -51,6 +56,7 @@ class DetailCardBloc extends BlocBase {
   final endDateController = TextEditingController();
   final endTimeController = TextEditingController();
   final checklistController = TextEditingController();
+  final labelController = TextEditingController();
 
   final focusNodeDescription = FocusNode();
   final focusNodeComment = FocusNode();
@@ -80,6 +86,34 @@ class DetailCardBloc extends BlocBase {
   final focusNodeTitle = FocusNode();
 
   final isShowChecklistSubject = BehaviorSubject<bool>.seeded(false);
+  List<String> listColorDefault = [
+    '000000',
+    'FF0000',
+    '0000FF',
+    '00FF00',
+    'FFA500',
+    '800080',
+    '003333',
+    'FFC0CB',
+    'FFFF00',
+    '4682B4',
+    'A52A2A',
+    '808080',
+    '00FFFF',
+    'FFB6C1',
+    '008000',
+    'EE82EE',
+    'D2B48C',
+    'B87333',
+    'FF8C00',
+    '008080',
+  ];
+  final listLabelDefaultSubject =
+      BehaviorSubject<List<Fragment$LabelFragment>>.seeded([]);
+  final labelSelectedAddSubject =
+      BehaviorSubject<Fragment$LabelFragment?>.seeded(null);
+  final labelSelectedEditSubject =
+      BehaviorSubject<Fragment$LabelFragment?>.seeded(null);
 
   @override
   void dispose() {
@@ -89,7 +123,7 @@ class DetailCardBloc extends BlocBase {
     commentController.dispose();
     startDateController.dispose();
     endDateController.dispose();
-    listColorSubject.close();
+    listLabelOfCardSubject.close();
     listNotificationFragmentsSubject.close();
     listCommentFragmentsSubject.close();
     startDateTimeController.dispose();
@@ -100,7 +134,7 @@ class DetailCardBloc extends BlocBase {
     isShowNotificationSubject.close();
     isShowErrorEndDateSubject.close();
     isShowErrorStartDateSubject.close();
-    listColorDefaultSubject.close();
+    listLabelOfBoardSubject.close();
     checklistController.dispose();
     appBarEnumSubject.close();
     focusNodeDescription.dispose();
@@ -119,6 +153,10 @@ class DetailCardBloc extends BlocBase {
     focusNodeTitle.dispose();
     usersOfBoard.close();
     isShowChecklistSubject.close();
+    listLabelDefaultSubject.close();
+    labelController.dispose();
+    labelSelectedAddSubject.close();
+    labelSelectedEditSubject.close();
   }
 
   void setDateTime() {
@@ -152,39 +190,26 @@ class DetailCardBloc extends BlocBase {
     final card = cardSubject.value;
     setDateTime();
 
+    final listLabelDefault = listColorDefault
+        .map(
+          (e) => Fragment$LabelFragment(
+            id: DateTime.now().toString(),
+            title: '',
+            color: e,
+          ),
+        )
+        .toList();
+    listLabelDefaultSubject.value = listLabelDefault;
+
     descriptionController.text = card?.description ?? '';
     listCommentFragmentsSubject.value = [...card?.comments ?? []];
     listCheckListSubject.value = [...card?.checkLists ?? []];
     usersSubject.value = [...card?.users ?? []];
+    listLabelOfCardSubject.value = [...card?.labels ?? []];
     addTitleStartDateTime();
     addTitleEndDateTime();
 
     titleController.text = card?.title ?? '';
-    listColorSubject.add([
-      ColorLabel(color: '2196F3', id: 1),
-      ColorLabel(color: 'FBFADA', id: 2),
-      ColorLabel(color: '436850', id: 3),
-      ColorLabel(color: '6962AD', id: 4),
-      ColorLabel(color: '1B1A55', id: 5),
-    ]);
-
-    listColorDefaultSubject.add([
-      ColorLabel(color: '2196F3', id: 1, isSelected: false),
-      ColorLabel(color: 'FBFADA', id: 2, isSelected: false),
-      ColorLabel(color: '436850', id: 3, isSelected: false),
-      ColorLabel(color: '6962AD', id: 4, isSelected: false),
-      ColorLabel(color: '1B1A55', id: 5, isSelected: false),
-      ColorLabel(color: 'baf3db', id: 6, isSelected: false),
-      ColorLabel(color: 'f8e6a0', id: 7, isSelected: false),
-      ColorLabel(color: 'fedec8', id: 8, isSelected: false),
-      ColorLabel(color: 'c9372c', id: 9, isSelected: false),
-      ColorLabel(color: '227d9b', id: 10, isSelected: false),
-      ColorLabel(color: '626f86', id: 11, isSelected: false),
-      ColorLabel(color: '946f00', id: 12, isSelected: false),
-      ColorLabel(color: 'c6edfb', id: 13, isSelected: false),
-      ColorLabel(color: 'f5cd47', id: 14, isSelected: false),
-      ColorLabel(color: 'fdd0ec', id: 15, isSelected: false),
-    ]);
   }
 
   void onTapBackDescription() {
@@ -199,7 +224,7 @@ class DetailCardBloc extends BlocBase {
     titleController.text = cardSubject.value?.title ?? '';
   }
 
-  List<Input$CheckListInput>? getListInputCheckList() {
+  List<Input$CheckListInput>? getListInputCheckListToUpdateCard() {
     listCheckListSubject.value
         .removeWhere((element) => element.content.isEmpty);
     if (listCheckListSubject.value.length !=
@@ -232,7 +257,7 @@ class DetailCardBloc extends BlocBase {
     return null;
   }
 
-  List<String>? getListIdUser() {
+  List<String>? getListIdUserToUpdateCard() {
     usersSubject.value.removeWhere((element) => element == null);
     if (usersSubject.value.length != cardSubject.value?.users?.length) {
       return usersSubject.value.map((e) => e!.uid).toList();
@@ -240,6 +265,23 @@ class DetailCardBloc extends BlocBase {
     for (int i = 0; i < usersSubject.value.length; i++) {
       if (usersSubject.value[i]?.uid != cardSubject.value?.users?[i].uid) {
         return usersSubject.value.map((e) => e!.uid).toList();
+      }
+    }
+    return null;
+  }
+
+  List<String>? getListIdLabelToUpdateCard() {
+    // so sánh id của label trong card và label đã chọn để update
+    listLabelOfCardSubject.value.removeWhere((element) => element == null);
+    if (listLabelOfCardSubject.value.length !=
+        cardSubject.value?.labels?.length) {
+      return listLabelOfCardSubject.value.map((e) => e!.id).toList();
+    }
+    // chỉ cần 1 id khác nhau thì update
+    for (int i = 0; i < listLabelOfCardSubject.value.length; i++) {
+      if (listLabelOfCardSubject.value[i]?.id !=
+          cardSubject.value?.labels?[i].id) {
+        return listLabelOfCardSubject.value.map((e) => e!.id).toList();
       }
     }
     return null;
@@ -253,9 +295,12 @@ class DetailCardBloc extends BlocBase {
       appBarEnumSubject.value = null;
       return;
     }
-    final listInputCheckList = getListInputCheckList();
-    final users = getListIdUser();
-    updateCard(checkLists: listInputCheckList, users: users);
+    final listInputCheckList = getListInputCheckListToUpdateCard();
+    final users = getListIdUserToUpdateCard();
+    final labels = getListIdLabelToUpdateCard();
+    if (listInputCheckList != null || users != null || labels != null) {
+      updateCard(checkLists: listInputCheckList, users: users, labels: labels);
+    }
     routerService.pop();
   }
 
@@ -305,15 +350,6 @@ class DetailCardBloc extends BlocBase {
   }
 
   //Label Widget Bloc
-  void onTapToSelect(ColorLabel colorLabel) {
-    final listTemp = listColorSubject.value;
-    for (final e in listTemp) {
-      if (e.id == colorLabel.id) {
-        e.isSelected = !e.isSelected;
-      }
-    }
-    listColorSubject.value = listTemp;
-  }
 
   // DateTime Widget Bloc
   void completeSelectStartDate() {
@@ -443,7 +479,11 @@ class DetailCardBloc extends BlocBase {
     final comment = Fragment$CommentFragment(
       id: '1',
       createdAt: '',
-      user: Fragment$UserFragment(uid: '1', fullName: 'Đinh Viết Khang'),
+      user: Fragment$UserFragment(
+        uid: '1',
+        fullName: 'Đinh Viết Khang',
+        createdAt: DateTime.now().toIso8601String(),
+      ),
       comment: commentController.text,
     );
     listCommentFragmentsSubject.value = [
@@ -462,27 +502,14 @@ class DetailCardBloc extends BlocBase {
     focusNodeChecklist.requestFocus();
   }
 
-  //Add Label Bloc
-  void onTapSelectColorAddLabel(ColorLabel color) {
-    final listTemp = listColorDefaultSubject.value;
-    for (final e in listTemp) {
-      if (e.id == color.id) {
-        e.isSelected = !e.isSelected;
-      } else {
-        e.isSelected = false;
-      }
-    }
-    listColorDefaultSubject.value = listTemp;
-  }
-
-  void onTapAddColorLabel() {
-    for (final e in listColorDefaultSubject.value) {
-      if (e.isSelected) {
-        listColorSubject.value = [...listColorSubject.value, e];
-      }
-    }
-    routerService.pop();
-  }
+  // void onTapAddColorLabel() {
+  //   for (final e in listLabelDefaultSubject.value) {
+  //     if (e.isSelected) {
+  //       listLabelSubject.value = [...listLabelSubject.value, e];
+  //     }
+  //   }
+  //   routerService.pop();
+  // }
 
   late final appBloc = ref.read(BlocProvider.app);
 
@@ -492,7 +519,7 @@ class DetailCardBloc extends BlocBase {
 
   Future<void> fetchCard() async {
     isLoadingSubject.value = true;
-    final (resultGetCard, resultGetUser) = await (
+    final (resultGetCard, resultGetUser, resultLabelOfBoard) = await (
       graphqlService.client.mutate$GetCard(
         Options$Mutation$GetCard(
           variables: Variables$Mutation$GetCard(
@@ -503,6 +530,13 @@ class DetailCardBloc extends BlocBase {
       graphqlService.client.query$GetUserOfBoard(
         Options$Query$GetUserOfBoard(
           variables: Variables$Query$GetUserOfBoard(
+            idBoard: idBoard,
+          ),
+        ),
+      ),
+      graphqlService.client.mutate$GetLabelsOfBoard(
+        Options$Mutation$GetLabelsOfBoard(
+          variables: Variables$Mutation$GetLabelsOfBoard(
             idBoard: idBoard,
           ),
         ),
@@ -518,6 +552,11 @@ class DetailCardBloc extends BlocBase {
     // get user of board
     if (!resultGetUser.hasException) {
       usersOfBoard.value = resultGetUser.parsedData?.getUsersOfBoard ?? [];
+    }
+
+    if (!resultLabelOfBoard.hasException) {
+      final labels = resultLabelOfBoard.parsedData?.getLabelsOfBoard ?? [];
+      listLabelOfBoardSubject.value = labels;
     }
     cardSubject.value = resultGetCard.parsedData?.getCard;
     init();
@@ -554,12 +593,4 @@ class DetailCardBloc extends BlocBase {
     }
     cardSubject.value = card;
   }
-}
-
-class ColorLabel {
-  int? id;
-  String? color;
-  bool isSelected;
-
-  ColorLabel({this.id, this.color, this.isSelected = false});
 }

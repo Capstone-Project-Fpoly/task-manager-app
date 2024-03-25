@@ -6,9 +6,9 @@ class Fragment$BoardFragment {
   Fragment$BoardFragment({
     this.title,
     required this.createdAt,
-    required this.ownerUser,
+    this.ownerUser,
     required this.id,
-    required this.isPublic,
+    this.isPublic,
     this.color,
     this.$__typename = 'Board',
   });
@@ -24,10 +24,12 @@ class Fragment$BoardFragment {
     return Fragment$BoardFragment(
       title: (l$title as String?),
       createdAt: (l$createdAt as String),
-      ownerUser:
-          Fragment$UserFragment.fromJson((l$ownerUser as Map<String, dynamic>)),
+      ownerUser: l$ownerUser == null
+          ? null
+          : Fragment$UserFragment.fromJson(
+              (l$ownerUser as Map<String, dynamic>)),
       id: (l$id as String),
-      isPublic: (l$isPublic as bool),
+      isPublic: (l$isPublic as bool?),
       color: (l$color as String?),
       $__typename: (l$$__typename as String),
     );
@@ -37,11 +39,11 @@ class Fragment$BoardFragment {
 
   final String createdAt;
 
-  final Fragment$UserFragment ownerUser;
+  final Fragment$UserFragment? ownerUser;
 
   final String id;
 
-  final bool isPublic;
+  final bool? isPublic;
 
   final String? color;
 
@@ -54,7 +56,7 @@ class Fragment$BoardFragment {
     final l$createdAt = createdAt;
     _resultData['createdAt'] = l$createdAt;
     final l$ownerUser = ownerUser;
-    _resultData['ownerUser'] = l$ownerUser.toJson();
+    _resultData['ownerUser'] = l$ownerUser?.toJson();
     final l$id = id;
     _resultData['id'] = l$id;
     final l$isPublic = isPublic;
@@ -190,13 +192,12 @@ class _CopyWithImpl$Fragment$BoardFragment<TRes>
         createdAt: createdAt == _undefined || createdAt == null
             ? _instance.createdAt
             : (createdAt as String),
-        ownerUser: ownerUser == _undefined || ownerUser == null
+        ownerUser: ownerUser == _undefined
             ? _instance.ownerUser
-            : (ownerUser as Fragment$UserFragment),
+            : (ownerUser as Fragment$UserFragment?),
         id: id == _undefined || id == null ? _instance.id : (id as String),
-        isPublic: isPublic == _undefined || isPublic == null
-            ? _instance.isPublic
-            : (isPublic as bool),
+        isPublic:
+            isPublic == _undefined ? _instance.isPublic : (isPublic as bool?),
         color: color == _undefined ? _instance.color : (color as String?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
@@ -205,8 +206,10 @@ class _CopyWithImpl$Fragment$BoardFragment<TRes>
 
   CopyWith$Fragment$UserFragment<TRes> get ownerUser {
     final local$ownerUser = _instance.ownerUser;
-    return CopyWith$Fragment$UserFragment(
-        local$ownerUser, (e) => call(ownerUser: e));
+    return local$ownerUser == null
+        ? CopyWith$Fragment$UserFragment.stub(_then(_instance))
+        : CopyWith$Fragment$UserFragment(
+            local$ownerUser, (e) => call(ownerUser: e));
   }
 }
 

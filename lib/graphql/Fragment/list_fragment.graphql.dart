@@ -1,6 +1,7 @@
 import 'card_fragment.graphql.dart';
 import 'check_list_fragment.graphql.dart';
 import 'comment_fragment.graphql.dart';
+import 'label_fragment.graphql.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'user_fragment.graphql.dart';
@@ -11,7 +12,7 @@ class Fragment$ListFragment {
     this.cards,
     required this.label,
     required this.createdAt,
-    required this.createdBy,
+    this.createdBy,
     this.$__typename = 'List',
   });
 
@@ -30,8 +31,10 @@ class Fragment$ListFragment {
           .toList(),
       label: (l$label as String),
       createdAt: (l$createdAt as String),
-      createdBy:
-          Fragment$UserFragment.fromJson((l$createdBy as Map<String, dynamic>)),
+      createdBy: l$createdBy == null
+          ? null
+          : Fragment$UserFragment.fromJson(
+              (l$createdBy as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
@@ -44,7 +47,7 @@ class Fragment$ListFragment {
 
   final String createdAt;
 
-  final Fragment$UserFragment createdBy;
+  final Fragment$UserFragment? createdBy;
 
   final String $__typename;
 
@@ -59,7 +62,7 @@ class Fragment$ListFragment {
     final l$createdAt = createdAt;
     _resultData['createdAt'] = l$createdAt;
     final l$createdBy = createdBy;
-    _resultData['createdBy'] = l$createdBy.toJson();
+    _resultData['createdBy'] = l$createdBy?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -200,9 +203,9 @@ class _CopyWithImpl$Fragment$ListFragment<TRes>
         createdAt: createdAt == _undefined || createdAt == null
             ? _instance.createdAt
             : (createdAt as String),
-        createdBy: createdBy == _undefined || createdBy == null
+        createdBy: createdBy == _undefined
             ? _instance.createdBy
-            : (createdBy as Fragment$UserFragment),
+            : (createdBy as Fragment$UserFragment?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -221,8 +224,10 @@ class _CopyWithImpl$Fragment$ListFragment<TRes>
 
   CopyWith$Fragment$UserFragment<TRes> get createdBy {
     final local$createdBy = _instance.createdBy;
-    return CopyWith$Fragment$UserFragment(
-        local$createdBy, (e) => call(createdBy: e));
+    return local$createdBy == null
+        ? CopyWith$Fragment$UserFragment.stub(_then(_instance))
+        : CopyWith$Fragment$UserFragment(
+            local$createdBy, (e) => call(createdBy: e));
   }
 }
 
@@ -330,6 +335,7 @@ const documentNodeFragmentListFragment = DocumentNode(definitions: [
   fragmentDefinitionCardFragment,
   fragmentDefinitionUserFragment,
   fragmentDefinitionCommentFragment,
+  fragmentDefinitionLabelFragment,
   fragmentDefinitionCheckListFragment,
 ]);
 
