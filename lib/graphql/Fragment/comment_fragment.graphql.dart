@@ -6,7 +6,7 @@ class Fragment$CommentFragment {
   Fragment$CommentFragment({
     required this.id,
     required this.createdAt,
-    required this.user,
+    this.user,
     required this.comment,
     this.$__typename = 'Comment',
   });
@@ -20,7 +20,9 @@ class Fragment$CommentFragment {
     return Fragment$CommentFragment(
       id: (l$id as String),
       createdAt: (l$createdAt as String),
-      user: Fragment$UserFragment.fromJson((l$user as Map<String, dynamic>)),
+      user: l$user == null
+          ? null
+          : Fragment$UserFragment.fromJson((l$user as Map<String, dynamic>)),
       comment: (l$comment as String),
       $__typename: (l$$__typename as String),
     );
@@ -30,7 +32,7 @@ class Fragment$CommentFragment {
 
   final String createdAt;
 
-  final Fragment$UserFragment user;
+  final Fragment$UserFragment? user;
 
   final String comment;
 
@@ -43,7 +45,7 @@ class Fragment$CommentFragment {
     final l$createdAt = createdAt;
     _resultData['createdAt'] = l$createdAt;
     final l$user = user;
-    _resultData['user'] = l$user.toJson();
+    _resultData['user'] = l$user?.toJson();
     final l$comment = comment;
     _resultData['comment'] = l$comment;
     final l$$__typename = $__typename;
@@ -158,9 +160,9 @@ class _CopyWithImpl$Fragment$CommentFragment<TRes>
         createdAt: createdAt == _undefined || createdAt == null
             ? _instance.createdAt
             : (createdAt as String),
-        user: user == _undefined || user == null
+        user: user == _undefined
             ? _instance.user
-            : (user as Fragment$UserFragment),
+            : (user as Fragment$UserFragment?),
         comment: comment == _undefined || comment == null
             ? _instance.comment
             : (comment as String),
@@ -171,7 +173,9 @@ class _CopyWithImpl$Fragment$CommentFragment<TRes>
 
   CopyWith$Fragment$UserFragment<TRes> get user {
     final local$user = _instance.user;
-    return CopyWith$Fragment$UserFragment(local$user, (e) => call(user: e));
+    return local$user == null
+        ? CopyWith$Fragment$UserFragment.stub(_then(_instance))
+        : CopyWith$Fragment$UserFragment(local$user, (e) => call(user: e));
   }
 }
 

@@ -66,7 +66,7 @@ class MenuBoardBloc extends BlocBase {
 
   bool checkAdminOfBoard(Fragment$UserFragment? user) {
     final board = currentBoardSubject.value;
-    if (user?.uid == board?.ownerUser.uid) return true;
+    if (user?.uid == board?.ownerUser?.uid) return true;
     return false;
   }
 

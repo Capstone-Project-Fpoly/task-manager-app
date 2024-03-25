@@ -1,6 +1,8 @@
+import '../../../schema.graphql.dart';
 import '../../Fragment/card_fragment.graphql.dart';
 import '../../Fragment/check_list_fragment.graphql.dart';
 import '../../Fragment/comment_fragment.graphql.dart';
+import '../../Fragment/label_fragment.graphql.dart';
 import '../../Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
@@ -9,38 +11,30 @@ import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
 class Variables$Mutation$CreateCard {
-  factory Variables$Mutation$CreateCard({
-    required String idList,
-    required String title,
-  }) =>
+  factory Variables$Mutation$CreateCard(
+          {required Input$InputCreateCard input}) =>
       Variables$Mutation$CreateCard._({
-        r'idList': idList,
-        r'title': title,
+        r'input': input,
       });
 
   Variables$Mutation$CreateCard._(this._$data);
 
   factory Variables$Mutation$CreateCard.fromJson(Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
-    final l$idList = data['idList'];
-    result$data['idList'] = (l$idList as String);
-    final l$title = data['title'];
-    result$data['title'] = (l$title as String);
+    final l$input = data['input'];
+    result$data['input'] =
+        Input$InputCreateCard.fromJson((l$input as Map<String, dynamic>));
     return Variables$Mutation$CreateCard._(result$data);
   }
 
   Map<String, dynamic> _$data;
 
-  String get idList => (_$data['idList'] as String);
-
-  String get title => (_$data['title'] as String);
+  Input$InputCreateCard get input => (_$data['input'] as Input$InputCreateCard);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
-    final l$idList = idList;
-    result$data['idList'] = l$idList;
-    final l$title = title;
-    result$data['title'] = l$title;
+    final l$input = input;
+    result$data['input'] = l$input.toJson();
     return result$data;
   }
 
@@ -59,14 +53,9 @@ class Variables$Mutation$CreateCard {
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$idList = idList;
-    final lOther$idList = other.idList;
-    if (l$idList != lOther$idList) {
-      return false;
-    }
-    final l$title = title;
-    final lOther$title = other.title;
-    if (l$title != lOther$title) {
+    final l$input = input;
+    final lOther$input = other.input;
+    if (l$input != lOther$input) {
       return false;
     }
     return true;
@@ -74,12 +63,8 @@ class Variables$Mutation$CreateCard {
 
   @override
   int get hashCode {
-    final l$idList = idList;
-    final l$title = title;
-    return Object.hashAll([
-      l$idList,
-      l$title,
-    ]);
+    final l$input = input;
+    return Object.hashAll([l$input]);
   }
 }
 
@@ -92,10 +77,7 @@ abstract class CopyWith$Variables$Mutation$CreateCard<TRes> {
   factory CopyWith$Variables$Mutation$CreateCard.stub(TRes res) =
       _CopyWithStubImpl$Variables$Mutation$CreateCard;
 
-  TRes call({
-    String? idList,
-    String? title,
-  });
+  TRes call({Input$InputCreateCard? input});
 }
 
 class _CopyWithImpl$Variables$Mutation$CreateCard<TRes>
@@ -111,15 +93,11 @@ class _CopyWithImpl$Variables$Mutation$CreateCard<TRes>
 
   static const _undefined = <dynamic, dynamic>{};
 
-  TRes call({
-    Object? idList = _undefined,
-    Object? title = _undefined,
-  }) =>
+  TRes call({Object? input = _undefined}) =>
       _then(Variables$Mutation$CreateCard._({
         ..._instance._$data,
-        if (idList != _undefined && idList != null)
-          'idList': (idList as String),
-        if (title != _undefined && title != null) 'title': (title as String),
+        if (input != _undefined && input != null)
+          'input': (input as Input$InputCreateCard),
       }));
 }
 
@@ -129,11 +107,7 @@ class _CopyWithStubImpl$Variables$Mutation$CreateCard<TRes>
 
   TRes _res;
 
-  call({
-    String? idList,
-    String? title,
-  }) =>
-      _res;
+  call({Input$InputCreateCard? input}) => _res;
 }
 
 class Mutation$CreateCard {
@@ -280,23 +254,14 @@ const documentNodeMutationCreateCard = DocumentNode(definitions: [
     name: NameNode(value: 'CreateCard'),
     variableDefinitions: [
       VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'idList')),
+        variable: VariableNode(name: NameNode(value: 'input')),
         type: NamedTypeNode(
-          name: NameNode(value: 'String'),
+          name: NameNode(value: 'InputCreateCard'),
           isNonNull: true,
         ),
         defaultValue: DefaultValueNode(value: null),
         directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'title')),
-        type: NamedTypeNode(
-          name: NameNode(value: 'String'),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
+      )
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
@@ -305,13 +270,9 @@ const documentNodeMutationCreateCard = DocumentNode(definitions: [
         alias: null,
         arguments: [
           ArgumentNode(
-            name: NameNode(value: 'idList'),
-            value: VariableNode(name: NameNode(value: 'idList')),
-          ),
-          ArgumentNode(
-            name: NameNode(value: 'title'),
-            value: VariableNode(name: NameNode(value: 'title')),
-          ),
+            name: NameNode(value: 'input'),
+            value: VariableNode(name: NameNode(value: 'input')),
+          )
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
@@ -340,6 +301,7 @@ const documentNodeMutationCreateCard = DocumentNode(definitions: [
   fragmentDefinitionCardFragment,
   fragmentDefinitionUserFragment,
   fragmentDefinitionCommentFragment,
+  fragmentDefinitionLabelFragment,
   fragmentDefinitionCheckListFragment,
 ]);
 Mutation$CreateCard _parserFn$Mutation$CreateCard(Map<String, dynamic> data) =>

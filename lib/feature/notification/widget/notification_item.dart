@@ -42,7 +42,7 @@ class NotificationItem extends ConsumerWidget {
                       width: 11,
                     ),
                     AppCircleAvatar(
-                      url: notification?.creator.avatar ?? '',
+                      url: notification?.creator?.avatar ?? '',
                       width: 46,
                     ),
                     Expanded(

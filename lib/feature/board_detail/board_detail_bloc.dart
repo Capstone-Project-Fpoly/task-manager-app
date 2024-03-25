@@ -9,9 +9,9 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/arguments/detail_card_argument.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
-import 'package:task_manager/feature/board_detail/board_detail_card_extention.dart';
-import 'package:task_manager/feature/board_detail/board_detail_list_extention.dart';
 import 'package:task_manager/feature/board_detail/enum/board_detail_app_bar_enum.dart';
+import 'package:task_manager/feature/board_detail/extension/board_detail_card_extention.dart';
+import 'package:task_manager/feature/board_detail/extension/board_detail_list_extention.dart';
 import 'package:task_manager/feature/board_detail/extension/board_detail_subscription_extension.dart';
 import 'package:task_manager/feature/board_detail/widget/board_detail_show_list_bottom_widget.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
@@ -188,10 +188,10 @@ class BoardDetailBloc extends BlocBase {
       if (list == null) continue;
       if (list.cards == null || list.cards!.isEmpty) continue;
       final cards = list.cards!
-          .where((element) => element.title?.contains(query) == true)
+          .where((element) => element.title.contains(query) == true)
           .toList();
       if (cards.isEmpty) continue;
-      cards.removeWhere((element) => !element.title!.contains(query));
+      cards.removeWhere((element) => !element.title.contains(query));
       final lsTemp = list.copyWith(cards: cards);
       listSearch.add(lsTemp);
     }
