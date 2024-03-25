@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:stack_trace/stack_trace.dart';
@@ -14,7 +18,6 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/firebase_options.dart';
 import 'package:task_manager/shared/theme/main.dart';
 import 'package:task_manager/shared/utilities/fcm.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> initDependencies() async {
   await dotenv.load(fileName: '.env');
@@ -23,6 +26,7 @@ Future<void> initDependencies() async {
   final localStorage = LocalStorageService();
   await localStorage.initialize();
   AppService.localStorage = Provider((ref) => localStorage);
+  await MobileAds.instance.initialize();
 }
 
 void main() async {
