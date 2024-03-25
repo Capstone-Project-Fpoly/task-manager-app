@@ -1,0 +1,5 @@
+mutation CreateComment($idCard: String!, $content: String!) {
+  createComment(idCard: $idCard, content: $content) {
+    ...CommentFragment
+  }
+}

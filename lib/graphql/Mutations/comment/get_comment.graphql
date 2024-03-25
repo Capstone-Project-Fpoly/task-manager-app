@@ -1,0 +1,5 @@
+mutation GetComments($idCard: String!) {
+  getComments(idCard: $idCard) {
+    ...CommentFragment
+  }
+}

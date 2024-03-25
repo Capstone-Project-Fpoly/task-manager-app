@@ -6,19 +6,21 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_label_extension.dart';
+import 'package:task_manager/graphql/Fragment/label_fragment.graphql.dart';
 
 class DetailCardAddLabelWidget extends ConsumerWidget {
-  const DetailCardAddLabelWidget({super.key});
+  const DetailCardAddLabelWidget({super.key, required this.isAddLabel});
+  final bool isAddLabel;
 
   @override
   Widget build(context, ref) {
     final bloc = ref.watch(BlocProvider.detailCardBloc);
     final width = MediaQuery.of(context).size.width;
     return ObsBuilder(
-      streams: [bloc.listColorDefaultSubject],
+      streams: [bloc.listLabelOfBoardSubject],
       builder: (context) {
         return Container(
-          height: 400,
           width: width,
           padding: EdgeInsetsConstants.all12 +
               EdgeInsetsConstants.horizontal4 +
@@ -31,14 +33,19 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
             ),
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Nhãn mới'),
+              const Text(
+                'Nhãn mới',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               SizedBox(
                 width: width - 60,
                 child: TextField(
-                  focusNode: bloc.focusNodeChecklist,
-                  controller: bloc.checklistController,
+                  controller: bloc.labelController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: 'Tên nhãn...',
@@ -52,25 +59,50 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
                 ),
               ),
               SizedBoxConstants.h10,
-              GridView.count(
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 5,
-                childAspectRatio: 1.5,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                shrinkWrap: true,
-                children: bloc.listColorDefaultSubject.value
-                    .map(
-                      (data) => _item(color: data, bloc: bloc),
-                    )
-                    .toList(),
+              ObsBuilder(
+                streams: [
+                  bloc.listLabelDefaultSubject,
+                  bloc.labelSelectedAddSubject,
+                ],
+                builder: (context) {
+                  return GridView.count(
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 5,
+                    childAspectRatio: 1.5,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    shrinkWrap: true,
+                    children: bloc.listLabelDefaultSubject.value
+                        .map(
+                          (data) => _item(
+                            label: data,
+                            bloc: bloc,
+                          ),
+                        )
+                        .toList(),
+                  );
+                },
               ),
-              const Spacer(),
+              SizedBoxConstants.h20,
               Material(
                 color: ColorConstants.white,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    if (!isAddLabel)
+                      InkWell(
+                        onTap: () {
+                          bloc.onTapConfirmDeleteLabel(context);
+                        },
+                        child: const Text(
+                          'Xóa',
+                          style: TextStyle(
+                            color: ColorConstants.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    const Spacer(),
                     InkWell(
                       onTap: () {
                         bloc.onBack();
@@ -86,7 +118,9 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
                     SizedBoxConstants.w15,
                     InkWell(
                       onTap: () {
-                        bloc.onTapAddColorLabel();
+                        isAddLabel
+                            ? bloc.onTapAddLabel()
+                            : bloc.onTapEditLabel();
                       },
                       child: const Text(
                         'Hoàn tất',
@@ -99,6 +133,9 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
                   ],
                 ),
               ),
+              Container(
+                height: MediaQuery.of(context).viewInsets.bottom,
+              ),
             ],
           ),
         );
@@ -106,24 +143,33 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
     );
   }
 
-  Widget _item({required ColorLabel color, required DetailCardBloc bloc}) {
+  Widget _item({
+    required Fragment$LabelFragment label,
+    required DetailCardBloc bloc,
+  }) {
+    final isSelected = bloc.labelSelectedAddSubject.value?.color == label.color;
+    final backgroundColor =
+        Color(int.tryParse('0XFF${label.color}') ?? 0XFFFFFFFF);
+
+    final iconColor =
+        backgroundColor.computeLuminance() > 0.5 ? Colors.black : Colors.white;
     return InkWell(
       onTap: () {
-        bloc.onTapSelectColorAddLabel(color);
+        bloc.onTapSelectColorAddLabel(label);
       },
       child: Container(
         width: 50,
         height: 50,
         decoration: BoxDecoration(
-          color: Color(int.tryParse('0XFF${color.color}') ?? 0XFFFFFFFF),
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(5),
         ),
-        child: color.isSelected == false
+        child: !isSelected
             ? Container()
-            : const Icon(
+            : Icon(
                 Icons.check,
                 size: 30,
-                color: ColorConstants.primaryBlack,
+                color: iconColor,
               ),
       ),
     );

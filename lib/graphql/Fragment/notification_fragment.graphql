@@ -6,6 +6,7 @@ fragment NotificationFragment on Notification{
     title
     topic
     createdAt
+    idBoard
     creator {
         ...UserFragment
     }

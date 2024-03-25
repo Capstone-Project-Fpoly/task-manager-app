@@ -1,0 +1,5 @@
+mutation GetLabelsOfBoard($idBoard: String!) {
+    getLabelsOfBoard(idBoard: $idBoard) {
+        ...LabelFragment
+    }
+}

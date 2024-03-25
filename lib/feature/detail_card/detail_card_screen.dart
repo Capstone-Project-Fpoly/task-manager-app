@@ -15,6 +15,7 @@ import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_membe
 import 'package:task_manager/feature/detail_card/widget/detail_card_header_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_label_widget.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_list_comment_widget.dart';
+import 'package:task_manager/graphql/Fragment/label_fragment.graphql.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 
 class DetailCardScreen extends ConsumerWidget {
@@ -40,6 +41,7 @@ class DetailCardScreen extends ConsumerWidget {
                 );
               }
               return SingleChildScrollView(
+                controller: bloc.scrollDetailCardController,
                 child: Column(
                   children: [
                     SizedBoxConstants.h40,
@@ -106,6 +108,7 @@ class DetailCardScreen extends ConsumerWidget {
                                 padding: EdgeInsetsConstants.all12,
                                 width: width,
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
                                       width: 30,
@@ -116,10 +119,31 @@ class DetailCardScreen extends ConsumerWidget {
                                       ),
                                     ),
                                     SizedBoxConstants.w6,
-                                    const Text(
-                                      'Nhãn...',
-                                      style: TextStyle(
-                                        color: ColorConstants.primaryBlack,
+                                    Expanded(
+                                      child: ObsBuilder(
+                                        streams: [bloc.listLabelOfCardSubject],
+                                        builder: (context) {
+                                          final listLabelOfCard =
+                                              bloc.listLabelOfCardSubject.value;
+                                          if (listLabelOfCard.isEmpty) {
+                                            return const Text(
+                                              'Nhãn...',
+                                              style: TextStyle(
+                                                color:
+                                                    ColorConstants.primaryBlack,
+                                              ),
+                                            );
+                                          }
+                                          return Wrap(
+                                            runSpacing: 6,
+                                            spacing: 6,
+                                            children: listLabelOfCard
+                                                .map(
+                                                  (e) => itemLabel(e),
+                                                )
+                                                .toList(),
+                                          );
+                                        },
                                       ),
                                     ),
                                   ],
@@ -209,7 +233,9 @@ class DetailCardScreen extends ConsumerWidget {
                       color: ColorConstants.divider,
                     ),
                     SizedBoxConstants.h8,
-                    const DetailCardListCommentWidget(),
+                    DetailCardListCommentWidget(
+                      key: bloc.dataKey,
+                    ),
                     SizedBoxConstants.h80,
                   ],
                 ),
@@ -219,6 +245,19 @@ class DetailCardScreen extends ConsumerWidget {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: const DetailCardCommentFieldWidget(),
+        ),
+      ),
+    );
+  }
+
+  Container itemLabel(Fragment$LabelFragment? e) {
+    return Container(
+      width: 40,
+      height: 30,
+      decoration: BoxDecoration(
+        color: Color(int.tryParse('0XFF${e?.color}') ?? 0XFF0000FF),
+        borderRadius: BorderRadius.circular(
+          4,
         ),
       ),
     );

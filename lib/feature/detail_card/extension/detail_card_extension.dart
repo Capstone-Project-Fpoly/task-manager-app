@@ -13,6 +13,7 @@ extension DetailCardExtension on DetailCardBloc {
     String? startedDate,
     List<Input$CheckListInput>? checkLists,
     List<String>? users,
+    List<String>? labels,
   }) async {
     final result = await graphqlService.client.mutate$UpdateCard(
       Options$Mutation$UpdateCard(
@@ -26,6 +27,7 @@ extension DetailCardExtension on DetailCardBloc {
             reminder: Enum$Reminder.Unknown,
             checkLists: checkLists,
             users: users,
+            labels: labels,
           ),
         ),
       ),

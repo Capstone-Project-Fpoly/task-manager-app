@@ -75,18 +75,29 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
                     vertical: 10,
                   ),
                   child: ObsBuilder(
-                    streams: [bloc.isChatCommentSubject],
+                    streams: [
+                      bloc.isChatCommentSubject,
+                      bloc.isLoadingAddCommentSubject,
+                    ],
                     builder: (context) {
                       return !bloc.isChatCommentSubject.value
                           ? const SendIcon(
                               width: 20,
                               height: 20,
                             )
-                          : const SendIcon(
-                              width: 20,
-                              height: 20,
-                              color: ColorConstants.primary,
-                            );
+                          : bloc.isLoadingAddCommentSubject.value
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    color: ColorConstants.primary,
+                                  ),
+                                )
+                              : const SendIcon(
+                                  width: 20,
+                                  height: 20,
+                                  color: ColorConstants.primary,
+                                );
                     },
                   ),
                 ),

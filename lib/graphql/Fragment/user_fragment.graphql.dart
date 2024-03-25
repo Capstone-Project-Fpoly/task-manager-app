@@ -6,7 +6,7 @@ class Fragment$UserFragment {
     required this.uid,
     this.updatedAt,
     this.email,
-    this.createdAt,
+    required this.createdAt,
     this.avatar,
     this.fullName,
     this.$__typename = 'User',
@@ -24,7 +24,7 @@ class Fragment$UserFragment {
       uid: (l$uid as String),
       updatedAt: (l$updatedAt as String?),
       email: (l$email as String?),
-      createdAt: (l$createdAt as String?),
+      createdAt: (l$createdAt as String),
       avatar: (l$avatar as String?),
       fullName: (l$fullName as String?),
       $__typename: (l$$__typename as String),
@@ -37,7 +37,7 @@ class Fragment$UserFragment {
 
   final String? email;
 
-  final String? createdAt;
+  final String createdAt;
 
   final String? avatar;
 
@@ -187,9 +187,9 @@ class _CopyWithImpl$Fragment$UserFragment<TRes>
             ? _instance.updatedAt
             : (updatedAt as String?),
         email: email == _undefined ? _instance.email : (email as String?),
-        createdAt: createdAt == _undefined
+        createdAt: createdAt == _undefined || createdAt == null
             ? _instance.createdAt
-            : (createdAt as String?),
+            : (createdAt as String),
         avatar: avatar == _undefined ? _instance.avatar : (avatar as String?),
         fullName:
             fullName == _undefined ? _instance.fullName : (fullName as String?),

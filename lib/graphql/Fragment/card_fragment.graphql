@@ -1,5 +1,6 @@
 fragment CardFragment on Card{
     id
+    boardId
     title
     description
     users{
@@ -10,6 +11,9 @@ fragment CardFragment on Card{
     reminder
     comments{
         ...CommentFragment
+    }
+    labels {
+        ...LabelFragment
     }
     checkLists{
         ...CheckListFragment

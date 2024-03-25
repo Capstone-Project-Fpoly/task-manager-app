@@ -1,6 +1,7 @@
 import '../../Fragment/card_fragment.graphql.dart';
 import '../../Fragment/check_list_fragment.graphql.dart';
 import '../../Fragment/comment_fragment.graphql.dart';
+import '../../Fragment/label_fragment.graphql.dart';
 import '../../Fragment/user_fragment.graphql.dart';
 import 'dart:async';
 import 'package:flutter/widgets.dart' as widgets;
@@ -296,6 +297,7 @@ const documentNodeMutationGetCard = DocumentNode(definitions: [
   fragmentDefinitionCardFragment,
   fragmentDefinitionUserFragment,
   fragmentDefinitionCommentFragment,
+  fragmentDefinitionLabelFragment,
   fragmentDefinitionCheckListFragment,
 ]);
 Mutation$GetCard _parserFn$Mutation$GetCard(Map<String, dynamic> data) =>

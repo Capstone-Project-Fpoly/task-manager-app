@@ -86,7 +86,8 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                   shrinkWrap: true,
                   itemCount: bloc.listCommentFragmentsSubject.value.length,
                   itemBuilder: (context, i) {
-                    final comment = bloc.listCommentFragmentsSubject.value[i];
+                    final comment = bloc.listCommentFragmentsSubject.value[
+                        bloc.listCommentFragmentsSubject.value.length - 1 - i];
                     return Container(
                       padding: EdgeInsetsConstants.horizontal12 +
                           EdgeInsetsConstants.bottom12,
@@ -96,7 +97,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           AppCircleAvatar(
-                            url: comment.user.avatar ?? '',
+                            url: comment.user?.avatar ?? '',
                             width: 40,
                             height: 40,
                           ),
@@ -120,7 +121,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      comment.user.fullName ?? '',
+                                      comment.user?.fullName ?? '',
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: ColorConstants.black,
@@ -155,19 +156,15 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                           const Spacer(),
                           PopupMenuButton(
                             itemBuilder: (context) => [
-                              const PopupMenuItem(
+                              PopupMenuItem(
                                 value: 'delete',
-                                child: Text(
+                                child: const Text(
                                   'Xóa',
                                   style: TextStyle(color: ColorConstants.red),
                                 ),
-                              ),
-                              const PopupMenuItem(
-                                value: 'edit',
-                                child: Text('Chỉnh sửa'),
+                                onTap: () => bloc.deleteComment(comment.id),
                               ),
                             ],
-                            onSelected: (value) {},
                             constraints: BoxConstraints(
                               minWidth: width - 350,
                             ),
