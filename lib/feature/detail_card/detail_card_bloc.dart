@@ -158,6 +158,7 @@ class DetailCardBloc extends BlocBase {
     focusNodeTitle.dispose();
     usersOfBoard.close();
     isShowChecklistSubject.close();
+
     isLoadingAddCommentSubject.close();
     scrollDetailCardController.dispose();
     listLabelDefaultSubject.close();
@@ -479,7 +480,7 @@ class DetailCardBloc extends BlocBase {
     appBarEnumSubject.value = DetailCardAppBarEnum.comment;
   }
 
-  Future<void> sendComment() async {
+Future<void> sendComment() async {
     if (!isChatCommentSubject.value) {
       return;
     }
@@ -504,7 +505,6 @@ class DetailCardBloc extends BlocBase {
     listCommentFragmentsSubject.value = [...cardSubject.value?.comments ?? []];
     isLoadingAddCommentSubject.value = false;
     scrollToListComment();
-    // scroll(index: listCommentFragmentsSubject.value.length - 1);
   }
 
   Future<void> deleteComment(String idComment) async {
