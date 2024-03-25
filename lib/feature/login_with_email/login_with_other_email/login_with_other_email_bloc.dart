@@ -5,13 +5,12 @@ import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/base/dependency/local_storage/local_storage_key.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/constants/regexs.dart';
 import 'package:task_manager/graphql/Mutations/login_by_email.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/utilities/fcm.dart';
-
-import 'package:task_manager/base/dependency/local_storage/local_storage_key.dart';
 
 class LoginWithOtherEmailBloc extends BlocBase {
   Ref ref;
@@ -88,7 +87,7 @@ class LoginWithOtherEmailBloc extends BlocBase {
       token = await userCredential.user?.getIdToken();
       deviceId = await FirebaseMessagingUtils.getDeviceToken();
     } catch (error) {
-      print(error);
+      debugPrint('error: $error');
       toastService.showText(message: 'Sai mật khẩu');
     }
     if (token == null) return;

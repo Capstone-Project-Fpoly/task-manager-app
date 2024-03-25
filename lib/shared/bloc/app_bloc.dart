@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -69,10 +70,10 @@ class AppBloc extends BlocBase {
         ),
       )
           .listen((event) {
-        print(event);
+        debugPrint('$event');
       });
     } catch (e) {
-      print(e);
+      debugPrint('$e');
     }
   }
 

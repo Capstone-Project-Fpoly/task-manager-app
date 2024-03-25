@@ -61,6 +61,7 @@ dependencies:
   fluttericon: ^2.0.0
   flutter_localization: ^0.2.0
   omni_datetime_picker: ^1.0.9
+  google_mobile_ads: ^5.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
