@@ -234,7 +234,7 @@ class DetailCardScreen extends ConsumerWidget {
                     ),
                     SizedBoxConstants.h8,
                     DetailCardListCommentWidget(
-                      key: bloc.dataKey,
+                      key: bloc.keyListComment,
                     ),
                     SizedBoxConstants.h80,
                   ],
