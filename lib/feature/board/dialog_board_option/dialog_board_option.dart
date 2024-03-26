@@ -57,7 +57,12 @@ class ShowDialogBoardOption extends ConsumerWidget {
                     bloc.showDialogLeaveBoard(context: context);
                   }
                 },
-                child: Text(isOwnerBroad ? 'Đóng Bảng' : 'Rời Bảng'),
+                child: Text(
+                  isOwnerBroad ? 'Đóng Bảng' : 'Rời Bảng',
+                  style: const TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
               ),
             ],
           ),

@@ -10,6 +10,7 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/local_storage/local_storage_key.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/base/dependency/router/utils/route_name.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/logout.graphql.dart';
 import 'package:task_manager/graphql/Subscriptions/test.graphql.dart';
@@ -24,6 +25,8 @@ class AppBloc extends BlocBase {
   late final toastService = ref.watch(AppService.toast);
   final userSubject = BehaviorSubject<Fragment$UserFragment?>.seeded(null);
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
+  final selectedBoardSubject =
+      BehaviorSubject<Fragment$BoardFragment?>.seeded(null);
 
   final navigatorKeysMap = NavigationEnum.values
       .fold<Map<NavigationEnum, GlobalKey<NavigatorState>>>(
@@ -46,6 +49,7 @@ class AppBloc extends BlocBase {
     selectedNavigationEnumSubject.close();
     userSubject.close();
     isLoadingSubject.close();
+    selectedBoardSubject.close();
     super.dispose();
   }
 

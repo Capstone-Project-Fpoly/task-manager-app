@@ -1,3 +1,4 @@
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
@@ -21,6 +22,9 @@ class MyBoardBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
 
+  final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
+  List<Fragment$BoardFragment?> currentBoard = [];
+
   void init() {
     getMyBoard();
   }
@@ -34,13 +38,14 @@ class MyBoardBloc extends BlocBase {
     isLoadingSubject.close();
     listBoardSubject.close();
     selectedBoardSubject.close();
+    selectedSearchSubject.close();
   }
 
-  void changeClick(bool change) {
+  void onTapShowOptions(bool change) {
     clickSubject.value = change;
   }
 
-  void onTapToDragAndDrop({required Fragment$BoardFragment? board}) {
+  void onTapToDetailBoard({required Fragment$BoardFragment? board}) {
     selectedBoardSubject.value = board;
     if (board == null) return;
     routerService.push(RouteInput.boardDetail(boardFragment: board));
@@ -79,11 +84,44 @@ class MyBoardBloc extends BlocBase {
       return;
     }
     listBoardSubject.value = result.parsedData?.getBoards ?? [];
+    currentBoard = [...listBoardSubject.value];
   }
 
   late final appBloc = ref.read(BlocProvider.app);
 
   MyBoardBloc(this.ref) {
     init();
+  }
+
+  void searchLocalBoard(String value) {
+    final listBoard = [...listBoardSubject.value];
+    if (value.isEmpty) {
+      listBoardSubject.value = [...currentBoard];
+      return;
+    }
+    final listSearch = listBoard
+        .where(
+          (element) => element!.title!.toLowerCase().contains(
+                value.toLowerCase(),
+              ),
+        )
+        .toList();
+    listBoardSubject.value = listSearch;
+  }
+
+  void openSearch(bool bool) {
+    selectedSearchSubject.value = bool;
+    if (!bool) listBoardSubject.value = [...currentBoard];
+  }
+
+  void onTapToNotification() {
+    selectedSearchSubject.value = false;
+    routerService.push(RouteInput.notification());
+  }
+
+  void dialogShowOptionBoard({
+    required BuildContext context,
+    Fragment$BoardFragment? board,
+  }) {
   }
 }
