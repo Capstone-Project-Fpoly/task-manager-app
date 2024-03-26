@@ -1,4 +1,4 @@
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
@@ -99,13 +99,11 @@ class MyBoardBloc extends BlocBase {
       listBoardSubject.value = [...currentBoard];
       return;
     }
-    final listSearch = listBoard
-        .where(
-          (element) => element!.title!.toLowerCase().contains(
-                value.toLowerCase(),
-              ),
-        )
-        .toList();
+    final listSearch = listBoard.where((element) {
+      if (element == null) return false;
+      if (element.title == null) return false;
+      return element.title!.toLowerCase().contains(value.toLowerCase());
+    }).toList();
     listBoardSubject.value = listSearch;
   }
 
@@ -122,6 +120,5 @@ class MyBoardBloc extends BlocBase {
   void dialogShowOptionBoard({
     required BuildContext context,
     Fragment$BoardFragment? board,
-  }) {
-  }
+  }) {}
 }

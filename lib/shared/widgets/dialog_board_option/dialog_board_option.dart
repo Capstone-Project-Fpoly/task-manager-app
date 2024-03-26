@@ -15,15 +15,15 @@ class ShowDialogBoardOption extends ConsumerWidget {
     // final routerService = ref.watch(AppService.router);
     return ObsBuilder(
       streams: [
-        bloc.selectedBoardSubject,
+        bloc.appBloc.selectedBoardSubject,
         bloc.isOwnerBroadSubject,
       ],
       builder: (context) {
         final isOwnerBroad = bloc.isOwnerBroadSubject.value;
-        final titleDialog = bloc.selectedBoardSubject.value!.title;
+        final titleDialog = bloc.appBloc.selectedBoardSubject.value?.title;
         return AlertDialog(
           title: Text(
-            titleDialog!,
+            titleDialog ?? '',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),

@@ -209,7 +209,7 @@ class BoardDetailBloc extends BlocBase {
     final result = await graphqlService.client.mutate$UpdateBoard(
       Options$Mutation$UpdateBoard(
         variables: Variables$Mutation$UpdateBoard(
-          idBoard: boardBloc.selectedBoardSubject.value!.id,
+          idBoard: boardBloc.appBloc.selectedBoardSubject.value!.id,
           input: Input$InputUpdateBoard(
             title: titleBoardSubject.value,
           ),

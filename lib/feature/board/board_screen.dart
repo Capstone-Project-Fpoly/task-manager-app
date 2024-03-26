@@ -124,7 +124,7 @@ class BoardScreen extends ConsumerWidget {
           }
           return RefreshIndicator(
             onRefresh: () async {
-              bloc.getBoard();
+              bloc.getBoards();
             },
             child: ListView.builder(
               itemCount: groupedByBoard.length,
@@ -261,7 +261,7 @@ class BoardScreen extends ConsumerWidget {
           itemBuilder: (context, index) {
             final board = boards[index];
             return InkWell(
-              onTap: () => bloc.onTapToDragAndDrop(
+              onTap: () => bloc.onTapToDetailBoard(
                 board: board,
               ),
               onLongPress: () {
