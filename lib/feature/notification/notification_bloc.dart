@@ -34,6 +34,9 @@ class NotificationBloc extends BlocBase {
       BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
   final noSeenNotificationListSubject =
       BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
+
+  final notificationListCurrentSubject =
+  BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
   final notificationListCardSubject =
       BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
   final notificationListCommentSubject =
@@ -53,6 +56,7 @@ class NotificationBloc extends BlocBase {
     notificationListCommentSubject.close();
     notificationListInviteSubject.close();
     notificationListAllSubject.close();
+    notificationListCurrentSubject.close();
     super.dispose();
   }
 
@@ -73,27 +77,39 @@ class NotificationBloc extends BlocBase {
     selectedOptionSubject.value = option;
     switch (option) {
       case NotificationOptionsEnum.card:
-        notificationListSubject.value = notificationListCardSubject.value;
-        noSeenNotificationListSubject.value = notificationListCardSubject.value
+        notificationListSubject.value = notificationListCurrentSubject.value;
+        notificationListSubject.value = notificationListSubject.value
+            .where(
+              (element) => element?.topic == Enum$TopicNotification.Card,
+        )
+            .toList();
+        noSeenNotificationListSubject.value = notificationListSubject.value
             .where((element) => element?.is_seen == false)
             .toList();
         break;
       case NotificationOptionsEnum.comment:
-        notificationListSubject.value = notificationListCommentSubject.value;
-        noSeenNotificationListSubject.value = notificationListCommentSubject
-            .value
+        notificationListSubject.value = notificationListCurrentSubject.value;
+        notificationListSubject.value = notificationListSubject.value
+            .where(
+              (element) => element?.topic == Enum$TopicNotification.Comment,
+        )
+            .toList();
+        noSeenNotificationListSubject.value = notificationListSubject.value
             .where((element) => element?.is_seen == false)
             .toList();
-        break;
       case NotificationOptionsEnum.invite:
-        notificationListSubject.value = notificationListInviteSubject.value;
-        noSeenNotificationListSubject.value = notificationListInviteSubject
-            .value
+        notificationListSubject.value = notificationListCurrentSubject.value;
+        notificationListSubject.value = notificationListSubject.value
+            .where(
+              (element) => element?.topic == Enum$TopicNotification.InviteUserToBoard,
+        )
+            .toList();
+        noSeenNotificationListSubject.value = notificationListSubject.value
             .where((element) => element?.is_seen == false)
             .toList();
       default:
-        notificationListSubject.value = notificationListAllSubject.value;
-        noSeenNotificationListSubject.value = notificationListAllSubject.value
+        notificationListSubject.value = notificationListCurrentSubject.value;
+        noSeenNotificationListSubject.value = notificationListSubject.value
             .where((element) => element?.is_seen == false)
             .toList();
     }
@@ -131,27 +147,7 @@ class NotificationBloc extends BlocBase {
     noSeenNotificationListSubject.value = notificationListSubject.value
         .where((element) => element?.is_seen == false)
         .toList();
-    final list = notificationListSubject.value;
-    notificationListAllSubject.value = list;
-    final result1 = list
-        .where(
-          (element) => element?.topic == Enum$TopicNotification.Card,
-        )
-        .toList();
-    notificationListCardSubject.value = result1;
-    final result2 = list
-        .where(
-          (element) => element?.topic == Enum$TopicNotification.Comment,
-        )
-        .toList();
-    notificationListCommentSubject.value = result2;
-    final result3 = list
-        .where(
-          (element) =>
-              element?.topic == Enum$TopicNotification.InviteUserToBoard,
-        )
-        .toList();
-    notificationListInviteSubject.value = result3;
+    notificationListCurrentSubject.value = notificationListSubject.value;
   }
 
   void seenLocalNotification(String idNotification) {
