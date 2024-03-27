@@ -30,7 +30,6 @@ class BoardDetailBloc extends BlocBase {
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
-  late final boardBloc = ref.read(BlocProvider.board);
   late final localStorage = ref.read(AppService.localStorage);
 
   late final currentBoardSubject =
@@ -205,11 +204,12 @@ class BoardDetailBloc extends BlocBase {
   }
 
   Future<void> onTapUpdateBoard() async {
+    if (appBloc.selectedBoardSubject.value == null) return;
     isLoadingAddSubject.value = true;
     final result = await graphqlService.client.mutate$UpdateBoard(
       Options$Mutation$UpdateBoard(
         variables: Variables$Mutation$UpdateBoard(
-          idBoard: boardBloc.appBloc.selectedBoardSubject.value!.id,
+          idBoard: appBloc.selectedBoardSubject.value!.id,
           input: Input$InputUpdateBoard(
             title: titleBoardSubject.value,
           ),
@@ -316,6 +316,7 @@ class BoardDetailBloc extends BlocBase {
   void onTapBack() {
     if (isLoadingSubject.value) return;
     appBarEnumSubject.value = null;
+    appBloc.selectedBoardSubject.value = currentBoardSubject.value;
     routerService.pop();
   }
 

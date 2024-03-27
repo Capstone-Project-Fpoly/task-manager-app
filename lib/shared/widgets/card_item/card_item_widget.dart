@@ -158,7 +158,7 @@ class CardItemWidget extends ConsumerWidget {
                               SizedBoxConstants.w8,
                             ],
                           ),
-                        if (countComment != null && countComment > 0)
+                        if (countComment > 0)
                           Container(
                             margin: EdgeInsetsConstants.right8,
                             child: Row(
@@ -177,7 +177,7 @@ class CardItemWidget extends ConsumerWidget {
                               ],
                             ),
                           ),
-                        if (countCheckList != null && countCheckList > 0)
+                        if (countCheckList > 0)
                           Container(
                             padding: EdgeInsetsConstants.all2,
                             decoration: BoxDecoration(
