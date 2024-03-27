@@ -90,7 +90,7 @@ class DetailCardBloc extends BlocBase {
   final isShowChecklistSubject = BehaviorSubject<bool>.seeded(false);
   final isLoadingAddCommentSubject = BehaviorSubject<bool>.seeded(false);
 
-  final dataKey = GlobalKey();
+  final keyListComment = GlobalKey();
   List<String> listColorDefault = [
     '000000',
     'FF0000',
@@ -210,7 +210,8 @@ class DetailCardBloc extends BlocBase {
     listLabelDefaultSubject.value = listLabelDefault;
 
     descriptionController.text = card?.description ?? '';
-    listCommentFragmentsSubject.value = [...card?.comments ?? []];
+    listCommentFragmentsSubject.value =
+        [...card?.comments ?? []].reversed.toList();
     listCheckListSubject.value = [...card?.checkLists ?? []];
     usersSubject.value = [...card?.users ?? []];
     listLabelOfCardSubject.value = [...card?.labels ?? []];
@@ -485,7 +486,8 @@ Future<void> sendComment() async {
       return;
     }
     isLoadingAddCommentSubject.value = true;
-    await graphqlService.client.mutate$CreateComment(
+    final resultCreateComment =
+        await graphqlService.client.mutate$CreateComment(
       Options$Mutation$CreateComment(
         variables: Variables$Mutation$CreateComment(
           idCard: cardSubject.value!.id,
@@ -493,22 +495,27 @@ Future<void> sendComment() async {
         ),
       ),
     );
-    final resultGetCard = await graphqlService.client.mutate$GetCard(
-      Options$Mutation$GetCard(
-        variables: Variables$Mutation$GetCard(
-          idCard: idCard,
-        ),
-      ),
-    );
+    if (resultCreateComment.hasException) {
+      final message =
+          resultCreateComment.exception?.graphqlErrors.first.message;
+      toastService.showText(message: message);
+      routerService.pop();
+      return;
+    }
+    if (resultCreateComment.parsedData?.createComment != null) {
+      listCommentFragmentsSubject.value = [
+        ...listCommentFragmentsSubject.value,
+        resultCreateComment.parsedData!.createComment!,
+      ].reversed.toList();
+    } else {
+      toastService.showText(message: 'Thêm thất bại');
+    }
     commentController.clear();
-    cardSubject.value = resultGetCard.parsedData?.getCard;
-    listCommentFragmentsSubject.value = [...cardSubject.value?.comments ?? []];
     isLoadingAddCommentSubject.value = false;
     scrollToListComment();
   }
 
   Future<void> deleteComment(String idComment) async {
-    isLoadingSubject.value = true;
     await graphqlService.client.mutate$DeleteComment(
       Options$Mutation$DeleteComment(
         variables: Variables$Mutation$DeleteComment(
@@ -516,22 +523,15 @@ Future<void> sendComment() async {
         ),
       ),
     );
-    final resultGetCard = await graphqlService.client.mutate$GetCard(
-      Options$Mutation$GetCard(
-        variables: Variables$Mutation$GetCard(
-          idCard: idCard,
-        ),
-      ),
-    );
-    cardSubject.value = resultGetCard.parsedData?.getCard;
-    listCommentFragmentsSubject.value = [...cardSubject.value?.comments ?? []];
-    isLoadingSubject.value = false;
+    final listTemp = [...listCommentFragmentsSubject.value];
+    listTemp.removeWhere((element) => element.id == idComment);
+    listCommentFragmentsSubject.value = [...listTemp].reversed.toList();
     toastService.showText(message: 'Xóa thành công');
   }
 
   void scrollToListComment() {
     Scrollable.ensureVisible(
-      dataKey.currentContext!,
+      keyListComment.currentContext!,
       duration: const Duration(milliseconds: 500),
       curve: Curves.fastOutSlowIn,
     );

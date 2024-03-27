@@ -86,8 +86,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                   shrinkWrap: true,
                   itemCount: bloc.listCommentFragmentsSubject.value.length,
                   itemBuilder: (context, i) {
-                    final comment = bloc.listCommentFragmentsSubject.value[
-                        bloc.listCommentFragmentsSubject.value.length - 1 - i];
+                    final comment = bloc.listCommentFragmentsSubject.value[i];
                     return Container(
                       padding: EdgeInsetsConstants.horizontal12 +
                           EdgeInsetsConstants.bottom12,
