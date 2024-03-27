@@ -17,6 +17,7 @@ import 'package:task_manager/graphql/Subscriptions/test.graphql.dart';
 import 'package:task_manager/graphql/queries/me.graphql.dart';
 import 'package:task_manager/shared/enum/navigation_enum.dart';
 import 'package:task_manager/shared/mixins/board_mixin.dart';
+import 'package:task_manager/shared/widgets/custom_toast_notification.dart';
 
 class AppBloc extends BlocBase with BoardMixin {
   final Ref ref;
@@ -116,14 +117,13 @@ class AppBloc extends BlocBase with BoardMixin {
   }
 
   Future<void> _onInAppFirebaseMessage(RemoteMessage message) async {
-
     if (message.notification == null) return;
-    final title = message.notification!.title?? '';
-    final body = message.notification!.body?? '';
+    final title = message.notification!.title ?? '';
+    final body = message.notification!.body ?? '';
 
     toastService.showToastNotification(
       builder: (context) {
-        return CustomToastNotification(title: title,body: body);
+        return CustomToastNotification(title: title, body: body);
       },
     );
   }
