@@ -15,14 +15,14 @@ class CardItemWidget extends ConsumerWidget {
     final startDate =
         formatDateTimeNotification(card?.startedDate, format: 'dd MMM');
     final endDate = formatDateTimeNotification(card?.endDate, format: 'dd MMM');
-    final countComment = card?.comments?.length;
-    final countCheckList = card?.checkLists?.length;
+    final countComment = card?.comments?.length ?? 0;
+    final countCheckList = card?.checkLists?.length ?? 0;
     final countIsCheckedList =
         card?.checkLists?.where((e) => e.isChecked).toList().length;
     final isShow = endDate.isNotEmpty ||
         startDate.isNotEmpty ||
-        countComment! > 0 ||
-        countCheckList! > 0;
+        countComment > 0 ||
+        countCheckList > 0;
     final labels = card?.labels;
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -158,7 +158,7 @@ class CardItemWidget extends ConsumerWidget {
                               SizedBoxConstants.w8,
                             ],
                           ),
-                        if (countComment != null && countComment > 0)
+                        if (countComment > 0)
                           Container(
                             margin: EdgeInsetsConstants.right8,
                             child: Row(
@@ -177,7 +177,7 @@ class CardItemWidget extends ConsumerWidget {
                               ],
                             ),
                           ),
-                        if (countCheckList != null && countCheckList > 0)
+                        if (countCheckList > 0)
                           Container(
                             padding: EdgeInsetsConstants.all2,
                             decoration: BoxDecoration(

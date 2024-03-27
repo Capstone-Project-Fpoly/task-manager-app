@@ -10,21 +10,28 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/local_storage/local_storage_key.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/base/dependency/router/utils/route_name.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/logout.graphql.dart';
 import 'package:task_manager/graphql/Subscriptions/test.graphql.dart';
 import 'package:task_manager/graphql/queries/me.graphql.dart';
 import 'package:task_manager/shared/enum/navigation_enum.dart';
+import 'package:task_manager/shared/mixins/board_mixin.dart';
 import 'package:task_manager/shared/widgets/custom_toast_notification.dart';
 
-class AppBloc extends BlocBase {
+class AppBloc extends BlocBase with BoardMixin {
   final Ref ref;
+  @override
   late final routerService = ref.watch(AppService.router);
-  late final graphQLService = ref.watch(AppService.graphQL);
+  @override
+  late final graphqlService = ref.watch(AppService.graphQL);
   late final localStorageService = ref.watch(AppService.localStorage);
+  @override
   late final toastService = ref.watch(AppService.toast);
   final userSubject = BehaviorSubject<Fragment$UserFragment?>.seeded(null);
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
+  final selectedBoardSubject =
+      BehaviorSubject<Fragment$BoardFragment?>.seeded(null);
 
   final navigatorKeysMap = NavigationEnum.values
       .fold<Map<NavigationEnum, GlobalKey<NavigatorState>>>(
@@ -47,6 +54,7 @@ class AppBloc extends BlocBase {
     selectedNavigationEnumSubject.close();
     userSubject.close();
     isLoadingSubject.close();
+    selectedBoardSubject.close();
     super.dispose();
   }
 
@@ -62,7 +70,7 @@ class AppBloc extends BlocBase {
     });
     await getCurrentUser();
     try {
-      graphQLService.client
+      graphqlService.client
           .subscribe$TestSub(
         Options$Subscription$TestSub(
           variables: Variables$Subscription$TestSub(
@@ -93,7 +101,7 @@ class AppBloc extends BlocBase {
 
   Future _initGraphqlClient() async {
     final token = localStorageService.getString(LocalStorageKey.key) ?? '';
-    graphQLService.updateGraphQLClientWithToken(token);
+    graphqlService.updateGraphQLClientWithToken(token);
   }
 
   void onTapBack(BuildContext context) {
@@ -101,7 +109,7 @@ class AppBloc extends BlocBase {
   }
 
   Future<Fragment$UserFragment?> getCurrentUser() async {
-    final result = await graphQLService.client.query$me(Options$Query$me());
+    final result = await graphqlService.client.query$me(Options$Query$me());
     if (result.hasException) return null;
     if (result.parsedData == null) return null;
     userSubject.value = result.parsedData?.me;
@@ -109,14 +117,13 @@ class AppBloc extends BlocBase {
   }
 
   Future<void> _onInAppFirebaseMessage(RemoteMessage message) async {
-
     if (message.notification == null) return;
-    final title = message.notification!.title?? '';
-    final body = message.notification!.body?? '';
+    final title = message.notification!.title ?? '';
+    final body = message.notification!.body ?? '';
 
     toastService.showToastNotification(
       builder: (context) {
-        return CustomToastNotification(title: title,body: body);
+        return CustomToastNotification(title: title, body: body);
       },
     );
   }
@@ -124,7 +131,7 @@ class AppBloc extends BlocBase {
   Future<void> onTapLogout() async {
     isLoadingSubject.value = true;
     final result =
-        await graphQLService.client.mutate$Logout(Options$Mutation$Logout());
+        await graphqlService.client.mutate$Logout(Options$Mutation$Logout());
     isLoadingSubject.value = false;
     if (result.hasException) return;
     if (result.parsedData == null) return;

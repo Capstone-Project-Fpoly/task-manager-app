@@ -116,6 +116,19 @@ class AppTheme {
         ),
       ),
     ),
+    dialogTheme: const DialogTheme(
+      backgroundColor: ColorConstants.white,
+      contentTextStyle: AppTextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: ColorConstants.primaryText,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
+        ),
+      ),
+    ),
   );
 
   static PageTransitionsTheme pageTransitionsTheme = const PageTransitionsTheme(
