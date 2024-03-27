@@ -22,7 +22,7 @@ class SettingBoardBloc extends BlocBase {
     const Color(0XFF2196F3),
   );
   final selectedTitleTextFieldSubject = BehaviorSubject<bool>.seeded(false);
-  late final boardBloc = ref.read(BlocProvider.board);
+  late final appBloc = ref.read(BlocProvider.app);
   final nameBoardSubject = BehaviorSubject<String>.seeded('');
   final isPublicSubject = BehaviorSubject<bool>.seeded(false);
   final textEditingController = TextEditingController();
@@ -46,36 +46,36 @@ class SettingBoardBloc extends BlocBase {
   void init() {
     backgroundColorSubject.value = Color(
       int.parse(
-        '0XFF${boardBloc.selectedBoardSubject.value?.color ?? '2196F3'}',
+        '0XFF${appBloc.selectedBoardSubject.value?.color ?? '2196F3'}',
       ),
     );
-    nameBoardSubject.value = boardBloc.selectedBoardSubject.value!.title ?? '';
+    nameBoardSubject.value = appBloc.selectedBoardSubject.value?.title ?? '';
     textEditingController.text = nameBoardSubject.value;
-    isPublicSubject.value = boardBloc.selectedBoardSubject.value!.isPublic;
+    isPublicSubject.value =
+        appBloc.selectedBoardSubject.value?.isPublic ?? true;
     selectedStatusSubject.value = isPublicSubject.value
         ? BoardStatusEnum.public
         : BoardStatusEnum.private;
   }
 
   void onBackToBoardScreen() {
-    final currentBoard = boardBloc.selectedBoardSubject.value;
+    final currentBoard = appBloc.selectedBoardSubject.value;
     final currentColor =
         ColorUtils.getHexFromColor(backgroundColorSubject.value);
     final currentTitle = nameBoardSubject.value;
     final currentIsPublic = isPublicSubject.value;
+    Fragment$BoardFragment? resultPop;
     if (currentBoard?.color?.toLowerCase() != currentColor.toLowerCase() ||
         currentBoard?.title != currentTitle ||
         currentBoard?.isPublic != currentIsPublic) {
-      boardBloc.getBoard();
-    }
-    Fragment$BoardFragment? resultPop;
-    if (boardBloc.selectedBoardSubject.value != null) {
-      resultPop = currentBoard!.copyWith(
-        color: currentColor,
-        title: currentTitle,
-        isPublic: currentIsPublic,
-      );
-      boardBloc.selectedBoardSubject.value = resultPop;
+      if (appBloc.selectedBoardSubject.value != null) {
+        resultPop = currentBoard!.copyWith(
+          color: currentColor,
+          title: currentTitle,
+          isPublic: currentIsPublic,
+        );
+        appBloc.selectedBoardSubject.value = resultPop;
+      }
     }
     routerService.pop(result: resultPop);
   }
@@ -87,7 +87,7 @@ class SettingBoardBloc extends BlocBase {
       return;
     }
     textEditingController.text =
-        boardBloc.selectedBoardSubject.value?.title ?? '';
+        appBloc.selectedBoardSubject.value?.title ?? '';
     focusNode.unfocus();
   }
 
@@ -132,7 +132,7 @@ class SettingBoardBloc extends BlocBase {
     final result = await graphqlService.client.mutate$UpdateBoard(
       Options$Mutation$UpdateBoard(
         variables: Variables$Mutation$UpdateBoard(
-          idBoard: boardBloc.selectedBoardSubject.value!.id,
+          idBoard: appBloc.selectedBoardSubject.value!.id,
           input: Input$InputUpdateBoard(
             title: title,
             color: color,

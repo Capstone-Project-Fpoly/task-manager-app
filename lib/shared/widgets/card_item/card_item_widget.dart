@@ -8,6 +8,7 @@ import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 
 class CardItemWidget extends ConsumerWidget {
   final Fragment$CardFragment? card;
+
   const CardItemWidget({super.key, required this.card});
 
   @override
@@ -15,15 +16,15 @@ class CardItemWidget extends ConsumerWidget {
     final startDate =
         formatDateTimeNotification(card?.startedDate, format: 'dd MMM');
     final endDate = formatDateTimeNotification(card?.endDate, format: 'dd MMM');
-    final countComment = card?.comments?.length;
-    final countCheckList = card?.checkLists?.length;
+    final countComment = card?.comments?.length ?? 0;
+    final countCheckList = card?.checkLists?.length ?? 0;
     final countIsCheckedList =
         card?.checkLists?.where((e) => e.isChecked).toList().length;
     final isShow = endDate.isNotEmpty ||
         startDate.isNotEmpty ||
-        countComment! > 0 ||
-        countCheckList! > 0;
-
+        countComment > 0 ||
+        countCheckList > 0;
+    final labels = card?.labels;
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsetsConstants.bottom4 + EdgeInsetsConstants.top8,
@@ -57,16 +58,17 @@ class CardItemWidget extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (false)
-                      Container(
-                        margin: EdgeInsetsConstants.top8 +
-                            EdgeInsetsConstants.bottom4,
-                        width: MediaQuery.of(context).size.width * 0.15,
-                        height: MediaQuery.of(context).size.width * 0.05,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          color: Colors.blue,
-                        ),
+                    if (labels != null && labels.isNotEmpty)
+                      Wrap(
+                        spacing: 4,
+                        runSpacing: 4,
+                        children: labels
+                            .map(
+                              (e) => containerLabel(
+                                e.color ?? '',
+                              ),
+                            )
+                            .toList(),
                       ),
                     Text(
                       card?.title ?? '',
@@ -136,7 +138,7 @@ class CardItemWidget extends ConsumerWidget {
                               SizedBoxConstants.w8,
                             ],
                           ),
-                        if (countComment != null && countComment > 0)
+                        if (countComment > 0)
                           Container(
                             margin: EdgeInsetsConstants.right8,
                             child: Row(
@@ -155,7 +157,7 @@ class CardItemWidget extends ConsumerWidget {
                               ],
                             ),
                           ),
-                        if (countCheckList != null && countCheckList > 0)
+                        if (countCheckList > 0)
                           Container(
                             padding: EdgeInsetsConstants.all2,
                             decoration: BoxDecoration(
@@ -201,6 +203,19 @@ class CardItemWidget extends ConsumerWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Container containerLabel(String color) {
+    final backgroundColor = Color(int.tryParse('0XFF${color}') ?? 0XFF0000FF);
+    return Container(
+      margin: EdgeInsetsConstants.top8 + EdgeInsetsConstants.bottom4,
+      width: 30,
+      height: 15,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(3)),
+        color: backgroundColor,
       ),
     );
   }

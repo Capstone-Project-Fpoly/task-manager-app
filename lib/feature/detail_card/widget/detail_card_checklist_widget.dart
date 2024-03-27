@@ -32,7 +32,6 @@ class DetailCardChecklistWidget extends ConsumerWidget {
                   padding: EdgeInsetsConstants.horizontal12,
                   child: Row(
                     children: [
-                      SizedBoxConstants.w6,
                       const Text(
                         'Danh sách công việc',
                         style: TextStyle(
@@ -142,6 +141,9 @@ class DetailCardChecklistWidget extends ConsumerWidget {
             focusNode: bloc.focusNodeChecklist,
             controller: bloc.checklistController,
             keyboardType: TextInputType.multiline,
+            scrollPadding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).viewInsets.bottom,
+            ),
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'Thêm mục...',

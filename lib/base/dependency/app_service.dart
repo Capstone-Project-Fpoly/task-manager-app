@@ -1,12 +1,12 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:task_manager/base/dependency/admob/admob_service.dart';
 import 'package:task_manager/base/dependency/analytics/analytics_service.dart';
+import 'package:task_manager/base/dependency/graphql/graphql_service.dart';
+import 'package:task_manager/base/dependency/local_storage/local_storage_service.dart';
 import 'package:task_manager/base/dependency/router/router_provider.dart';
 import 'package:task_manager/base/dependency/router/router_service.dart';
 import 'package:task_manager/base/dependency/toast/toast_service.dart';
-
-import 'package:task_manager/base/dependency/graphql/graphql_service.dart';
-import 'package:task_manager/base/dependency/local_storage/local_storage_service.dart';
 
 class AppProvider {
   static final router = Provider((ref) => RouterProvider());
@@ -43,6 +43,16 @@ class AppService {
   );
 
   static final toast = Provider((ref) => ToastService());
+
+  static final admob = Provider(
+    (ref) => AdmobService(
+      ref,
+      appId: 'ca-app-pub-3940256099942544~3347511713',
+      bannerAdUnitId: 'ca-app-pub-5948553297384633/3085893333',
+      interstitialAdUnitId: 'ca-app-pub-3940256099942544/1033173712',
+      rewardedAdUnitId: 'ca-app-pub-5948553297384633/4562626532',
+    ),
+  );
 
   AppService._();
 }

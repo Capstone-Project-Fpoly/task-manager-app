@@ -1,6 +1,7 @@
 import '../../schema.graphql.dart';
 import 'check_list_fragment.graphql.dart';
 import 'comment_fragment.graphql.dart';
+import 'label_fragment.graphql.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'user_fragment.graphql.dart';
@@ -8,21 +9,24 @@ import 'user_fragment.graphql.dart';
 class Fragment$CardFragment {
   Fragment$CardFragment({
     required this.id,
-    this.title,
+    this.boardId,
+    required this.title,
     this.description,
     this.users,
     this.endDate,
     this.startedDate,
     required this.reminder,
     this.comments,
+    this.labels,
     this.checkLists,
     required this.createdAt,
-    required this.createdBy,
+    this.createdBy,
     this.$__typename = 'Card',
   });
 
   factory Fragment$CardFragment.fromJson(Map<String, dynamic> json) {
     final l$id = json['id'];
+    final l$boardId = json['boardId'];
     final l$title = json['title'];
     final l$description = json['description'];
     final l$users = json['users'];
@@ -30,13 +34,15 @@ class Fragment$CardFragment {
     final l$startedDate = json['startedDate'];
     final l$reminder = json['reminder'];
     final l$comments = json['comments'];
+    final l$labels = json['labels'];
     final l$checkLists = json['checkLists'];
     final l$createdAt = json['createdAt'];
     final l$createdBy = json['createdBy'];
     final l$$__typename = json['__typename'];
     return Fragment$CardFragment(
       id: (l$id as String),
-      title: (l$title as String?),
+      boardId: (l$boardId as String?),
+      title: (l$title as String),
       description: (l$description as String?),
       users: (l$users as List<dynamic>?)
           ?.map((e) =>
@@ -49,20 +55,28 @@ class Fragment$CardFragment {
           ?.map((e) =>
               Fragment$CommentFragment.fromJson((e as Map<String, dynamic>)))
           .toList(),
+      labels: (l$labels as List<dynamic>?)
+          ?.map((e) =>
+              Fragment$LabelFragment.fromJson((e as Map<String, dynamic>)))
+          .toList(),
       checkLists: (l$checkLists as List<dynamic>?)
           ?.map((e) =>
               Fragment$CheckListFragment.fromJson((e as Map<String, dynamic>)))
           .toList(),
       createdAt: (l$createdAt as String),
-      createdBy:
-          Fragment$UserFragment.fromJson((l$createdBy as Map<String, dynamic>)),
+      createdBy: l$createdBy == null
+          ? null
+          : Fragment$UserFragment.fromJson(
+              (l$createdBy as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
 
   final String id;
 
-  final String? title;
+  final String? boardId;
+
+  final String title;
 
   final String? description;
 
@@ -76,11 +90,13 @@ class Fragment$CardFragment {
 
   final List<Fragment$CommentFragment>? comments;
 
+  final List<Fragment$LabelFragment>? labels;
+
   final List<Fragment$CheckListFragment>? checkLists;
 
   final String createdAt;
 
-  final Fragment$UserFragment createdBy;
+  final Fragment$UserFragment? createdBy;
 
   final String $__typename;
 
@@ -88,6 +104,8 @@ class Fragment$CardFragment {
     final _resultData = <String, dynamic>{};
     final l$id = id;
     _resultData['id'] = l$id;
+    final l$boardId = boardId;
+    _resultData['boardId'] = l$boardId;
     final l$title = title;
     _resultData['title'] = l$title;
     final l$description = description;
@@ -102,12 +120,14 @@ class Fragment$CardFragment {
     _resultData['reminder'] = toJson$Enum$Reminder(l$reminder);
     final l$comments = comments;
     _resultData['comments'] = l$comments?.map((e) => e.toJson()).toList();
+    final l$labels = labels;
+    _resultData['labels'] = l$labels?.map((e) => e.toJson()).toList();
     final l$checkLists = checkLists;
     _resultData['checkLists'] = l$checkLists?.map((e) => e.toJson()).toList();
     final l$createdAt = createdAt;
     _resultData['createdAt'] = l$createdAt;
     final l$createdBy = createdBy;
-    _resultData['createdBy'] = l$createdBy.toJson();
+    _resultData['createdBy'] = l$createdBy?.toJson();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -116,6 +136,7 @@ class Fragment$CardFragment {
   @override
   int get hashCode {
     final l$id = id;
+    final l$boardId = boardId;
     final l$title = title;
     final l$description = description;
     final l$users = users;
@@ -123,12 +144,14 @@ class Fragment$CardFragment {
     final l$startedDate = startedDate;
     final l$reminder = reminder;
     final l$comments = comments;
+    final l$labels = labels;
     final l$checkLists = checkLists;
     final l$createdAt = createdAt;
     final l$createdBy = createdBy;
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$id,
+      l$boardId,
       l$title,
       l$description,
       l$users == null ? null : Object.hashAll(l$users.map((v) => v)),
@@ -136,6 +159,7 @@ class Fragment$CardFragment {
       l$startedDate,
       l$reminder,
       l$comments == null ? null : Object.hashAll(l$comments.map((v) => v)),
+      l$labels == null ? null : Object.hashAll(l$labels.map((v) => v)),
       l$checkLists == null ? null : Object.hashAll(l$checkLists.map((v) => v)),
       l$createdAt,
       l$createdBy,
@@ -154,6 +178,11 @@ class Fragment$CardFragment {
     final l$id = id;
     final lOther$id = other.id;
     if (l$id != lOther$id) {
+      return false;
+    }
+    final l$boardId = boardId;
+    final lOther$boardId = other.boardId;
+    if (l$boardId != lOther$boardId) {
       return false;
     }
     final l$title = title;
@@ -213,6 +242,22 @@ class Fragment$CardFragment {
     } else if (l$comments != lOther$comments) {
       return false;
     }
+    final l$labels = labels;
+    final lOther$labels = other.labels;
+    if (l$labels != null && lOther$labels != null) {
+      if (l$labels.length != lOther$labels.length) {
+        return false;
+      }
+      for (int i = 0; i < l$labels.length; i++) {
+        final l$labels$entry = l$labels[i];
+        final lOther$labels$entry = lOther$labels[i];
+        if (l$labels$entry != lOther$labels$entry) {
+          return false;
+        }
+      }
+    } else if (l$labels != lOther$labels) {
+      return false;
+    }
     final l$checkLists = checkLists;
     final lOther$checkLists = other.checkLists;
     if (l$checkLists != null && lOther$checkLists != null) {
@@ -267,6 +312,7 @@ abstract class CopyWith$Fragment$CardFragment<TRes> {
 
   TRes call({
     String? id,
+    String? boardId,
     String? title,
     String? description,
     List<Fragment$UserFragment>? users,
@@ -274,6 +320,7 @@ abstract class CopyWith$Fragment$CardFragment<TRes> {
     String? startedDate,
     Enum$Reminder? reminder,
     List<Fragment$CommentFragment>? comments,
+    List<Fragment$LabelFragment>? labels,
     List<Fragment$CheckListFragment>? checkLists,
     String? createdAt,
     Fragment$UserFragment? createdBy,
@@ -287,6 +334,11 @@ abstract class CopyWith$Fragment$CardFragment<TRes> {
       Iterable<Fragment$CommentFragment>? Function(
               Iterable<
                   CopyWith$Fragment$CommentFragment<Fragment$CommentFragment>>?)
+          _fn);
+  TRes labels(
+      Iterable<Fragment$LabelFragment>? Function(
+              Iterable<
+                  CopyWith$Fragment$LabelFragment<Fragment$LabelFragment>>?)
           _fn);
   TRes checkLists(
       Iterable<Fragment$CheckListFragment>? Function(
@@ -312,6 +364,7 @@ class _CopyWithImpl$Fragment$CardFragment<TRes>
 
   TRes call({
     Object? id = _undefined,
+    Object? boardId = _undefined,
     Object? title = _undefined,
     Object? description = _undefined,
     Object? users = _undefined,
@@ -319,6 +372,7 @@ class _CopyWithImpl$Fragment$CardFragment<TRes>
     Object? startedDate = _undefined,
     Object? reminder = _undefined,
     Object? comments = _undefined,
+    Object? labels = _undefined,
     Object? checkLists = _undefined,
     Object? createdAt = _undefined,
     Object? createdBy = _undefined,
@@ -326,7 +380,11 @@ class _CopyWithImpl$Fragment$CardFragment<TRes>
   }) =>
       _then(Fragment$CardFragment(
         id: id == _undefined || id == null ? _instance.id : (id as String),
-        title: title == _undefined ? _instance.title : (title as String?),
+        boardId:
+            boardId == _undefined ? _instance.boardId : (boardId as String?),
+        title: title == _undefined || title == null
+            ? _instance.title
+            : (title as String),
         description: description == _undefined
             ? _instance.description
             : (description as String?),
@@ -344,15 +402,18 @@ class _CopyWithImpl$Fragment$CardFragment<TRes>
         comments: comments == _undefined
             ? _instance.comments
             : (comments as List<Fragment$CommentFragment>?),
+        labels: labels == _undefined
+            ? _instance.labels
+            : (labels as List<Fragment$LabelFragment>?),
         checkLists: checkLists == _undefined
             ? _instance.checkLists
             : (checkLists as List<Fragment$CheckListFragment>?),
         createdAt: createdAt == _undefined || createdAt == null
             ? _instance.createdAt
             : (createdAt as String),
-        createdBy: createdBy == _undefined || createdBy == null
+        createdBy: createdBy == _undefined
             ? _instance.createdBy
-            : (createdBy as Fragment$UserFragment),
+            : (createdBy as Fragment$UserFragment?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
@@ -382,6 +443,18 @@ class _CopyWithImpl$Fragment$CardFragment<TRes>
                     (i) => i,
                   )))?.toList());
 
+  TRes labels(
+          Iterable<Fragment$LabelFragment>? Function(
+                  Iterable<
+                      CopyWith$Fragment$LabelFragment<Fragment$LabelFragment>>?)
+              _fn) =>
+      call(
+          labels:
+              _fn(_instance.labels?.map((e) => CopyWith$Fragment$LabelFragment(
+                    e,
+                    (i) => i,
+                  )))?.toList());
+
   TRes checkLists(
           Iterable<Fragment$CheckListFragment>? Function(
                   Iterable<
@@ -397,8 +470,10 @@ class _CopyWithImpl$Fragment$CardFragment<TRes>
 
   CopyWith$Fragment$UserFragment<TRes> get createdBy {
     final local$createdBy = _instance.createdBy;
-    return CopyWith$Fragment$UserFragment(
-        local$createdBy, (e) => call(createdBy: e));
+    return local$createdBy == null
+        ? CopyWith$Fragment$UserFragment.stub(_then(_instance))
+        : CopyWith$Fragment$UserFragment(
+            local$createdBy, (e) => call(createdBy: e));
   }
 }
 
@@ -410,6 +485,7 @@ class _CopyWithStubImpl$Fragment$CardFragment<TRes>
 
   call({
     String? id,
+    String? boardId,
     String? title,
     String? description,
     List<Fragment$UserFragment>? users,
@@ -417,6 +493,7 @@ class _CopyWithStubImpl$Fragment$CardFragment<TRes>
     String? startedDate,
     Enum$Reminder? reminder,
     List<Fragment$CommentFragment>? comments,
+    List<Fragment$LabelFragment>? labels,
     List<Fragment$CheckListFragment>? checkLists,
     String? createdAt,
     Fragment$UserFragment? createdBy,
@@ -427,6 +504,8 @@ class _CopyWithStubImpl$Fragment$CardFragment<TRes>
   users(_fn) => _res;
 
   comments(_fn) => _res;
+
+  labels(_fn) => _res;
 
   checkLists(_fn) => _res;
 
@@ -445,6 +524,13 @@ const fragmentDefinitionCardFragment = FragmentDefinitionNode(
   selectionSet: SelectionSetNode(selections: [
     FieldNode(
       name: NameNode(value: 'id'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: null,
+    ),
+    FieldNode(
+      name: NameNode(value: 'boardId'),
       alias: null,
       arguments: [],
       directives: [],
@@ -524,6 +610,25 @@ const fragmentDefinitionCardFragment = FragmentDefinitionNode(
       ]),
     ),
     FieldNode(
+      name: NameNode(value: 'labels'),
+      alias: null,
+      arguments: [],
+      directives: [],
+      selectionSet: SelectionSetNode(selections: [
+        FragmentSpreadNode(
+          name: NameNode(value: 'LabelFragment'),
+          directives: [],
+        ),
+        FieldNode(
+          name: NameNode(value: '__typename'),
+          alias: null,
+          arguments: [],
+          directives: [],
+          selectionSet: null,
+        ),
+      ]),
+    ),
+    FieldNode(
       name: NameNode(value: 'checkLists'),
       alias: null,
       arguments: [],
@@ -581,6 +686,7 @@ const documentNodeFragmentCardFragment = DocumentNode(definitions: [
   fragmentDefinitionCardFragment,
   fragmentDefinitionUserFragment,
   fragmentDefinitionCommentFragment,
+  fragmentDefinitionLabelFragment,
   fragmentDefinitionCheckListFragment,
 ]);
 

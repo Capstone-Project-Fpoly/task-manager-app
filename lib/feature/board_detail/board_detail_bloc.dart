@@ -9,9 +9,9 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/arguments/detail_card_argument.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
-import 'package:task_manager/feature/board_detail/board_detail_card_extention.dart';
-import 'package:task_manager/feature/board_detail/board_detail_list_extention.dart';
 import 'package:task_manager/feature/board_detail/enum/board_detail_app_bar_enum.dart';
+import 'package:task_manager/feature/board_detail/extension/board_detail_card_extention.dart';
+import 'package:task_manager/feature/board_detail/extension/board_detail_list_extention.dart';
 import 'package:task_manager/feature/board_detail/extension/board_detail_subscription_extension.dart';
 import 'package:task_manager/feature/board_detail/widget/board_detail_show_list_bottom_widget.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
@@ -30,7 +30,6 @@ class BoardDetailBloc extends BlocBase {
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
-  late final boardBloc = ref.read(BlocProvider.board);
   late final localStorage = ref.read(AppService.localStorage);
 
   late final currentBoardSubject =
@@ -188,10 +187,10 @@ class BoardDetailBloc extends BlocBase {
       if (list == null) continue;
       if (list.cards == null || list.cards!.isEmpty) continue;
       final cards = list.cards!
-          .where((element) => element.title?.contains(query) == true)
+          .where((element) => element.title.contains(query) == true)
           .toList();
       if (cards.isEmpty) continue;
-      cards.removeWhere((element) => !element.title!.contains(query));
+      cards.removeWhere((element) => !element.title.contains(query));
       final lsTemp = list.copyWith(cards: cards);
       listSearch.add(lsTemp);
     }
@@ -205,11 +204,12 @@ class BoardDetailBloc extends BlocBase {
   }
 
   Future<void> onTapUpdateBoard() async {
+    if (appBloc.selectedBoardSubject.value == null) return;
     isLoadingAddSubject.value = true;
     final result = await graphqlService.client.mutate$UpdateBoard(
       Options$Mutation$UpdateBoard(
         variables: Variables$Mutation$UpdateBoard(
-          idBoard: boardBloc.selectedBoardSubject.value!.id,
+          idBoard: appBloc.selectedBoardSubject.value!.id,
           input: Input$InputUpdateBoard(
             title: titleBoardSubject.value,
           ),
@@ -316,6 +316,7 @@ class BoardDetailBloc extends BlocBase {
   void onTapBack() {
     if (isLoadingSubject.value) return;
     appBarEnumSubject.value = null;
+    appBloc.selectedBoardSubject.value = currentBoardSubject.value;
     routerService.pop();
   }
 

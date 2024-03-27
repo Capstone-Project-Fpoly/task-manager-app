@@ -33,10 +33,10 @@ class BoardDetailAppBarDraggingCard extends StatelessWidget
             builder: (context) {
               return const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.folder_delete_rounded,
-                    color: Colors.white,
                   ),
                   SizedBoxConstants.w10,
                   Text(

@@ -12,6 +12,7 @@ import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/create_card.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
 import 'package:task_manager/graphql/queries/board/get_user_of_board.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
 
 class AddCardBloc extends BlocBase {
   final Ref ref;
@@ -86,13 +87,16 @@ class AddCardBloc extends BlocBase {
     focusNodeName.unfocus();
     focusNodeDescription.unfocus();
     if (selectedListSubject.value == null) return;
-    if (nameCardSubject.value!.isEmpty) return;
+    if (nameCardSubject.value == null || nameCardSubject.value!.isEmpty) return;
     isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$CreateCard(
       Options$Mutation$CreateCard(
         variables: Variables$Mutation$CreateCard(
-          title: titleCrad,
-          idList: selectedListSubject.value!.id,
+          input: Input$InputCreateCard(
+            idList: selectedListSubject.value!.id,
+            reminder: Enum$Reminder.Unknown,
+            title: titleCrad,
+          ),
         ),
       ),
     );
@@ -138,7 +142,9 @@ class AddCardBloc extends BlocBase {
   void getListByIdBoard() async {
     isSubmitSubject.value = false;
     isSubmitListSubject.value = false;
-    final String idBoard = selectedBoardSubject.value!.id.trim();
+    final String? idBoard = selectedBoardSubject.value?.id;
+    if (idBoard == null) return;
+    idBoard.trim();
     if (idBoard.isEmpty) return;
     isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$getList(
@@ -248,6 +254,7 @@ class AddCardBloc extends BlocBase {
   }
 
   late final appBloc = ref.read(BlocProvider.app);
+
   AddCardBloc(this.ref) {
     init();
   }

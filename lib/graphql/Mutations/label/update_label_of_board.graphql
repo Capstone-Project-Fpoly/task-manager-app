@@ -1,0 +1,5 @@
+mutation UpdateLabelOfBoard($idLabel: String!, $color: String!,$title: String) {
+    updateLabelOfBoard(idLabel: $idLabel, color: $color,title: $title) {
+        ...LabelFragment
+    }
+}

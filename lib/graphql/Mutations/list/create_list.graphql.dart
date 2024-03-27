@@ -1,6 +1,7 @@
 import '../../Fragment/card_fragment.graphql.dart';
 import '../../Fragment/check_list_fragment.graphql.dart';
 import '../../Fragment/comment_fragment.graphql.dart';
+import '../../Fragment/label_fragment.graphql.dart';
 import '../../Fragment/list_fragment.graphql.dart';
 import '../../Fragment/user_fragment.graphql.dart';
 import 'dart:async';
@@ -342,6 +343,7 @@ const documentNodeMutationCreateList = DocumentNode(definitions: [
   fragmentDefinitionCardFragment,
   fragmentDefinitionUserFragment,
   fragmentDefinitionCommentFragment,
+  fragmentDefinitionLabelFragment,
   fragmentDefinitionCheckListFragment,
 ]);
 Mutation$CreateList _parserFn$Mutation$CreateList(Map<String, dynamic> data) =>

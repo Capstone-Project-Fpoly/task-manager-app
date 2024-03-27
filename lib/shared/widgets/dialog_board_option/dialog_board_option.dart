@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
+import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 //import 'package:task_manager/base/dependency/app_service.dart';
 
 class ShowDialogBoardOption extends ConsumerWidget {
+  final VoidCallback? functionWhenCloseSettingBoard;
   const ShowDialogBoardOption({
     Key? key,
+    this.functionWhenCloseSettingBoard,
   }) : super(key: key);
 
   @override
   Widget build(context, ref) {
-    final bloc = ref.watch(BlocProvider.board);
+    final bloc = ref.watch(BlocProvider.app);
+    final routerService = ref.watch(AppService.router);
     // final routerService = ref.watch(AppService.router);
     return ObsBuilder(
       streams: [
         bloc.selectedBoardSubject,
-        bloc.isOwnerBroadSubject,
       ],
       builder: (context) {
-        final isOwnerBroad = bloc.isOwnerBroadSubject.value;
-        final titleDialog = bloc.selectedBoardSubject.value!.title;
+        final board = bloc.selectedBoardSubject.value;
+        final user = bloc.userSubject.value;
+        final isOwnerBroad = user?.uid == board?.ownerUser?.uid;
+        final titleDialog = board?.title;
         return AlertDialog(
           title: Text(
-            titleDialog!,
+            titleDialog ?? '',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -39,8 +45,10 @@ class ShowDialogBoardOption extends ConsumerWidget {
               ),
               if (isOwnerBroad)
                 TextButton(
-                  onPressed: () {
-                    bloc.onTapSettingBoard();
+                  onPressed: () async {
+                    routerService.pop();
+                    await routerService.push(RouteInput.settingBoard());
+                    functionWhenCloseSettingBoard?.call();
                   },
                   child: const Text('Cài Đặt bảng'),
                 ),
@@ -54,10 +62,19 @@ class ShowDialogBoardOption extends ConsumerWidget {
                     //Đóng Bảng
                   } else {
                     //Rời bảng
-                    bloc.showDialogLeaveBoard(context: context);
+                    routerService.pop();
+                    bloc.onTapLeaveBoard(
+                      context: context,
+                      boardId: board?.id ?? '',
+                    );
                   }
                 },
-                child: Text(isOwnerBroad ? 'Đóng Bảng' : 'Rời Bảng'),
+                child: Text(
+                  isOwnerBroad ? 'Đóng Bảng' : 'Rời Bảng',
+                  style: const TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
               ),
             ],
           ),

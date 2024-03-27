@@ -7,10 +7,11 @@ import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
-import 'package:task_manager/feature/board/dialog_board_option/dialog_board_option.dart';
+import 'package:task_manager/feature/board/extension/board_bloc_extension.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/leave_board.graphql.dart';
+import 'package:task_manager/shared/widgets/dialog_board_option/dialog_board_option.dart';
 import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
 
 class BoardBloc extends BlocBase {
@@ -19,11 +20,9 @@ class BoardBloc extends BlocBase {
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   final extendSubject = BehaviorSubject<bool>.seeded(false);
   final clickSubject = BehaviorSubject<bool>.seeded(false);
-  final selectedBoardSubject =
-      BehaviorSubject<Fragment$BoardFragment?>.seeded(null);
+  late final appBloc = ref.watch(BlocProvider.app);
+
   final listBoardSubject =
-      BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
-  final listBoardSearchSubject =
       BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
@@ -32,11 +31,12 @@ class BoardBloc extends BlocBase {
   //
   final selectedSearchSubject = BehaviorSubject<bool>.seeded(false);
   final searchTextSubject = BehaviorSubject<String>.seeded('');
-
-  final idUserSubject = BehaviorSubject<String>.seeded('');
   final isOwnerBroadSubject = BehaviorSubject<bool>.seeded(false);
+  final groupByBoardSubject =
+      BehaviorSubject<List<List<Fragment$BoardFragment?>>>.seeded([]);
+
   void init() {
-    getBoard();
+    getBoards();
   }
 
   @override
@@ -47,17 +47,18 @@ class BoardBloc extends BlocBase {
     clickSubject.close();
     isLoadingSubject.close();
     listBoardSubject.close();
-    selectedBoardSubject.close();
     selectedSearchSubject.close();
     searchTextSubject.close();
-    listBoardSearchSubject.close();
-    idUserSubject.close();
     isOwnerBroadSubject.close();
+    groupByBoardSubject.close();
   }
 
   void openSearch(bool open) {
-    listBoardSearchSubject.value = listBoardSubject.value;
     selectedSearchSubject.value = open;
+    if (!open) {
+      searchTextSubject.value = '';
+      restoreBoard();
+    }
   }
 
   void changeClick(bool change) {
@@ -66,21 +67,25 @@ class BoardBloc extends BlocBase {
 
   void searchLocalBoard(String query) {
     if (query.isEmpty) {
-      listBoardSearchSubject.value = listBoardSubject.value;
+      restoreBoard();
       return;
     }
-    final list = listBoardSubject.value;
+    final list = [...listBoardSubject.value];
     final result = list
         .where((element) => element?.title?.contains(query) ?? false)
         .toList();
-    listBoardSearchSubject.value = result;
+    final groupBoard = groupByBoards([...result]);
+    groupByBoardSubject.value = groupBoard.values.toList();
   }
 
-  void onTapToDragAndDrop({required Fragment$BoardFragment? board}) {
+  Future<void> onTapToDetailBoard({
+    required Fragment$BoardFragment? board,
+  }) async {
     selectedSearchSubject.value = false;
-    selectedBoardSubject.value = board;
+    appBloc.selectedBoardSubject.value = board;
     if (board == null) return;
-    routerService.push(RouteInput.boardDetail(boardFragment: board));
+    await routerService.push(RouteInput.boardDetail(boardFragment: board));
+    updateBoardWhenOnTap();
   }
 
   void onTapToNotification() {
@@ -88,19 +93,33 @@ class BoardBloc extends BlocBase {
     routerService.push(RouteInput.notification());
   }
 
-  void onTapSettingBoard() {
+  Future<void> onTapSettingBoard() async {
     routerService.pop();
-    routerService.push(RouteInput.settingBoard());
+    final result = await routerService.push(RouteInput.settingBoard());
+    selectedSearchSubject.value = false;
+    restoreBoard();
+    if (result == null) return;
+    updateBoardWhenOnTap();
+  }
+
+  void updateBoardWhenOnTap() {
+    final currentBoards = [...listBoardSubject.value];
+    final selectedBoard = appBloc.selectedBoardSubject.value;
+    final index = currentBoards.indexWhere(
+      (element) => element?.id == selectedBoard?.id,
+    );
+    currentBoards[index] = appBloc.selectedBoardSubject.value;
+    listBoardSubject.value = currentBoards;
+    restoreBoard();
   }
 
   Future<void> dialogShowOptionBoard({
     required BuildContext context,
     required Fragment$BoardFragment? board,
   }) async {
-    selectedSearchSubject.value = false;
-    selectedBoardSubject.value = board;
-    idUserSubject.value = appBloc.userSubject.value!.uid;
-    if (idUserSubject.value == board?.ownerUser.uid) {
+    appBloc.selectedBoardSubject.value = board;
+    final uid = appBloc.userSubject.value?.uid ?? '';
+    if (uid == board?.ownerUser?.uid) {
       isOwnerBroadSubject.value = true;
     } else {
       isOwnerBroadSubject.value = false;
@@ -117,7 +136,7 @@ class BoardBloc extends BlocBase {
     selectedSearchSubject.value = false;
     try {
       final result = await routerService.push(RouteInput.addBoard()) as bool;
-      if (result) getBoard();
+      if (result) getBoards();
     } catch (e) {
       return;
     }
@@ -141,7 +160,7 @@ class BoardBloc extends BlocBase {
             final result = await graphqlService.client.mutate$LeaveBoard(
               Options$Mutation$LeaveBoard(
                 variables: Variables$Mutation$LeaveBoard(
-                  idBoard: selectedBoardSubject.value!.id.trim(),
+                  idBoard: appBloc.selectedBoardSubject.value!.id.trim(),
                 ),
               ),
             );
@@ -152,6 +171,7 @@ class BoardBloc extends BlocBase {
               routerService.pop(result: false);
               return;
             }
+            getBoards();
             routerService.pop();
           },
           title: 'Rời Bảng',
@@ -161,7 +181,7 @@ class BoardBloc extends BlocBase {
     );
   }
 
-  void getBoard() async {
+  void getBoards() async {
     isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$getBoards(
       Options$Mutation$getBoards(),
@@ -181,9 +201,13 @@ class BoardBloc extends BlocBase {
       return;
     }
     listBoardSubject.value = result.parsedData?.getBoards ?? [];
+    restoreBoard();
   }
 
-  late final appBloc = ref.read(BlocProvider.app);
+  void restoreBoard() {
+    final groupBoard = groupByBoards([...listBoardSubject.value]);
+    groupByBoardSubject.value = groupBoard.values.toList();
+  }
 
   BoardBloc(this.ref) {
     init();

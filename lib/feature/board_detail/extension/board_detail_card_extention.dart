@@ -14,8 +14,11 @@ extension BoardDetailCardExtention on BoardDetailBloc {
     final result = await graphqlService.client.mutate$CreateCard(
       Options$Mutation$CreateCard(
         variables: Variables$Mutation$CreateCard(
-          idList: idList,
-          title: title,
+          input: Input$InputCreateCard(
+            idList: idList,
+            reminder: Enum$Reminder.Unknown,
+            title: title,
+          ),
         ),
       ),
     );

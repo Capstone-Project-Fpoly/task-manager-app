@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
-import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/my_card/widget/list_search_by_board_widget.dart';
 import 'package:task_manager/feature/my_card/widget/list_search_by_date_widget.dart';
@@ -108,72 +107,6 @@ class MyCardScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBoxConstants.h8,
-              Padding(
-                padding:
-                    EdgeInsetsConstants.left12 + EdgeInsetsConstants.right8,
-                child: Row(
-                  children: [
-                    PopupMenuButton(
-                      itemBuilder: (context) => <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                          onTap: () => bloc.onSelectFilter(false),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 30,
-                                child: !bloc.isFindCardByBoardSubject.value
-                                    ? const Icon(Icons.check)
-                                    : null,
-                              ),
-                              const Text('Ngày hết hạn'),
-                            ],
-                          ),
-                        ),
-                        PopupMenuItem<String>(
-                          onTap: () => bloc.onSelectFilter(true),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 30,
-                                child: bloc.isFindCardByBoardSubject.value
-                                    ? const Icon(Icons.check)
-                                    : null,
-                              ),
-                              const Text('Bảng'),
-                            ],
-                          ),
-                        ),
-                      ],
-                      constraints: BoxConstraints(
-                        minWidth: MediaQuery.of(context).size.width * 0.1,
-                      ),
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        child: const Icon(
-                          Icons.sort,
-                          size: 25,
-                          color: Colors.blueAccent,
-                        ),
-                      ),
-                    ),
-                    SizedBoxConstants.w8,
-                    bloc.isFindCardByBoardSubject.value
-                        ? const Expanded(
-                            child: Text(
-                              'Thẻ của tôi được sắp xếp theo bảng',
-                              style: AppTextStyle.black(fontSize: 18),
-                            ),
-                          )
-                        : const Expanded(
-                            child: Text(
-                              'Thẻ của tôi được sắp xếp theo ngày hết hạn',
-                              style: AppTextStyle.black(fontSize: 18),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                  ],
-                ),
-              ),
               SizedBoxConstants.h8,
               ObsBuilder(
                 streams: [bloc.isFocusSubject],

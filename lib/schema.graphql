@@ -2,22 +2,24 @@ type Board {
   color: String
   createdAt: String!
   id: String!
-  isPublic: Boolean!
-  ownerUser: User!
+  isPublic: Boolean
+  ownerUser: User
   title: String
 }
 
 type Card {
+  boardId: String
   checkLists: [CheckList!]
   comments: [Comment!]
   createdAt: String!
-  createdBy: User!
+  createdBy: User
   description: String
   endDate: String
   id: String!
+  labels: [LabelCard!]
   reminder: Reminder!
   startedDate: String
-  title: String
+  title: String!
   users: [User!]
 }
 
@@ -36,8 +38,19 @@ type Comment {
   comment: String!
   createdAt: String!
   id: String!
-  updatedAt: String!
-  user: User!
+  updatedAt: String
+  user: User
+}
+
+input InputCreateCard {
+  checkLists: [CheckListInput!]
+  description: String
+  endDate: String
+  idList: String!
+  reminder: Reminder!
+  startedDate: String
+  title: String!
+  users: [String!]
 }
 
 input InputEmail {
@@ -73,6 +86,7 @@ input InputUpdateCard {
   description: String
   endDate: String
   idCard: String!
+  labels: [String!]
   reminder: Reminder!
   startedDate: String
   title: String
@@ -84,10 +98,16 @@ input InputVerifyEmail {
   otp: String!
 }
 
+type LabelCard {
+  color: String
+  id: String!
+  title: String
+}
+
 type List {
   cards: [Card!]
   createdAt: String!
-  createdBy: User!
+  createdBy: User
   id: String!
   label: String!
 }
@@ -95,15 +115,18 @@ type List {
 type Mutation {
   acceptInviteToBoard(idBoard: String!, idNotification: String!): Boolean
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
-  createCard(idList: String!, title: String!): Card
+  createCard(input: InputCreateCard!): Card
   createComment(content: String!, idCard: String!): Comment
+  createLabelOfBoard(color: String!, idBoard: String!, title: String): LabelCard
   createList(idBoard: String!, label: String!): List
   deleteCard(idCard: String!, idList: String!): Boolean
   deleteComment(content: String!, idCard: String!): Boolean
+  deleteLabelOfBoard(idLabel: String!): Boolean
   deleteList(idList: String!): Boolean
   getBoards: [Board]
   getCard(idCard: String!): Card
   getComments(idCard: String!): [Comment]
+  getLabelsOfBoard(idBoard: String!): [LabelCard]
   getLists(idBoard: String!): [List]
   inviteUsersToBoard(idBoard: String!, idUsers: [String!]): Boolean
   leaveBoard(idBoard: String!): Boolean
@@ -120,6 +143,7 @@ type Mutation {
   updateBoard(idBoard: String!, input: InputUpdateBoard!): Board
   updateCard(input: InputUpdateCard!): Card
   updateComment(content: String!, idComment: String!): Comment
+  updateLabelOfBoard(color: String!, idLabel: String!, title: String): LabelCard
   updateList(idList: String!, label: String!): List
   verifyEmail(input: InputVerifyEmail!): Boolean
 }
@@ -127,9 +151,10 @@ type Mutation {
 type Notification {
   content: String!
   createdAt: String!
-  creator: User!
-  data: String!
+  creator: User
+  data: String
   id: String!
+  idBoard: String
   is_seen: Boolean!
   title: String!
   topic: TopicNotification!
@@ -172,7 +197,7 @@ enum TopicNotification {
 
 type User {
   avatar: String
-  createdAt: String
+  createdAt: String!
   email: String
   fullName: String
   uid: String!
