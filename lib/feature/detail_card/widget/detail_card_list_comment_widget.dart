@@ -5,6 +5,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_comment_extension.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 
@@ -27,6 +28,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
           child: Column(
             children: [
               Row(
+                key: bloc.keyListComment,
                 children: [
                   SizedBoxConstants.w12,
                   Text(
@@ -155,19 +157,18 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                           const Spacer(),
                           PopupMenuButton(
                             itemBuilder: (context) => [
-                              const PopupMenuItem(
+                              PopupMenuItem(
                                 value: 'delete',
-                                child: Text(
+                                child: const Text(
                                   'Xóa',
                                   style: TextStyle(color: ColorConstants.red),
                                 ),
-                              ),
-                              const PopupMenuItem(
-                                value: 'edit',
-                                child: Text('Chỉnh sửa'),
+                                onTap: () => bloc.onTapConfirmDeleteComment(
+                                  context: context,
+                                  idComment: comment.id,
+                                ),
                               ),
                             ],
-                            onSelected: (value) {},
                             constraints: BoxConstraints(
                               minWidth: width - 350,
                             ),

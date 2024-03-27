@@ -41,6 +41,7 @@ class DetailCardScreen extends ConsumerWidget {
                 );
               }
               return SingleChildScrollView(
+                controller: bloc.scrollDetailCardController,
                 child: Column(
                   children: [
                     SizedBoxConstants.h40,

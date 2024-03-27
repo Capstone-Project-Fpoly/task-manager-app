@@ -3,6 +3,7 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_checklist_extension.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_on_back_extension.dart';
 
 class DetailCardAddAppBarCheckList extends StatelessWidget
     implements PreferredSizeWidget {

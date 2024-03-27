@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_comment_extension.dart';
 import 'package:task_manager/shared/widgets/icons/send_icon.dart';
 
 class DetailCardCommentFieldWidget extends ConsumerWidget {
@@ -68,25 +69,36 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
               ),
               InkWell(
                 onTap: () {
-                  bloc.sendComment();
+                  bloc.onTapSendComment();
                 },
                 child: Ink(
                   padding: const EdgeInsets.symmetric(
                     vertical: 10,
                   ),
                   child: ObsBuilder(
-                    streams: [bloc.isChatCommentSubject],
+                    streams: [
+                      bloc.isChatCommentSubject,
+                      bloc.isLoadingAddCommentSubject,
+                    ],
                     builder: (context) {
                       return !bloc.isChatCommentSubject.value
                           ? const SendIcon(
                               width: 20,
                               height: 20,
                             )
-                          : const SendIcon(
-                              width: 20,
-                              height: 20,
-                              color: ColorConstants.primary,
-                            );
+                          : bloc.isLoadingAddCommentSubject.value
+                              ? const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    color: ColorConstants.primary,
+                                  ),
+                                )
+                              : const SendIcon(
+                                  width: 20,
+                                  height: 20,
+                                  color: ColorConstants.primary,
+                                );
                     },
                   ),
                 ),
