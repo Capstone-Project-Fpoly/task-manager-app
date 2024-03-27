@@ -6,8 +6,9 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/feature/board/board_bloc.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/color.dart';
-import 'package:task_manager/shared/widgets/ads_banner.dart';
 import 'package:task_manager/shared/widgets/drawer/app_drawer.dart';
 import 'package:task_manager/shared/widgets/icons/card_icon.dart';
 import 'package:task_manager/shared/widgets/icons/empty.dart';
@@ -21,6 +22,8 @@ class BoardScreen extends ConsumerWidget {
     final bloc = ref.watch(BlocProvider.board);
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
+    final appBloc = ref.watch(BlocProvider.app);
+    final me = appBloc.userSubject.value;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -42,6 +45,7 @@ class BoardScreen extends ConsumerWidget {
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.white),
                 ),
+                autofocus: true,
                 style: const TextStyle(
                   color: Colors.white,
                 ),
@@ -85,134 +89,58 @@ class BoardScreen extends ConsumerWidget {
         ],
       ),
       drawer: const AppDrawer(),
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          ObsBuilder(
-            streams: [
-              bloc.listBoardSubject,
-              bloc.isLoadingSubject,
-              bloc.listBoardSearchSubject,
-              bloc.selectedSearchSubject,
-            ],
-            builder: (context) {
-              final isSearch = bloc.selectedSearchSubject.value;
-              if (bloc.isLoadingSubject.value) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              final boards = isSearch
-                  ? bloc.listBoardSearchSubject.value
-                  : bloc.listBoardSubject.value;
-              return bloc.listBoardSubject.value.isEmpty
-                  ? SizedBox(
-                      width: width,
-                      height: height,
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Bạn hiện chưa có bảng nào...',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          EmptyIcon(
-                            width: 100,
-                          ),
-                        ],
-                      ),
-                    )
-                  : RefreshIndicator(
-                      onRefresh: () async {
-                        bloc.getBoard();
-                      },
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            width: width,
-                            height: 50,
-                            color: Colors.black.withOpacity(0.7),
-                            padding: EdgeInsetsConstants.horizontal12,
-                            child: const Row(
-                              children: [
-                                Text(
-                                  'Không gian làm việc ',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Spacer(),
-                                InkWell(
-                                  child: Icon(
-                                    Icons.more_horiz,
-                                    color: Color(0xFFFFFFFF),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: SizedBox(
-                              height: height - 50,
-                              child: ListView.separated(
-                                itemBuilder: (context, index) {
-                                  final board = boards[index];
-                                  return InkWell(
-                                    onTap: () => bloc.onTapToDragAndDrop(
-                                      board: board,
-                                    ),
-                                    onLongPress: () {
-                                      //_openDialog(context , board?.title ?? '');
-                                      bloc.dialogShowOptionBoard(
-                                        context: context,
-                                        board: board,
-                                      );
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsetsConstants.vertical10 +
-                                          EdgeInsetsConstants.horizontal12,
-                                      width: width,
-                                      height: 60,
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            width: 60,
-                                            height: 40,
-                                            decoration: BoxDecoration(
-                                              color: ColorUtils.getColorFromHex(
-                                                board?.color,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text(
-                                            board?.title ?? '',
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(),
-                                itemCount: boards.length,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-            },
-          ),
-          const Positioned(
-            bottom: 0,
-            child: AdsBanner(),
-          ),
+      body: ObsBuilder(
+        streams: [
+          bloc.isLoadingSubject,
+          bloc.selectedSearchSubject,
+          bloc.groupByBoardSubject,
         ],
+        builder: (context) {
+          // final isSearch = bloc.selectedSearchSubject.value;
+          final groupedByBoard = bloc.groupByBoardSubject.value;
+          if (bloc.isLoadingSubject.value) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          // final boards = isSearch
+          //     ? bloc.listBoardSearchSubject.value
+          //     : bloc.listBoardSubject.value;
+          if (bloc.listBoardSubject.value.isEmpty) {
+            return SizedBox(
+              width: width,
+              height: height,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Bạn hiện chưa có bảng nào...',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  EmptyIcon(
+                    width: 100,
+                  ),
+                ],
+              ),
+            );
+          }
+          return RefreshIndicator(
+            onRefresh: () async {
+              bloc.getBoards();
+            },
+            child: ListView.builder(
+              itemCount: groupedByBoard.length,
+              itemBuilder: (context, index) {
+                final boards = groupedByBoard[index];
+                return itemBoard(
+                  width: width,
+                  height: height,
+                  boards: boards,
+                  bloc: bloc,
+                  isCreated: me?.uid == boards.first?.ownerUser?.uid,
+                );
+              },
+            ),
+          );
+        },
       ),
       floatingActionButton: ObsBuilder(
         streams: [
@@ -293,6 +221,91 @@ class BoardScreen extends ConsumerWidget {
           );
         },
       ),
+    );
+  }
+
+  Widget itemBoard({
+    required double width,
+    required double height,
+    required List<Fragment$BoardFragment?> boards,
+    required BoardBloc bloc,
+    required bool isCreated,
+  }) {
+    final board = boards.first;
+    if (board == null) {
+      return const SizedBox.shrink();
+    }
+    final text =
+        isCreated ? 'Bảng của tôi' : 'Bảng của ${board.ownerUser?.fullName}';
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          alignment: Alignment.centerLeft,
+          width: width,
+          height: 50,
+          color: Colors.black.withOpacity(0.7),
+          padding: EdgeInsetsConstants.horizontal12,
+          child: Row(
+            children: [
+              Text(
+                text,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+        ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            final board = boards[index];
+            return InkWell(
+              onTap: () => bloc.onTapToDetailBoard(
+                board: board,
+              ),
+              onLongPress: () {
+                //_openDialog(context , board?.title ?? '');
+                bloc.dialogShowOptionBoard(
+                  context: context,
+                  board: board,
+                );
+              },
+              child: Container(
+                padding: EdgeInsetsConstants.vertical10 +
+                    EdgeInsetsConstants.horizontal12,
+                width: width,
+                height: 60,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: ColorUtils.getColorFromHex(
+                          board?.color,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      board?.title ?? '',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+          separatorBuilder: (context, index) => const SizedBox(),
+          itemCount: boards.length,
+        ),
+      ],
     );
   }
 }
