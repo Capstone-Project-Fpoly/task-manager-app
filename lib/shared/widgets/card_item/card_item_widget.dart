@@ -4,6 +4,7 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
+import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 
 class CardItemWidget extends ConsumerWidget {
   final Fragment$CardFragment? card;
@@ -34,27 +35,6 @@ class CardItemWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (false)
-            Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  topLeft: Radius.circular(10),
-                ),
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  topLeft: Radius.circular(10),
-                ),
-                child: Image.network(
-                  'https://phunugioi.com/wp-content/uploads/2020/10/hinh-anh-thien-nhien-buon.jpg',
-                  fit: BoxFit.cover, // Đảm bảo ảnh được đầy đủ trong phần cắt
-                ),
-              ),
-            ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsetsConstants.left12 +
@@ -200,6 +180,22 @@ class CardItemWidget extends ConsumerWidget {
                                   style: const TextStyle(fontSize: 12),
                                 ),
                               ],
+                            ),
+                          ),
+                        if (card!.users != null)
+                          Container(
+                            margin: EdgeInsetsConstants.top8,
+                            child: Wrap(
+                              spacing: 2,
+                              runSpacing: 2,
+                              children: card!.users!
+                                  .map(
+                                    (user) => AppCircleAvatar(
+                                      url: '${user.avatar}',
+                                      width: 40,
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ),
                       ],

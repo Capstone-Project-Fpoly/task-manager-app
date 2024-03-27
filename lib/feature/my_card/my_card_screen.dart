@@ -21,7 +21,7 @@ class MyCardScreen extends ConsumerWidget {
       streams: [bloc.isFindCardByBoardSubject],
       builder: (context) {
         return Scaffold(
-          backgroundColor: Colors.grey.withOpacity(0.15),
+          backgroundColor: Colors.grey.withOpacity(0.25),
           appBar: AppBar(
             leading: IconButton(
               icon: const Icon(
