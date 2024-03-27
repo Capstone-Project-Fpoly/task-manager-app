@@ -4,8 +4,11 @@ import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/base/dependency/router/arguments/detail_card_argument.dart';
+import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/notification/enum/notification_options.dart';
 import 'package:task_manager/feature/notification/widget/notification_option_bottom_sheet.dart';
+import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/notification_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/accept_invite_user_to_board.graphql.dart';
 import 'package:task_manager/graphql/Mutations/notification/seen_notification.graphql.dart';
@@ -30,7 +33,14 @@ class NotificationBloc extends BlocBase {
       BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
   final noSeenNotificationListSubject =
       BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
-
+  final notificationListCardSubject =
+  BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
+  final notificationListCommentSubject =
+  BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
+  final notificationListInviteSubject =
+  BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
+  final notificationListAllSubject =
+  BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
   @override
   void dispose() {
     selectedOptionSubject.close();
@@ -38,6 +48,10 @@ class NotificationBloc extends BlocBase {
     isLoadingSubject.close();
     notificationListSubject.close();
     noSeenNotificationListSubject.close();
+    notificationListCardSubject.close();
+    notificationListCommentSubject.close();
+    notificationListInviteSubject.close();
+    notificationListAllSubject.close();
     super.dispose();
   }
 
@@ -56,6 +70,28 @@ class NotificationBloc extends BlocBase {
 
   void onTapOption({required NotificationOptionsEnum option}) {
     selectedOptionSubject.value = option;
+
+    if (option == NotificationOptionsEnum.card) {
+      notificationListSubject.value = notificationListCardSubject.value;
+      noSeenNotificationListSubject.value = notificationListCardSubject.value
+          .where((element) => element?.is_seen == false)
+          .toList();
+    }else if(option == NotificationOptionsEnum.comment){
+      notificationListSubject.value = notificationListCommentSubject.value;
+      noSeenNotificationListSubject.value = notificationListCommentSubject.value
+          .where((element) => element?.is_seen == false)
+          .toList();
+    }else if(option == NotificationOptionsEnum.invite){
+      notificationListSubject.value = notificationListInviteSubject.value;
+      noSeenNotificationListSubject.value = notificationListInviteSubject.value
+          .where((element) => element?.is_seen == false)
+          .toList();
+    }else{
+      notificationListSubject.value = notificationListAllSubject.value;
+      noSeenNotificationListSubject.value = notificationListAllSubject.value
+          .where((element) => element?.is_seen == false)
+          .toList();
+    }
     routerService.pop();
   }
 
@@ -90,6 +126,20 @@ class NotificationBloc extends BlocBase {
     noSeenNotificationListSubject.value = notificationListSubject.value
         .where((element) => element?.is_seen == false)
         .toList();
+    final list = notificationListSubject.value;
+    notificationListAllSubject.value = list;
+    final result1 = list
+        .where((element) => element?.topic.toString().contains('Enum\$TopicNotification.Card') ?? false,)
+        .toList();
+    notificationListCardSubject.value = result1;
+    final result2 = list
+        .where((element) => element?.topic.toString().contains('Enum\$TopicNotification.Comment') ?? false,)
+        .toList();
+    notificationListCommentSubject.value = result2;
+    final result3 = list
+        .where((element) => element?.topic.toString().contains('Enum\$TopicNotification.InviteUserToBoard') ?? false,)
+        .toList();
+    notificationListInviteSubject.value = result3;
   }
 
   void seenLocalNotification(String idNotification) {
@@ -109,15 +159,40 @@ class NotificationBloc extends BlocBase {
     notificationListSubject.value = listTemp;
   }
 
-  void onTapNotificationItem({
-    required String? idNotification,
+  Future<void> onTapNotificationItem({
+    required Fragment$NotificationFragment? notification,
     required bool isSeen,
-  }) {
-    if (idNotification == null) return;
+  }) async {
+    if (notification?.id == null) return;
     //hàm next hàm hình
+    Fragment$BoardFragment? board;
+    String? idCard;
+    for(var i=0;i<=boardBloc.listBoardSubject.value.length;i++){
+      if(boardBloc.listBoardSubject.value[i]?.id == notification?.idBoard){
+        board = boardBloc.listBoardSubject.value[i];
+        break;
+      }
+    }
 
+    if(notification?.topic.toString() =='Enum\$TopicNotification.RemoveUserFromBoard')return;
+    if(notification?.topic.toString() =='Enum\$TopicNotification.Card'||notification?.topic.toString() =='Enum\$TopicNotification.Comment'||notification?.topic.toString() =='Enum\$TopicNotification.CheckList'){
+      idCard = notification?.data;
+      if (idCard == null || idCard.isEmpty) return;
+      final detailCardArgument = DetailCardArgument(
+        idCard: idCard,
+        idBoard: board?.id??'',
+      );
+      await routerService.push(
+        RouteInput.detailCard(
+          detailCardArgument: detailCardArgument,
+        ),
+      );
+    }else{
+      if (board == null) return;
+      routerService.push(RouteInput.boardDetail(boardFragment: board));
+    }
     if (isSeen) return;
-    seenLocalNotification(idNotification);
+    seenLocalNotification(notification?.id??'');
   }
 
   Future<void> seenNotification(String idNotification) async {
