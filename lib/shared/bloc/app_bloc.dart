@@ -115,7 +115,18 @@ class AppBloc extends BlocBase with BoardMixin {
     return result.parsedData?.me;
   }
 
-  Future<void> _onInAppFirebaseMessage(RemoteMessage message) async {}
+  Future<void> _onInAppFirebaseMessage(RemoteMessage message) async {
+
+    if (message.notification == null) return;
+    final title = message.notification!.title?? '';
+    final body = message.notification!.body?? '';
+
+    toastService.showToastNotification(
+      builder: (context) {
+        return CustomToastNotification(title: title,body: body);
+      },
+    );
+  }
 
   Future<void> onTapLogout() async {
     isLoadingSubject.value = true;
