@@ -182,24 +182,25 @@ class CardItemWidget extends ConsumerWidget {
                               ],
                             ),
                           ),
-                        if (card!.users != null)
-                          Container(
-                            margin: EdgeInsetsConstants.top8,
-                            child: Wrap(
-                              spacing: 2,
-                              runSpacing: 2,
-                              children: card!.users!
-                                  .map(
-                                    (user) => AppCircleAvatar(
-                                      url: '${user.avatar}',
-                                      width: 40,
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
                       ],
                     ),
+                    if (card!.users != null)
+                      Container(
+                        margin: EdgeInsetsConstants.top8,
+                        alignment: Alignment.centerRight,
+                        child: Wrap(
+                          spacing: 2,
+                          runSpacing: 2,
+                          children: card!.users!
+                              .map(
+                                (user) => AppCircleAvatar(
+                                  url: '${user.avatar}',
+                                  width: 40,
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
                   ],
                 ),
               ],
