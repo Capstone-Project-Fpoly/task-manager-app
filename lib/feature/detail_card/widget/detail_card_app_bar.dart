@@ -4,6 +4,7 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_app_bar_enum_extension.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_on_back_extension.dart';
 import 'package:task_manager/shared/enum/option_detail_card_enum.dart';
 
 class DetailCardAddAppBar extends StatelessWidget

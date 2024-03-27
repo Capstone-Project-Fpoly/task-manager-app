@@ -9,9 +9,11 @@ class CustomToastNotification extends StatelessWidget {
   final String title;
   final String body;
 
-  const CustomToastNotification(
-      {Key? key, required this.title, required this.body,})
-      : super(key: key);
+  const CustomToastNotification({
+    Key? key,
+    required this.title,
+    required this.body,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

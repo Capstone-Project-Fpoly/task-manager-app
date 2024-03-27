@@ -233,9 +233,7 @@ class DetailCardScreen extends ConsumerWidget {
                       color: ColorConstants.divider,
                     ),
                     SizedBoxConstants.h8,
-                    DetailCardListCommentWidget(
-                      key: bloc.keyListComment,
-                    ),
+                    const DetailCardListCommentWidget(),
                     SizedBoxConstants.h80,
                   ],
                 ),

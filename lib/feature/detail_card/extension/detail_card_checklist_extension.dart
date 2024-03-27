@@ -71,4 +71,9 @@ extension DetailCardCheckListExtension on DetailCardBloc {
     newCheckListItems[index] = newCheckList;
     listCheckListSubject.value = newCheckListItems;
   }
+
+  void onTapChecklistField() {
+    appBarEnumSubject.value = DetailCardAppBarEnum.checklist;
+    focusNodeChecklist.requestFocus();
+  }
 }

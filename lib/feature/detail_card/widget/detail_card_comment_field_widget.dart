@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_comment_extension.dart';
 import 'package:task_manager/shared/widgets/icons/send_icon.dart';
 
 class DetailCardCommentFieldWidget extends ConsumerWidget {
@@ -68,7 +69,7 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
               ),
               InkWell(
                 onTap: () {
-                  bloc.sendComment();
+                  bloc.onTapSendComment();
                 },
                 child: Ink(
                   padding: const EdgeInsets.symmetric(
