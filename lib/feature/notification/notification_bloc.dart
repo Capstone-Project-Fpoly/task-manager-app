@@ -13,6 +13,7 @@ import 'package:task_manager/graphql/Fragment/notification_fragment.graphql.dart
 import 'package:task_manager/graphql/Mutations/board/accept_invite_user_to_board.graphql.dart';
 import 'package:task_manager/graphql/Mutations/notification/seen_notification.graphql.dart';
 import 'package:task_manager/graphql/queries/notification/notification_collection.graphql.dart';
+import 'package:task_manager/schema.graphql.dart';
 
 class NotificationBloc extends BlocBase {
   final Ref ref;
@@ -70,27 +71,31 @@ class NotificationBloc extends BlocBase {
 
   void onTapOption({required NotificationOptionsEnum option}) {
     selectedOptionSubject.value = option;
-
-    if (option == NotificationOptionsEnum.card) {
-      notificationListSubject.value = notificationListCardSubject.value;
-      noSeenNotificationListSubject.value = notificationListCardSubject.value
-          .where((element) => element?.is_seen == false)
-          .toList();
-    } else if (option == NotificationOptionsEnum.comment) {
-      notificationListSubject.value = notificationListCommentSubject.value;
-      noSeenNotificationListSubject.value = notificationListCommentSubject.value
-          .where((element) => element?.is_seen == false)
-          .toList();
-    } else if (option == NotificationOptionsEnum.invite) {
-      notificationListSubject.value = notificationListInviteSubject.value;
-      noSeenNotificationListSubject.value = notificationListInviteSubject.value
-          .where((element) => element?.is_seen == false)
-          .toList();
-    } else {
-      notificationListSubject.value = notificationListAllSubject.value;
-      noSeenNotificationListSubject.value = notificationListAllSubject.value
-          .where((element) => element?.is_seen == false)
-          .toList();
+    switch (option) {
+      case NotificationOptionsEnum.card:
+        notificationListSubject.value = notificationListCardSubject.value;
+        noSeenNotificationListSubject.value = notificationListCardSubject.value
+            .where((element) => element?.is_seen == false)
+            .toList();
+        break;
+      case NotificationOptionsEnum.comment:
+        notificationListSubject.value = notificationListCommentSubject.value;
+        noSeenNotificationListSubject.value = notificationListCommentSubject
+            .value
+            .where((element) => element?.is_seen == false)
+            .toList();
+        break;
+      case NotificationOptionsEnum.invite:
+        notificationListSubject.value = notificationListInviteSubject.value;
+        noSeenNotificationListSubject.value = notificationListInviteSubject
+            .value
+            .where((element) => element?.is_seen == false)
+            .toList();
+      default:
+        notificationListSubject.value = notificationListAllSubject.value;
+        noSeenNotificationListSubject.value = notificationListAllSubject.value
+            .where((element) => element?.is_seen == false)
+            .toList();
     }
     routerService.pop();
   }
@@ -130,31 +135,20 @@ class NotificationBloc extends BlocBase {
     notificationListAllSubject.value = list;
     final result1 = list
         .where(
-          (element) =>
-              element?.topic
-                  .toString()
-                  .contains('Enum\$TopicNotification.Card') ??
-              false,
+          (element) => element?.topic == Enum$TopicNotification.Card,
         )
         .toList();
     notificationListCardSubject.value = result1;
     final result2 = list
         .where(
-          (element) =>
-              element?.topic
-                  .toString()
-                  .contains('Enum\$TopicNotification.Comment') ??
-              false,
+          (element) => element?.topic == Enum$TopicNotification.Comment,
         )
         .toList();
     notificationListCommentSubject.value = result2;
     final result3 = list
         .where(
           (element) =>
-              element?.topic
-                  .toString()
-                  .contains('Enum\$TopicNotification.InviteUserToBoard') ??
-              false,
+              element?.topic == Enum$TopicNotification.InviteUserToBoard,
         )
         .toList();
     notificationListInviteSubject.value = result3;
@@ -192,11 +186,10 @@ class NotificationBloc extends BlocBase {
       }
     }
 
-    if (notification?.topic.toString() ==
-        'Enum\$TopicNotification.RemoveUserFromBoard') return;
-    if (notification?.topic.toString() == 'Enum\$TopicNotification.Card' ||
-        notification?.topic.toString() == 'Enum\$TopicNotification.Comment' ||
-        notification?.topic.toString() == 'Enum\$TopicNotification.CheckList') {
+    if (notification?.topic == Enum$TopicNotification.InviteUserToBoard) return;
+    if (notification?.topic == Enum$TopicNotification.Card ||
+        notification?.topic == Enum$TopicNotification.Comment ||
+        notification?.topic == Enum$TopicNotification.CheckList) {
       idCard = notification?.data;
       if (idCard == null || idCard.isEmpty) return;
       final detailCardArgument = DetailCardArgument(
