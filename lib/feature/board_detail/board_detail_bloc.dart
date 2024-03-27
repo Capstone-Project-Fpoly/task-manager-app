@@ -408,7 +408,9 @@ class BoardDetailBloc extends BlocBase {
   Future<void> onNextToDetailCard(String? idCard) async {
     if (idCard == null || idCard.isEmpty) return;
     final detailCardArgument = DetailCardArgument(
-        idCard: idCard, idBoard: currentBoardSubject.value.id);
+      idCard: idCard,
+      idBoard: currentBoardSubject.value.id,
+    );
     await routerService.push(
       RouteInput.detailCard(
         detailCardArgument: detailCardArgument,
