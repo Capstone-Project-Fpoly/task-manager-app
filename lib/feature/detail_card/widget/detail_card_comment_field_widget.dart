@@ -5,6 +5,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_comment_extension.dart';
 import 'package:task_manager/shared/widgets/icons/send_icon.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardCommentFieldWidget extends ConsumerWidget {
   const DetailCardCommentFieldWidget({super.key});
@@ -45,7 +46,7 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
                         horizontal: 10,
                       ),
                       hintText: 'Thêm nhận xét',
-                      hintStyle: TextStyle(
+                      hintStyle: AppTextStyle(
                         color: Colors.black.withOpacity(0.5),
                         fontSize: 14,
                         fontWeight: FontWeight.w400,

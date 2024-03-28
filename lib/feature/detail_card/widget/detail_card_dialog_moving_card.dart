@@ -4,6 +4,7 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardDialogMovingCardWidget extends ConsumerWidget {
   const DetailCardDialogMovingCardWidget({super.key});
@@ -48,7 +49,7 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                     SizedBoxConstants.w20,
                     const Text(
                       'Di chuyển thẻ',
-                      style: TextStyle(
+                      style: AppTextStyle(
                         color: ColorConstants.white,
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -71,7 +72,7 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                   children: [
                     const Text(
                       'Bảng',
-                      style: TextStyle(
+                      style: AppTextStyle(
                         fontSize: 13,
                       ),
                     ),
@@ -134,7 +135,8 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                                                       ),
                                                       Text(
                                                         'Bảng $index',
-                                                        style: const TextStyle(
+                                                        style:
+                                                            const AppTextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
@@ -161,7 +163,7 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                         child: const ListTile(
                           title: Text(
                             'Bảng',
-                            style: TextStyle(fontSize: 14),
+                            style: AppTextStyle(fontSize: 14),
                           ),
                           trailing: SizedBox(
                             width: 5,
@@ -177,7 +179,7 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                     SizedBoxConstants.h10,
                     const Text(
                       'Danh sách',
-                      style: TextStyle(
+                      style: AppTextStyle(
                         fontSize: 13,
                       ),
                     ),
@@ -221,7 +223,7 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                                                   height: 60,
                                                   child: Text(
                                                     'Danh sách $index',
-                                                    style: const TextStyle(
+                                                    style: const AppTextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -246,7 +248,7 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                         child: const ListTile(
                           title: Text(
                             'Danh sách',
-                            style: TextStyle(fontSize: 14),
+                            style: AppTextStyle(fontSize: 14),
                           ),
                           trailing: SizedBox(
                             width: 5,
@@ -262,7 +264,7 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                     SizedBoxConstants.h10,
                     const Text(
                       'Vị trí',
-                      style: TextStyle(
+                      style: AppTextStyle(
                         fontSize: 13,
                       ),
                     ),
@@ -306,7 +308,7 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                                                   height: 60,
                                                   child: Text(
                                                     '$index',
-                                                    style: const TextStyle(
+                                                    style: const AppTextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -331,7 +333,7 @@ class DetailCardDialogMovingCardWidget extends ConsumerWidget {
                         child: const ListTile(
                           title: Text(
                             'Vị trí',
-                            style: TextStyle(fontSize: 14),
+                            style: AppTextStyle(fontSize: 14),
                           ),
                           trailing: SizedBox(
                             width: 5,

@@ -5,6 +5,7 @@ import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class CardItemWidget extends ConsumerWidget {
   final Fragment$CardFragment? card;
@@ -35,6 +36,27 @@ class CardItemWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (false)
+            Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  topLeft: Radius.circular(10),
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  topLeft: Radius.circular(10),
+                ),
+                child: Image.network(
+                  'https://phunugioi.com/wp-content/uploads/2020/10/hinh-anh-thien-nhien-buon.jpg',
+                  fit: BoxFit.cover, // Đảm bảo ảnh được đầy đủ trong phần cắt
+                ),
+              ),
+            ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsetsConstants.left12 +
@@ -72,7 +94,7 @@ class CardItemWidget extends ConsumerWidget {
                       ),
                     Text(
                       card?.title ?? '',
-                      style: const TextStyle(color: Colors.black),
+                      style: const AppTextStyle(color: Colors.black),
                     ),
                     if (isShow) SizedBoxConstants.h8,
                     Wrap(
@@ -99,7 +121,7 @@ class CardItemWidget extends ConsumerWidget {
                                     SizedBoxConstants.w4,
                                     Text(
                                       'Bắt đầu: ${startDate}',
-                                      style: const TextStyle(fontSize: 11),
+                                      style: const AppTextStyle(fontSize: 11),
                                     ),
                                   ],
                                 ),
@@ -130,7 +152,7 @@ class CardItemWidget extends ConsumerWidget {
                                     SizedBoxConstants.w4,
                                     Text(
                                       endDate,
-                                      style: const TextStyle(fontSize: 11),
+                                      style: const AppTextStyle(fontSize: 11),
                                     ),
                                   ],
                                 ),
@@ -152,7 +174,7 @@ class CardItemWidget extends ConsumerWidget {
                                 SizedBoxConstants.w2,
                                 Text(
                                   '$countComment',
-                                  style: const TextStyle(fontSize: 12),
+                                  style: const AppTextStyle(fontSize: 12),
                                 ),
                               ],
                             ),
@@ -177,7 +199,7 @@ class CardItemWidget extends ConsumerWidget {
                                 SizedBoxConstants.w2,
                                 Text(
                                   '$countIsCheckedList/$countCheckList',
-                                  style: const TextStyle(fontSize: 12),
+                                  style: const AppTextStyle(fontSize: 12),
                                 ),
                               ],
                             ),

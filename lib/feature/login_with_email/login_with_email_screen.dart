@@ -5,6 +5,7 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/shared/widgets/icons/persion_add_icon.dart';
 import 'package:task_manager/shared/widgets/icons/trello_icon.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class LoginWithEmailScreen extends ConsumerWidget {
   const LoginWithEmailScreen({super.key});
@@ -28,7 +29,7 @@ class LoginWithEmailScreen extends ConsumerWidget {
                 SizedBoxConstants.w16,
                 Text(
                   'Task Manager',
-                  style: TextStyle(
+                  style: AppTextStyle(
                     color: Colors.black,
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -40,7 +41,7 @@ class LoginWithEmailScreen extends ConsumerWidget {
           SizedBoxConstants.h36,
           const Text(
             'Chọn hoặc thêm tài khoản khác',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: AppTextStyle(fontWeight: FontWeight.bold),
           ),
           SizedBoxConstants.h8,
           SizedBox(

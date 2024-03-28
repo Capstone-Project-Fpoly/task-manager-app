@@ -7,6 +7,7 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_user_extension.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardDialogMemberWidget extends ConsumerWidget {
   const DetailCardDialogMemberWidget({super.key});
@@ -24,7 +25,7 @@ class DetailCardDialogMemberWidget extends ConsumerWidget {
           children: [
             const Text(
               'Thành viên của thẻ',
-              style: TextStyle(
+              style: AppTextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -58,7 +59,7 @@ class DetailCardDialogMemberWidget extends ConsumerWidget {
                             SizedBoxConstants.w8,
                             Text(
                               user?.fullName ?? '',
-                              style: const TextStyle(
+                              style: const AppTextStyle(
                                 color: ColorConstants.primaryBlack,
                                 fontSize: 14,
                               ),
@@ -99,7 +100,7 @@ class DetailCardDialogMemberWidget extends ConsumerWidget {
                   child: Ink(
                     child: const Text(
                       'Hoàn tất',
-                      style: TextStyle(
+                      style: AppTextStyle(
                         color: ColorConstants.primary,
                         fontWeight: FontWeight.w500,
                       ),

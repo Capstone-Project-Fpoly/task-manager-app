@@ -57,7 +57,7 @@ class ListSearchByDate extends ConsumerWidget {
                           children: [
                             Text(
                               'Tên Bảng',
-                              style: TextStyle(
+                              style: AppTextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black54,
@@ -68,7 +68,7 @@ class ListSearchByDate extends ConsumerWidget {
                             SizedBoxConstants.w4,
                             Text(
                               'Tên Danh Sách',
-                              style: TextStyle(
+                              style: AppTextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black54,
@@ -121,7 +121,7 @@ class ListSearchByDate extends ConsumerWidget {
                           children: [
                             Text(
                               'Tên Bảng',
-                              style: TextStyle(
+                              style: AppTextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black54,
@@ -132,7 +132,7 @@ class ListSearchByDate extends ConsumerWidget {
                             SizedBoxConstants.w4,
                             Text(
                               'Tên Danh Sách',
-                              style: TextStyle(
+                              style: AppTextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black54,
@@ -185,7 +185,7 @@ class ListSearchByDate extends ConsumerWidget {
                           children: [
                             Text(
                               'Tên Bảng',
-                              style: TextStyle(
+                              style: AppTextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black54,
@@ -196,7 +196,7 @@ class ListSearchByDate extends ConsumerWidget {
                             SizedBoxConstants.w4,
                             Text(
                               'Tên Danh Sách',
-                              style: TextStyle(
+                              style: AppTextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black54,

@@ -5,6 +5,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardDateTimeWidget extends ConsumerWidget {
   const DetailCardDateTimeWidget({super.key});
@@ -43,7 +44,7 @@ class DetailCardDateTimeWidget extends ConsumerWidget {
                       alignment: Alignment.centerLeft,
                       width: width - 60,
                       child: TextField(
-                        style: const TextStyle(
+                        style: const AppTextStyle(
                           color: ColorConstants.primaryBlack,
                           fontSize: 14,
                         ),
@@ -56,7 +57,7 @@ class DetailCardDateTimeWidget extends ConsumerWidget {
                           isDense: true,
                           contentPadding: EdgeInsetsConstants.bottom4,
                           hintText: 'Ngày bắt đầu...',
-                          hintStyle: TextStyle(
+                          hintStyle: AppTextStyle(
                             fontSize: 13,
                             color: ColorConstants.primaryBlack,
                           ),
@@ -80,7 +81,7 @@ class DetailCardDateTimeWidget extends ConsumerWidget {
                       width: width - 60,
                       child: TextField(
                         enabled: false,
-                        style: const TextStyle(
+                        style: const AppTextStyle(
                           color: ColorConstants.primaryBlack,
                           fontSize: 14,
                         ),
@@ -93,7 +94,7 @@ class DetailCardDateTimeWidget extends ConsumerWidget {
                           contentPadding: EdgeInsetsConstants.vertical4 +
                               EdgeInsetsConstants.top4,
                           hintText: 'Ngày kết thúc...',
-                          hintStyle: const TextStyle(
+                          hintStyle: const AppTextStyle(
                             fontSize: 13,
                             color: ColorConstants.primaryBlack,
                           ),
