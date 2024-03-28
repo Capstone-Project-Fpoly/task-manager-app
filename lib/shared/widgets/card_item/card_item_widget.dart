@@ -4,8 +4,8 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
-import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class CardItemWidget extends ConsumerWidget {
   final Fragment$CardFragment? card;

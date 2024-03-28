@@ -36,7 +36,7 @@ class NotificationBloc extends BlocBase {
       BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
 
   final notificationListCurrentSubject =
-  BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
+      BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
   final notificationListCardSubject =
       BehaviorSubject<List<Fragment$NotificationFragment?>>.seeded([]);
   final notificationListCommentSubject =
@@ -81,7 +81,7 @@ class NotificationBloc extends BlocBase {
         notificationListSubject.value = notificationListSubject.value
             .where(
               (element) => element?.topic == Enum$TopicNotification.Card,
-        )
+            )
             .toList();
         noSeenNotificationListSubject.value = notificationListSubject.value
             .where((element) => element?.is_seen == false)
@@ -92,7 +92,7 @@ class NotificationBloc extends BlocBase {
         notificationListSubject.value = notificationListSubject.value
             .where(
               (element) => element?.topic == Enum$TopicNotification.Comment,
-        )
+            )
             .toList();
         noSeenNotificationListSubject.value = notificationListSubject.value
             .where((element) => element?.is_seen == false)
@@ -101,8 +101,9 @@ class NotificationBloc extends BlocBase {
         notificationListSubject.value = notificationListCurrentSubject.value;
         notificationListSubject.value = notificationListSubject.value
             .where(
-              (element) => element?.topic == Enum$TopicNotification.InviteUserToBoard,
-        )
+              (element) =>
+                  element?.topic == Enum$TopicNotification.InviteUserToBoard,
+            )
             .toList();
         noSeenNotificationListSubject.value = notificationListSubject.value
             .where((element) => element?.is_seen == false)

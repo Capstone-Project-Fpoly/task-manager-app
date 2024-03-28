@@ -103,7 +103,9 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                         child: Text(
                           bloc.errorCheckPassSubject.value,
                           style: const AppTextStyle(
-                              fontSize: 12, color: Colors.red),
+                            fontSize: 12,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                     SizedBoxConstants.h20,

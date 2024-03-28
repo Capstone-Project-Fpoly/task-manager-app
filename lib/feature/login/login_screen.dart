@@ -180,7 +180,9 @@ class LoginScreen extends ConsumerWidget {
                             Text(
                               ' và  ',
                               style: AppTextStyle(
-                                  fontSize: 12, color: Colors.white),
+                                fontSize: 12,
+                                color: Colors.white,
+                              ),
                             ),
                             Text(
                               'Chính sách',
