@@ -93,10 +93,11 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                               initialTime: TimeOfDay.now(),
                               initialEntryMode: TimePickerEntryMode.dial,
                               builder: (context, child) {
+                                if (child == null) return const SizedBox();
                                 return MediaQuery(
                                   data: MediaQuery.of(context)
                                       .copyWith(alwaysUse24HourFormat: true),
-                                  child: child!,
+                                  child: child,
                                 );
                               },
                             ).then((value) {

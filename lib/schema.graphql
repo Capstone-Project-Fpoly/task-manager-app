@@ -120,7 +120,7 @@ type Mutation {
   createLabelOfBoard(color: String!, idBoard: String!, title: String): LabelCard
   createList(idBoard: String!, label: String!): List
   deleteCard(idCard: String!, idList: String!): Boolean
-  deleteComment(content: String!, idCard: String!): Boolean
+  deleteComment(idComment: String!): Boolean
   deleteLabelOfBoard(idLabel: String!): Boolean
   deleteList(idList: String!): Boolean
   getBoards: [Board]

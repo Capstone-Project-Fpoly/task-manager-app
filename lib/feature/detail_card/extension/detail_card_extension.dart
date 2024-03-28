@@ -1,7 +1,10 @@
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_on_back_extension.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
+import 'package:task_manager/graphql/Mutations/card/get_card.graphql.dart';
 import 'package:task_manager/graphql/Mutations/card/update_card.graphql.dart';
+import 'package:task_manager/graphql/Mutations/label/get_labels_of_board.graphql.dart';
 import 'package:task_manager/graphql/queries/board/get_user_of_board.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 
@@ -52,5 +55,82 @@ extension DetailCardExtension on DetailCardBloc {
     }
     final users = result.parsedData?.getUsersOfBoard ?? [];
     return users;
+  }
+
+  Future<void> onTapUpdateTitle() async {
+    if (titleController.text == cardSubject.value?.title) {
+      onTapBackTitle();
+      return;
+    }
+    isLoadingUpdateSubject.value = true;
+    final card = await updateCard(title: titleController.text);
+    isLoadingUpdateSubject.value = false;
+    appBarEnumSubject.value = null;
+    focusNodeTitle.unfocus();
+    if (card == null) {
+      return;
+    }
+    cardSubject.value = card;
+  }
+
+  Future<void> onTapUpdateDescription() async {
+    if (descriptionController.text == cardSubject.value?.description) {
+      onTapBackDescription();
+      return;
+    }
+    isLoadingUpdateSubject.value = true;
+    final card = await updateCard(description: descriptionController.text);
+    isLoadingUpdateSubject.value = false;
+    appBarEnumSubject.value = null;
+    focusNodeDescription.unfocus();
+    if (card == null) {
+      return;
+    }
+    cardSubject.value = card;
+  }
+
+  Future<void> fetchCard() async {
+    isLoadingSubject.value = true;
+    final (resultGetCard, resultGetUser, resultLabelOfBoard) = await (
+      graphqlService.client.mutate$GetCard(
+        Options$Mutation$GetCard(
+          variables: Variables$Mutation$GetCard(
+            idCard: idCard,
+          ),
+        ),
+      ),
+      graphqlService.client.query$GetUserOfBoard(
+        Options$Query$GetUserOfBoard(
+          variables: Variables$Query$GetUserOfBoard(
+            idBoard: idBoard,
+          ),
+        ),
+      ),
+      graphqlService.client.mutate$GetLabelsOfBoard(
+        Options$Mutation$GetLabelsOfBoard(
+          variables: Variables$Mutation$GetLabelsOfBoard(
+            idBoard: idBoard,
+          ),
+        ),
+      ),
+    ).wait;
+    isLoadingSubject.value = false;
+    if (resultGetCard.hasException) {
+      final message = resultGetCard.exception?.graphqlErrors.first.message;
+      toastService.showText(message: message);
+      routerService.pop();
+      return;
+    }
+    // get user of board
+    if (!resultGetUser.hasException) {
+      usersOfBoard.value = resultGetUser.parsedData?.getUsersOfBoard ?? [];
+    }
+
+    if (!resultLabelOfBoard.hasException) {
+      final labels = resultLabelOfBoard.parsedData?.getLabelsOfBoard ?? [];
+      listLabelOfBoardSubject.value = labels;
+    }
+    cardSubject.value = resultGetCard.parsedData?.getCard;
+    init();
   }
 }

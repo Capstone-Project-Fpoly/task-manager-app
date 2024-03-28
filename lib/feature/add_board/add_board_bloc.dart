@@ -89,7 +89,7 @@ class AddBoardBloc extends BlocBase {
       routerService.pop(result: false);
       return;
     }
-    boardBloc.getBoard();
+    boardBloc.getBoards();
     routerService.pop(result: true);
   }
 

@@ -22,16 +22,56 @@ class MyBoardScreen extends ConsumerWidget {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bảng của tôi'),
+        title: ObsBuilder(
+          streams: [bloc.selectedSearchSubject],
+          builder: (context) {
+            final isSearch = bloc.selectedSearchSubject.value;
+            if (isSearch) {
+              return TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Tìm kiếm bảng...',
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: Colors.white),
+                ),
+                autofocus: true,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+                onChanged: (value) {
+                  bloc.searchLocalBoard(value);
+                },
+              );
+            }
+            return const Text('Bảng của tôi');
+          },
+        ),
         actions: <Widget>[
-          InkWell(
-            child: const Icon(Icons.search),
-            onTap: () {},
+          ObsBuilder(
+            streams: [bloc.selectedSearchSubject],
+            builder: (context) {
+              final isSearch = bloc.selectedSearchSubject.value;
+              if (isSearch) {
+                return InkWell(
+                  child: const Icon(Icons.close),
+                  onTap: () {
+                    bloc.openSearch(false);
+                  },
+                );
+              }
+              return InkWell(
+                child: const Icon(Icons.search),
+                onTap: () {
+                  bloc.openSearch(true);
+                },
+              );
+            },
           ),
           SizedBoxConstants.w20,
           InkWell(
             child: const Icon(Icons.notifications),
-            onTap: () {},
+            onTap: () {
+              bloc.onTapToNotification();
+            },
           ),
           SizedBoxConstants.w15,
         ],
@@ -90,50 +130,53 @@ class MyBoardScreen extends ConsumerWidget {
                         ),
                       ),
                       Expanded(
-                        child: SizedBox(
-                          height: height - 50,
-                          child: ListView.separated(
-                            itemBuilder: (context, index) {
-                              final board = boards[index];
-                              return InkWell(
-                                onTap: () => bloc.onTapToDragAndDrop(
-                                  board: board,
-                                ),
-                                child: Container(
-                                  padding: EdgeInsetsConstants.vertical10 +
-                                      EdgeInsetsConstants.horizontal12,
-                                  width: width,
-                                  height: 60,
-                                  child: Row(
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: EdgeInsetsConstants.vertical8,
+                            child: Wrap(
+                              spacing: width * 0.025,
+                              runSpacing: 20,
+                              children: boards.map((e) {
+                                return SizedBox(
+                                  width: width * 0.465,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        width: 60,
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          color: ColorUtils.getColorFromHex(
-                                            board?.color,
+                                      InkWell(
+                                        onTap: () => bloc.onTapToDetailBoard(
+                                          board: e,
+                                        ),
+                                        onLongPress: () {
+                                          bloc.dialogShowOptionBoard(
+                                            context: context,
+                                            board: e,
+                                          );
+                                        },
+                                        child: Container(
+                                          width: width * 0.5,
+                                          height: height * 0.12,
+                                          decoration: BoxDecoration(
+                                            color: ColorUtils.getColorFromHex(
+                                              e?.color,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5),
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
+                                      SizedBoxConstants.h4,
                                       Text(
-                                        board?.title ?? '',
+                                        e?.title ?? '',
                                         style: const AppTextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(),
-                            itemCount: boards.length,
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
                       ),
@@ -169,8 +212,8 @@ class MyBoardScreen extends ConsumerWidget {
             switchLabelPosition: false,
             closeManually: false,
             renderOverlay: true,
-            onOpen: () => bloc.changeClick(true),
-            onClose: () => bloc.changeClick(false),
+            onOpen: () => bloc.onTapShowOptions(true),
+            onClose: () => bloc.onTapShowOptions(false),
             useRotationAnimation: true,
             backgroundColor: Colors.green,
             activeBackgroundColor: Colors.green,

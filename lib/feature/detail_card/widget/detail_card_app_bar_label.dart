@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_on_back_extension.dart';
 import 'package:task_manager/shared/enum/option_detail_card_enum.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 

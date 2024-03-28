@@ -87,7 +87,7 @@ class AddCardBloc extends BlocBase {
     focusNodeName.unfocus();
     focusNodeDescription.unfocus();
     if (selectedListSubject.value == null) return;
-    if (nameCardSubject.value!.isEmpty) return;
+    if (nameCardSubject.value == null || nameCardSubject.value!.isEmpty) return;
     isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$CreateCard(
       Options$Mutation$CreateCard(
@@ -142,7 +142,9 @@ class AddCardBloc extends BlocBase {
   void getListByIdBoard() async {
     isSubmitSubject.value = false;
     isSubmitListSubject.value = false;
-    final String idBoard = selectedBoardSubject.value!.id.trim();
+    final String? idBoard = selectedBoardSubject.value?.id;
+    if (idBoard == null) return;
+    idBoard.trim();
     if (idBoard.isEmpty) return;
     isLoadingSubject.value = true;
     final result = await graphqlService.client.mutate$getList(

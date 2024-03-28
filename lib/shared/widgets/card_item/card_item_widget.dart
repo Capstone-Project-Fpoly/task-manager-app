@@ -5,6 +5,7 @@ import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
+import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 
 class CardItemWidget extends ConsumerWidget {
   final Fragment$CardFragment? card;
@@ -16,14 +17,14 @@ class CardItemWidget extends ConsumerWidget {
     final startDate =
         formatDateTimeNotification(card?.startedDate, format: 'dd MMM');
     final endDate = formatDateTimeNotification(card?.endDate, format: 'dd MMM');
-    final countComment = card?.comments?.length;
-    final countCheckList = card?.checkLists?.length;
+    final countComment = card?.comments?.length ?? 0;
+    final countCheckList = card?.checkLists?.length ?? 0;
     final countIsCheckedList =
         card?.checkLists?.where((e) => e.isChecked).toList().length;
     final isShow = endDate.isNotEmpty ||
         startDate.isNotEmpty ||
-        countComment! > 0 ||
-        countCheckList! > 0;
+        countComment > 0 ||
+        countCheckList > 0;
     final labels = card?.labels;
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -159,7 +160,7 @@ class CardItemWidget extends ConsumerWidget {
                               SizedBoxConstants.w8,
                             ],
                           ),
-                        if (countComment != null && countComment > 0)
+                        if (countComment > 0)
                           Container(
                             margin: EdgeInsetsConstants.right8,
                             child: Row(
@@ -178,7 +179,7 @@ class CardItemWidget extends ConsumerWidget {
                               ],
                             ),
                           ),
-                        if (countCheckList != null && countCheckList > 0)
+                        if (countCheckList > 0)
                           Container(
                             padding: EdgeInsetsConstants.all2,
                             decoration: BoxDecoration(
@@ -205,6 +206,23 @@ class CardItemWidget extends ConsumerWidget {
                           ),
                       ],
                     ),
+                    if (card!.users != null)
+                      Container(
+                        margin: EdgeInsetsConstants.top8,
+                        alignment: Alignment.centerRight,
+                        child: Wrap(
+                          spacing: 2,
+                          runSpacing: 2,
+                          children: card!.users!
+                              .map(
+                                (user) => AppCircleAvatar(
+                                  url: '${user.avatar}',
+                                  width: 40,
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
                   ],
                 ),
               ],

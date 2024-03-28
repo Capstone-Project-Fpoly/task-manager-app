@@ -15,7 +15,6 @@ class DetailCardDialogMemberWidget extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final bloc = ref.watch(BlocProvider.detailCardBloc);
-    final width = MediaQuery.of(context).size.width;
     return Dialog(
       child: Container(
         color: ColorConstants.white,
