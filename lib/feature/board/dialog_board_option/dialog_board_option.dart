@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 //import 'package:task_manager/base/dependency/app_service.dart';
 
 class ShowDialogBoardOption extends ConsumerWidget {
@@ -24,7 +25,7 @@ class ShowDialogBoardOption extends ConsumerWidget {
         return AlertDialog(
           title: Text(
             titleDialog!,
-            style: const TextStyle(
+            style: const AppTextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),

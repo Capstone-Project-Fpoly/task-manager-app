@@ -3,6 +3,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardAddAppBarTitle extends StatelessWidget
     implements PreferredSizeWidget {
@@ -14,7 +15,7 @@ class DetailCardAddAppBarTitle extends StatelessWidget
     return AppBar(
       title: const Text(
         'Chỉnh sửa tiêu đề',
-        style: TextStyle(
+        style: AppTextStyle(
           color: ColorConstants.black,
         ),
       ),

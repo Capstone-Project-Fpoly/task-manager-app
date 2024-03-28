@@ -5,6 +5,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_quick_actions_widget.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardHeaderWidget extends ConsumerWidget {
   const DetailCardHeaderWidget({super.key});
@@ -31,7 +32,7 @@ class DetailCardHeaderWidget extends ConsumerWidget {
                     child: TextField(
                       focusNode: bloc.focusNodeTitle,
                       controller: bloc.titleController,
-                      style: const TextStyle(
+                      style: const AppTextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
                       ),
@@ -72,7 +73,7 @@ class DetailCardHeaderWidget extends ConsumerWidget {
                       children: [
                         const Text(
                           'Các thao tác nhanh',
-                          style: TextStyle(
+                          style: AppTextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),

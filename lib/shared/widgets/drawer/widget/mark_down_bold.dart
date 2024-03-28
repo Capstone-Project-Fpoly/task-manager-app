@@ -20,7 +20,7 @@ class MarkDownBold extends StatelessWidget {
           final bool isBold = parts.indexOf(part) % 2 != 0;
           return TextSpan(
             text: part,
-            style: TextStyle(
+            style: AppTextStyle(
               fontSize: 14,
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
             ),

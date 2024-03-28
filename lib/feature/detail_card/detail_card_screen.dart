@@ -17,6 +17,7 @@ import 'package:task_manager/feature/detail_card/widget/detail_card_label_widget
 import 'package:task_manager/feature/detail_card/widget/detail_card_list_comment_widget.dart';
 import 'package:task_manager/graphql/Fragment/label_fragment.graphql.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardScreen extends ConsumerWidget {
   const DetailCardScreen({super.key});
@@ -75,7 +76,7 @@ class DetailCardScreen extends ConsumerWidget {
                                   keyboardType: TextInputType.multiline,
                                   decoration: InputDecoration(
                                     hintText: 'Thêm mô tả thẻ...',
-                                    hintStyle: TextStyle(
+                                    hintStyle: AppTextStyle(
                                       color: Colors.black.withOpacity(0.5),
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400,
@@ -127,7 +128,7 @@ class DetailCardScreen extends ConsumerWidget {
                                           if (listLabelOfCard.isEmpty) {
                                             return const Text(
                                               'Nhãn...',
-                                              style: TextStyle(
+                                              style: AppTextStyle(
                                                 color:
                                                     ColorConstants.primaryBlack,
                                               ),
@@ -212,7 +213,7 @@ class DetailCardScreen extends ConsumerWidget {
                                 if (users.isEmpty)
                                   const Text(
                                     'Thành viên...',
-                                    style: TextStyle(
+                                    style: AppTextStyle(
                                       color: ColorConstants.primaryBlack,
                                     ),
                                   ),

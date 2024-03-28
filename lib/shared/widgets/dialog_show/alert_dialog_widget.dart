@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class ShowAlertDialog extends ConsumerWidget {
   const ShowAlertDialog({
@@ -20,7 +21,7 @@ class ShowAlertDialog extends ConsumerWidget {
     return AlertDialog(
       title: Text(
         title,
-        style: const TextStyle(
+        style: const AppTextStyle(
           color: Colors.red,
         ),
       ),

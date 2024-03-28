@@ -7,6 +7,7 @@ import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/shared/loading/loading_overlay.dart';
 import 'package:task_manager/shared/utilities/color.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class MenuBoardScreen extends ConsumerWidget {
   const MenuBoardScreen({super.key});
@@ -33,7 +34,7 @@ class MenuBoardScreen extends ConsumerWidget {
               title: const Text(
                 'Menu Bảng',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: AppTextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -146,7 +147,7 @@ class MenuBoardScreen extends ConsumerWidget {
                                       children: [
                                         const Text(
                                           'Thành viên',
-                                          style: TextStyle(
+                                          style: AppTextStyle(
                                             fontSize: 16,
                                           ),
                                         ),
@@ -204,7 +205,7 @@ class MenuBoardScreen extends ConsumerWidget {
                                             alignment: Alignment.center,
                                             child: const Text(
                                               'Mời thành viên',
-                                              style: TextStyle(
+                                              style: AppTextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,

@@ -199,7 +199,7 @@ class MyCardScreen extends ConsumerWidget {
                           decoration: InputDecoration(
                             hintText: 'Thẻ...',
                             border: InputBorder.none,
-                            hintStyle: const TextStyle(color: Colors.black),
+                            hintStyle: const AppTextStyle(color: Colors.black),
                             prefixIcon: const Icon(
                               CupertinoIcons.search,
                               size: 20,
@@ -214,7 +214,7 @@ class MyCardScreen extends ConsumerWidget {
                                   )
                                 : null,
                           ),
-                          style: const TextStyle(
+                          style: const AppTextStyle(
                             color: Colors.black,
                           ),
                           onChanged: (value) {

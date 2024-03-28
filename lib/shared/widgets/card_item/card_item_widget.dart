@@ -4,6 +4,7 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class CardItemWidget extends ConsumerWidget {
   final Fragment$CardFragment? card;
@@ -92,7 +93,7 @@ class CardItemWidget extends ConsumerWidget {
                       ),
                     Text(
                       card?.title ?? '',
-                      style: const TextStyle(color: Colors.black),
+                      style: const AppTextStyle(color: Colors.black),
                     ),
                     if (isShow) SizedBoxConstants.h8,
                     Wrap(
@@ -119,7 +120,7 @@ class CardItemWidget extends ConsumerWidget {
                                     SizedBoxConstants.w4,
                                     Text(
                                       'Bắt đầu: ${startDate}',
-                                      style: const TextStyle(fontSize: 11),
+                                      style: const AppTextStyle(fontSize: 11),
                                     ),
                                   ],
                                 ),
@@ -150,7 +151,7 @@ class CardItemWidget extends ConsumerWidget {
                                     SizedBoxConstants.w4,
                                     Text(
                                       endDate,
-                                      style: const TextStyle(fontSize: 11),
+                                      style: const AppTextStyle(fontSize: 11),
                                     ),
                                   ],
                                 ),
@@ -172,7 +173,7 @@ class CardItemWidget extends ConsumerWidget {
                                 SizedBoxConstants.w2,
                                 Text(
                                   '$countComment',
-                                  style: const TextStyle(fontSize: 12),
+                                  style: const AppTextStyle(fontSize: 12),
                                 ),
                               ],
                             ),
@@ -197,7 +198,7 @@ class CardItemWidget extends ConsumerWidget {
                                 SizedBoxConstants.w2,
                                 Text(
                                   '$countIsCheckedList/$countCheckList',
-                                  style: const TextStyle(fontSize: 12),
+                                  style: const AppTextStyle(fontSize: 12),
                                 ),
                               ],
                             ),

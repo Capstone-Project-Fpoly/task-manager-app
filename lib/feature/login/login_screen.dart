@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
@@ -10,6 +10,7 @@ import 'package:task_manager/feature/login/login_bloc.dart';
 import 'package:task_manager/shared/loading/loading_overlay.dart';
 import 'package:task_manager/shared/widgets/icons/google_icon.dart';
 import 'package:task_manager/shared/widgets/icons/mail_icon.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -63,7 +64,7 @@ class LoginScreen extends ConsumerWidget {
         SizedBoxConstants.w20,
         Text(
           lable,
-          style: const TextStyle(color: Colors.black),
+          style: const AppTextStyle(color: Colors.black),
         ),
       ],
     );
@@ -73,7 +74,7 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final bloc = ref.watch(BlocProvider.login);
     bloc.context = context;
-    const styles = TextStyle(
+    const styles = AppTextStyle(
       fontSize: 12, color: Colors.white,
       decoration: TextDecoration.underline,
       decorationColor: Colors.white, // Màu của gạch chân
@@ -105,7 +106,7 @@ class LoginScreen extends ConsumerWidget {
                           EdgeInsetsConstants.right20,
                       child: const Text(
                         'Đưa tinh thần đồng đội tiến về phía trước - ngay cả khi đang di chuyển',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -127,7 +128,7 @@ class LoginScreen extends ConsumerWidget {
                         onPressed: () => showActionSheet(context, true, bloc),
                         child: const Text(
                           'Đăng nhập',
-                          style: TextStyle(
+                          style: AppTextStyle(
                             fontSize: 15,
                             color: Color.fromRGBO(49, 101, 226, 1),
                           ),
@@ -152,7 +153,8 @@ class LoginScreen extends ConsumerWidget {
                         onPressed: () => showActionSheet(context, false, bloc),
                         child: const Text(
                           'Đăng ký',
-                          style: TextStyle(fontSize: 15, color: Colors.white),
+                          style:
+                              AppTextStyle(fontSize: 15, color: Colors.white),
                         ),
                       ),
                     ),
@@ -163,7 +165,8 @@ class LoginScreen extends ConsumerWidget {
                       children: [
                         Text(
                           'Khi đăng ký, bạn đồng ý với',
-                          style: TextStyle(fontSize: 12, color: Colors.white),
+                          style:
+                              AppTextStyle(fontSize: 12, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                         Row(
@@ -176,8 +179,8 @@ class LoginScreen extends ConsumerWidget {
                             ),
                             Text(
                               ' và  ',
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.white),
+                              style: AppTextStyle(
+                                  fontSize: 12, color: Colors.white),
                             ),
                             Text(
                               'Chính sách',

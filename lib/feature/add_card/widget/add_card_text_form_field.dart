@@ -5,6 +5,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class AddCardTextFormField extends ConsumerWidget {
   const AddCardTextFormField({
@@ -40,7 +41,7 @@ class AddCardTextFormField extends ConsumerWidget {
                 children: [
                   const Text(
                     'Tên Thẻ',
-                    style: TextStyle(color: ColorConstants.grayText),
+                    style: AppTextStyle(color: ColorConstants.grayText),
                   ),
                   SizedBox(
                     height: 30,
@@ -50,7 +51,7 @@ class AddCardTextFormField extends ConsumerWidget {
                         bloc.nameCardSubject.value = value;
                         bloc.checkNameCard();
                       },
-                      style: const TextStyle(color: Colors.black),
+                      style: const AppTextStyle(color: Colors.black),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
@@ -77,7 +78,7 @@ class AddCardTextFormField extends ConsumerWidget {
                 children: [
                   const Text(
                     'Mô tả',
-                    style: TextStyle(color: ColorConstants.grayText),
+                    style: AppTextStyle(color: ColorConstants.grayText),
                   ),
                   SizedBox(
                     height: 30,
@@ -86,7 +87,7 @@ class AddCardTextFormField extends ConsumerWidget {
                       onChanged: (value) {
                         bloc.descriptionCardSubject.value = value;
                       },
-                      style: const TextStyle(color: Colors.black),
+                      style: const AppTextStyle(color: Colors.black),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
