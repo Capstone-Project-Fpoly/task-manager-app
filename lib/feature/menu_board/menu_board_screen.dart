@@ -275,7 +275,7 @@ class MenuBoardScreen extends ConsumerWidget {
                                       Text(
                                         'Hoạt động',
                                         style: AppTextStyle(
-                                            fontWeight: FontWeight.bold),
+                                            fontWeight: FontWeight.bold,),
                                       ),
                                     ],
                                   ),
