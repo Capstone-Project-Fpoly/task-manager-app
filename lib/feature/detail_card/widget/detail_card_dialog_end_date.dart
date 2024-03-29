@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
@@ -90,7 +91,10 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                           onTap: () {
                             showTimePicker(
                               context: context,
-                              initialTime: TimeOfDay.now(),
+                              initialTime: TimeOfDay.fromDateTime(
+                                DateFormat('HH:mm')
+                                    .parse(bloc.endTimeController.text),
+                              ),
                               initialEntryMode: TimePickerEntryMode.dial,
                               builder: (context, child) {
                                 if (child == null) return const SizedBox();

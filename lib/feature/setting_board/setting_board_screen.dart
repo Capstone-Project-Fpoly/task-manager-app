@@ -4,7 +4,6 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
-import 'package:task_manager/shared/enum/board_status_enum.dart';
 import 'package:task_manager/shared/widgets/icons/board_image.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
@@ -163,31 +162,13 @@ class SettingBoardScreen extends ConsumerWidget {
                             builder: (context) {
                               return SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.28,
-                                child: PopupMenuButton(
-                                  initialValue:
-                                      bloc.selectedStatusSubject.value,
-                                  itemBuilder: (context) =>
-                                      BoardStatusEnum.values
-                                          .map(
-                                            (e) => PopupMenuItem(
-                                              value: e,
-                                              child: Text(e.title),
-                                            ),
-                                          )
-                                          .toList(),
-                                  onSelected: (value) =>
-                                      bloc.chooseStatusBoard(value),
-                                  constraints: BoxConstraints(
-                                    minWidth: width / 3,
-                                  ),
-                                  child: Container(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      bloc.selectedStatusSubject.value.title,
-                                      style: const AppTextStyle.black(
-                                        fontSize: 14,
-                                        color: ColorConstants.grayText,
-                                      ),
+                                child: Container(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    bloc.selectedStatusSubject.value.title,
+                                    style: const AppTextStyle.black(
+                                      fontSize: 14,
+                                      color: ColorConstants.grayText,
                                     ),
                                   ),
                                 ),

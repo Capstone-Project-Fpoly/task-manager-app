@@ -2,13 +2,15 @@ enum BoardStatusEnum {
   public(
     isPublic: true,
     title: 'Công khai',
-    description: 'Mọi người đều có thể xem và tham gia vào bảng này',
+    description:
+        'Đây là bảng công khai. Mọi người đều có thể xem và tham gia vào bảng này',
   ),
 
   private(
     isPublic: false,
     title: 'Riêng tư',
-    description: 'Chỉ có bạn làm việc trên bảng này',
+    description:
+        'Đây là bảng riêng tư. Chỉ bạn có thể xem làm việc trên bảng này',
   );
 
   const BoardStatusEnum({
