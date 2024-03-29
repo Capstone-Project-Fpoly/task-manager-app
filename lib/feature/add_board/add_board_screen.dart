@@ -93,7 +93,27 @@ class AddBoardScreen extends ConsumerWidget {
                         .map(
                           (e) => PopupMenuItem(
                             value: e,
-                            child: Text(e.title),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  e.title,
+                                  style: const AppTextStyle(
+                                    color: ColorConstants.black,
+                                  ),
+                                ),
+                                SizedBoxConstants.h4,
+                                Text(
+                                  e.description,
+                                  style: AppTextStyle(
+                                    color:
+                                        ColorConstants.black.withOpacity(0.7),
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                SizedBoxConstants.h12,
+                              ],
+                            ),
                           ),
                         )
                         .toList(),

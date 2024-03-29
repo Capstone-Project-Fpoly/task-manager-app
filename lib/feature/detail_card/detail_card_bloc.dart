@@ -182,6 +182,7 @@ class DetailCardBloc extends BlocBase {
         ? TimeOfDay(hour: endDateTime.hour, minute: endDateTime.minute)
         : null;
     endDateSubject.value = endDateTime;
+
     startDateController.text = startDateTime != null
         ? DateFormat('dd/MM/yyyy').format(startDateTime)
         : '';
@@ -191,6 +192,16 @@ class DetailCardBloc extends BlocBase {
         startDateTime != null ? DateFormat('HH:mm').format(startDateTime) : '';
     endTimeController.text =
         endDateTime != null ? DateFormat('HH:mm').format(endDateTime) : '';
+    if (startDateController.text.isNotEmpty &&
+        startTimeController.text.isNotEmpty) {
+      startDateTimeController.text =
+          'Bắt đầu từ ${startTimeController.text} ngày ${startDateController.text}';
+    }
+    if (endDateController.text.isNotEmpty &&
+        endTimeController.text.isNotEmpty) {
+      endDateTimeController.text =
+          'Kết thúc vào ${endTimeController.text} ngày ${endDateController.text}';
+    }
   }
 
   void init() {
@@ -267,7 +278,7 @@ class DetailCardBloc extends BlocBase {
 
   // DateTime Widget Bloc
   void completeSelectStartDate() {
-    addTitleStartDateTime();
+    if (addTitleStartDateTime() == false) return;
     if (startDateSubject.value != null && startTimeSubject.value != null) {
       final startDateTime = DateTime(
         startDateSubject.value!.year,
@@ -286,7 +297,7 @@ class DetailCardBloc extends BlocBase {
     setDateTime();
   }
 
-  void addTitleStartDateTime() {
+  bool addTitleStartDateTime() {
     if (startDateController.text.isNotEmpty &&
         endDateController.text.isNotEmpty) {
       final startDate = DateFormat('dd/MM/yyyy HH:mm').parse(
@@ -295,10 +306,9 @@ class DetailCardBloc extends BlocBase {
       final endDate = DateFormat('dd/MM/yyyy HH:mm').parse(
         '${endDateController.text} ${endTimeController.text.isEmpty ? "23:59" : endTimeController.text}',
       );
-
       if (startDate.isAfter(endDate)) {
         isShowErrorStartDateSubject.value = true;
-        return;
+        return false;
       }
     }
     if (startTimeController.text.isNotEmpty &&
@@ -309,9 +319,10 @@ class DetailCardBloc extends BlocBase {
       startDateTimeController.text =
           '${startTimeController.text}${startDateController.text}';
     }
+    return true;
   }
 
-  void addTitleEndDateTime() {
+  bool addTitleEndDateTime() {
     if (startDateController.text.isNotEmpty &&
         endDateController.text.isNotEmpty) {
       final startDate = DateFormat('dd/MM/yyyy HH:mm').parse(
@@ -322,7 +333,7 @@ class DetailCardBloc extends BlocBase {
       );
       if (startDate.isAfter(endDate)) {
         isShowErrorEndDateSubject.value = true;
-        return;
+        return false;
       }
     }
     if (endTimeController.text.isNotEmpty &&
@@ -333,10 +344,11 @@ class DetailCardBloc extends BlocBase {
       endDateTimeController.text =
           '${endTimeController.text}${endDateController.text}';
     }
+    return true;
   }
 
   void completeSelectEndDate() {
-    addTitleEndDateTime();
+    if (addTitleEndDateTime() == false) return;
     if (endDateSubject.value != null && endTimeSubject.value != null) {
       final endDateTime = DateTime(
         endDateSubject.value!.year,
