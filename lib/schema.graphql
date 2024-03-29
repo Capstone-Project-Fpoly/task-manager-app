@@ -161,6 +161,7 @@ type Notification {
 }
 
 type Query {
+  getMyCards: ResultMyCards
   getToken(email: String!): String
   getUsersInviteToBoard(idBoard: String!, query: String): [User]
   getUsersOfBoard(idBoard: String!, query: String): [User]
@@ -178,6 +179,11 @@ enum Reminder {
   TwoDaysBefore
   TwoHoursBefore
   Unknown
+}
+
+type ResultMyCards {
+  boards: [Board]
+  cards: [Card]
 }
 
 type Subscription {

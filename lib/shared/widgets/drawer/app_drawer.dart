@@ -44,12 +44,14 @@ class AppDrawer extends ConsumerWidget {
                     user?.fullName ?? 'Full Name',
                     style: const AppTextStyle(
                       fontWeight: FontWeight.bold,
+                      color: ColorConstants.white,
                     ),
                   ),
                   accountEmail: Text(
                     user?.email ?? 'Email',
                     style: const AppTextStyle(
                       fontWeight: FontWeight.bold,
+                      color: ColorConstants.white,
                     ),
                   ),
                   currentAccountPicture:
