@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/shared/utilities/color.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class BoardDetailAppBarSearch extends StatelessWidget
     implements PreferredSizeWidget {
@@ -28,12 +29,12 @@ class BoardDetailAppBarSearch extends StatelessWidget
         decoration: const InputDecoration(
           hintText: 'Tìm kiếm thẻ...',
           border: InputBorder.none,
-          hintStyle: TextStyle(
+          hintStyle: AppTextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w100,
           ),
         ),
-        style: const TextStyle(
+        style: const AppTextStyle(
           color: Colors.white,
         ),
         onChanged: (value) {

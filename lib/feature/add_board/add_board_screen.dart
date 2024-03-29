@@ -1,4 +1,5 @@
 import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
@@ -8,6 +9,7 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/shared/enum/board_status_enum.dart';
 import 'package:task_manager/shared/loading/loading_overlay.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class AddBoardScreen extends ConsumerWidget {
   const AddBoardScreen({super.key});
@@ -57,7 +59,7 @@ class AddBoardScreen extends ConsumerWidget {
                       children: [
                         const Text(
                           'Tên bảng',
-                          style: TextStyle(color: ColorConstants.primary),
+                          style: AppTextStyle(color: ColorConstants.primary),
                         ),
                         SizedBox(
                           height: 30,
@@ -67,7 +69,7 @@ class AddBoardScreen extends ConsumerWidget {
                               bloc.nameBoardSubject.value = value;
                               bloc.onChanged();
                             },
-                            style: const TextStyle(color: Colors.black),
+                            style: const AppTextStyle(color: Colors.black),
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
@@ -84,7 +86,7 @@ class AddBoardScreen extends ConsumerWidget {
                   SizedBoxConstants.h20,
                   const Text(
                     'Quyền xem',
-                    style: TextStyle(color: Colors.blue),
+                    style: AppTextStyle(color: Colors.blue),
                   ),
                   PopupMenuButton(
                     itemBuilder: (context) => BoardStatusEnum.values
@@ -116,7 +118,7 @@ class AddBoardScreen extends ConsumerWidget {
                     children: [
                       const Text(
                         'Phông nền bảng',
-                        style: TextStyle(color: Colors.blue),
+                        style: AppTextStyle(color: Colors.blue),
                       ),
                       const Spacer(),
                       InkWell(
@@ -150,7 +152,7 @@ class AddBoardScreen extends ConsumerWidget {
                       alignment: Alignment.center,
                       child: const Text(
                         'Tạo Bảng',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        style: AppTextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
                   ),

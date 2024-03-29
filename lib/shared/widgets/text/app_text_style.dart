@@ -10,6 +10,9 @@ class AppTextStyle extends TextStyle {
     super.height = 1.3,
     super.decoration,
     super.fontFamily = 'AvertaStdCY',
+    super.decorationColor, // Màu của gạch chân
+    super.decorationThickness, // Độ dày của gạch chân
+    super.decorationStyle,
   });
 
   const AppTextStyle.white({

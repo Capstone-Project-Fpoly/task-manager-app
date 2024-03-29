@@ -35,7 +35,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
             scrollController: bloc.scrollListController,
             contentsWhenEmpty: const Text(
               'Chưa có danh sách nào!',
-              style: TextStyle(color: Colors.white),
+              style: AppTextStyle(color: Colors.white),
             ),
             listTarget: InkWell(
               onTap: bloc.onTapOpenAddList,
@@ -67,7 +67,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
                             ),
                             child: const Text(
                               'Thêm danh sách',
-                              style: TextStyle(
+                              style: AppTextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -84,12 +84,12 @@ class DragAndDropListsCustom extends ConsumerWidget {
                             ),
                             child: TextFormField(
                               autofocus: true,
-                              style: const TextStyle(color: Colors.black),
+                              style: const AppTextStyle(color: Colors.black),
                               controller: bloc.addListController,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 hintText: 'Tên danh sách',
-                                hintStyle: TextStyle(
+                                hintStyle: AppTextStyle(
                                   color: Colors.black.withOpacity(0.4),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
@@ -203,7 +203,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
                             innerList?.label ?? '',
                             maxLines: 1,
                             textAlign: TextAlign.left,
-                            style: const TextStyle(
+                            style: const AppTextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
                             ),
@@ -258,7 +258,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
                               ),
                               Text(
                                 'Thêm thẻ',
-                                style: TextStyle(
+                                style: AppTextStyle(
                                   color: Colors.blue,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -293,7 +293,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
                         ),
                         child: TextFormField(
                           autofocus: true,
-                          style: const TextStyle(
+                          style: const AppTextStyle(
                             color: Colors.black,
                             fontSize: 14,
                           ),
@@ -301,7 +301,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Tên thẻ',
-                            hintStyle: TextStyle(
+                            hintStyle: AppTextStyle(
                               color: Colors.black.withOpacity(0.4),
                               fontSize: 15,
                               fontWeight: FontWeight.w400,

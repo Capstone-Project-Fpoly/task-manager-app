@@ -4,6 +4,7 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/check_list_fragment.graphql.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardChecklistItemWidget extends ConsumerStatefulWidget {
   const DetailCardChecklistItemWidget({
@@ -82,7 +83,7 @@ class _DetailCardChecklistItemWidgetState
                       hintText: 'Thêm mục công việc',
                       border: InputBorder.none,
                     ),
-                    style: TextStyle(
+                    style: AppTextStyle(
                       color: ColorConstants.black,
                       fontSize: 14,
                       decoration: widget.checkList.isChecked

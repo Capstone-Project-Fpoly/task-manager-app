@@ -5,6 +5,7 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class BoardDetailShowListDetailBottomSheet extends ConsumerWidget {
   const BoardDetailShowListDetailBottomSheet({
@@ -47,7 +48,7 @@ class BoardDetailShowListDetailBottomSheet extends ConsumerWidget {
                     child: GestureDetector(
                       child: const Text(
                         'Hủy',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           color: Colors.blueAccent,
                           fontSize: 15,
                         ),
@@ -64,7 +65,7 @@ class BoardDetailShowListDetailBottomSheet extends ConsumerWidget {
                     child: Text(
                       listFragment.label,
                       maxLines: 1,
-                      style: const TextStyle(
+                      style: const AppTextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
@@ -141,7 +142,7 @@ class BoardDetailShowListDetailBottomSheet extends ConsumerWidget {
           children: [
             Text(
               itemName,
-              style: TextStyle(
+              style: AppTextStyle(
                 fontSize: 15,
                 color: isDelete == null ? Colors.black : Colors.red,
               ),
@@ -172,7 +173,7 @@ class BoardDetailShowListDetailBottomSheet extends ConsumerWidget {
         return AlertDialog(
           title: Text(
             title,
-            style: const TextStyle(
+            style: const AppTextStyle(
               color: Colors.red,
             ),
           ),

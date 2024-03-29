@@ -8,6 +8,7 @@ import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_label_extension.dart';
 import 'package:task_manager/graphql/Fragment/label_fragment.graphql.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardAddLabelWidget extends ConsumerWidget {
   const DetailCardAddLabelWidget({super.key, required this.isAddLabel});
@@ -38,7 +39,7 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
             children: [
               const Text(
                 'Nhãn mới',
-                style: TextStyle(
+                style: AppTextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -49,7 +50,7 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: 'Tên nhãn...',
-                    hintStyle: TextStyle(
+                    hintStyle: AppTextStyle(
                       color: Colors.black.withOpacity(0.5),
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -96,7 +97,7 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
                         },
                         child: const Text(
                           'Xóa',
-                          style: TextStyle(
+                          style: AppTextStyle(
                             color: ColorConstants.red,
                             fontWeight: FontWeight.bold,
                           ),
@@ -109,7 +110,7 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
                       },
                       child: const Text(
                         'Hủy',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           color: ColorConstants.primary,
                           fontWeight: FontWeight.bold,
                         ),
@@ -124,7 +125,7 @@ class DetailCardAddLabelWidget extends ConsumerWidget {
                       },
                       child: const Text(
                         'Hoàn tất',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           color: ColorConstants.primary,
                           fontWeight: FontWeight.bold,
                         ),

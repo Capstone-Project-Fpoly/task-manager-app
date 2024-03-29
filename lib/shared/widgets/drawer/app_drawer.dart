@@ -5,6 +5,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 import 'package:task_manager/shared/widgets/drawer/widget/app_drawer_list.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class AppDrawer extends ConsumerWidget {
   const AppDrawer({
@@ -41,13 +42,13 @@ class AppDrawer extends ConsumerWidget {
                   currentAccountPictureSize: const Size(65, 65),
                   accountName: Text(
                     user?.fullName ?? 'Full Name',
-                    style: const TextStyle(
+                    style: const AppTextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   accountEmail: Text(
                     user?.email ?? 'Email',
-                    style: const TextStyle(
+                    style: const AppTextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),

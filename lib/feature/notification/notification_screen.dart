@@ -6,6 +6,7 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/notification/widget/notification_item.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class NotificationScreen extends ConsumerWidget {
   const NotificationScreen({super.key});
@@ -13,11 +14,11 @@ class NotificationScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bloc = ref.watch(BlocProvider.notificationBloc);
-    const textStyleWhite = TextStyle(
+    const textStyleWhite = AppTextStyle(
       color: ColorConstants.white,
       fontSize: 14,
     );
-    const textStyleBlack = TextStyle(
+    const textStyleBlack = AppTextStyle(
       color: ColorConstants.primaryBlack,
       fontSize: 14,
     );

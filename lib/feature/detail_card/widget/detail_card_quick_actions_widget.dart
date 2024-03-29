@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_member.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardQuickActionsWidget extends ConsumerWidget {
   const DetailCardQuickActionsWidget({super.key});
@@ -50,7 +51,7 @@ class DetailCardQuickActionsWidget extends ConsumerWidget {
                       ),
                       title: const Text(
                         'Thêm danh sách công việc',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           color: ColorConstants.primaryBlack,
                           fontSize: 13,
                         ),
@@ -90,7 +91,7 @@ class DetailCardQuickActionsWidget extends ConsumerWidget {
                       ),
                       title: const Text(
                         'Thành viên',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           color: ColorConstants.primaryBlack,
                           fontSize: 13,
                         ),

@@ -61,7 +61,7 @@ class ListSearchByBoard extends ConsumerWidget {
                       children: [
                         Text(
                           'Tên Bảng',
-                          style: TextStyle(
+                          style: AppTextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.black54,
@@ -72,7 +72,7 @@ class ListSearchByBoard extends ConsumerWidget {
                         SizedBoxConstants.w4,
                         Text(
                           'Tên Danh Sách',
-                          style: TextStyle(
+                          style: AppTextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.black54,

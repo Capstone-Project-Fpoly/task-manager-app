@@ -6,6 +6,7 @@ import 'package:task_manager/graphql/Mutations/label/create_label_of_board.graph
 import 'package:task_manager/graphql/Mutations/label/delete_label_of_board.graphql.dart';
 import 'package:task_manager/graphql/Mutations/label/get_labels_of_board.graphql.dart';
 import 'package:task_manager/graphql/Mutations/label/update_label_of_board.graphql.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 extension DetailCardLabelExtension on DetailCardBloc {
   Future<void> getLabelOfBoard() async {
@@ -157,7 +158,7 @@ extension DetailCardLabelExtension on DetailCardBloc {
         return AlertDialog(
           title: const Text(
             'Xác nhận',
-            style: TextStyle(
+            style: AppTextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.red,
             ),

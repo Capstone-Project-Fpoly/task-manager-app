@@ -9,6 +9,7 @@ import 'package:task_manager/feature/invite_member/widget/list_member_widget.dar
 import 'package:task_manager/feature/invite_member/widget/list_search_widget.dart';
 import 'package:task_manager/shared/loading/loading_overlay.dart';
 import 'package:task_manager/shared/utilities/color.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class InviteMemberScreen extends ConsumerWidget {
   const InviteMemberScreen({super.key});
@@ -53,7 +54,7 @@ class InviteMemberScreen extends ConsumerWidget {
                     ),
               title: const Text(
                 'Quản lý thành viên',
-                style: TextStyle(
+                style: AppTextStyle(
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -93,7 +94,7 @@ class InviteMemberScreen extends ConsumerWidget {
                       SizedBoxConstants.h20,
                       const Text(
                         'Mời thành viên:',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -132,7 +133,7 @@ class InviteMemberScreen extends ConsumerWidget {
                           children: [
                             Text(
                               bloc.nameBoardSubject.value,
-                              style: const TextStyle(
+                              style: const AppTextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ),

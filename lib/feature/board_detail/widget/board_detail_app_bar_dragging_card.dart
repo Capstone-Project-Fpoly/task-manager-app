@@ -3,6 +3,7 @@ import 'package:task_manager/base/rx/obs_builder.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/board_detail/board_detail_bloc.dart';
 import 'package:task_manager/shared/utilities/color.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class BoardDetailAppBarDraggingCard extends StatelessWidget
     implements PreferredSizeWidget {
@@ -41,7 +42,7 @@ class BoardDetailAppBarDraggingCard extends StatelessWidget
                   SizedBoxConstants.w10,
                   Text(
                     'Kéo vào đây để xóa ',
-                    style: TextStyle(
+                    style: AppTextStyle(
                       fontSize: 15,
                       color: Colors.white,
                     ),

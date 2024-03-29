@@ -9,6 +9,7 @@ import 'package:task_manager/shared/loading/loading_overlay.dart';
 import 'package:task_manager/shared/widgets/drawer/widget/cusstom_text_field.dart';
 import 'package:task_manager/shared/widgets/icons/google_icon.dart';
 import 'package:task_manager/shared/widgets/icons/trello_icon.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class RegEmailScreen extends ConsumerWidget {
   const RegEmailScreen({super.key});
@@ -47,7 +48,7 @@ class RegEmailScreen extends ConsumerWidget {
                           SizedBoxConstants.w16,
                           Text(
                             'Task Manager',
-                            style: TextStyle(
+                            style: AppTextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                               fontSize: 25,
@@ -71,7 +72,8 @@ class RegEmailScreen extends ConsumerWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         bloc.errorCheckTextSubject.value,
-                        style: const TextStyle(fontSize: 12, color: Colors.red),
+                        style:
+                            const AppTextStyle(fontSize: 12, color: Colors.red),
                       ),
                     ),
                     SizedBoxConstants.h8,
@@ -100,7 +102,8 @@ class RegEmailScreen extends ConsumerWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         bloc.errorCheckPassSubject.value,
-                        style: const TextStyle(fontSize: 12, color: Colors.red),
+                        style:
+                            const AppTextStyle(fontSize: 12, color: Colors.red),
                       ),
                     ),
                     SizedBoxConstants.h12,
@@ -129,7 +132,8 @@ class RegEmailScreen extends ConsumerWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         bloc.errorCheckRePassSubject.value,
-                        style: const TextStyle(fontSize: 12, color: Colors.red),
+                        style:
+                            const AppTextStyle(fontSize: 12, color: Colors.red),
                       ),
                     ),
                     SizedBoxConstants.h12,
@@ -154,7 +158,7 @@ class RegEmailScreen extends ConsumerWidget {
                                 bloc.isTapSendSubject.value
                                     ? '${bloc.countSubject.value}'
                                     : 'Gửi mã',
-                                style: const TextStyle(
+                                style: const AppTextStyle(
                                   color: ColorConstants.backgroundColorApp,
                                 ),
                               ),
@@ -169,7 +173,8 @@ class RegEmailScreen extends ConsumerWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         bloc.errorCheckOtpSubject.value,
-                        style: const TextStyle(fontSize: 12, color: Colors.red),
+                        style:
+                            const AppTextStyle(fontSize: 12, color: Colors.red),
                       ),
                     ),
                     SizedBoxConstants.h12,
@@ -200,7 +205,7 @@ class RegEmailScreen extends ConsumerWidget {
                                   : null,
                               child: const Text(
                                 'Đăng ký',
-                                style: TextStyle(
+                                style: AppTextStyle(
                                   fontSize: 15,
                                   color: Colors.white,
                                 ),

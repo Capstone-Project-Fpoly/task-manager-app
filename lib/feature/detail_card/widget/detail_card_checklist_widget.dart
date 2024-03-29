@@ -8,6 +8,7 @@ import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_checklist_extension.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_checklist_item_widget.dart';
 import 'package:task_manager/shared/widgets/progress_bar.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardChecklistWidget extends ConsumerWidget {
   const DetailCardChecklistWidget({super.key});
@@ -34,7 +35,7 @@ class DetailCardChecklistWidget extends ConsumerWidget {
                     children: [
                       const Text(
                         'Danh sách công việc',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           color: ColorConstants.primaryBlack,
                           fontWeight: FontWeight.bold,
                         ),
@@ -64,7 +65,7 @@ class DetailCardChecklistWidget extends ConsumerWidget {
                             value: 'delete',
                             child: Text(
                               'Xóa',
-                              style: TextStyle(color: ColorConstants.red),
+                              style: AppTextStyle(color: ColorConstants.red),
                             ),
                           ),
                         ],
@@ -147,7 +148,7 @@ class DetailCardChecklistWidget extends ConsumerWidget {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'Thêm mục...',
-              hintStyle: TextStyle(
+              hintStyle: AppTextStyle(
                 color: Colors.black.withOpacity(0.5),
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
