@@ -21,7 +21,6 @@ class SearchItemListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.inviteMember);
-    final width = MediaQuery.of(context).size.width;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,

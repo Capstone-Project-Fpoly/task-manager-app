@@ -4,8 +4,11 @@ import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/base/dependency/router/arguments/detail_card_argument.dart';
+import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
-import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
+import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
+import 'package:task_manager/graphql/queries/card/get_my_cards.graphql.dart';
 
 class MyCardBloc extends BlocBase {
   final Ref ref;
@@ -22,23 +25,21 @@ class MyCardBloc extends BlocBase {
   final isLoadingSubject = BehaviorSubject<bool>.seeded(false);
   late final boardBloc = ref.read(BlocProvider.board);
   late final appBloc = ref.read(BlocProvider.app);
-  final listFragmentSubject =
-      BehaviorSubject<List<Fragment$ListFragment?>>.seeded([]);
-  final listBoardMyCardSubject =
-      BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
 
-  final listSearchBoardMyCardSubject =
+  final listBoardSubject =
       BehaviorSubject<List<Fragment$BoardFragment?>>.seeded([]);
+  final listCardSubject =
+      BehaviorSubject<List<Fragment$CardFragment?>>.seeded([]);
 
   late final routerService = ref.watch(AppService.router);
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
 
-  List<Fragment$BoardFragment?> boardFragmentsCurrent = [];
+  List<Fragment$BoardFragment?> boardsFragmentCurrent = [];
+  List<Fragment$CardFragment?> cardsFragmentCurrent = [];
 
   final searchController = TextEditingController();
   final focusNode = FocusNode();
-  List<String> listIdBoard = [];
 
   @override
   void dispose() {
@@ -49,16 +50,38 @@ class MyCardBloc extends BlocBase {
     isFindCardByBoardSubject.close();
     isFocusSubject.close();
     isLoadingSubject.close();
-    listFragmentSubject.close();
-    listBoardMyCardSubject.close();
-    listSearchBoardMyCardSubject.close();
+    listBoardSubject.close();
+    listCardSubject.close();
   }
 
   Future<void> init() async {
     focusNode.addListener(() {
       if (focusNode.hasFocus) isFocusSubject.value = true;
     });
-    getListBoard('');
+    getMyCards();
+  }
+
+  Future<void> getMyCards() async {
+    isLoadingSubject.value = true;
+    final result = await graphqlService.client.query$GetMyCards(
+      Options$Query$GetMyCards(),
+    );
+    isLoadingSubject.value = false;
+    if (result.hasException) {
+      toastService.showText(
+        message: result.exception?.graphqlErrors.first.message,
+      );
+      return;
+    }
+    listCardSubject.value = result.parsedData?.getMyCards?.cards ?? [];
+    listBoardSubject.value = result.parsedData?.getMyCards?.boards ?? [];
+    boardsFragmentCurrent = [...listBoardSubject.value];
+    cardsFragmentCurrent = [...listCardSubject.value];
+  }
+
+  void refresh() {
+    listBoardSubject.value = [...boardsFragmentCurrent];
+    listCardSubject.value = [...cardsFragmentCurrent];
   }
 
   void openSearch(bool value) {
@@ -70,16 +93,48 @@ class MyCardBloc extends BlocBase {
   }
 
   void searchCard(String query) {
-    getListBoard(query);
+    if (query.isEmpty) {
+      refresh();
+      return;
+    }
+    final cards = [...cardsFragmentCurrent];
+    final boards = [...boardsFragmentCurrent];
+    cards.removeWhere(
+      (element) => element?.title.toLowerCase().contains(query) == false,
+    );
+    boards.removeWhere(
+      (element) => cards.any((card) => card?.boardId == element?.id) == false,
+    );
+    listCardSubject.value = cards;
+    listBoardSubject.value = boards;
   }
 
   void clearText() {
-    searchController.clear();
+    searchController.text = '';
+    refresh();
   }
 
   void unFocusNode() {
     focusNode.unfocus();
     isFocusSubject.value = false;
     searchController.clear();
+    refresh();
+  }
+
+  void onTapToCardDetail({required String? idCard, required String? idBoard}) {
+    if (idCard == null || idBoard == null) return;
+    final detailCardArgument = DetailCardArgument(
+      idCard: idCard,
+      idBoard: idBoard,
+    );
+    routerService.push(
+      RouteInput.detailCard(
+        detailCardArgument: detailCardArgument,
+      ),
+    );
+  }
+
+  void onTapToAddCard() {
+    routerService.push(RouteInput.addCard());
   }
 }

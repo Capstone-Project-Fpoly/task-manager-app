@@ -1,0 +1,10 @@
+query GetMyCards{
+    getMyCards {
+        boards {
+            ...BoardFragment
+        }
+        cards {
+            ...CardFragment
+        }
+    }
+}
