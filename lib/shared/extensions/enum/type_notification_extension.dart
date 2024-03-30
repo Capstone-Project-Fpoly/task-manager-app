@@ -29,50 +29,50 @@ extension TypeNotificationExtension on Enum$TopicNotification {
       case Enum$TopicNotification.Board:
         return const Icon(
           Icons.dashboard,
-          color: Colors.blue,
-          size: 48,
+          color: Colors.black,
+          size: 25,
         );
       case Enum$TopicNotification.Card:
         return const Icon(
           Icons.credit_card_outlined,
-          color: Colors.greenAccent,
-          size: 48,
+          color: Colors.black,
+          size: 25,
         );
       case Enum$TopicNotification.CheckList:
         return const Icon(
           Icons.check_box_outlined,
-          color: Colors.grey,
-          size: 48,
+          color: Colors.black,
+          size: 25,
         );
       case Enum$TopicNotification.Comment:
         return const Icon(
           Icons.comment,
-          color: Colors.pinkAccent,
-          size: 48,
+          color: Colors.black,
+          size: 25,
         );
       case Enum$TopicNotification.InviteUserToBoard:
         return const Icon(
           Icons.person_add_outlined,
-          color: Colors.red,
-          size: 48,
+          color: Colors.black,
+          size: 25,
         );
       case Enum$TopicNotification.$List:
         return const Icon(
           Icons.list_alt_outlined,
-          color: Colors.green,
-          size: 48,
+          color: Colors.black,
+          size: 25,
         );
       case Enum$TopicNotification.$unknown:
         return const Icon(
           Icons.notifications_active_sharp,
-          color: Colors.yellowAccent,
-          size: 48,
+          color: Colors.black,
+          size: 25,
         );
       default:
         return const Icon(
           Icons.notifications_active_sharp,
-          color: Colors.yellowAccent,
-          size: 48,
+          color: Colors.black,
+          size: 25,
         );
     }
   }
