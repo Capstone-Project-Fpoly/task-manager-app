@@ -10,6 +10,7 @@ import 'package:task_manager/shared/widgets/drawer/app_drawer.dart';
 import 'package:task_manager/shared/widgets/icons/card_icon.dart';
 import 'package:task_manager/shared/widgets/icons/empty.dart';
 import 'package:task_manager/shared/widgets/icons/trello_icon.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class MyBoardScreen extends ConsumerWidget {
   const MyBoardScreen({Key? key}) : super(key: key);
@@ -92,7 +93,7 @@ class MyBoardScreen extends ConsumerWidget {
                     children: [
                       Text(
                         'Bạn hiện chưa có bảng nào...',
-                        style: TextStyle(fontSize: 15),
+                        style: AppTextStyle(fontSize: 15),
                       ),
                       EmptyIcon(
                         width: 100,
@@ -116,7 +117,7 @@ class MyBoardScreen extends ConsumerWidget {
                           children: [
                             Text(
                               'Không gian làm việc của tôi',
-                              style: TextStyle(color: Colors.white),
+                              style: AppTextStyle(color: Colors.white),
                             ),
                             Spacer(),
                             InkWell(
@@ -167,7 +168,7 @@ class MyBoardScreen extends ConsumerWidget {
                                       SizedBoxConstants.h4,
                                       Text(
                                         e?.title ?? '',
-                                        style: const TextStyle(
+                                        style: const AppTextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -234,7 +235,7 @@ class MyBoardScreen extends ConsumerWidget {
                   padding: EdgeInsetsConstants.right10,
                   child: const Text(
                     'Bảng',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: AppTextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 onTap: () => bloc.onTapToAddBoard(),
@@ -253,7 +254,7 @@ class MyBoardScreen extends ConsumerWidget {
                   padding: EdgeInsetsConstants.right10,
                   child: const Text(
                     'Thẻ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: AppTextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 visible: true,

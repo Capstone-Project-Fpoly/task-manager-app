@@ -13,6 +13,7 @@ import 'package:task_manager/shared/widgets/drawer/app_drawer.dart';
 import 'package:task_manager/shared/widgets/icons/card_icon.dart';
 import 'package:task_manager/shared/widgets/icons/empty.dart';
 import 'package:task_manager/shared/widgets/icons/trello_icon.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class BoardScreen extends ConsumerWidget {
   const BoardScreen({super.key});
@@ -46,7 +47,7 @@ class BoardScreen extends ConsumerWidget {
                   hintStyle: TextStyle(color: Colors.white),
                 ),
                 autofocus: true,
-                style: const TextStyle(
+                style: const AppTextStyle(
                   color: Colors.white,
                 ),
                 onChanged: (value) {
@@ -192,7 +193,7 @@ class BoardScreen extends ConsumerWidget {
                   padding: EdgeInsetsConstants.right10,
                   child: const Text(
                     'Bảng',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: AppTextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 onTap: () => bloc.onTapToAddBoard(),
@@ -211,7 +212,7 @@ class BoardScreen extends ConsumerWidget {
                   padding: EdgeInsetsConstants.right10,
                   child: const Text(
                     'Thẻ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: AppTextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 visible: true,

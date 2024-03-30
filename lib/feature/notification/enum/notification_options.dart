@@ -2,8 +2,8 @@ enum NotificationOptionsEnum {
   all(
     title: 'Tất cả',
   ),
-  me(
-    title: 'Tôi',
+  card(
+    title: 'Thẻ',
   ),
   comment(
     title: 'Bình luận',

@@ -6,6 +6,7 @@ import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardDialogEndDate extends ConsumerWidget {
   const DetailCardDialogEndDate({super.key});
@@ -32,7 +33,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
               children: [
                 const Text(
                   'Ngày kết thúc',
-                  style: TextStyle(
+                  style: AppTextStyle(
                     color: ColorConstants.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -61,7 +62,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                             });
                           },
                           child: TextField(
-                            style: const TextStyle(
+                            style: const AppTextStyle(
                               color: ColorConstants.primaryBlack,
                               fontSize: 14,
                             ),
@@ -71,7 +72,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                               isDense: true,
                               contentPadding: EdgeInsetsConstants.bottom4,
                               hintText: 'Chọn ngày',
-                              hintStyle: TextStyle(
+                              hintStyle: AppTextStyle(
                                 fontSize: 13,
                                 color: ColorConstants.primaryBlack,
                               ),
@@ -108,7 +109,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                             });
                           },
                           child: TextField(
-                            style: const TextStyle(
+                            style: const AppTextStyle(
                               color: ColorConstants.primaryBlack,
                               fontSize: 14,
                             ),
@@ -118,7 +119,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                               isDense: true,
                               contentPadding: EdgeInsetsConstants.bottom4,
                               hintText: 'Chọn giờ',
-                              hintStyle: TextStyle(
+                              hintStyle: AppTextStyle(
                                 fontSize: 13,
                                 color: ColorConstants.primaryBlack,
                               ),
@@ -134,7 +135,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                     ? const SizedBox.shrink()
                     : const Text(
                         'Ngày kết thúc không được sớm hơn ngày bắt đầu',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           color: ColorConstants.red,
                           fontSize: 11,
                         ),
@@ -151,7 +152,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                         },
                         child: const Text(
                           'Hủy',
-                          style: TextStyle(
+                          style: AppTextStyle(
                             color: ColorConstants.primary,
                             fontWeight: FontWeight.bold,
                           ),
@@ -164,7 +165,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                         },
                         child: const Text(
                           'Hoàn tất',
-                          style: TextStyle(
+                          style: AppTextStyle(
                             color: ColorConstants.primary,
                             fontWeight: FontWeight.bold,
                           ),

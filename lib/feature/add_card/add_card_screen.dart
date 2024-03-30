@@ -240,7 +240,7 @@ class AddCardScreen extends ConsumerWidget {
                                       child: ListTile(
                                         title: Text(
                                           item?.fullName ?? '',
-                                          style: const TextStyle(
+                                          style: const AppTextStyle(
                                             color: ColorConstants.primaryBlack,
                                           ),
                                         ),

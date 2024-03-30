@@ -33,12 +33,12 @@ class OptionBottomSheet extends ConsumerWidget {
                 },
               ),
               ListTile(
-                leading: selectedOption == NotificationOptionsEnum.me
+                leading: selectedOption == NotificationOptionsEnum.card
                     ? const Icon(Icons.check)
                     : SizedBoxConstants.w10,
-                title: const Text('Tôi'),
+                title: const Text('Thẻ'),
                 onTap: () {
-                  bloc.onTapOption(option: NotificationOptionsEnum.me);
+                  bloc.onTapOption(option: NotificationOptionsEnum.card);
                 },
               ),
 

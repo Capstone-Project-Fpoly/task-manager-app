@@ -36,6 +36,27 @@ class CardItemWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (false)
+            Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  topLeft: Radius.circular(10),
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  topLeft: Radius.circular(10),
+                ),
+                child: Image.network(
+                  'https://phunugioi.com/wp-content/uploads/2020/10/hinh-anh-thien-nhien-buon.jpg',
+                  fit: BoxFit.cover, // Đảm bảo ảnh được đầy đủ trong phần cắt
+                ),
+              ),
+            ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsetsConstants.left12 +

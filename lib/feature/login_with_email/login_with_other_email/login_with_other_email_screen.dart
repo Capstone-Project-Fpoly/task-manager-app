@@ -9,6 +9,7 @@ import 'package:task_manager/shared/loading/loading_overlay.dart';
 import 'package:task_manager/shared/widgets/drawer/widget/cusstom_text_field.dart';
 import 'package:task_manager/shared/widgets/icons/google_icon.dart';
 import 'package:task_manager/shared/widgets/icons/trello_icon.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class LoginWithOtherEmailScreen extends ConsumerWidget {
   const LoginWithOtherEmailScreen({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                           SizedBoxConstants.w16,
                           Text(
                             'Task Manager',
-                            style: TextStyle(
+                            style: AppTextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                               fontSize: 25,
@@ -68,7 +69,8 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         bloc.errorCheckTextSubject.value,
-                        style: const TextStyle(fontSize: 12, color: Colors.red),
+                        style:
+                            const AppTextStyle(fontSize: 12, color: Colors.red),
                       ),
                     ),
                     SizedBoxConstants.h12,
@@ -100,8 +102,10 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           bloc.errorCheckPassSubject.value,
-                          style:
-                              const TextStyle(fontSize: 12, color: Colors.red),
+                          style: const AppTextStyle(
+                            fontSize: 12,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                     SizedBoxConstants.h20,
@@ -124,7 +128,8 @@ class LoginWithOtherEmailScreen extends ConsumerWidget {
                           },
                           child: const Text(
                             'Đăng nhập',
-                            style: TextStyle(fontSize: 15, color: Colors.white),
+                            style:
+                                AppTextStyle(fontSize: 15, color: Colors.white),
                           ),
                         ),
                       ),

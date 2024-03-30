@@ -8,6 +8,7 @@ import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_comment_extension.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardListCommentWidget extends ConsumerWidget {
   const DetailCardListCommentWidget({super.key});
@@ -35,7 +36,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                     bloc.isShowNotificationSubject.value
                         ? 'Thông báo'
                         : 'Hoạt động',
-                    style: const TextStyle(
+                    style: const AppTextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -123,7 +124,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                   children: [
                                     Text(
                                       comment.user?.fullName ?? '',
-                                      style: const TextStyle(
+                                      style: const AppTextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: ColorConstants.black,
                                       ),
@@ -146,7 +147,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                   formatDateTimeCommentCard(
                                     comment.createdAt,
                                   ),
-                                  style: const TextStyle(
+                                  style: const AppTextStyle(
                                     color: ColorConstants.grey,
                                     fontSize: 11,
                                   ),
@@ -161,7 +162,8 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                                 value: 'delete',
                                 child: const Text(
                                   'Xóa',
-                                  style: TextStyle(color: ColorConstants.red),
+                                  style:
+                                      AppTextStyle(color: ColorConstants.red),
                                 ),
                                 onTap: () => bloc.onTapConfirmDeleteComment(
                                   context: context,
@@ -246,7 +248,7 @@ class DetailCardListCommentWidget extends ConsumerWidget {
                               Text(
                                 bloc.listNotificationFragmentsSubject.value[i]
                                     .createdAt,
-                                style: const TextStyle(
+                                style: const AppTextStyle(
                                   color: ColorConstants.grey,
                                   fontSize: 11,
                                 ),

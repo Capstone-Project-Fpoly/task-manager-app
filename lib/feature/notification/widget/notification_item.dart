@@ -21,10 +21,12 @@ class NotificationItem extends ConsumerWidget {
     final isSeen = notification?.is_seen ?? false;
     final bloc = ref.read(BlocProvider.notificationBloc);
     return InkWell(
-      onTap: () => bloc.onTapNotificationItem(
-        idNotification: notification?.id,
-        isSeen: isSeen,
-      ),
+      onTap: () {
+        bloc.onTapNotificationItem(
+          notification: notification,
+          isSeen: isSeen,
+        );
+      },
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -8,6 +8,7 @@ import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_label_extension.dart';
 import 'package:task_manager/graphql/Fragment/label_fragment.graphql.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DetailCardLabelWidget extends ConsumerWidget {
   const DetailCardLabelWidget({super.key});
@@ -79,7 +80,7 @@ class DetailCardLabelWidget extends ConsumerWidget {
                         height: 40,
                         child: const Text(
                           'Tạo nhãn mới',
-                          style: TextStyle(
+                          style: AppTextStyle(
                             color: ColorConstants.primary,
                           ),
                         ),
@@ -133,7 +134,7 @@ class DetailCardLabelWidget extends ConsumerWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       label?.title ?? '',
-                      style: TextStyle(
+                      style: AppTextStyle(
                         color: textColor,
                       ),
                     ),

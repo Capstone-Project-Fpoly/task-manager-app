@@ -6,6 +6,7 @@ import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class SearchItemListWidget extends ConsumerWidget {
   const SearchItemListWidget({
@@ -39,7 +40,7 @@ class SearchItemListWidget extends ConsumerWidget {
               Text(
                 user.fullName ?? '',
                 maxLines: 2,
-                style: const TextStyle(
+                style: const AppTextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -47,7 +48,7 @@ class SearchItemListWidget extends ConsumerWidget {
               Text(
                 user.email ?? '',
                 maxLines: 2,
-                style: const TextStyle(
+                style: const AppTextStyle(
                   fontSize: 13,
                   color: Colors.grey,
                 ),
