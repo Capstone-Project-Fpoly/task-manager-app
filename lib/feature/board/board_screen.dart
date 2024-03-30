@@ -127,18 +127,23 @@ class BoardScreen extends ConsumerWidget {
             onRefresh: () async {
               bloc.getBoards();
             },
-            child: ListView.builder(
-              itemCount: groupedByBoard.length,
-              itemBuilder: (context, index) {
-                final boards = groupedByBoard[index];
-                return itemBoard(
-                  width: width,
-                  height: height,
-                  boards: boards,
-                  bloc: bloc,
-                  isCreated: me?.uid == boards.first?.ownerUser?.uid,
-                );
-              },
+            child: Stack(
+              children: [
+                ListView(),
+                ListView.builder(
+                  itemCount: groupedByBoard.length,
+                  itemBuilder: (context, index) {
+                    final boards = groupedByBoard[index];
+                    return itemBoard(
+                      width: width,
+                      height: height,
+                      boards: boards,
+                      bloc: bloc,
+                      isCreated: me?.uid == boards.first?.ownerUser?.uid,
+                    );
+                  },
+                ),
+              ],
             ),
           );
         },

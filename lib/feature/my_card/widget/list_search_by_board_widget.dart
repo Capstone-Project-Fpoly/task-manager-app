@@ -19,104 +19,109 @@ class ListSearchByBoard extends ConsumerWidget {
       onRefresh: () async {
         bloc.getMyCards();
       },
-      child: ObsBuilder(
-        streams: [bloc.listBoardSubject, bloc.listCardSubject],
-        builder: (context) {
-          final boards = bloc.listBoardSubject.value;
-          if (boards.isEmpty) {
-            return const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Bạn hiện chưa có thẻ nào...',
-                    style: AppTextStyle(fontSize: 15),
-                  ),
-                  EmptyIcon(
-                    width: 100,
-                  ),
-                ],
-              ),
-            );
-          }
-          return ListView.builder(
-            itemCount: boards.length,
-            itemBuilder: (BuildContext context, int index) {
-              final board = boards[index];
-              final cards = bloc.listCardSubject.value
-                  .where(
-                    (element) => element?.boardId == board?.id,
-                  )
-                  .toList();
-              return ListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Container(
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(color: Colors.grey, width: 1),
-                      bottom: BorderSide(color: Colors.grey, width: 1),
-                    ),
-                  ),
-                  padding: EdgeInsetsConstants.all8,
-                  child: Row(
+      child: Stack(
+        children: [
+          ListView(),
+          ObsBuilder(
+            streams: [bloc.listBoardSubject, bloc.listCardSubject],
+            builder: (context) {
+              final boards = bloc.listBoardSubject.value;
+              if (boards.isEmpty) {
+                return const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 25,
-                        height: 25,
-                        decoration: BoxDecoration(
-                          color: ColorUtils.getColorFromHex(
-                            board?.color,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                        ),
-                      ),
-                      SizedBoxConstants.w12,
                       Text(
-                        board?.title ?? '',
-                        style: const AppTextStyle.black(
-                          fontSize: 15,
-                        ),
+                        'Bạn hiện chưa có thẻ nào...',
+                        style: AppTextStyle(fontSize: 15),
+                      ),
+                      EmptyIcon(
+                        width: 100,
                       ),
                     ],
                   ),
-                ),
-                subtitle: Padding(
-                  padding: EdgeInsetsConstants.horizontal40 +
-                      EdgeInsetsConstants.top16,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: cards.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final item = cards[index];
-                      return InkWell(
-                        onTap: () {
-                          bloc.onTapToCardDetail(
-                            idCard: item?.id,
-                            idBoard: board?.id,
+                );
+              }
+              return ListView.builder(
+                itemCount: boards.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final board = boards[index];
+                  final cards = bloc.listCardSubject.value
+                      .where(
+                        (element) => element?.boardId == board?.id,
+                      )
+                      .toList();
+                  return ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Container(
+                      height: 50,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          top: BorderSide(color: Colors.grey, width: 1),
+                          bottom: BorderSide(color: Colors.grey, width: 1),
+                        ),
+                      ),
+                      padding: EdgeInsetsConstants.all8,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 25,
+                            height: 25,
+                            decoration: BoxDecoration(
+                              color: ColorUtils.getColorFromHex(
+                                board?.color,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(5),
+                              ),
+                            ),
+                          ),
+                          SizedBoxConstants.w12,
+                          Text(
+                            board?.title ?? '',
+                            style: const AppTextStyle.black(
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    subtitle: Padding(
+                      padding: EdgeInsetsConstants.horizontal40 +
+                          EdgeInsetsConstants.top16,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: cards.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final item = cards[index];
+                          return InkWell(
+                            onTap: () {
+                              bloc.onTapToCardDetail(
+                                idCard: item?.id,
+                                idBoard: board?.id,
+                              );
+                            },
+                            child: Card(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: CardItemWidget(
+                                card: item,
+                              ),
+                            ),
                           );
                         },
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: CardItemWidget(
-                            card: item,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
+                    ),
+                  );
+                },
               );
             },
-          );
-        },
+          ),
+        ],
       ),
     );
   }
