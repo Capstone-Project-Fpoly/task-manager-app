@@ -7,6 +7,7 @@ import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/user_fragment.graphql.dart';
 import 'package:task_manager/shared/loading/loading_overlay.dart';
 import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
+import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 class DialogEditMemberOfBoard extends ConsumerWidget {
   const DialogEditMemberOfBoard({super.key, required this.user});
@@ -51,14 +52,14 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                             children: [
                               Text(
                                 user.fullName ?? '',
-                                style: const TextStyle(
+                                style: const AppTextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
                                 user.email ?? '',
-                                style: const TextStyle(
+                                style: const AppTextStyle(
                                   fontSize: 15,
                                 ),
                               ),
@@ -106,7 +107,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                     children: [
                                       const Text(
                                         'Quản trị viên',
-                                        style: TextStyle(
+                                        style: AppTextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -114,7 +115,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                       const Text(
                                         'Quản trị viên có thể xóa các thành viên bảng, chỉnh sửa thẻ và danh sách, thay đổi cài đặt bảng và xóa bảng',
                                         maxLines: 4,
-                                        style: TextStyle(
+                                        style: AppTextStyle(
                                           fontSize: 12,
                                         ),
                                       ),
@@ -124,7 +125,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                           child: const Text(
                                             'Bạn không thể thay đổi vai trò vì bạn là quoản trị viên của bảng này',
                                             maxLines: 4,
-                                            style: TextStyle(
+                                            style: AppTextStyle(
                                               color: Colors.red,
                                               fontSize: 12,
                                             ),
@@ -162,7 +163,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                     children: [
                                       Text(
                                         'Thành viên',
-                                        style: TextStyle(
+                                        style: AppTextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
                                           color: !bloc.checkAdminOfBoard(user)
@@ -173,7 +174,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                       Text(
                                         'Các thành viên bình thường có thể xem và chỉnh sửa thẻ, danh sách và một số cài đặt bảng',
                                         maxLines: 4,
-                                        style: TextStyle(
+                                        style: AppTextStyle(
                                           fontSize: 12,
                                           color: !bloc.checkAdminOfBoard(user)
                                               ? Colors.black
@@ -202,7 +203,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                               onTap: () => bloc.back(),
                               child: const Text(
                                 'ĐÓNG',
-                                style: TextStyle(
+                                style: AppTextStyle(
                                   color: Colors.blue,
                                 ),
                               ),
@@ -223,7 +224,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                   onTap: () => bloc.removeUserFromBoard(user),
                                   child: const Text(
                                     'LOẠI BỎ THÀNH VIÊN',
-                                    style: TextStyle(color: Colors.red),
+                                    style: AppTextStyle(color: Colors.red),
                                   ),
                                 ),
                                 GestureDetector(
@@ -233,7 +234,7 @@ class DialogEditMemberOfBoard extends ConsumerWidget {
                                   ),
                                   child: const Text(
                                     'LƯU',
-                                    style: TextStyle(color: Colors.blue),
+                                    style: AppTextStyle(color: Colors.blue),
                                   ),
                                 ),
                               ],

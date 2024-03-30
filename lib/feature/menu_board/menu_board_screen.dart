@@ -36,7 +36,7 @@ class MenuBoardScreen extends ConsumerWidget {
               title: const Text(
                 'Menu Bảng',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: AppTextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -150,7 +150,7 @@ class MenuBoardScreen extends ConsumerWidget {
                                         children: [
                                           const Text(
                                             'Thành viên',
-                                            style: TextStyle(
+                                            style: AppTextStyle(
                                               fontSize: 16,
                                             ),
                                           ),
@@ -214,7 +214,7 @@ class MenuBoardScreen extends ConsumerWidget {
                                     alignment: Alignment.center,
                                     child: const Text(
                                       'Mời thành viên',
-                                      style: TextStyle(
+                                      style: AppTextStyle(
                                         color: Colors.white,
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
