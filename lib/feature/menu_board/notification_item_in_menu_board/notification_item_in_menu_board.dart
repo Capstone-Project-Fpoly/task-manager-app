@@ -3,10 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/notification_fragment.graphql.dart';
-import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/extensions/enum/type_notification_extension.dart';
 import 'package:task_manager/shared/utilities/datetime.dart';
-import 'package:task_manager/shared/widgets/avatar/app_circle_avatar.dart';
 import 'package:task_manager/shared/widgets/drawer/widget/mark_down_bold.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
@@ -32,28 +30,7 @@ class NotificationItemInMenuBoard extends ConsumerWidget {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.1,
                       alignment: Alignment.center,
-                      child: Wrap(
-                        children: [
-                          if (notification?.topic ==
-                              Enum$TopicNotification.InviteUserToBoard)
-                            Enum$TopicNotification.InviteUserToBoard.getIcon,
-                          if (notification?.topic ==
-                              Enum$TopicNotification.Board)
-                            Enum$TopicNotification.Board.getIcon,
-                          if (notification?.topic ==
-                              Enum$TopicNotification.Card)
-                            Enum$TopicNotification.Card.getIcon,
-                          if (notification?.topic ==
-                              Enum$TopicNotification.Comment)
-                            AppCircleAvatar(
-                              url: notification?.creator?.avatar ?? '',
-                              width: 35,
-                            ),
-                          if (notification?.topic ==
-                              Enum$TopicNotification.$List)
-                            Enum$TopicNotification.$List.getIcon,
-                        ],
-                      ),
+                      child: notification?.topic.getIcon,
                     ),
                     SizedBoxConstants.w4,
                     Expanded(
