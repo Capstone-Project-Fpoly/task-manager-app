@@ -1,0 +1,3 @@
+subscription CheckCloseBoard($idBoard: String!) {
+  checkCloseBoard(idBoard: $idBoard)
+}

@@ -29,7 +29,7 @@ class ListSearchByBoard extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Bạn hiện chưa có bảng nào...',
+                    'Bạn hiện chưa có thẻ nào...',
                     style: AppTextStyle(fontSize: 15),
                   ),
                   EmptyIcon(
