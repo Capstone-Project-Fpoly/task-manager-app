@@ -1,0 +1,3 @@
+mutation CloseBoard($idBoard: String!){
+    closeBoard(idBoard:$idBoard)
+}

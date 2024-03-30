@@ -10,6 +10,7 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/arguments/detail_card_argument.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/board_detail/enum/board_detail_app_bar_enum.dart';
+import 'package:task_manager/feature/board_detail/extension/board_detail_board_extension.dart';
 import 'package:task_manager/feature/board_detail/extension/board_detail_card_extention.dart';
 import 'package:task_manager/feature/board_detail/extension/board_detail_list_extention.dart';
 import 'package:task_manager/feature/board_detail/extension/board_detail_subscription_extension.dart';
@@ -18,6 +19,7 @@ import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/update_board.graphql.dart';
 import 'package:task_manager/graphql/Mutations/list/get_lists.graphql.dart';
+import 'package:task_manager/graphql/Subscriptions/check_close_board.graphql.dart';
 import 'package:task_manager/graphql/Subscriptions/detail_board.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/widgets/dialog_show/alert_dialog_widget.dart';
@@ -66,7 +68,11 @@ class BoardDetailBloc extends BlocBase {
   final appBarEnumSubject =
       BehaviorSubject<BoardDetailAppBarEnum?>.seeded(null);
 
+  final isCheckBoardSubject = BehaviorSubject<bool>.seeded(true);
+
   StreamSubscription<QueryResult<Subscription$DetailBoard>>? subscription;
+  StreamSubscription<QueryResult<Subscription$CheckCloseBoard>>?
+      subscriptionCheckClose;
 
   List<Fragment$ListFragment?> listFragmentsCurrent = [];
 
@@ -84,6 +90,10 @@ class BoardDetailBloc extends BlocBase {
   }
 
   Future<void> init() async {
+    if (isLoadingSubject.isClosed) return;
+    isLoadingSubject.value = true;
+    await fetchCheckBoard();
+    isLoadingSubject.value = false;
     subscription = subscriptionDetailBoard().listen((event) {
       if (event.data == null) return;
       final data = event.parsedData?.detailBoard;
@@ -160,6 +170,8 @@ class BoardDetailBloc extends BlocBase {
     titleListEditSubject.close();
     currentBoardSubject.close();
     subscription?.cancel();
+    isCheckBoardSubject.close();
+    subscriptionCheckClose?.cancel();
   }
 
   void onTapLabelListTextField({required String? idList}) {
@@ -299,6 +311,12 @@ class BoardDetailBloc extends BlocBase {
   late final appBloc = ref.read(BlocProvider.app);
 
   BoardDetailBloc(this.ref, {required this.boardFragment}) {
+    subscriptionCheckClose = subscription$CheckCloseBoard().listen((event) {
+      if (event.data == null) return;
+      final data = event.parsedData?.checkCloseBoard;
+      if (data == null) return;
+      init();
+    });
     init();
   }
 

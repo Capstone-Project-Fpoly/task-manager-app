@@ -22,8 +22,10 @@ class BoardDetailScreen extends ConsumerWidget {
         bloc.isDragCardMoveContainerDeleteSubject,
         bloc.appBarEnumSubject,
         bloc.currentBoardSubject,
+        bloc.isCheckBoardSubject,
       ],
       builder: (context) {
+        final checkBoard = bloc.isCheckBoardSubject.value;
         final currentBoard = bloc.currentBoardSubject.value;
         final color = ColorUtils.getColorFromHex(currentBoard.color);
         final hslColor = HSLColor.fromColor(color);
@@ -47,7 +49,9 @@ class BoardDetailScreen extends ConsumerWidget {
                         child: const Icon(Icons.arrow_back),
                       ),
                       title: GestureDetector(
-                        onDoubleTap: bloc.onTapEditBoardTitle,
+                        onDoubleTap: () {
+                          if (checkBoard) bloc.onTapEditBoardTitle();
+                        },
                         child: Text(
                           currentBoard.title ?? 'Bảng thử nghiệm',
                           style: const AppTextStyle.white(
@@ -60,15 +64,16 @@ class BoardDetailScreen extends ConsumerWidget {
                       actions: [
                         Row(
                           children: [
-                            InkWell(
-                              child: const Icon(
-                                Icons.filter_list,
-                                color: Colors.white,
+                            if (checkBoard)
+                              InkWell(
+                                child: const Icon(
+                                  Icons.filter_list,
+                                  color: Colors.white,
+                                ),
+                                onTap: () {
+                                  bloc.onTapOpenSearch();
+                                },
                               ),
-                              onTap: () {
-                                bloc.onTapOpenSearch();
-                              },
-                            ),
                             SizedBoxConstants.w15,
                             InkWell(
                               child: const Icon(
@@ -80,13 +85,14 @@ class BoardDetailScreen extends ConsumerWidget {
                               },
                             ),
                             SizedBoxConstants.w15,
-                            GestureDetector(
-                              onTap: () => bloc.onTapOpenMenuBoardScreen(),
-                              child: const Icon(
-                                Icons.more_horiz,
-                                color: Colors.white,
+                            if (checkBoard)
+                              GestureDetector(
+                                onTap: () => bloc.onTapOpenMenuBoardScreen(),
+                                child: const Icon(
+                                  Icons.more_horiz,
+                                  color: Colors.white,
+                                ),
                               ),
-                            ),
                             SizedBoxConstants.w10,
                           ],
                         ),
@@ -106,18 +112,6 @@ class BoardDetailScreen extends ConsumerWidget {
               }
               return DragAndDropListsCustom();
             },
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: bloc.onTapZoom,
-            child: ObsBuilder(
-              streams: [bloc.isZoomSubject],
-              builder: (context) {
-                if (bloc.isZoomSubject.value) {
-                  return const Icon(Icons.zoom_out);
-                }
-                return const Icon(Icons.zoom_in);
-              },
-            ),
           ),
         );
       },

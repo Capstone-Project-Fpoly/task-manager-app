@@ -84,7 +84,12 @@ class BoardBloc extends BlocBase {
     selectedSearchSubject.value = false;
     appBloc.selectedBoardSubject.value = board;
     if (board == null) return;
-    await routerService.push(RouteInput.boardDetail(boardFragment: board));
+    final result = await routerService.push(
+      RouteInput.boardDetail(
+        boardFragment: board,
+      ),
+    );
+    if (result == null) return;
     updateBoardWhenOnTap();
   }
 

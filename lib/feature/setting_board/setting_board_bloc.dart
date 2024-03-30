@@ -5,7 +5,10 @@ import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
+import 'package:task_manager/base/dependency/router/utils/route_name.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
+import 'package:task_manager/graphql/Mutations/board/check_board.graphql.dart';
+import 'package:task_manager/graphql/Mutations/board/close_board.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/update_board.graphql.dart';
 import 'package:task_manager/schema.graphql.dart';
 import 'package:task_manager/shared/enum/board_status_enum.dart';
@@ -30,6 +33,7 @@ class SettingBoardBloc extends BlocBase {
     BoardStatusEnum.public,
   );
   final focusNode = FocusNode();
+  final isLoadSubject = BehaviorSubject<bool>.seeded(false);
 
   @override
   void dispose() {
@@ -40,10 +44,12 @@ class SettingBoardBloc extends BlocBase {
     isPublicSubject.close();
     selectedStatusSubject.close();
     focusNode.dispose();
+    textEditingController.dispose();
+    isLoadSubject.close();
     super.dispose();
   }
 
-  void init() {
+  void init() async {
     backgroundColorSubject.value = Color(
       int.parse(
         '0XFF${appBloc.selectedBoardSubject.value?.color ?? '2196F3'}',
@@ -111,7 +117,7 @@ class SettingBoardBloc extends BlocBase {
       builder: (context) {
         return ShowAlertDialog(
           onTap: () {
-            // đóng bảng
+            closeBoard();
           },
           title: 'Đóng Bảng',
           content: 'Bạn có chắc chắn đóng bảng không',
@@ -159,7 +165,62 @@ class SettingBoardBloc extends BlocBase {
     onTapUpdateBoard(color: colorSubject.value);
   }
 
-  SettingBoardBloc(this.ref) {
+  Future<void> closeBoard() async {
+    if (appBloc.selectedBoardSubject.value == null) return;
+    routerService.pop();
+    isLoadSubject.value = true;
+    final result = await graphqlService.client.mutate$CloseBoard(
+      Options$Mutation$CloseBoard(
+        variables: Variables$Mutation$CloseBoard(
+          idBoard: appBloc.selectedBoardSubject.value!.id,
+        ),
+        onError: (error) {
+          toastService.showText(
+            message: error?.graphqlErrors.first.message,
+          );
+        },
+      ),
+    );
+    isLoadSubject.value = false;
+    if (result.hasException) return;
+    routerService.popUntil((route) => route.settings.name == RouteName.root);
+  }
+
+  Future<void> fetchCheckBoard() async {
+    if (appBloc.selectedBoardSubject.value == null) return;
+    isLoadSubject.value = true;
+    final result = await graphqlService.client.mutate$CheckBoard(
+      Options$Mutation$CheckBoard(
+        variables: Variables$Mutation$CheckBoard(
+          idBoard: appBloc.selectedBoardSubject.value!.id,
+        ),
+        onError: (error) {
+          toastService.showText(
+            message: error?.graphqlErrors.first.message,
+          );
+        },
+      ),
+    );
+    isLoadSubject.value = false;
+    if (result.hasException) {
+      routerService.popUntil(
+        (route) => route.settings.name == RouteName.root,
+      );
+      return;
+    }
+    if (result.parsedData?.checkBoard == false) {
+      toastService.showText(
+        message: 'Bảng không tồn tại hoặc đã bị đóng',
+      );
+      routerService.popUntil(
+        (route) => route.settings.name == RouteName.root,
+      );
+      return;
+    }
     init();
+  }
+
+  SettingBoardBloc(this.ref) {
+    fetchCheckBoard();
   }
 }

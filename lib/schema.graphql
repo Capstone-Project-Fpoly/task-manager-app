@@ -114,11 +114,14 @@ type List {
 
 type Mutation {
   acceptInviteToBoard(idBoard: String!, idNotification: String!): Boolean
+  checkBoard(idBoard: String!): Boolean
+  closeBoard(idBoard: String!): Boolean
   createBoard(color: String, isPublic: Boolean!, title: String!): Board
   createCard(input: InputCreateCard!): Card
   createComment(content: String!, idCard: String!): Comment
   createLabelOfBoard(color: String!, idBoard: String!, title: String): LabelCard
   createList(idBoard: String!, label: String!): List
+  deleteBoard(idBoard: String!): Boolean
   deleteCard(idCard: String!, idList: String!): Boolean
   deleteComment(idComment: String!): Boolean
   deleteLabelOfBoard(idLabel: String!): Boolean
@@ -135,6 +138,7 @@ type Mutation {
   logout: Boolean
   moveCard(idBoard: String!, input: InputMoveCard!): Boolean
   moveList(idBoard: String!, input: InputMoveList!): Boolean
+  openBoard(idBoard: String!): Boolean
   registerByEmail(input: InputEmail!): String
   removeUserFromBoard(idBoard: String!, uid: String!): Boolean
   seenNotification(idNotification: String!): Boolean
@@ -187,6 +191,7 @@ type ResultMyCards {
 }
 
 type Subscription {
+  checkCloseBoard(idBoard: String!): Boolean
   detailBoard(idBoard: String!): [List]
   test(id: String!): String
 }

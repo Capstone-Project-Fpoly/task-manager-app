@@ -1,0 +1,3 @@
+mutation CheckBoard($idBoard: String!){
+    checkBoard(idBoard:$idBoard)
+}

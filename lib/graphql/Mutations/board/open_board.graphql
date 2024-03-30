@@ -1,0 +1,3 @@
+mutation OpenBoard($idBoard: String!){
+    openBoard(idBoard:$idBoard)
+}

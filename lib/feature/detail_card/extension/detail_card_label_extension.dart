@@ -209,7 +209,6 @@ extension DetailCardLabelExtension on DetailCardBloc {
         ),
       ),
     );
-    print(result);
     if (result.hasException) {
       getLabelOfBoard();
       return;
