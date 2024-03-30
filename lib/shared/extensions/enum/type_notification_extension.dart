@@ -3,7 +3,6 @@ import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/schema.graphql.dart';
 
 extension TypeNotificationExtension on Enum$TopicNotification {
-
   RouteInput? getRouteInput({required dynamic data}) {
     switch (this) {
       case Enum$TopicNotification.Board:

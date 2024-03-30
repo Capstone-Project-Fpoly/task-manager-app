@@ -22,10 +22,10 @@ class MenuBoardScreen extends ConsumerWidget {
       streams: [bloc.isLoadingSubject, bloc.currentBoardSubject],
       builder: (context) {
         final color =
-        ColorUtils.getColorFromHex(bloc.currentBoardSubject.value?.color);
+            ColorUtils.getColorFromHex(bloc.currentBoardSubject.value?.color);
         final hslColor = HSLColor.fromColor(color);
         final darkerColor =
-        hslColor.withLightness(hslColor.lightness * 0.5).toColor();
+            hslColor.withLightness(hslColor.lightness * 0.5).toColor();
         return LoadingOverlay(
           isLoading: bloc.isLoadingSubject.value,
           child: Scaffold(
@@ -204,7 +204,8 @@ class MenuBoardScreen extends ConsumerWidget {
                                 InkWell(
                                   onTap: bloc.onTapInviteMember,
                                   child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.75,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.75,
                                     decoration: BoxDecoration(
                                       color: Colors.blue[900],
                                       borderRadius: BorderRadius.circular(8),
@@ -275,7 +276,8 @@ class MenuBoardScreen extends ConsumerWidget {
                                       Text(
                                         'Hoạt động',
                                         style: AppTextStyle(
-                                            fontWeight: FontWeight.bold,),
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ],
                                   ),
