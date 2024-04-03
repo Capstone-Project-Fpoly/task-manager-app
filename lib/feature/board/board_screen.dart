@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -256,7 +257,7 @@ class BoardScreen extends ConsumerWidget {
             children: [
               Text(
                 text,
-                style: const TextStyle(color: Colors.white),
+                style: const AppTextStyle(color: Colors.white),
               ),
             ],
           ),
@@ -297,10 +298,14 @@ class BoardScreen extends ConsumerWidget {
                     const SizedBox(
                       width: 20,
                     ),
-                    Text(
-                      board?.title ?? '',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: Text(
+                        board?.title ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: const AppTextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
                       ),
                     ),
                   ],
