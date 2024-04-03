@@ -11,8 +11,6 @@ extension NavigationEnumExtention on NavigationEnum {
         return 'Bảng';
       case NavigationEnum.myCard:
         return 'Các thẻ của tôi';
-      case NavigationEnum.setting:
-        return 'Cài đặt';
       case NavigationEnum.help:
         return 'Trợ giúp';
     }
@@ -31,8 +29,6 @@ extension NavigationEnumExtention on NavigationEnum {
           Icons.credit_card,
           color: Colors.blue,
         );
-      case NavigationEnum.setting:
-        return const Icon(Icons.settings, color: Colors.blue);
       case NavigationEnum.help:
         return const Icon(Icons.info_outline_rounded, color: Colors.blue);
     }
@@ -51,8 +47,6 @@ extension NavigationEnumExtention on NavigationEnum {
           Icons.credit_card,
           color: Colors.black,
         );
-      case NavigationEnum.setting:
-        return const Icon(Icons.settings, color: Colors.black);
       case NavigationEnum.help:
         return const Icon(Icons.info_outline_rounded, color: Colors.black);
     }

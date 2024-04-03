@@ -7,7 +7,6 @@ class RouteName {
   static const board = 'board';
   static const myBoard = 'myBoard';
   static const myCard = 'myCard';
-  static const setting = 'setting';
   static const help = 'help';
   static const boardDetail = 'boardDetail';
   static const addBoard = 'addBoard';
