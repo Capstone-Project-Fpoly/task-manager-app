@@ -43,4 +43,4 @@ analyzer:
     unused_element: ignore
   plugins:
     - custom_lint
-  exclude: [lib/**.graphql.dart, lib/**.freezed.dart, lib/**.g.dart]
+  exclude: [ lib/**.graphql.dart, lib/**.freezed.dart, lib/**.g.dart, lib/shared/lib/**.dart, ]
