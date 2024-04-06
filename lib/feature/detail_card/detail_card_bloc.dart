@@ -8,6 +8,7 @@ import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/toast/toast_service.dart';
 import 'package:task_manager/feature/detail_card/enum/detail_card_app_bar_enum.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_extension.dart';
+import 'package:task_manager/feature/detail_card/extension/detail_card_on_back_extension.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_end_date.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_moving_card.dart';
 import 'package:task_manager/feature/detail_card/widget/detail_card_dialog_start_date.dart';
@@ -121,6 +122,12 @@ class DetailCardBloc extends BlocBase {
 
   @override
   void dispose() {
+    final listInputCheckList = getListInputCheckListToUpdateCard();
+    final users = getListIdUserToUpdateCard();
+    final labels = getListIdLabelToUpdateCard();
+    if (listInputCheckList != null || users != null || labels != null) {
+      updateCard(checkLists: listInputCheckList, users: users, labels: labels);
+    }
     super.dispose();
     isShowQuickActionsSubject.close();
     descriptionController.dispose();

@@ -70,7 +70,6 @@ class NotificationBloc extends BlocBase {
 
   Future<void> onBackToBoardScreen() async {
     routerService.pop();
-    boardBloc.getBoards();
   }
 
   void onTapOption({required NotificationOptionsEnum option}) {

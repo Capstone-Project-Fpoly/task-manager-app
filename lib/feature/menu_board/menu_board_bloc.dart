@@ -49,6 +49,11 @@ class MenuBoardBloc extends BlocBase {
   }
 
   Future<void> onTapSettingBoard() async {
+    final user = appBloc.userSubject.value;
+    if (!checkAdminOfBoard(user)) {
+      toastService.showText(message: 'Bạn không phải quản trị viên');
+      return;
+    }
     final result = await routerService.push(RouteInput.settingBoard());
     if (result == null) return;
     currentBoardSubject.value = result as Fragment$BoardFragment;
