@@ -129,6 +129,7 @@ class AppTheme {
         ),
       ),
     ),
+    dialogBackgroundColor: ColorConstants.white,
   );
 
   static PageTransitionsTheme pageTransitionsTheme = const PageTransitionsTheme(

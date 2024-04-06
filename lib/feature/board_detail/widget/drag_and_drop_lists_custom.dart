@@ -1,4 +1,3 @@
-import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +10,10 @@ import 'package:task_manager/feature/board_detail/enum/board_detail_app_bar_enum
 import 'package:task_manager/feature/board_detail/widget/board_detail_check_board.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
+import 'package:task_manager/shared/lib/drag_and_drop_lists_0.3.3/drag_and_drop_item.dart';
+import 'package:task_manager/shared/lib/drag_and_drop_lists_0.3.3/drag_and_drop_list.dart';
+import 'package:task_manager/shared/lib/drag_and_drop_lists_0.3.3/drag_and_drop_list_interface.dart';
+import 'package:task_manager/shared/lib/drag_and_drop_lists_0.3.3/drag_and_drop_lists.dart';
 import 'package:task_manager/shared/utilities/color.dart';
 import 'package:task_manager/shared/widgets/card_item/card_item_widget.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
@@ -24,8 +27,6 @@ class DragAndDropListsCustom extends ConsumerWidget {
     return ObsBuilder(
       streams: [
         bloc.listFragmentsSubject,
-        bloc.isZoomSubject,
-        bloc.isDraggingCardSubject,
         bloc.currentBoardSubject,
       ],
       builder: (context) {
@@ -60,6 +61,8 @@ class DragAndDropListsCustom extends ConsumerWidget {
                     );
                   },
                 ),
+                itemDivider: SizedBoxConstants.h8,
+                itemDraggingWidth: 300,
                 listTarget: AnimatedSwitcher(
                   key: const ValueKey('key_animated'),
                   duration: const Duration(milliseconds: 100),
@@ -142,13 +145,6 @@ class DragAndDropListsCustom extends ConsumerWidget {
                 ),
                 onItemReorder: bloc.onItemReorder,
                 onListReorder: bloc.onListReorder,
-                // onItemDraggingChanged: (item, dragging) {
-                //   bloc.changeDragIngCard(
-                //     value: dragging,
-                //     item: item,
-                //     context: context,
-                //   );
-                // },
                 axis: Axis.horizontal,
                 listWidth: 300,
                 listDraggingWidth: 300,
@@ -174,7 +170,7 @@ class DragAndDropListsCustom extends ConsumerWidget {
     );
   }
 
-  DragAndDropList dragDropList({
+  DragAndDropListInterface dragDropList({
     required int outerIndex,
     required BoardDetailBloc bloc,
     required double width,
@@ -384,11 +380,19 @@ class DragAndDropListsCustom extends ConsumerWidget {
           onTap: () {
             bloc.onNextToDetailCard(item?.id);
           },
-          child: Card(
-            key: ObjectKey({'idCard': item?.id, 'idList': listFragment?.id}),
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+          child: Container(
+            margin: EdgeInsetsConstants.horizontal4,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(4),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
+                ),
+              ],
             ),
             child: CardItemWidget(
               card: item,

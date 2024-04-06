@@ -32,182 +32,174 @@ class CardItemWidget extends ConsumerWidget {
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsetsConstants.left12 +
-                EdgeInsetsConstants.bottom8 +
-                EdgeInsetsConstants.right12,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-              ),
-            ),
-            alignment: Alignment.centerLeft,
-            child: Wrap(
-              direction: Axis.horizontal,
-              runAlignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.end,
-              alignment: WrapAlignment.spaceBetween,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsetsConstants.left12 + EdgeInsetsConstants.right12,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+          ),
+        ),
+        alignment: Alignment.centerLeft,
+        child: Wrap(
+          direction: Axis.horizontal,
+          runAlignment: WrapAlignment.start,
+          crossAxisAlignment: WrapCrossAlignment.end,
+          alignment: WrapAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                if (labels != null && labels.isNotEmpty)
+                  Wrap(
+                    spacing: 4,
+                    runSpacing: 4,
+                    children: labels
+                        .map(
+                          (e) => containerLabel(
+                            e.color ?? '',
+                          ),
+                        )
+                        .toList(),
+                  ),
+                Text(
+                  card?.title ?? '',
+                  style: const AppTextStyle(color: Colors.black),
+                ),
+                if (isShow) SizedBoxConstants.h8,
+                Wrap(
                   children: [
-                    if (labels != null && labels.isNotEmpty)
-                      Wrap(
-                        spacing: 4,
-                        runSpacing: 4,
-                        children: labels
-                            .map(
-                              (e) => containerLabel(
-                                e.color ?? '',
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    Text(
-                      card?.title ?? '',
-                      style: const AppTextStyle(color: Colors.black),
-                    ),
-                    if (isShow) SizedBoxConstants.h8,
-                    Wrap(
-                      children: [
-                        if (startDate.isNotEmpty)
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                padding: EdgeInsetsConstants.all2,
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(3),
-                                  ),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Icon(
-                                      Icons.access_time,
-                                      size: 14,
-                                      color: Colors.black,
-                                    ),
-                                    SizedBoxConstants.w4,
-                                    Text(
-                                      'Bắt đầu: ${startDate}',
-                                      style: const AppTextStyle(fontSize: 11),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBoxConstants.w8,
-                            ],
-                          ),
-                        if (endDate.isNotEmpty)
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                padding: EdgeInsetsConstants.all2,
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow[100],
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(3),
-                                  ),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Icon(
-                                      Icons.access_time,
-                                      size: 14,
-                                      color: Colors.black,
-                                    ),
-                                    SizedBoxConstants.w4,
-                                    Text(
-                                      endDate,
-                                      style: const AppTextStyle(fontSize: 11),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBoxConstants.w8,
-                            ],
-                          ),
-                        if (countComment > 0)
+                    if (startDate.isNotEmpty)
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
                           Container(
-                            margin: EdgeInsetsConstants.right8,
+                            padding: EdgeInsetsConstants.all2,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(3),
+                              ),
+                            ),
                             child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 const Icon(
-                                  Icons.chat_bubble_outline,
-                                  size: 13,
+                                  Icons.access_time,
+                                  size: 14,
                                   color: Colors.black,
                                 ),
-                                SizedBoxConstants.w2,
+                                SizedBoxConstants.w4,
                                 Text(
-                                  '$countComment',
-                                  style: const AppTextStyle(fontSize: 12),
+                                  'Bắt đầu: ${startDate}',
+                                  style: const AppTextStyle(fontSize: 11),
                                 ),
                               ],
                             ),
                           ),
-                        if (countCheckList > 0)
+                          SizedBoxConstants.w8,
+                        ],
+                      ),
+                    if (endDate.isNotEmpty)
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
                           Container(
                             padding: EdgeInsetsConstants.all2,
                             decoration: BoxDecoration(
-                              color: Colors.green[100],
+                              color: Colors.yellow[100],
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(3),
                               ),
                             ),
                             child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 const Icon(
-                                  Icons.check_box_outlined,
+                                  Icons.access_time,
                                   size: 14,
                                   color: Colors.black,
                                 ),
-                                SizedBoxConstants.w2,
+                                SizedBoxConstants.w4,
                                 Text(
-                                  '$countIsCheckedList/$countCheckList',
-                                  style: const AppTextStyle(fontSize: 12),
+                                  endDate,
+                                  style: const AppTextStyle(fontSize: 11),
                                 ),
                               ],
                             ),
                           ),
-                      ],
-                    ),
-                    if (card!.users != null)
+                          SizedBoxConstants.w8,
+                        ],
+                      ),
+                    if (countComment > 0)
                       Container(
-                        margin: EdgeInsetsConstants.top8,
-                        alignment: Alignment.centerRight,
-                        child: Wrap(
-                          spacing: 2,
-                          runSpacing: 2,
-                          children: card!.users!
-                              .map(
-                                (user) => AppCircleAvatar(
-                                  url: '${user.avatar}',
-                                  width: 28,
-                                ),
-                              )
-                              .toList(),
+                        margin: EdgeInsetsConstants.right8,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.chat_bubble_outline,
+                              size: 13,
+                              color: Colors.black,
+                            ),
+                            SizedBoxConstants.w2,
+                            Text(
+                              '$countComment',
+                              style: const AppTextStyle(fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (countCheckList > 0)
+                      Container(
+                        padding: EdgeInsetsConstants.all2,
+                        decoration: BoxDecoration(
+                          color: Colors.green[100],
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(3),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.check_box_outlined,
+                              size: 14,
+                              color: Colors.black,
+                            ),
+                            SizedBoxConstants.w2,
+                            Text(
+                              '$countIsCheckedList/$countCheckList',
+                              style: const AppTextStyle(fontSize: 12),
+                            ),
+                          ],
                         ),
                       ),
                   ],
                 ),
+                if (card!.users != null)
+                  Container(
+                    margin: EdgeInsetsConstants.top8,
+                    alignment: Alignment.centerRight,
+                    child: Wrap(
+                      spacing: 2,
+                      runSpacing: 2,
+                      children: card!.users!
+                          .map(
+                            (user) => AppCircleAvatar(
+                              url: '${user.avatar}',
+                              width: 28,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -151,6 +151,9 @@ class BoardDetailBloc extends BlocBase {
 
   @override
   void dispose() {
+    if (isLoadingSubject.value) return;
+    appBarEnumSubject.value = null;
+    appBloc.selectedBoardSubject.value = currentBoardSubject.value;
     super.dispose();
     appBarEnumSubject.close();
     listFragmentsSubject.close();
@@ -332,9 +335,6 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void onTapBack() {
-    if (isLoadingSubject.value) return;
-    appBarEnumSubject.value = null;
-    appBloc.selectedBoardSubject.value = currentBoardSubject.value;
     routerService.pop();
   }
 

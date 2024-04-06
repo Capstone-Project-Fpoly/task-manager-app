@@ -47,6 +47,7 @@ class InviteMemberBloc extends BlocBase {
 
   @override
   void dispose() {
+    menuBoardBloc.memberBoard();
     super.dispose();
     searchController.dispose();
     isSearchUsersSubject.close();
@@ -87,7 +88,6 @@ class InviteMemberBloc extends BlocBase {
 
   void back() {
     routerService.pop();
-    menuBoardBloc.memberBoard();
   }
 
   void addMemberToList(Fragment$UserFragment user) {

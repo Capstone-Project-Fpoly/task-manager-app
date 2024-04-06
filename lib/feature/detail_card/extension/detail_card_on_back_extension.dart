@@ -1,5 +1,4 @@
 import 'package:task_manager/feature/detail_card/detail_card_bloc.dart';
-import 'package:task_manager/feature/detail_card/extension/detail_card_extension.dart';
 import 'package:task_manager/schema.graphql.dart';
 
 extension DetailCardOnBackExtension on DetailCardBloc {
@@ -73,12 +72,6 @@ extension DetailCardOnBackExtension on DetailCardBloc {
       focusNodeDescription.unfocus();
       appBarEnumSubject.value = null;
       return;
-    }
-    final listInputCheckList = getListInputCheckListToUpdateCard();
-    final users = getListIdUserToUpdateCard();
-    final labels = getListIdLabelToUpdateCard();
-    if (listInputCheckList != null || users != null || labels != null) {
-      updateCard(checkLists: listInputCheckList, users: users, labels: labels);
     }
     routerService.pop();
   }

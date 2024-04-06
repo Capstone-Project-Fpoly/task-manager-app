@@ -109,82 +109,84 @@ class MyBoardScreen extends ConsumerWidget {
                         ),
                       )
                     : Column(
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          width: width,
-                          height: 50,
-                          color: Colors.black.withOpacity(0.7),
-                          padding: EdgeInsetsConstants.horizontal12,
-                          child: const Row(
-                            children: [
-                              Text(
-                                'Không gian làm việc của tôi',
-                                style: AppTextStyle(color: Colors.white),
-                              ),
-                              Spacer(),
-                              InkWell(
-                                child: Icon(
-                                  Icons.more_horiz,
-                                  color: Color(0xFFFFFFFF),
+                        children: [
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            width: width,
+                            height: 50,
+                            color: Colors.black.withOpacity(0.7),
+                            padding: EdgeInsetsConstants.horizontal12,
+                            child: const Row(
+                              children: [
+                                Text(
+                                  'Không gian làm việc của tôi',
+                                  style: AppTextStyle(color: Colors.white),
                                 ),
-                              ),
-                            ],
+                                Spacer(),
+                                InkWell(
+                                  child: Icon(
+                                    Icons.more_horiz,
+                                    color: Color(0xFFFFFFFF),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Padding(
-                              padding: EdgeInsetsConstants.vertical8,
-                              child: Wrap(
-                                spacing: width * 0.025,
-                                runSpacing: 20,
-                                children: boards.map((e) {
-                                  return SizedBox(
-                                    width: width * 0.465,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        InkWell(
-                                          onTap: () => bloc.onTapToDetailBoard(
-                                            board: e,
-                                          ),
-                                          onLongPress: () {
-                                            bloc.dialogShowOptionBoard(
-                                              context: context,
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: EdgeInsetsConstants.vertical8,
+                                child: Wrap(
+                                  spacing: width * 0.025,
+                                  runSpacing: 20,
+                                  children: boards.map((e) {
+                                    return SizedBox(
+                                      width: width * 0.465,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          InkWell(
+                                            onTap: () =>
+                                                bloc.onTapToDetailBoard(
                                               board: e,
-                                            );
-                                          },
-                                          child: Container(
-                                            width: width * 0.5,
-                                            height: height * 0.12,
-                                            decoration: BoxDecoration(
-                                              color: ColorUtils.getColorFromHex(
-                                                e?.color,
+                                            ),
+                                            onLongPress: () {
+                                              bloc.dialogShowOptionBoard(
+                                                context: context,
+                                                board: e,
+                                              );
+                                            },
+                                            child: Container(
+                                              width: width * 0.5,
+                                              height: height * 0.12,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    ColorUtils.getColorFromHex(
+                                                  e?.color,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
                                             ),
                                           ),
-                                        ),
-                                        SizedBoxConstants.h4,
-                                        Text(
-                                          e?.title ?? '',
-                                          style: const AppTextStyle(
-                                            fontWeight: FontWeight.bold,
+                                          SizedBoxConstants.h4,
+                                          Text(
+                                            e?.title ?? '',
+                                            style: const AppTextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    );
+                        ],
+                      );
               },
             ),
           ],

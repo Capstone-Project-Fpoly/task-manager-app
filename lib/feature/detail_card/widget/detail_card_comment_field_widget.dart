@@ -23,91 +23,85 @@ class DetailCardCommentFieldWidget extends ConsumerWidget {
           top: BorderSide(color: ColorConstants.inputBorder),
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 10,
+              ),
+              child: TextFormField(
+                focusNode: bloc.focusNodeComment,
+                controller: bloc.commentController,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: const EdgeInsets.symmetric(
                     vertical: 10,
+                    horizontal: 10,
                   ),
-                  child: TextFormField(
-                    focusNode: bloc.focusNodeComment,
-                    controller: bloc.commentController,
-                    keyboardType: TextInputType.multiline,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 10,
-                      ),
-                      hintText: 'Thêm nhận xét',
-                      hintStyle: AppTextStyle(
-                        color: Colors.black.withOpacity(0.5),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      border: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
+                  hintText: 'Thêm nhận xét',
+                  hintStyle: AppTextStyle(
+                    color: Colors.black.withOpacity(0.5),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  border: const UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black,
                     ),
-                    maxLines: 5,
-                    minLines: 1,
-                    onChanged: (value) {
-                      bloc.onChangeCommentField(value);
-                    },
-                    onTap: () {
-                      bloc.onTapCommentField();
-                    },
                   ),
                 ),
-              ),
-              InkWell(
-                onTap: () {
-                  bloc.onTapSendComment();
+                maxLines: 5,
+                minLines: 1,
+                onChanged: (value) {
+                  bloc.onChangeCommentField(value);
                 },
-                child: Ink(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                  ),
-                  child: ObsBuilder(
-                    streams: [
-                      bloc.isChatCommentSubject,
-                      bloc.isLoadingAddCommentSubject,
-                    ],
-                    builder: (context) {
-                      return !bloc.isChatCommentSubject.value
-                          ? const SendIcon(
+                onTap: () {
+                  bloc.onTapCommentField();
+                },
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              bloc.onTapSendComment();
+            },
+            child: Ink(
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+              ),
+              child: ObsBuilder(
+                streams: [
+                  bloc.isChatCommentSubject,
+                  bloc.isLoadingAddCommentSubject,
+                ],
+                builder: (context) {
+                  return !bloc.isChatCommentSubject.value
+                      ? const SendIcon(
+                          width: 20,
+                          height: 20,
+                        )
+                      : bloc.isLoadingAddCommentSubject.value
+                          ? const SizedBox(
                               width: 20,
                               height: 20,
+                              child: CircularProgressIndicator(
+                                color: ColorConstants.primary,
+                              ),
                             )
-                          : bloc.isLoadingAddCommentSubject.value
-                              ? const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    color: ColorConstants.primary,
-                                  ),
-                                )
-                              : const SendIcon(
-                                  width: 20,
-                                  height: 20,
-                                  color: ColorConstants.primary,
-                                );
-                    },
-                  ),
-                ),
+                          : const SendIcon(
+                              width: 20,
+                              height: 20,
+                              color: ColorConstants.primary,
+                            );
+                },
               ),
-              const SizedBox(
-                width: 12,
-              ),
-            ],
+            ),
+          ),
+          const SizedBox(
+            width: 12,
           ),
         ],
       ),

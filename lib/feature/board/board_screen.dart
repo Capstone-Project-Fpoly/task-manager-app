@@ -105,24 +105,6 @@ class BoardScreen extends ConsumerWidget {
           // final boards = isSearch
           //     ? bloc.listBoardSearchSubject.value
           //     : bloc.listBoardSubject.value;
-          if (bloc.listBoardSubject.value.isEmpty) {
-            return SizedBox(
-              width: width,
-              height: height,
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Bạn hiện chưa có bảng nào...',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  EmptyIcon(
-                    width: 100,
-                  ),
-                ],
-              ),
-            );
-          }
           return RefreshIndicator(
             onRefresh: () async {
               bloc.getBoards();
@@ -130,19 +112,36 @@ class BoardScreen extends ConsumerWidget {
             child: Stack(
               children: [
                 ListView(),
-                ListView.builder(
-                  itemCount: groupedByBoard.length,
-                  itemBuilder: (context, index) {
-                    final boards = groupedByBoard[index];
-                    return itemBoard(
-                      width: width,
-                      height: height,
-                      boards: boards,
-                      bloc: bloc,
-                      isCreated: me?.uid == boards.first?.ownerUser?.uid,
-                    );
-                  },
-                ),
+                bloc.listBoardSubject.value.isEmpty
+                    ? SizedBox(
+                        width: width,
+                        height: height,
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Bạn hiện chưa có bảng nào...',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            EmptyIcon(
+                              width: 100,
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: groupedByBoard.length,
+                        itemBuilder: (context, index) {
+                          final boards = groupedByBoard[index];
+                          return itemBoard(
+                            width: width,
+                            height: height,
+                            boards: boards,
+                            bloc: bloc,
+                            isCreated: me?.uid == boards.first?.ownerUser?.uid,
+                          );
+                        },
+                      ),
               ],
             ),
           );
