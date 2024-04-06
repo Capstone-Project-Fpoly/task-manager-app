@@ -80,32 +80,6 @@ class BoardDetailShowListDetailBottomSheet extends ConsumerWidget {
             ),
             SizedBoxConstants.h20,
             itemSelect(
-              itemName: 'Sao chép danh sách',
-              onTap: () {},
-            ),
-            itemSelect(
-              itemName: 'Di chuyển danh sách',
-              onTap: () {},
-            ),
-            itemSelect(
-              itemName: 'Sắp xếp danh sách',
-              onTap: () {},
-            ),
-            itemSelect(
-              itemName: 'Xem',
-              onTap: () {},
-            ),
-            SizedBoxConstants.h20,
-            itemSelect(
-              itemName: 'Di chuyển tất cả các thẻ trong danh sách này',
-              onTap: () {},
-            ),
-            itemSelect(
-              itemName: 'Xóa tất cả các thẻ trong danh sách này',
-              onTap: () {},
-            ),
-            SizedBoxConstants.h20,
-            itemSelect(
               isDelete: true,
               itemName: 'Xóa danh sách',
               onTap: () => bloc.onTapDeleteList(

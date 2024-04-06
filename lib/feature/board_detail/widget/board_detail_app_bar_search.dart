@@ -34,8 +34,8 @@ class BoardDetailAppBarSearch extends StatelessWidget
             fontWeight: FontWeight.w100,
           ),
         ),
-        style: const AppTextStyle(
-          color: Colors.white,
+        style: const AppTextStyle.white(
+          fontSize: 20,
         ),
         onChanged: (value) {
           bloc.searchLocalCard(value);

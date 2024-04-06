@@ -62,7 +62,7 @@ class AddBoardScreen extends ConsumerWidget {
                           style: AppTextStyle(color: ColorConstants.primary),
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 45,
                           child: TextFormField(
                             focusNode: bloc.focusNode,
                             onChanged: (value) {
@@ -70,9 +70,11 @@ class AddBoardScreen extends ConsumerWidget {
                               bloc.onChanged();
                             },
                             style: const AppTextStyle(color: Colors.black),
-                            decoration: const InputDecoration(
+                            textAlign: TextAlign.start,
+                            decoration:const InputDecoration(
                               border: InputBorder.none,
                             ),
+                            maxLines: 1,
                           ),
                         ),
                       ],
