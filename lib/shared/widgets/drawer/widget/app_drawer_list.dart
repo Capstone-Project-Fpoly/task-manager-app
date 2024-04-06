@@ -20,7 +20,6 @@ class DrawerList extends ConsumerWidget {
           MenuItem(navigationEnum: NavigationEnum.myBroad),
           Divider(color: Colors.black12),
           MenuItem(navigationEnum: NavigationEnum.myCard),
-          MenuItem(navigationEnum: NavigationEnum.setting),
           MenuItem(navigationEnum: NavigationEnum.help),
         ],
       ),

@@ -48,14 +48,17 @@ class BoardDetailScreen extends ConsumerWidget {
                         },
                         child: const Icon(Icons.arrow_back),
                       ),
-                      title: GestureDetector(
-                        onDoubleTap: () {
+                      title: InkWell(
+                        onTap: () {
                           if (checkBoard) bloc.onTapEditBoardTitle();
                         },
-                        child: Text(
-                          currentBoard.title ?? 'Bảng thử nghiệm',
-                          style: const AppTextStyle.white(
-                            fontSize: 20,
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          child: Text(
+                            currentBoard.title ?? 'Bảng thử nghiệm',
+                            style: const AppTextStyle.white(
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ),

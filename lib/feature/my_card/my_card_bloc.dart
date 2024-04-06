@@ -58,7 +58,7 @@ class MyCardBloc extends BlocBase {
     focusNode.addListener(() {
       if (focusNode.hasFocus) isFocusSubject.value = true;
     });
-    getMyCards();
+    await getMyCards();
   }
 
   Future<void> getMyCards() async {

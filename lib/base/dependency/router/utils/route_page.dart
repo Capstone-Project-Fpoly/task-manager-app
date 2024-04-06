@@ -61,14 +61,6 @@ class RoutePage {
     return RouteScreen.unknownPageRoute(settings);
   }
 
-  static Route<dynamic>? onGenerateSettingTab(RouteSettings settings) {
-    switch (settings.name) {
-      case RouteName.setting:
-        return RouteScreen.settingPageRoute(settings);
-    }
-    return RouteScreen.unknownPageRoute(settings);
-  }
-
   static Route<dynamic>? onGenerateHelpTab(RouteSettings settings) {
     switch (settings.name) {
       case RouteName.help:
