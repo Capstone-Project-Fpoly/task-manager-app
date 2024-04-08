@@ -61,6 +61,7 @@ dependencies:
   flutter_localization: ^0.2.0
   omni_datetime_picker: ^1.0.9
   google_mobile_ads: ^5.0.0
+  drag_and_drop_lists: ^0.3.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

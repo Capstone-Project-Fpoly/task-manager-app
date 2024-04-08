@@ -29,7 +29,7 @@ class DetailCardDialogStartDate extends ConsumerWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
@@ -40,7 +40,6 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                     fontSize: 18,
                   ),
                 ),
-                SizedBoxConstants.h10,
                 Row(
                   children: [
                     ObsBuilder(
@@ -97,12 +96,17 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                         child: InkWell(
                           onTap: () {
                             if (bloc.startDateSubject.value != null) {
+                              final initTime = bloc.startTimeController.text
+                                      .trim()
+                                      .isNotEmpty
+                                  ? TimeOfDay.fromDateTime(
+                                      DateFormat('HH:mm')
+                                          .parse(bloc.startTimeController.text),
+                                    )
+                                  : TimeOfDay.now();
                               showTimePicker(
                                 context: context,
-                                initialTime: TimeOfDay.fromDateTime(
-                                  DateFormat('HH:mm')
-                                      .parse(bloc.startTimeController.text),
-                                ),
+                                initialTime: initTime,
                                 initialEntryMode: TimePickerEntryMode.dial,
                               ).then((value) {
                                 if (value != null) {
@@ -135,17 +139,6 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                     ),
                   ],
                 ),
-                SizedBoxConstants.h10,
-                !bloc.isShowErrorStartDateSubject.value
-                    ? const SizedBox.shrink()
-                    : const Text(
-                        'Ngày bắt đầu không được muộn hơn ngày kết thúc',
-                        style: AppTextStyle(
-                          color: ColorConstants.red,
-                          fontSize: 11,
-                        ),
-                      ),
-                SizedBoxConstants.h10,
                 Material(
                   color: ColorConstants.white,
                   child: Row(

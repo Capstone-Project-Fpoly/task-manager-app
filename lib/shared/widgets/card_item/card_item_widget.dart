@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
@@ -109,7 +110,7 @@ class CardItemWidget extends ConsumerWidget {
                           Container(
                             padding: EdgeInsetsConstants.all2,
                             decoration: BoxDecoration(
-                              color: Colors.yellow[100],
+                              color: getColorEndDateContainer(),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(3),
                               ),
@@ -215,5 +216,30 @@ class CardItemWidget extends ConsumerWidget {
         color: backgroundColor,
       ),
     );
+  }
+
+  DateTime? getEndDate() {
+    try {
+      final formatter = DateFormat('yyyy-MM-ddTHH:mm:ss', 'vi_VN');
+      return formatter.parse(card?.endDate ?? '');
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Color? getColorEndDateContainer() {
+    final endDate = getEndDate();
+    if (endDate == null) {
+      return Colors.green[100];
+    }
+    final now = DateTime.now();
+    final difference = endDate.difference(now).inDays;
+    if (difference < 1) {
+      return Colors.red[100];
+    }
+    if (difference < 3) {
+      return Colors.orange[100];
+    }
+    return Colors.green[100];
   }
 }
