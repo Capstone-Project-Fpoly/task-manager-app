@@ -1,3 +1,5 @@
+import 'package:drag_and_drop_lists/drag_and_drop_list_interface.dart';
+import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,10 +12,6 @@ import 'package:task_manager/feature/board_detail/enum/board_detail_app_bar_enum
 import 'package:task_manager/feature/board_detail/widget/board_detail_check_board.dart';
 import 'package:task_manager/graphql/Fragment/card_fragment.graphql.dart';
 import 'package:task_manager/graphql/Fragment/list_fragment.graphql.dart';
-import 'package:task_manager/shared/lib/drag_and_drop_lists_0.3.3/drag_and_drop_item.dart';
-import 'package:task_manager/shared/lib/drag_and_drop_lists_0.3.3/drag_and_drop_list.dart';
-import 'package:task_manager/shared/lib/drag_and_drop_lists_0.3.3/drag_and_drop_list_interface.dart';
-import 'package:task_manager/shared/lib/drag_and_drop_lists_0.3.3/drag_and_drop_lists.dart';
 import 'package:task_manager/shared/utilities/color.dart';
 import 'package:task_manager/shared/widgets/card_item/card_item_widget.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';

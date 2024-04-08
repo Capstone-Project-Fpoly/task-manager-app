@@ -29,7 +29,7 @@ class DetailCardDialogEndDate extends ConsumerWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
@@ -40,7 +40,6 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                     fontSize: 18,
                   ),
                 ),
-                SizedBoxConstants.h10,
                 Row(
                   children: [
                     SizedBox(
@@ -89,12 +88,17 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                         color: ColorConstants.white,
                         child: InkWell(
                           onTap: () {
+                            final initTime =
+                                bloc.endTimeController.text.trim().isNotEmpty
+                                    ? TimeOfDay.fromDateTime(
+                                        DateFormat('HH:mm').parse(
+                                          bloc.endTimeController.text,
+                                        ),
+                                      )
+                                    : TimeOfDay.now();
                             showTimePicker(
                               context: context,
-                              initialTime: TimeOfDay.fromDateTime(
-                                DateFormat('HH:mm')
-                                    .parse(bloc.endTimeController.text),
-                              ),
+                              initialTime: initTime,
                               initialEntryMode: TimePickerEntryMode.dial,
                               builder: (context, child) {
                                 if (child == null) return const SizedBox();
@@ -134,17 +138,6 @@ class DetailCardDialogEndDate extends ConsumerWidget {
                     ),
                   ],
                 ),
-                SizedBoxConstants.h10,
-                !bloc.isShowErrorEndDateSubject.value
-                    ? const SizedBox.shrink()
-                    : const Text(
-                        'Ngày kết thúc không được sớm hơn ngày bắt đầu',
-                        style: AppTextStyle(
-                          color: ColorConstants.red,
-                          fontSize: 11,
-                        ),
-                      ),
-                SizedBoxConstants.h10,
                 Material(
                   color: ColorConstants.white,
                   child: Row(

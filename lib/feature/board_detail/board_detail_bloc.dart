@@ -190,9 +190,9 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void searchLocalCard(String query) {
-    listFragmentsSubject.value = listFragmentsCurrent;
+    listFragmentsSubject.value = [...listFragmentsCurrent];
     if (query.isEmpty) {
-      listFragmentsSubject.value = listFragmentsCurrent;
+      listFragmentsSubject.value = [...listFragmentsCurrent];
       return;
     }
     final List<Fragment$ListFragment?> listSearch = [];
@@ -216,6 +216,7 @@ class BoardDetailBloc extends BlocBase {
     appBarEnumSubject.value = null;
     indexAddCardSubject.value = null;
     idListEditSubject.value = null;
+    listFragmentsSubject.value = [...listFragmentsCurrent];
   }
 
   Future<void> onTapUpdateBoard() async {
