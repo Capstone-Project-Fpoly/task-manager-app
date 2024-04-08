@@ -95,7 +95,6 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                         color: ColorConstants.white,
                         child: InkWell(
                           onTap: () {
-                            if (bloc.startDateSubject.value != null) {
                               final initTime = bloc.startTimeController.text
                                       .trim()
                                       .isNotEmpty
@@ -115,7 +114,6 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                                   bloc.startTimeSubject.value = value;
                                 }
                               });
-                            }
                           },
                           child: TextField(
                             style: const AppTextStyle(
