@@ -60,39 +60,22 @@ class DetailCardHeaderWidget extends ConsumerWidget {
                 height: 0,
                 color: ColorConstants.divider,
               ),
-              Material(
-                color: ColorConstants.white,
-                child: InkWell(
-                  onTap: () {
-                    bloc.showQuickAction();
-                  },
-                  child: Padding(
-                    padding: EdgeInsetsConstants.all12,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Các thao tác nhanh',
-                          style: AppTextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        bloc.isShowQuickActionsSubject.value
-                            ? const Icon(
-                                Icons.keyboard_arrow_up,
-                                color: ColorConstants.primary,
-                              )
-                            : const Icon(
-                                Icons.keyboard_arrow_down,
-                                color: ColorConstants.primary,
-                              ),
-                      ],
-                    ),
+              ExpansionTile(
+                title: const Text(
+                  'Các thao tác nhanh',
+                  style: AppTextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide.none,
+                ),
+                tilePadding: EdgeInsetsConstants.horizontal12 +
+                    EdgeInsetsConstants.vertical2,
+                children: const [
+                  DetailCardQuickActionsWidget(),
+                ],
               ),
-              if (bloc.isShowQuickActionsSubject.value)
-                const DetailCardQuickActionsWidget(),
             ],
           ),
         );

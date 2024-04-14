@@ -71,7 +71,7 @@ class AddBoardScreen extends ConsumerWidget {
                             },
                             style: const AppTextStyle(color: Colors.black),
                             textAlign: TextAlign.start,
-                            decoration:const InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
                             maxLines: 1,
