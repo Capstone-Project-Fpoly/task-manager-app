@@ -95,25 +95,25 @@ class DetailCardDialogStartDate extends ConsumerWidget {
                         color: ColorConstants.white,
                         child: InkWell(
                           onTap: () {
-                              final initTime = bloc.startTimeController.text
-                                      .trim()
-                                      .isNotEmpty
-                                  ? TimeOfDay.fromDateTime(
-                                      DateFormat('HH:mm')
-                                          .parse(bloc.startTimeController.text),
-                                    )
-                                  : TimeOfDay.now();
-                              showTimePicker(
-                                context: context,
-                                initialTime: initTime,
-                                initialEntryMode: TimePickerEntryMode.dial,
-                              ).then((value) {
-                                if (value != null) {
-                                  bloc.startTimeController.text =
-                                      '${value.hour}:${value.minute < 10 ? '0' : ''}${value.minute}';
-                                  bloc.startTimeSubject.value = value;
-                                }
-                              });
+                            final initTime = bloc.startTimeController.text
+                                    .trim()
+                                    .isNotEmpty
+                                ? TimeOfDay.fromDateTime(
+                                    DateFormat('HH:mm')
+                                        .parse(bloc.startTimeController.text),
+                                  )
+                                : TimeOfDay.now();
+                            showTimePicker(
+                              context: context,
+                              initialTime: initTime,
+                              initialEntryMode: TimePickerEntryMode.dial,
+                            ).then((value) {
+                              if (value != null) {
+                                bloc.startTimeController.text =
+                                    '${value.hour}:${value.minute < 10 ? '0' : ''}${value.minute}';
+                                bloc.startTimeSubject.value = value;
+                              }
+                            });
                           },
                           child: TextField(
                             style: const AppTextStyle(

@@ -98,15 +98,19 @@ class BoardDetailBloc extends BlocBase {
       if (event.data == null) return;
       final data = event.parsedData?.detailBoard;
       if (data == null) return;
-      listFragmentsSubject.value = data;
+      final isDifferent = data.any(
+        (element) => !listFragmentsSubject.value.contains(element),
+      );
+
+      if (isDifferent) {
+        listFragmentsSubject.value = data;
+      }
     });
     titleBoardSubject.value = currentBoardSubject.value.title!;
     isLoadingSubject.value = true;
     await fetchListFragmentByIdBoard();
     isLoadingSubject.value = false;
 
-    // nếu dừng scroll thì sẽ tự động cuộn đến vị trí gần nhất và căn giữa
-    // nếu là vị trí đầu hoặc cuối thì không cuộn
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Timer? timer;
       if (listFragmentsSubject.value.isEmpty) return;
@@ -439,6 +443,7 @@ class BoardDetailBloc extends BlocBase {
   }
 
   void onTapEditBoardTitle() {
+    if (isLoadingSubject.value) return;
     appBarEnumSubject.value = BoardDetailAppBarEnum.editBoardTitle;
   }
 

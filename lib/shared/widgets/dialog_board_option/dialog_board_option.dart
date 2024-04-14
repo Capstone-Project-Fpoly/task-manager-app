@@ -60,7 +60,12 @@ class ShowDialogBoardOption extends ConsumerWidget {
               TextButton(
                 onPressed: () {
                   if (isOwnerBroad) {
-                    //Đóng Bảng
+                    //Đóng bảng
+                    routerService.pop();
+                    bloc.onTapCloseBoard(
+                      context: context,
+                      boardId: board?.id ?? '',
+                    );
                   } else {
                     //Rời bảng
                     routerService.pop();
