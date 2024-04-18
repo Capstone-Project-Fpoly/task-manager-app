@@ -18,6 +18,9 @@ class DrawerList extends ConsumerWidget {
           MenuItem(navigationEnum: NavigationEnum.broad),
           Divider(color: Colors.black12),
           MenuItem(navigationEnum: NavigationEnum.myBroad),
+          MenuItem(
+            navigationEnum: NavigationEnum.closeBoard,
+          ),
           Divider(color: Colors.black12),
           MenuItem(navigationEnum: NavigationEnum.myCard),
           MenuItem(navigationEnum: NavigationEnum.help),

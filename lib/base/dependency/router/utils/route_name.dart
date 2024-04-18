@@ -16,6 +16,7 @@ class RouteName {
   static const menuBoard = 'menuBoard';
   static const settingBoard = 'settingBoard';
   static const notification = 'notification';
+  static const closeBoard = 'closeBoard';
 
   static const detailCard = 'detailCard';
   RouteName._();

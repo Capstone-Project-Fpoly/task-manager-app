@@ -68,4 +68,12 @@ class RoutePage {
     }
     return RouteScreen.unknownPageRoute(settings);
   }
+
+  static Route<dynamic>? onGenerateCloseBoardTap(RouteSettings settings) {
+    switch (settings.name) {
+      case RouteName.closeBoard:
+        return RouteScreen.closeBoardRoute(settings);
+    }
+    return RouteScreen.unknownPageRoute(settings);
+  }
 }

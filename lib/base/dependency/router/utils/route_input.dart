@@ -38,4 +38,6 @@ class RouteInput {
   RouteInput.detailCard({required DetailCardArgument detailCardArgument})
       : routeName = RouteName.detailCard,
         arguments = detailCardArgument;
+
+  RouteInput.closeBoard() : routeName = RouteName.closeBoard;
 }
