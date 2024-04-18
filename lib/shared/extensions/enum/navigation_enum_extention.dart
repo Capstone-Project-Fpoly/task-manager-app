@@ -14,7 +14,7 @@ extension NavigationEnumExtention on NavigationEnum {
       case NavigationEnum.myCard:
         return 'Các thẻ của tôi';
       case NavigationEnum.help:
-        return 'Trợ giúp';
+        return 'Giới thiệu';
     }
   }
 

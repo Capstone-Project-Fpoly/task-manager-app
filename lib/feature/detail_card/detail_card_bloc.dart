@@ -5,7 +5,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
-import 'package:task_manager/base/dependency/toast/toast_service.dart';
 import 'package:task_manager/feature/detail_card/enum/detail_card_app_bar_enum.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_extension.dart';
 import 'package:task_manager/feature/detail_card/extension/detail_card_on_back_extension.dart';
@@ -305,19 +304,6 @@ class DetailCardBloc extends BlocBase {
   }
 
   bool addTitleStartDateTime() {
-    if (startDateController.text.isNotEmpty &&
-        endDateController.text.isNotEmpty) {
-      final startDate = DateFormat('dd/MM/yyyy HH:mm').parse(
-        '${startDateController.text} ${startTimeController.text.isEmpty ? "00:00" : startTimeController.text}',
-      );
-      final endDate = DateFormat('dd/MM/yyyy HH:mm').parse(
-        '${endDateController.text} ${endTimeController.text.isEmpty ? "23:59" : endTimeController.text}',
-      );
-      if (startDate.isAfter(endDate)) {
-        isShowErrorStartDateSubject.value = true;
-        return false;
-      }
-    }
     if (startTimeController.text.isNotEmpty &&
         startDateController.text.isNotEmpty) {
       startDateTimeController.text =
@@ -330,19 +316,6 @@ class DetailCardBloc extends BlocBase {
   }
 
   bool addTitleEndDateTime() {
-    if (startDateController.text.isNotEmpty &&
-        endDateController.text.isNotEmpty) {
-      final startDate = DateFormat('dd/MM/yyyy HH:mm').parse(
-        '${startDateController.text} ${startTimeController.text.isEmpty ? "00:00" : startTimeController.text}',
-      );
-      final endDate = DateFormat('dd/MM/yyyy HH:mm').parse(
-        '${endDateController.text} ${endTimeController.text.isEmpty ? "23:59" : endTimeController.text}',
-      );
-      if (startDate.isAfter(endDate)) {
-        isShowErrorEndDateSubject.value = true;
-        return false;
-      }
-    }
     if (endTimeController.text.isNotEmpty &&
         endDateController.text.isNotEmpty) {
       endDateTimeController.text =
@@ -379,10 +352,6 @@ class DetailCardBloc extends BlocBase {
   }
 
   void showDialogEndDate({required BuildContext context}) {
-    if (startDateTimeController.text.isEmpty) {
-      ToastService().showText(message: 'Vui lòng chọn ngày bắt đầu!');
-      return;
-    }
     isShowErrorEndDateSubject.value = false;
     showDialog(
       useRootNavigator: false,
