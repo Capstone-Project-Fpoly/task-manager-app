@@ -107,8 +107,18 @@ class LoginBloc extends BlocBase {
       ),
     );
     isLoadingSubject.value = false;
-    if (result.hasException) return;
-    if (result.parsedData == null) return;
+    if (result.hasException) {
+      toastService.showText(
+        message: result.exception?.graphqlErrors[0].message,
+      );
+      return;
+    }
+    if (result.parsedData == null) {
+      toastService.showText(
+        message: result.exception?.graphqlErrors[0].message,
+      );
+      return;
+    }
     _saveToken(result.parsedData!.loginByGoogle);
   }
 

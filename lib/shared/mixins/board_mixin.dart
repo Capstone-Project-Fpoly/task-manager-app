@@ -16,7 +16,7 @@ mixin BoardMixin on BlocBase {
     required BuildContext context,
     required String boardId,
   }) {
-    if(boardId.isEmpty) return;
+    if (boardId.isEmpty) return;
     showDialog(
       context: context,
       builder: (context) {
@@ -58,7 +58,7 @@ mixin BoardMixin on BlocBase {
     required BuildContext context,
     required String boardId,
   }) {
-    if(boardId.isEmpty) return;
+    if (boardId.isEmpty) return;
     showDialog(
       context: context,
       builder: (context) {

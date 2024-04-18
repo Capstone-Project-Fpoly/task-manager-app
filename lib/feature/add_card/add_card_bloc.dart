@@ -80,10 +80,11 @@ class AddCardBloc extends BlocBase {
 
   Future<void> onTapAddCard() async {
     final String titleCrad = nameCardSubject.value ?? '';
-    // final String descriptionCard = descriptionCardSubject.value??'';
-    // final String timeStart = timeStartSubject.value??'';
-    // final String timeFinish = timeFinishSubject.value??'';
-    // listSelectedMemberSubject.value;
+    final List<String> listUsers = [];
+    for (int i = 0; i < listSelectedMemberSubject.value.length; i++) {
+      listUsers.add(listSelectedMemberSubject.value[i]?.fullName ?? '');
+    }
+
     focusNodeName.unfocus();
     focusNodeDescription.unfocus();
     if (selectedListSubject.value == null) return;
@@ -93,9 +94,13 @@ class AddCardBloc extends BlocBase {
       Options$Mutation$CreateCard(
         variables: Variables$Mutation$CreateCard(
           input: Input$InputCreateCard(
-            idList: selectedListSubject.value!.id,
+            idList: selectedListSubject.value?.id ?? '',
             reminder: Enum$Reminder.Unknown,
             title: titleCrad,
+            description: descriptionCardSubject.value ?? '',
+            startedDate: timeStartSubject.value ?? '',
+            endDate: timeFinishSubject.value ?? '',
+            users: listUsers,
           ),
         ),
       ),
@@ -189,8 +194,7 @@ class AddCardBloc extends BlocBase {
     if (!context.mounted) return;
     DateTime selectedDate = DateTime.now();
     final TimeOfDay selectedTime = TimeOfDay.now();
-    final DateTime tempDate =
-        DateFormat('yyyy-MM-dd hh:mm:ss').parse(timeStartSubject.value ?? '');
+    final DateTime tempDate =DateTime.now();
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedDate,
@@ -215,7 +219,7 @@ class AddCardBloc extends BlocBase {
           pickedTime.hour,
           pickedTime.minute,
         );
-        final String time = DateFormat('dd-MM-yyyy hh:mm').format(selectedDate);
+        final String time = DateFormat('hh:mm dd-MM-yyyy').format(selectedDate);
         timeFinishSubject.value = time;
       }
     }
@@ -229,8 +233,6 @@ class AddCardBloc extends BlocBase {
       initialDate: selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
-      selectableDayPredicate: (DateTime val) =>
-          val.day < selectedDate.day ? false : true,
     );
 
     if (pickedDate != null) {
@@ -247,7 +249,7 @@ class AddCardBloc extends BlocBase {
           pickedTime.hour,
           pickedTime.minute,
         );
-        final String time = DateFormat('dd-MM-yyyy hh:mm').format(selectedDate);
+        final String time = DateFormat('hh:mm dd-MM-yyyy').format(selectedDate);
         timeStartSubject.value = time;
       }
     }

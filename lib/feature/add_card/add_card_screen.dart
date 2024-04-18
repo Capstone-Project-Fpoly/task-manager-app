@@ -33,6 +33,7 @@ class AddCardScreen extends ConsumerWidget {
         bloc.isSubmitListSubject,
         bloc.listSelectedMemberSubject,
         bloc.selectedMemberSubject,
+        bloc.listMemberSubject,
       ],
       builder: (context) {
         return LoadingOverlay(
@@ -228,8 +229,11 @@ class AddCardScreen extends ConsumerWidget {
                                 SizedBoxConstants.w12,
                                 PopupMenuButton<Fragment$UserFragment?>(
                                   onSelected: (Fragment$UserFragment? result) {
-                                    bloc.listSelectedMemberSubject.value
-                                        .add(result);
+                                    if (!bloc.listSelectedMemberSubject.value
+                                        .contains(result)) {
+                                      bloc.listSelectedMemberSubject.value
+                                          .add(result);
+                                    }
                                   },
                                   itemBuilder: (BuildContext context) => bloc
                                       .listMemberSubject.value
@@ -249,6 +253,14 @@ class AddCardScreen extends ConsumerWidget {
                                           width: 40,
                                           height: 40,
                                         ),
+                                        trailing: bloc
+                                                .listSelectedMemberSubject.value
+                                                .contains(item)
+                                            ? const Icon(
+                                                Icons.check,
+                                                color: ColorConstants.success,
+                                              )
+                                            : const Text(''),
                                       ),
                                     );
                                   }).toList(),
@@ -269,7 +281,7 @@ class AddCardScreen extends ConsumerWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBoxConstants.w12,
+                                SizedBoxConstants.w8,
                                 SizedBox(
                                   width: width / 2,
                                   height: 40,
@@ -298,28 +310,6 @@ class AddCardScreen extends ConsumerWidget {
                             SizedBoxConstants.h12,
                             const AddCardDateTimePicker(),
                             SizedBoxConstants.h24,
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.attach_file_outlined,
-                                  color: ColorConstants.secondaryText,
-                                  size: 28,
-                                ),
-                                SizedBoxConstants.w12,
-                                InkWell(
-                                  onTap: () {
-                                    //
-                                  },
-                                  child: const Text(
-                                    'Tệp đính kèm...',
-                                    style: AppTextStyle.black(
-                                      fontSize: 14,
-                                      color: ColorConstants.primaryBlack,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),
