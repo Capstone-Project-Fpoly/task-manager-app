@@ -61,11 +61,11 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
             style: AppTextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
-              color: Colors.black,
+              color: Colors.red,
             ),
           ),
           content: const Text(
-            'Sau khi xoá bảng, bạn sẽ không thể khôi phục lại bảng hoặc các thẻ của bảng này. Bạn có chắc chắn muốn xoá bảng không?',
+            'Sau khi xoá bảng, bạn sẽ không thể khôi phục lại bảng hoặc các thẻ của bảng này.\nDữ liệu của bảng này sẽ bị xóa khỏi kho lưu trữ của chúng tôi.\nBạn có chắc chắn muốn xoá bảng không?',
             style: AppTextStyle(
               fontSize: 16,
               color: Colors.black,
@@ -113,6 +113,7 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
       ),
     );
     if (result.hasException) return;
+    boardBloc.getBoards();
     routerService.popUntil((route) => route.settings.name == RouteName.root);
   }
 }

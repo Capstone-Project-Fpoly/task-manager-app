@@ -33,6 +33,7 @@ class BoardDetailBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
   late final localStorage = ref.read(AppService.localStorage);
+  late final boardBloc = ref.read(BlocProvider.board);
 
   late final currentBoardSubject =
       BehaviorSubject<Fragment$BoardFragment>.seeded(boardFragment);

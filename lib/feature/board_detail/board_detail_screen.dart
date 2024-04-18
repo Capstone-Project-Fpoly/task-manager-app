@@ -15,7 +15,6 @@ class BoardDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final bloc = ref.watch(BlocProvider.boardDetail);
-
     return ObsBuilder(
       streams: [
         bloc.isDraggingCardSubject,
