@@ -9,6 +9,8 @@ extension NavigationEnumExtention on NavigationEnum {
         return 'Bảng của tôi';
       case NavigationEnum.broad:
         return 'Bảng';
+      case NavigationEnum.closeBoard:
+        return 'Bảng đã đóng';
       case NavigationEnum.myCard:
         return 'Các thẻ của tôi';
       case NavigationEnum.help:
@@ -24,6 +26,8 @@ extension NavigationEnumExtention on NavigationEnum {
         );
       case NavigationEnum.myBroad:
         return const Icon(Icons.group_outlined, color: Colors.blue);
+      case NavigationEnum.closeBoard:
+        return const Icon(Icons.layers_clear, color: Colors.blue);
       case NavigationEnum.myCard:
         return const Icon(
           Icons.credit_card,
@@ -42,6 +46,8 @@ extension NavigationEnumExtention on NavigationEnum {
         );
       case NavigationEnum.myBroad:
         return const Icon(Icons.group_outlined, color: Colors.black);
+      case NavigationEnum.closeBoard:
+        return const Icon(Icons.layers_clear, color: Colors.black);
       case NavigationEnum.myCard:
         return const Icon(
           Icons.credit_card,

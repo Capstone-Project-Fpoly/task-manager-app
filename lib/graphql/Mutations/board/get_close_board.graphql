@@ -1,0 +1,5 @@
+mutation getBoardsClosed {
+  getBoardsClosed {
+    ...BoardFragment
+  }
+}
