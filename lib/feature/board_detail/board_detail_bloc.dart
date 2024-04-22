@@ -34,6 +34,8 @@ class BoardDetailBloc extends BlocBase {
   late final toastService = ref.read(AppService.toast);
   late final localStorage = ref.read(AppService.localStorage);
   late final boardBloc = ref.read(BlocProvider.board);
+  late final myBoardBloc = ref.read(BlocProvider.myBoard);
+  late final myCardBloc = ref.read(BlocProvider.myCard);
 
   late final currentBoardSubject =
       BehaviorSubject<Fragment$BoardFragment>.seeded(boardFragment);

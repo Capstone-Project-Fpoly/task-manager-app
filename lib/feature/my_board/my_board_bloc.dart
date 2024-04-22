@@ -52,19 +52,22 @@ class MyBoardBloc extends BlocBase with BoardMixin {
     required Fragment$BoardFragment? board,
   }) async {
     appBloc.selectedBoardSubject.value = board;
-    if (board == null) return;
+    if (board == null){
+      return;
+    }
     await routerService.push(RouteInput.boardDetail(boardFragment: board));
     final selectedBoard = appBloc.selectedBoardSubject.value;
     if (selectedBoard == null) return;
     final currentMyBoards = [...listBoardSubject.value];
     final index = currentMyBoards.indexWhere(
-      (element) => element?.id == selectedBoard.id,
+          (element) => element?.id == selectedBoard.id,
     );
     if (index != -1) {
       currentMyBoards[index] = selectedBoard;
       listBoardSubject.value = currentMyBoards;
     }
   }
+
 
   Future<void> onTapToAddBoard() async {
     try {

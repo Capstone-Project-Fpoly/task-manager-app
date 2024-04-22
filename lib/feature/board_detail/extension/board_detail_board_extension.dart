@@ -8,6 +8,7 @@ import 'package:task_manager/graphql/Mutations/board/open_board.graphql.dart';
 import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 extension DetailBoardSubscriptionExtension on BoardDetailBloc {
+
   Future<void> fetchCheckBoard() async {
     final result = await graphqlService.client.mutate$CheckBoard(
       Options$Mutation$CheckBoard(
@@ -18,10 +19,14 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
           toastService.showText(
             message: error?.graphqlErrors.first.message,
           );
+          routerService.pop();
         },
       ),
     );
     if (result.hasException) {
+      return;
+    }
+    if(result.parsedData == null){
       return;
     }
     if (isCheckBoardSubject.isClosed) return;
@@ -114,6 +119,8 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
     );
     if (result.hasException) return;
     boardBloc.getBoards();
+    myCardBloc.init();
+    myBoardBloc.init();
     routerService.popUntil((route) => route.settings.name == RouteName.root);
   }
 }
