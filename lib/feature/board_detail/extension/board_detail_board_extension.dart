@@ -9,6 +9,7 @@ import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 extension DetailBoardSubscriptionExtension on BoardDetailBloc {
   Future<void> fetchCheckBoard() async {
+    print('bắt đầu check bảng');
     final result = await graphqlService.client.mutate$CheckBoard(
       Options$Mutation$CheckBoard(
         variables: Variables$Mutation$CheckBoard(
@@ -25,7 +26,9 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
     if (result.hasException) {
       return;
     }
-    if (result.parsedData == null) {
+    if (result.parsedData?.checkBoard == null) {
+      routerService.pop();
+      toastService.showText(message: 'Bảng không tồn tại');
       return;
     }
     if (isCheckBoardSubject.isClosed) return;
@@ -117,9 +120,6 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
       ),
     );
     if (result.hasException) return;
-    boardBloc.getBoards();
-    myCardBloc.init();
-    myBoardBloc.init();
     routerService.popUntil((route) => route.settings.name == RouteName.root);
   }
 }

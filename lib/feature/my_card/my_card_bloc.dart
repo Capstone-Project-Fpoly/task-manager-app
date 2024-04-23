@@ -121,8 +121,12 @@ class MyCardBloc extends BlocBase {
     refresh();
   }
 
-  void onTapToCardDetail({required String? idCard, required String? idBoard}) {
-    if (idCard == null || idBoard == null) return;
+  Future<void> onTapToCardDetail({
+    required String? idCard,
+    required String? idBoard,
+  }) async {
+    if (idBoard == null) return;
+    if (idCard == null) return;
     final detailCardArgument = DetailCardArgument(
       idCard: idCard,
       idBoard: idBoard,

@@ -97,18 +97,20 @@ class BoardDetailBloc extends BlocBase {
     isLoadingSubject.value = true;
     await fetchCheckBoard();
     isLoadingSubject.value = false;
-    subscription = subscriptionDetailBoard().listen((event) {
-      if (event.data == null) return;
-      final data = event.parsedData?.detailBoard;
-      if (data == null) return;
-      final isDifferent = data.any(
-        (element) => !listFragmentsSubject.value.contains(element),
-      );
+    if (isCheckBoardSubject.value) {
+      subscription = subscriptionDetailBoard().listen((event) {
+        if (event.data == null) return;
+        final data = event.parsedData?.detailBoard;
+        if (data == null) return;
+        final isDifferent = data.any(
+          (element) => !listFragmentsSubject.value.contains(element),
+        );
 
-      if (isDifferent) {
-        listFragmentsSubject.value = data;
-      }
-    });
+        if (isDifferent) {
+          listFragmentsSubject.value = data;
+        }
+      });
+    }
     titleBoardSubject.value = currentBoardSubject.value.title!;
     isLoadingSubject.value = true;
     await fetchListFragmentByIdBoard();
