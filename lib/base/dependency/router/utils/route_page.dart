@@ -33,6 +33,8 @@ class RoutePage {
         return RouteScreen.menuBoardRoute(settings);
       case RouteName.detailCard:
         return RouteScreen.detailCardRoute(settings);
+      case RouteName.closeBoard:
+        return RouteScreen.closeBoardRoute(settings);
     }
     return RouteScreen.unknownPageRoute(settings);
   }

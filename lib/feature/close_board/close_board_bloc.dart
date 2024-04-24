@@ -3,6 +3,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:task_manager/base/bloc/bloc_base.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
+import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/feature/close_board/extension/close_board_bloc_extension.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/get_close_board.graphql.dart';
@@ -100,5 +101,24 @@ class CloseBoardBloc extends BlocBase {
 
   CloseBoardBloc(this.ref) {
     init();
+  }
+
+  Future<void> onTapToDetailBoard({
+    required Fragment$BoardFragment? board,
+  }) async {
+    selectedSearchSubject.value = false;
+    appBloc.selectedBoardSubject.value = board;
+    if (board == null) return;
+    final result = await routerService.push(
+      RouteInput.boardDetail(
+        boardFragment: board,
+      ),
+    );
+    if (result == null) return;
+    restoreBoard();
+  }
+
+  void onTapBack() {
+    routerService.pop();
   }
 }

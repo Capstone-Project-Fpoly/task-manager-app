@@ -25,11 +25,10 @@ class CloseBoardScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.menu),
+          icon: const Icon(Icons.arrow_back),
           color: ColorConstants.white,
           onPressed: () {
-            Scaffold.of(context).openDrawer();
-            bloc.openSearch(false);
+            bloc.onTapBack();
           },
         ),
         title: ObsBuilder(
@@ -159,37 +158,42 @@ class CloseBoardScreen extends ConsumerWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             final board = boards[index];
-            return Container(
-              padding: EdgeInsetsConstants.vertical10 +
-                  EdgeInsetsConstants.horizontal12,
-              width: width,
-              height: 60,
-              child: Row(
-                children: [
-                  Container(
-                    width: 60,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: ColorUtils.getColorFromHex(
-                        board?.color,
+            return InkWell(
+              onTap: () {
+                bloc.onTapToDetailBoard(board: board);
+              },
+              child: Container(
+                padding: EdgeInsetsConstants.vertical10 +
+                    EdgeInsetsConstants.horizontal12,
+                width: width,
+                height: 60,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: ColorUtils.getColorFromHex(
+                          board?.color,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      borderRadius: BorderRadius.circular(5),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: Text(
-                      board?.title ?? '',
-                      overflow: TextOverflow.ellipsis,
-                      style: const AppTextStyle(
-                        fontWeight: FontWeight.bold,
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: Text(
+                        board?.title ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: const AppTextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
                       ),
-                      maxLines: 1,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },

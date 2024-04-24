@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/rx/obs_builder.dart';
+import 'package:task_manager/constants/colors.dart';
 import 'package:task_manager/constants/edge_insets.dart';
 import 'package:task_manager/constants/size_box.dart';
 import 'package:task_manager/shared/utilities/color.dart';
@@ -116,17 +117,34 @@ class MyBoardScreen extends ConsumerWidget {
                             height: 50,
                             color: Colors.black.withOpacity(0.7),
                             padding: EdgeInsetsConstants.horizontal12,
-                            child: const Row(
+                            child: Row(
                               children: [
-                                Text(
+                                const Text(
                                   'Không gian làm việc của tôi',
                                   style: AppTextStyle(color: Colors.white),
                                 ),
-                                Spacer(),
-                                InkWell(
-                                  child: Icon(
+                                const Spacer(),
+                                PopupMenuButton(
+                                  itemBuilder: (context) => [
+                                    const PopupMenuItem(
+                                      value: 1,
+                                      child: Text(
+                                        'Bảng đã đóng',
+                                        style: AppTextStyle(),
+                                      ),
+                                    ),
+                                  ],
+                                  onSelected: (value) {
+                                    if (value == 1) {
+                                      bloc.onTapToClosedBoard();
+                                    }
+                                  },
+                                  constraints: BoxConstraints(
+                                    minWidth: width - 350,
+                                  ),
+                                  child: const Icon(
                                     Icons.more_horiz,
-                                    color: Color(0xFFFFFFFF),
+                                    color: ColorConstants.white,
                                   ),
                                 ),
                               ],
