@@ -4,8 +4,7 @@ enum NavigationEnum {
   broad(route: RouteName.board),
   myBroad(route: RouteName.myBoard),
   myCard(route: RouteName.myCard),
-  help(route: RouteName.help),
-  closeBoard(route: RouteName.closeBoard);
+  help(route: RouteName.help);
 
   const NavigationEnum({required this.route});
   final String route;

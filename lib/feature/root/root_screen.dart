@@ -63,8 +63,6 @@ class RootScreen extends ConsumerWidget {
         return RoutePage.onGenerateBoardTab;
       case NavigationEnum.myBroad:
         return RoutePage.onGenerateMyBoardTab;
-      case NavigationEnum.closeBoard:
-        return RoutePage.onGenerateCloseBoardTap;
       case NavigationEnum.myCard:
         return RoutePage.onGenerateMyCardTab;
       case NavigationEnum.help:
