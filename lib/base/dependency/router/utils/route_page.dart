@@ -33,6 +33,8 @@ class RoutePage {
         return RouteScreen.menuBoardRoute(settings);
       case RouteName.detailCard:
         return RouteScreen.detailCardRoute(settings);
+      case RouteName.closeBoard:
+        return RouteScreen.closeBoardRoute(settings);
     }
     return RouteScreen.unknownPageRoute(settings);
   }
@@ -65,6 +67,14 @@ class RoutePage {
     switch (settings.name) {
       case RouteName.help:
         return RouteScreen.helpPageRoute(settings);
+    }
+    return RouteScreen.unknownPageRoute(settings);
+  }
+
+  static Route<dynamic>? onGenerateCloseBoardTap(RouteSettings settings) {
+    switch (settings.name) {
+      case RouteName.closeBoard:
+        return RouteScreen.closeBoardRoute(settings);
     }
     return RouteScreen.unknownPageRoute(settings);
   }

@@ -127,6 +127,7 @@ type Mutation {
   deleteLabelOfBoard(idLabel: String!): Boolean
   deleteList(idList: String!): Boolean
   getBoards: [Board]
+  getBoardsClosed: [Board]
   getCard(idCard: String!): Card
   getComments(idCard: String!): [Comment]
   getLabelsOfBoard(idBoard: String!): [LabelCard]

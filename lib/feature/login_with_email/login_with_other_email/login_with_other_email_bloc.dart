@@ -105,11 +105,17 @@ class LoginWithOtherEmailBloc extends BlocBase {
     );
     isLoadingSubject.value = false;
     if (result.hasException) {
-      toastService.showText(message: 'Đăng nhập thất bại');
+      toastService.showText(
+        message:
+            result.exception?.graphqlErrors[0].message ?? 'Đăng nhập thất bại',
+      );
       return;
     }
     if (result.parsedData == null) {
-      toastService.showText(message: 'Đăng nhập thất bại');
+      toastService.showText(
+        message:
+            result.exception?.graphqlErrors[0].message ?? 'Đăng nhập thất bại',
+      );
       return;
     }
     await _saveToken(result.parsedData!.loginByEmail);

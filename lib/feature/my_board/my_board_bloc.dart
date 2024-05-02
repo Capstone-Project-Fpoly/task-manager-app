@@ -173,4 +173,8 @@ class MyBoardBloc extends BlocBase with BoardMixin {
       },
     );
   }
+
+  void onTapToClosedBoard() {
+    routerService.push(RouteInput.closeBoard());
+  }
 }

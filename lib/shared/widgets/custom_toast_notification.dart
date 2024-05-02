@@ -20,7 +20,7 @@ class CustomToastNotification extends StatelessWidget {
     final TimeOfDay sTime = TimeOfDay.now();
     return Container(
       width: MediaQuery.of(context).size.width - 20,
-      height: MediaQuery.of(context).size.height / 7.5,
+      height: 90,
       padding:
           EdgeInsetsConstants.vertical10 + EdgeInsetsConstants.horizontal20,
       decoration: BoxDecoration(
@@ -48,32 +48,22 @@ class CustomToastNotification extends StatelessWidget {
                   height: 35,
                   color: ColorConstants.backgroundColorApp,
                 ),
-                SizedBoxConstants.w8,
+                SizedBoxConstants.w12,
                 Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: const AppTextStyle.black(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBoxConstants.h4,
-                      Text(
-                        body,
-                        style: const AppTextStyle.black(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                  child: Text(
+                    body,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: const AppTextStyle.black(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
+          SizedBoxConstants.w12,
           Text(
             '${sTime.hour}:${sTime.minute}',
             style: const AppTextStyle.black(
