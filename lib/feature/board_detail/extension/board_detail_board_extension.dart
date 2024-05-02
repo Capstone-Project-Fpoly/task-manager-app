@@ -9,7 +9,6 @@ import 'package:task_manager/shared/widgets/text/app_text_style.dart';
 
 extension DetailBoardSubscriptionExtension on BoardDetailBloc {
   Future<void> fetchCheckBoard() async {
-    print('bắt đầu check bảng');
     final result = await graphqlService.client.mutate$CheckBoard(
       Options$Mutation$CheckBoard(
         variables: Variables$Mutation$CheckBoard(
@@ -19,7 +18,10 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
           toastService.showText(
             message: error?.graphqlErrors.first.message,
           );
-          routerService.pop();
+          routerService
+              .popUntil((route) => route.settings.name == RouteName.root);
+          toastService.showText(message: 'Có lỗi xảy ra vui lòng thử lại');
+          return;
         },
       ),
     );
@@ -27,7 +29,7 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
       return;
     }
     if (result.parsedData?.checkBoard == null) {
-      routerService.pop();
+      routerService.popUntil((route) => route.settings.name == RouteName.root);
       toastService.showText(message: 'Bảng không tồn tại');
       return;
     }
@@ -120,6 +122,8 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
       ),
     );
     if (result.hasException) return;
+    if (result.parsedData?.deleteBoard == null) return;
+    toastService.showText(message: 'Xoá bảng thành công');
     routerService.popUntil((route) => route.settings.name == RouteName.root);
   }
 }
