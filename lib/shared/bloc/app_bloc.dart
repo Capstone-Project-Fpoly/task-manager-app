@@ -145,4 +145,5 @@ class AppBloc extends BlocBase with BoardMixin {
     );
     routerService.pushReplacement(RouteInput.login());
   }
+
 }

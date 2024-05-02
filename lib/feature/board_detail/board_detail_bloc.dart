@@ -33,6 +33,9 @@ class BoardDetailBloc extends BlocBase {
   late final graphqlService = ref.read(AppService.graphQL);
   late final toastService = ref.read(AppService.toast);
   late final localStorage = ref.read(AppService.localStorage);
+  late final boardBloc = ref.read(BlocProvider.board);
+  late final myBoardBloc = ref.read(BlocProvider.myBoard);
+  late final myCardBloc = ref.read(BlocProvider.myCard);
 
   late final currentBoardSubject =
       BehaviorSubject<Fragment$BoardFragment>.seeded(boardFragment);
@@ -94,18 +97,20 @@ class BoardDetailBloc extends BlocBase {
     isLoadingSubject.value = true;
     await fetchCheckBoard();
     isLoadingSubject.value = false;
-    subscription = subscriptionDetailBoard().listen((event) {
-      if (event.data == null) return;
-      final data = event.parsedData?.detailBoard;
-      if (data == null) return;
-      final isDifferent = data.any(
-        (element) => !listFragmentsSubject.value.contains(element),
-      );
+    if (isCheckBoardSubject.value) {
+      subscription = subscriptionDetailBoard().listen((event) {
+        if (event.data == null) return;
+        final data = event.parsedData?.detailBoard;
+        if (data == null) return;
+        final isDifferent = data.any(
+          (element) => !listFragmentsSubject.value.contains(element),
+        );
 
-      if (isDifferent) {
-        listFragmentsSubject.value = data;
-      }
-    });
+        if (isDifferent) {
+          listFragmentsSubject.value = data;
+        }
+      });
+    }
     titleBoardSubject.value = currentBoardSubject.value.title!;
     isLoadingSubject.value = true;
     await fetchListFragmentByIdBoard();

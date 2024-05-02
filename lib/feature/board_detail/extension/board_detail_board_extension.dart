@@ -18,10 +18,19 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
           toastService.showText(
             message: error?.graphqlErrors.first.message,
           );
+          routerService
+              .popUntil((route) => route.settings.name == RouteName.root);
+          toastService.showText(message: 'Có lỗi xảy ra vui lòng thử lại');
+          return;
         },
       ),
     );
     if (result.hasException) {
+      return;
+    }
+    if (result.parsedData?.checkBoard == null) {
+      routerService.popUntil((route) => route.settings.name == RouteName.root);
+      toastService.showText(message: 'Bảng không tồn tại');
       return;
     }
     if (isCheckBoardSubject.isClosed) return;
@@ -61,11 +70,11 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
             style: AppTextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
-              color: Colors.black,
+              color: Colors.red,
             ),
           ),
           content: const Text(
-            'Sau khi xoá bảng, bạn sẽ không thể khôi phục lại bảng hoặc các thẻ của bảng này. Bạn có chắc chắn muốn xoá bảng không?',
+            'Sau khi xoá bảng, bạn sẽ không thể khôi phục lại bảng hoặc các thẻ của bảng này.\nDữ liệu của bảng này sẽ bị xóa khỏi kho lưu trữ của chúng tôi.\nBạn có chắc chắn muốn xoá bảng không?',
             style: AppTextStyle(
               fontSize: 16,
               color: Colors.black,
@@ -113,6 +122,8 @@ extension DetailBoardSubscriptionExtension on BoardDetailBloc {
       ),
     );
     if (result.hasException) return;
+    if (result.parsedData?.deleteBoard == null) return;
+    toastService.showText(message: 'Xoá bảng thành công');
     routerService.popUntil((route) => route.settings.name == RouteName.root);
   }
 }

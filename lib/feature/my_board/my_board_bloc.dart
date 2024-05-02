@@ -6,6 +6,7 @@ import 'package:task_manager/base/bloc/bloc_provider.dart';
 import 'package:task_manager/base/dependency/app_service.dart';
 import 'package:task_manager/base/dependency/router/utils/route_input.dart';
 import 'package:task_manager/graphql/Fragment/board_fragment.graphql.dart';
+import 'package:task_manager/graphql/Mutations/board/check_board.graphql.dart';
 import 'package:task_manager/graphql/Mutations/board/get_boards.graphql.dart';
 import 'package:task_manager/shared/mixins/board_mixin.dart';
 import 'package:task_manager/shared/widgets/dialog_board_option/dialog_board_option.dart';
@@ -53,6 +54,23 @@ class MyBoardBloc extends BlocBase with BoardMixin {
   }) async {
     appBloc.selectedBoardSubject.value = board;
     if (board == null) return;
+    final result = await graphqlService.client.mutate$CheckBoard(
+      Options$Mutation$CheckBoard(
+        variables: Variables$Mutation$CheckBoard(
+          idBoard: board.id,
+        ),
+        onError: (error) {
+          toastService.showText(
+            message: error?.graphqlErrors.first.message,
+          );
+          routerService.pop();
+        },
+      ),
+    );
+    if (result.parsedData?.checkBoard == null) {
+      toastService.showText(message: 'Bảng không tồn tại');
+      return;
+    }
     await routerService.push(RouteInput.boardDetail(boardFragment: board));
     final selectedBoard = appBloc.selectedBoardSubject.value;
     if (selectedBoard == null) return;
